@@ -1,0 +1,8 @@
+[Desktop Entry]
+_Name=Transport
+Exec=qmlscene %U Transport/Main.qml
+Icon=Transport/Transport.svg
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
+

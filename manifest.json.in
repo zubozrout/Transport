@@ -1,0 +1,15 @@
+{
+    "name": "transport.zubozrout",
+    "description": "Czech public transport",
+    "architecture": "@CLICK_ARCH@",
+    "title": "Transport",
+    "hooks": {
+        "Transport": {
+            "apparmor": "Transport/Transport.apparmor",
+            "desktop": "Transport/Transport.desktop"
+        }
+    },
+    "version": "0.7.3.1",
+    "maintainer": "Martin Kozub <zubozrout@gmail.com>",
+    "framework": "ubuntu-sdk-15.04.3"
+}

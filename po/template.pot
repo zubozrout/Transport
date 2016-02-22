@@ -1,0 +1,259 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-14 11:56+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:8
+msgid "O Aplikaci"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:30
+msgid "Verze hlavní větve"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:87
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:102
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
+msgid "Transport"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:87
+msgid "Jízdní řády"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:95
+msgid ""
+"Tato aplikace využívá API jehož dokumentace je dostupná na adrese http://"
+"docs.crws.apiary.io/"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:95
+msgid ""
+"Službu provozuje společnost CHAPS spol. s.r.o., identifikátor klienta "
+"žádejte na info@chaps.cz."
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:109
+msgid "Martin Kozub, @zubozrout"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:12
+msgid "Detail spojení"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:32
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:329
+msgid "Kopírovat"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:42
+msgid "Všechny zastávky"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:42
+msgid "Jen projížděné zastávky"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:135
+msgid ""
+"Detail spojení nebylo možné načíst.\n"
+"Nejčastější příčinou je vypršení platnosti identifikátoru. Zkuste prosím "
+"vyhledat dané spojení znova."
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:175
+msgid "Odjezd:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:176
+msgid "Příjezd:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:287
+msgid "Vzdálenost"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:288
+msgid "Celkový čas"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:289
+msgid "Cena"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:110
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:13
+msgid "Nastavení"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:115
+msgid "O aplikaci"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:120
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:12
+msgid "Výsledky vyhledávání"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:232
+msgid "Z"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:309
+msgid "Do"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:375
+msgid "Rozšířené hledání"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:408
+msgid "Přes"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:506
+msgid "Teď"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:512
+msgid "v"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:546
+msgid "Odjezd"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:550
+msgid "Příjezd"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:614
+msgid "Hledat"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:684
+msgid ""
+"Trvá vyhledávání příliš dlouho? Klepnutím na tento text ho můžete zastavit."
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:23
+msgid "Následující"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:28
+msgid "Předchozí"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:251
+msgid "odjelo"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:264
+msgid "hodin"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:266
+msgid "hodinu"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:269
+msgid "hodiny"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:272
+msgid "minut"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:274
+msgid "minutu"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:277
+msgid "minuty"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:282
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:285
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:293
+msgid "za"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:290
+msgid "Právě teď"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:326
+msgid "Akce"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:337
+msgid "Zrušit"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:21
+msgid "Uložit"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:62
+msgid "Počet vyhledávaných spojení"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:84
+msgid ""
+"Zobrazovat v detailu spojení ve výchozím stavu všechny zastávky projížděné "
+"danými linkami?"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:106
+msgid "Stahovat seznam dostupných dopravců při každém startu aplikace?"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:137
+msgid "Ponechat uloženu barvu pozadí"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:179
+msgid "Vymazat mezipaměť"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:187
+msgid "Pozor!"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:188
+msgid "Sktečně chcete vymazat veškerá uložená data této aplikace?"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:190
+msgid "Ne"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:194
+msgid "Ano"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:11
+msgid "Výběr dopravce"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:188
+msgid "Nebylo možné načíst další spojení."
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:205
+msgid "Nebyly nalezeny žádné výsledky odpovídající parametrům hledání."
+msgstr ""

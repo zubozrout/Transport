@@ -7,10 +7,10 @@ function dbInit(tx) {
 function loadDB() {
     if(db == null) {
         try {
-            db = LocalStorage.openDatabaseSync("transport-cz", "", "Simple Transport App for searching connections", 100000, function(tx){ DBInit(tx); });
+            db = LocalStorage.openDatabaseSync("transport-cz", "", "Simple Transport App for searching connections", 1000000, function(tx){ DBInit(tx); });
 
-            if(db.version != "0.2") {
-                db.changeVersion(db.version, "0.2");
+            if(db.version != "0.4") {
+                db.changeVersion(db.version, "0.4");
                 db.transaction(function(tx){
                     tx.executeSql("DROP TABLE settings");
                     tx.executeSql("DROP TABLE type");
@@ -88,13 +88,14 @@ function appendNewType(type, typeName) {
 
 function hasType(type) {
     loadDB();
+    var exists = false;
     db.transaction(function(tx) {
         var rs = tx.executeSql("SELECT Count(*) as count FROM type WHERE key=?", [type]);
         if(rs.rows.item(0).count > 0) {
-            return true;
+            exists = true;
         }
     });
-    return false;
+    return exists;
 }
 
 function getAllTypes() {
@@ -138,26 +139,48 @@ function appendNewStop(type, stop) {
 
 function hasStop(type, name) {
     loadDB();
+    var exists = false;
     db.transaction(function(tx) {
         var rs = tx.executeSql("SELECT Count(*) as count FROM stops WHERE key=? AND value=?", [type, name]);
         if(rs.rows.item(0).count > 0) {
-            return true;
+            exists = true;
         }
     });
-    return false;
+    return exists;
 }
 
 function getRelevantStops(type, containing) {
     loadDB();
     var res = [];
     db.transaction(function(tx) {
-        // var rs = tx.executeSql("SELECT value FROM stops WHERE key=? AND value LIKE ? ORDER BY value LIMIT 10", [type, containing + '%']);
-        var rs = tx.executeSql("SELECT value FROM stops WHERE key=? ORDER BY value LIMIT 10", [type]);
+        /*
+        var rs = tx.executeSql("SELECT value FROM stops WHERE key=? AND value LIKE ? ORDER BY value ASC LIMIT 10", [type, '%' + containing + '%']);
         for(var i = 0; i < rs.rows.length; i++) {
-            if(typeof rs.rows.item(i) !== typeof undefined && rs.rows.item(i)) {
-                if(latiniseString(rs.rows.item(i).value).toLowerCase().indexOf(latiniseString(containing).toLowerCase()) == 0) {
+            if(typeof rs.rows.item(i) !== typeof undefined && rs.rows.item(i).value) {
+                res.push(rs.rows.item(i).value);
+            }
+        }
+        */
+        var rs = tx.executeSql("SELECT value FROM stops WHERE key=? ORDER BY value ASC", [type]);
+        for(var i = 0; i < rs.rows.length; i++) {
+            if(typeof rs.rows.item(i) !== typeof undefined && rs.rows.item(i).value) {
+                if(res.length <= 10 && latiniseString(rs.rows.item(i).value).toLowerCase().indexOf(latiniseString(containing).toLowerCase()) > -1) {
                     res.push(rs.rows.item(i).value);
                 }
+            }
+        }
+    });
+    return res;
+}
+
+function getAllStops() {
+    loadDB();
+    var res = [];
+    db.transaction(function(tx) {
+        var rs = tx.executeSql("SELECT key,value FROM stops ORDER BY value ASC");
+        for(var i = 0; i < rs.rows.length; i++) {
+            if(typeof rs.rows.item(i) !== typeof undefined && rs.rows.item(i).value) {
+                res.push({key: rs.rows.item(i).key, value: rs.rows.item(i).value});
             }
         }
     });

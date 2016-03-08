@@ -45,6 +45,12 @@ function clearLocalStorage() {
 function saveSetting(key, value) {
     if(typeof value !== typeof undefined) {
         loadDB();
+        if(value == true) {
+            value = "true";
+        }
+        else if(value == false) {
+            value = "false";
+        }
         try {
             db.transaction(function(tx) {
                 tx.executeSql("INSERT OR REPLACE INTO settings VALUES(?, ?)", [key, value]);
@@ -63,6 +69,12 @@ function getSetting(key) {
             var rs = tx.executeSql("SELECT * FROM settings WHERE key=?", [key]);
             if(typeof rs.rows.item(0) !== typeof undefined) {
                 res = rs.rows.item(0).value != "" ? rs.rows.item(0).value : null;
+                if(res == "true") {
+                    res = true;
+                }
+                else if(res == "false") {
+                    res = false;
+                }
             }
             else {
                 res = null;
@@ -204,8 +216,4 @@ function latiniseString(string) {
     String.prototype.isLatin = function() { return this == this.latinise() }
 
     return string ? string.latinize() : "";
-}
-
-function tfValue(key) {
-    return getSetting(key) == null ? true : getSetting(key) == "true" ? true : false;
 }

@@ -13,7 +13,7 @@ function urlCommon(userDesc, lang) {
 }
 
 function getOptions(call) {
-    var fetch = DB.tfValue("fetch_transport_options_on_each_start");
+    var fetch = DB.getSetting("fetch_transport_options_on_each_start");
     var lastDate = new Date(DB.getSetting("fetch_transport_options_timestamp"));
     if(fetch || (lastDate && (new Date() - lastDate) > 60*60*24*7*1000) || DB.getAllTypes().length == 0) {
         var dateTime = new Date();
@@ -86,14 +86,15 @@ to = arrival station name
 limit = number of connections
 call = function to call once data is downloaded
 */
-function getConnections(city, time, departure_time, from, to, via, limit, call) {
+function getConnections(city, time, departure_time, from, to, via, change, limit, call) {
     if(time != "") {
         time = "&dateTime=" + time;
     }
     if(via != "") {
         via = "&via=" + via;
     }
-    return request("https://ext.crws.cz/api/" + city + "/connections?from=" + from + "&to=" + to + via + time + "&isDep=" + departure_time + "&maxObjectsCount=2&maxCount=" + limit + "&ttInfoDetails=TRTYPEID_ITEM" + "&" + urlCommon("ubuntu"), function(response){call(parseConnections(response));});
+    change = !change ? "&change=0" : "";
+    return request("https://ext.crws.cz/api/" + city + "/connections?from=" + from + "&to=" + to + via + change + time + "&isDep=" + departure_time + "&maxObjectsCount=2&maxCount=" + limit + "&ttInfoDetails=TRTYPEID_ITEM" + "&" + urlCommon("ubuntu"), function(response){call(parseConnections(response));});
 }
 
 function getConnectionsFB(city, handle, connection_id, count, forward, call) {
@@ -109,8 +110,12 @@ function parseConnections(response_string) {
     var local_handle = Engine.parseAPI(obj, "handle");
     if(typeof local_handle !== typeof undefined && local_handle) {
         handle = local_handle;
+        return obj;
     }
-    return obj;
+    if(Engine.parseAPI(obj, "connections").length > 0) {
+        return obj;
+    }
+    return response_string;
 }
 
 function connectionDetail(city, id, call) {
@@ -184,8 +189,9 @@ function showConnectionsFB(response) {
     result_page.clear();
     if(response) {
         var connections = Engine.parseAPI(response, "connections");
-        if(!connections) {
+        if(connections !== Object(connections)) {
             statusMessagelabel.text = i18n.tr("Nebylo možné načíst další spojení.");
+            statusMessageErrorlabel.text = "\n\n" + connections;
             statusAnim.start();
             return;
         }
@@ -198,14 +204,15 @@ function showConnectionsFB(response) {
 }
 
 function showConnections(response) {
-    result_page.clear();
     if(response) {
         var connections = Engine.parseAPI(response, "connections");
-        if(!connections) {
+        if(connections !== Object(connections)) {
             statusMessagelabel.text = i18n.tr("Nebyly nalezeny žádné výsledky odpovídající parametrům hledání.");
+            statusMessageErrorlabel.text = "\n\n" + connections;
             statusAnim.start();
             return;
         }
+        result_page.clear();
         result_page.response = response;
         result_page.render(connections);
         pageLayout.addPageToNextColumn(search_page, result_page);
@@ -347,6 +354,9 @@ function parseConnectionsAPI(connections, value) {
 function parseAPI(response, value) {
     if(typeof response === typeof undefined) {
         return null;
+    }
+    if(response !== Object(response)) {
+        return response;
     }
     switch(value) {
         case "combId":

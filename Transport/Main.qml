@@ -5,6 +5,7 @@ import Ubuntu.Components.Themes 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItem
 import QtQuick.Layouts 1.1
 import QtQuick.LocalStorage 2.0
+import Ubuntu.Connectivity 1.0
 
 import Transport 1.0
 
@@ -59,6 +60,15 @@ MainView {
         }
     }
 
+    Connections {
+        target: Connectivity
+        onOnlineChanged: {
+            if(!Connectivity.online){
+                api.abort();
+            }
+        }
+    }
+
     Api {
         id: api
         property var callback: null;
@@ -77,9 +87,33 @@ MainView {
         }
     }
 
+    Rectangle {
+        id: offlineMessageBox
+        width: parent.width
+        height: Connectivity.online ? 0 : childrenRect.height * 2
+        anchors.top: parent.top
+        color: "#d00"
+
+        Label {
+            width: parent.width
+            anchors.centerIn: parent
+            color: "#fff"
+            wrapMode: Text.WordWrap
+            text: i18n.tr("Aplikace je nyní offline")
+            font.pixelSize: FontUtils.sizeToPixels("large")
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
+
     AdaptivePageLayout {
         id: pageLayout
-        anchors.fill: parent
+        anchors {
+            top: offlineMessageBox.bottom
+            right: parent.right
+            left: parent.left
+            bottom: parent.bottom
+        }
+
         primaryPage: search_page
 
         layouts: PageColumnsLayout {
@@ -158,7 +192,8 @@ MainView {
 
                 var departure_final = (departure_label.state == "DEPARTURE");
                 var via_final = advanced_switch.checked ? via.displayText : "";
-                Engine.getConnections(options, date_time, departure_final, from.displayText, to.displayText, via_final, count, Engine.showConnections);
+                var allowChange_final = advanced_switch.checked ? !direct_checkbox.checked : true;
+                Engine.getConnections(options, date_time, departure_final, from.displayText, to.displayText, via_final, allowChange_final, count, Engine.showConnections);
 
                 // DB save selected values:
                 DB.saveSetting("from" + options, from.displayText);
@@ -399,6 +434,7 @@ MainView {
 
                         Column {
                             width: parent.width
+                            spacing: units.gu(2)
                             clip: true
 
                             TextField {
@@ -453,6 +489,23 @@ MainView {
                                     highlight: Rectangle { color: "#9FA8DA" }
                                     onCurrentIndexChanged: checkClear(via, via_list_view, model)
                                     property var lastSelected: null
+                                }
+                            }
+
+                            Row {
+                                spacing: units.gu(2)
+                                anchors.horizontalCenter: parent.horizontalCenter
+
+                                Label {
+                                    id: direct_label
+                                    text: i18n.tr("Jen přímá spojení")
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+
+                                CheckBox {
+                                    id: direct_checkbox
+                                    checked: false
+                                    anchors.verticalCenter: parent.verticalCenter
                                 }
                             }
                         }
@@ -741,27 +794,66 @@ MainView {
         opacity: 0
         visible: opacity == 0 ? false : true
 
-        Column {
-            anchors.centerIn: parent
-            width: parent.width
-            spacing: units.gu(2)
+        Flickable {
+            anchors.fill: parent
+            anchors.margins: units.gu(2)
+            contentWidth: width
+            contentHeight: statusMessageColumn.height
 
-            Image {
-                source: "sad.svg"
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: units.gu(12)
-                height: width
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Label {
-                id: statusMessagelabel
+            Column {
+                id: statusMessageColumn
                 width: parent.width
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                wrapMode: Text.WordWrap
-                font.pixelSize: FontUtils.sizeToPixels("large")
-                text: ""
+                height: childrenRect.height
+                spacing: units.gu(2)
+
+                Button {
+                    iconName: "close"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "transparent"
+                    onClicked: {
+                        statusAnim.stop();
+                        statusMessageBox.opacity = 0;
+                    }
+                }
+
+                Image {
+                    source: "sad.svg"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: units.gu(12)
+                    height: width
+                    fillMode: Image.PreserveAspectFit
+                }
+
+                Label {
+                    id: statusMessagelabel
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: FontUtils.sizeToPixels("large")
+                    text: ""
+                }
+
+                Label {
+                    id: statusMessageErrorlabel
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: FontUtils.sizeToPixels("small")
+                    text: ""
+                }
+
+                Button {
+                    iconName: "edit-copy"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "transparent"
+                    onClicked: {
+                        Clipboard.push(statusMessageErrorlabel.text);
+                        statusAnim.stop();
+                        statusMessageBox.opacity = 0;
+                    }
+                    visible: statusMessageErrorlabel.text != "" ? true : false
+                }
             }
         }
 
@@ -770,16 +862,8 @@ MainView {
             running: false
             loops: 1
             NumberAnimation { from: 0; to: 1; duration: 1000; easing.type: Easing.InOutQuad }
-            PauseAnimation { duration: 5000; }
+            PauseAnimation { duration: 50000; }
             NumberAnimation { from: 1; to: 0; duration: 5000; easing.type: Easing.InOutQuad }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                statusAnim.stop();
-                parent.opacity = 0;
-            }
         }
     }
 }

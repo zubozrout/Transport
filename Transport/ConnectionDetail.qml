@@ -40,7 +40,7 @@ Page {
     head {
         sections {
             model: [i18n.tr("Všechny zastávky"), i18n.tr("Jen projížděné zastávky")]
-            selectedIndex: DB.tfValue("settings_show_all_or_passed") == true ? 0 : 1;
+            selectedIndex: DB.getSetting("settings_show_all_or_passed") == true ? 0 : 1;
         }
     }
 

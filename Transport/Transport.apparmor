@@ -1,6 +1,7 @@
 {
     "policy_groups": [
-        "networking"
+        "networking",
+        "connectivity"
     ],
     "policy_version": 1.3
 }

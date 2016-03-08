@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-28 20:26+0100\n"
+"POT-Creation-Date: 2016-03-08 01:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,8 +26,8 @@ msgid "Verze hlavní větve"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:87
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:101
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:135
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""
 
@@ -95,57 +95,65 @@ msgstr ""
 msgid "Cena"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:109
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:102
+msgid "Aplikace je nyní offline"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:143
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:13
 msgid "Nastavení"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:114
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:148
 msgid "O aplikaci"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:119
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:153
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:12
 msgid "Výsledky vyhledávání"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:231
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:266
 msgid "Z"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:308
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:343
 msgid "Do"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:374
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:409
 msgid "Rozšířené hledání"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:407
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:443
 msgid "Přes"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:505
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:501
+msgid "Jen přímá spojení"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:558
 msgid "Teď"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:511
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:564
 msgid "v"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:545
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:598
 msgid "Odjezd"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:549
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:602
 msgid "Příjezd"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:613
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:666
 msgid "Hledat"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:683
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:736
 msgid ""
 "Trvá vyhledávání příliš dlouho? Klepnutím na tento text ho můžete zastavit."
 msgstr ""
@@ -250,10 +258,10 @@ msgstr ""
 msgid "Výběr dopravce"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:188
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:193
 msgid "Nebylo možné načíst další spojení."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:205
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:210
 msgid "Nebyly nalezeny žádné výsledky odpovídající parametrům hledání."
 msgstr ""

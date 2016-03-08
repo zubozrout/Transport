@@ -36,10 +36,10 @@ Page {
         }
 
         // settings_show_all_or_passed
-        DB.saveSetting("settings_show_all_or_passed", show_all_or_passed_switch.checked ? "true" : "false");
+        DB.saveSetting("settings_show_all_or_passed", show_all_or_passed_switch.checked);
 
         // settings_fetch_transport_options_on_each_start
-        DB.saveSetting("fetch_transport_options_on_each_start", fetch_transport_options_on_each_start_switch.checked ? "true" : "false");
+        DB.saveSetting("fetch_transport_options_on_each_start", fetch_transport_options_on_each_start_switch.checked);
     }
 
     Flickable {
@@ -94,8 +94,8 @@ Page {
                     checked: true
 
                     Component.onCompleted: {
-                        checked = DB.tfValue("settings_show_all_or_passed");
-                        DB.saveSetting("settings_show_all_or_passed", checked ? "true" : "false");
+                        checked = DB.getSetting("settings_show_all_or_passed");
+                        DB.saveSetting("settings_show_all_or_passed", checked);
                     }
                 }
             }
@@ -116,8 +116,8 @@ Page {
                     checked: true
 
                     Component.onCompleted: {
-                        checked = DB.tfValue("fetch_transport_options_on_each_start");
-                        DB.saveSetting("fetch_transport_options_on_each_start", checked ? "true" : "false");
+                        checked = DB.getSetting("fetch_transport_options_on_each_start");
+                        DB.saveSetting("fetch_transport_options_on_each_start", checked);
                     }
                 }
             }

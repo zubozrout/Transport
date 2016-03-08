@@ -133,7 +133,7 @@ Page {
             }
             else {
                 statusMessagelabel.text = i18n.tr("Detail spojení nebylo možné načíst.\nNejčastější příčinou je vypršení platnosti identifikátoru. Zkuste prosím vyhledat dané spojení znova.");
-                statusAnim.start();
+                statusMessageBox.visible = true;
                 pageLayout.removePages(connection_detail);
             }
         }

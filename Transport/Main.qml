@@ -91,16 +91,17 @@ MainView {
         id: offlineMessageBox
         width: parent.width
         height: Connectivity.online ? 0 : childrenRect.height * 2
-        anchors.top: parent.top
-        color: "#d00"
+        anchors.bottom: parent.bottom
+        color: UbuntuColors.red
 
         Label {
+            id: offlineMessageBoxText
             width: parent.width
             anchors.centerIn: parent
             color: "#fff"
             wrapMode: Text.WordWrap
             text: i18n.tr("Aplikace je nyní offline")
-            font.pixelSize: FontUtils.sizeToPixels("large")
+            font.pixelSize: FontUtils.sizeToPixels("normal")
             horizontalAlignment: Text.AlignHCenter
         }
     }
@@ -108,10 +109,10 @@ MainView {
     AdaptivePageLayout {
         id: pageLayout
         anchors {
-            top: offlineMessageBox.bottom
+            top: parent.top
             right: parent.right
             left: parent.left
-            bottom: parent.bottom
+            bottom: offlineMessageBox.top
         }
 
         primaryPage: search_page
@@ -792,7 +793,23 @@ MainView {
         anchors.fill: parent
         color: "#fff"
         opacity: 0
-        visible: opacity == 0 ? false : true
+        visible: false
+
+        onVisibleChanged: {
+            if(visible) {
+                statusAnim.start();
+            }
+            else {
+                opacity = 0;
+            }
+        }
+
+        SequentialAnimation on opacity {
+            id: statusAnim
+            running: false
+            loops: 1
+            NumberAnimation { from: 0; to: 1; duration: 1000; easing.type: Easing.InOutQuad }
+        }
 
         Flickable {
             anchors.fill: parent
@@ -811,8 +828,7 @@ MainView {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "transparent"
                     onClicked: {
-                        statusAnim.stop();
-                        statusMessageBox.opacity = 0;
+                        statusMessageBox.visible = false;
                     }
                 }
 
@@ -821,6 +837,8 @@ MainView {
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: units.gu(12)
                     height: width
+                    sourceSize.width: width
+                    sourceSize.height: height
                     fillMode: Image.PreserveAspectFit
                 }
 
@@ -849,21 +867,11 @@ MainView {
                     color: "transparent"
                     onClicked: {
                         Clipboard.push(statusMessageErrorlabel.text);
-                        statusAnim.stop();
-                        statusMessageBox.opacity = 0;
+                        statusMessageBox.visible = false;
                     }
                     visible: statusMessageErrorlabel.text != "" ? true : false
                 }
             }
-        }
-
-        SequentialAnimation on opacity {
-            id: statusAnim
-            running: false
-            loops: 1
-            NumberAnimation { from: 0; to: 1; duration: 1000; easing.type: Easing.InOutQuad }
-            PauseAnimation { duration: 50000; }
-            NumberAnimation { from: 1; to: 0; duration: 5000; easing.type: Easing.InOutQuad }
         }
     }
 }

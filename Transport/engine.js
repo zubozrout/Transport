@@ -12,13 +12,17 @@ function urlCommon(userDesc, lang) {
     return out;
 }
 
+function fetchTrasports(call) {
+    var dateTime = new Date();
+    DB.saveSetting("fetch_transport_options_timestamp", dateTime.toString());
+    return request("https://ext.crws.cz/api/?" + urlCommon("ubuntu"), function(response){call(parseOptions(response));});
+}
+
 function getOptions(call) {
     var fetch = DB.getSetting("fetch_transport_options_on_each_start");
     var lastDate = new Date(DB.getSetting("fetch_transport_options_timestamp"));
     if(fetch || (lastDate && (new Date() - lastDate) > 60*60*24*7*1000) || DB.getAllTypes().length == 0) {
-        var dateTime = new Date();
-        DB.saveSetting("fetch_transport_options_timestamp", dateTime.toString());
-        return request("https://ext.crws.cz/api/?" + urlCommon("ubuntu"), function(response){call(parseOptions(response));});
+        fetchTrasports(call);
     }
 }
 
@@ -192,7 +196,7 @@ function showConnectionsFB(response) {
         if(connections !== Object(connections)) {
             statusMessagelabel.text = i18n.tr("Nebylo možné načíst další spojení.");
             statusMessageErrorlabel.text = "\n\n" + connections;
-            statusAnim.start();
+            statusMessageBox.visible = true;
             return;
         }
         result_page.response = response;
@@ -209,7 +213,7 @@ function showConnections(response) {
         if(connections !== Object(connections)) {
             statusMessagelabel.text = i18n.tr("Nebyly nalezeny žádné výsledky odpovídající parametrům hledání.");
             statusMessageErrorlabel.text = "\n\n" + connections;
-            statusAnim.start();
+            statusMessageBox.visible = true;
             return;
         }
         result_page.clear();
@@ -228,6 +232,13 @@ function showConnectionDetail(detail, id) {
         connection_detail.detail_array[connection_id] = detail;
     }
     connection_detail.current_id = connection_id;
+    if(connection_detail.detail_array.hasOwnProperty(connection_id)) {
+        pageLayout.addPageToCurrentColumn(result_page, connection_detail);
+    }
+    else {
+        statusMessagelabel.text = i18n.tr("Spojení nebylo možné načíst");
+        statusMessageBox.visible = true;
+    }
     return detail;
 }
 

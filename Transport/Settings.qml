@@ -59,7 +59,7 @@ Page {
             Label {
                 id: settings_public_transport_count_label
                 width: parent.width
-                text: i18n.tr("Počet vyhledávaných spojení")
+                text: i18n.tr("Počet vyhledávaných spojení na stránku")
                 wrapMode: Text.WordWrap
             }
 
@@ -118,6 +118,23 @@ Page {
                     Component.onCompleted: {
                         checked = DB.getSetting("fetch_transport_options_on_each_start");
                         DB.saveSetting("fetch_transport_options_on_each_start", checked);
+                    }
+                }
+            }
+
+            Row {
+                spacing: units.gu(2)
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Button {
+                    id: fetch_transport_options_now
+                    text: i18n.tr("Obnovit seznam dopravců")
+                    color: "#3949AB"
+
+                    onClicked: {
+                        Engine.fetchTrasports(function(response) {
+                            Engine.saveOptions(response);
+                        });
                     }
                 }
             }

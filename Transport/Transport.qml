@@ -16,6 +16,13 @@ Page {
     property var selectedItem: optionsList.model_context[optionsList.selectedIndex] ? optionsList.model_context[optionsList.selectedIndex] : 0
     property var selectedName: typeModel.count > 0 && optionsList.selectedIndex < typeModel.count && typeModel.get(optionsList.selectedIndex).name ? typeModel.get(optionsList.selectedIndex).name : ""
 
+    onVisibleChanged: {
+        if(visible) {
+            optionsList.updateContent();
+            console.log("updating content");
+        }
+    }
+
     ListModel {
         id: typeModel
     }

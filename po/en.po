@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 22:36+0100\n"
-"PO-Revision-Date: 2016-03-07 21:40+0000\n"
+"POT-Creation-Date: 2016-03-08 21:23+0100\n"
+"PO-Revision-Date: 2016-03-08 20:28+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: English (http://www.transifex.com/zubozrout/transport/"
 "language/en/)\n"
@@ -28,8 +28,8 @@ msgid "Verze hlavní větve"
 msgstr "Main branch version"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:87
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:135
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:136
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 
@@ -62,7 +62,6 @@ msgid "Detail spojení"
 msgstr "Connection detail"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:32
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:329
 msgid "Kopírovat"
 msgstr "Copy"
 
@@ -104,132 +103,124 @@ msgstr "Total time"
 msgid "Cena"
 msgstr "Price"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:102
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:103
 msgid "Aplikace je nyní offline"
 msgstr "You are now offline"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:143
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:144
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:13
 msgid "Nastavení"
 msgstr "Settings"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:148
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:149
 msgid "O aplikaci"
 msgstr "About"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:153
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:12
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:154
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:11
 msgid "Výsledky vyhledávání"
 msgstr "Search results"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:266
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:267
 msgid "Z"
 msgstr "From"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:343
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:344
 msgid "Do"
 msgstr "To"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:409
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:410
 msgid "Rozšířené hledání"
 msgstr "Advanced search"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:443
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:444
 msgid "Přes"
 msgstr "Via"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:501
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:502
 msgid "Jen přímá spojení"
 msgstr "Only direct connections"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:558
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:559
 msgid "Teď"
 msgstr "Now"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:564
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:565
 msgid "v"
 msgstr "at"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:598
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:599
 msgid "Odjezd"
 msgstr "Departure"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:602
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:603
 msgid "Příjezd"
 msgstr "Arrival"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:666
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:667
 msgid "Hledat"
 msgstr "Search"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:736
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:737
 msgid ""
 "Trvá vyhledávání příliš dlouho? Klepnutím na tento text ho můžete zastavit."
 msgstr ""
 "Does it take too long to search the connection? By clicking here you can "
 "break the search."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:23
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:22
 msgid "Následující"
 msgstr "Next"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:28
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:27
 msgid "Předchozí"
 msgstr "Previous"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:251
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:270
 msgid "odjelo"
 msgstr "departed"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:264
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:283
 msgid "hodin"
 msgstr "hours"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:266
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:285
 msgid "hodinu"
 msgstr "hour"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:269
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:288
 msgid "hodiny"
 msgstr "hours"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:272
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:291
 msgid "minut"
 msgstr "minutes"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:274
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:293
 msgid "minutu"
 msgstr "minute"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:277
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:296
 msgid "minuty"
 msgstr "minutes"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:282
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:285
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:293
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:301
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:304
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:312
 msgid "za"
 msgstr "in"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:290
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:309
 msgid "Právě teď"
 msgstr "Now"
-
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:326
-msgid "Akce"
-msgstr "Action"
-
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:337
-msgid "Zrušit"
-msgstr "Cancel"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:21
 msgid "Uložit"
 msgstr "Save"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:62
-msgid "Počet vyhledávaných spojení"
-msgstr "Search results count"
+msgid "Počet vyhledávaných spojení na stránku"
+msgstr "Count of listed connections per page"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:84
 msgid ""
@@ -242,27 +233,31 @@ msgid "Stahovat seznam dostupných dopravců při každém startu aplikace?"
 msgstr ""
 "Download list of all available transport options on each application start?"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:137
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:131
+msgid "Obnovit seznam dopravců"
+msgstr "Refresh available transport options"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:154
 msgid "Ponechat uloženu barvu pozadí"
 msgstr "Keep saved background color"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:179
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:196
 msgid "Vymazat mezipaměť"
 msgstr "Clear cache"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:187
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:204
 msgid "Pozor!"
 msgstr "Attention!"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:188
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:205
 msgid "Sktečně chcete vymazat veškerá uložená data této aplikace?"
 msgstr "Do you really want to clear this app's cache?"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:190
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:207
 msgid "Ne"
 msgstr "No"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:194
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:211
 msgid "Ano"
 msgstr "Yes"
 
@@ -270,10 +265,14 @@ msgstr "Yes"
 msgid "Výběr dopravce"
 msgstr "Transport selection"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:193
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:197
 msgid "Nebylo možné načíst další spojení."
 msgstr "Related connections could not be loaded."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:210
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:214
 msgid "Nebyly nalezeny žádné výsledky odpovídající parametrům hledání."
 msgstr "No results corresponding to the search parameters were found."
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:239
+msgid "Spojení nebylo možné načíst"
+msgstr "Fetching connection was unsuccessful"

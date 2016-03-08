@@ -2,7 +2,6 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.LocalStorage 2.0
-import Ubuntu.Components.Popups 1.0
 
 import "engine.js" as Engine
 import "localStorage.js" as DB
@@ -92,10 +91,30 @@ Page {
         Component {
             id: connectionsDelegate
 
-            Item {
+            ListItem {
                 width: parent.width
                 height: connection_padding.height + 2*connection_padding.anchors.margins
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                clip: true
+                divider.visible: false
+
+                trailingActions: ListItemActions {
+                    actions: [
+                        Action {
+                            iconName: "edit-copy"
+                            onTriggered: Clipboard.push(connection_info.text_output)
+                        },
+                        Action {
+                            iconName: "view-expand"
+                            onTriggered: {
+                                connection_detail.current_id = null;
+                                var options = trasport_selector_page.selectedItem;
+                                Engine.connectionDetail(options, connection_id, function(response, id){connection_box.color = "#fafaef"; return Engine.showConnectionDetail(response, id);});
+                            }
+                        }
+                    ]
+                }
 
                 Rectangle {
                     id: connection_box
@@ -307,38 +326,12 @@ Page {
                     MouseArea {
                         anchors.fill: parent
 
-                        onPressAndHold: {
-                            PopupUtils.open(popup_dialog);
-                        }
-
                         onClicked: {
                             connection_detail.current_id = null;
                             var options = trasport_selector_page.selectedItem;
                             Engine.connectionDetail(options, connection_id, function(response, id){connection_box.color = "#fafaef"; return Engine.showConnectionDetail(response, id);});
-                            pageLayout.addPageToCurrentColumn(result_page, connection_detail);
                         }
                     }
-
-                    Component {
-                         id: popup_dialog
-                         Dialog {
-                             id: dialogue
-                             title: i18n.tr("Akce")
-                             text: connection_info.text_desc
-                             Button {
-                                 text: i18n.tr("Kopírovat")
-                                 color: UbuntuColors.orange
-                                 onClicked: {
-                                     Clipboard.push(connection_info.text_output);
-                                     PopupUtils.close(dialogue);
-                                 }
-                             }
-                             Button {
-                                 text: i18n.tr("Zrušit")
-                                 onClicked: PopupUtils.close(dialogue)
-                             }
-                         }
-                     }
                 }
             }
         }

@@ -1,4 +1,5 @@
 #include "api.h"
+#include "key.h"
 
 Api::Api(QObject *parent) : QObject(parent), api_request(""), api_response(""), api_running(false) {
 }
@@ -7,6 +8,7 @@ Api::~Api() {
 }
 
 void Api::httpRequest(QString url) {
+    url += "&userId=" + KEY;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
     reply = manager->get(QNetworkRequest(QUrl(url)));

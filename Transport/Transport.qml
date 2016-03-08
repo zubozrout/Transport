@@ -19,7 +19,6 @@ Page {
     onVisibleChanged: {
         if(visible) {
             optionsList.updateContent();
-            console.log("updating content");
         }
     }
 

@@ -14,7 +14,8 @@ SOURCES += \
 
 HEADERS += \
     backend.h \
-    api.h
+    api.h \
+    key.h
 
 OTHER_FILES = qmldir
 

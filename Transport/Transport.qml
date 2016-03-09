@@ -46,9 +46,9 @@ Page {
 
         onSelectedIndexChanged: {
             getTextFieldContentFromDB(true);
-            from_list_model.clear();
-            to_list_model.clear();
-            via_list_model.clear();
+            from.stationInputModel.clear();
+            to.stationInputModel.clear();
+            via.stationInputModel.clear();
         }
 
         onDelegateClicked: {
@@ -79,7 +79,7 @@ Page {
             if(DB.getSetting("from" + optionsList.model_context[optionsList.selectedIndex])) {
                 if(from.displayText == "" || force) {
                     from.text = DB.getSetting("from" + optionsList.model_context[optionsList.selectedIndex]);
-                    from_list_model.clear();
+                    from.stationInputModel.clear();
                 }
             }
             else {
@@ -89,7 +89,7 @@ Page {
             if(DB.getSetting("to" + optionsList.model_context[optionsList.selectedIndex])) {
                 if(to.displayText == "" || force) {
                     to.text = DB.getSetting("to" + optionsList.model_context[optionsList.selectedIndex]);
-                    to_list_model.clear();
+                    to.stationInputModel.clear();
                 }
             }
             else {
@@ -99,7 +99,7 @@ Page {
             if(DB.getSetting("via" + optionsList.model_context[optionsList.selectedIndex])) {
                 if(via.displayText == "" || force) {
                     via.text = DB.getSetting("via" + optionsList.model_context[optionsList.selectedIndex]);
-                    via_list_model.clear();
+                    via.stationInputModel.clear();
                 }
             }
             else {

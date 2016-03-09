@@ -1,8 +1,6 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Pickers 1.3
-import Ubuntu.Components.Themes 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItem
 import QtQuick.Layouts 1.1
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Connectivity 1.0
@@ -45,6 +43,10 @@ MainView {
     }
 
     function checkClear(textfield, listview, model) {
+        if(!model) {
+            model = textfield.stationInputModel;
+        }
+
         if(listview.currentIndex >= 0 && typeof model.get(listview.currentIndex) !== typeof undefined && model.get(listview.currentIndex).name == textfield.displayText) {
             api.abort();
             listview.lastSelected = model.get(listview.currentIndex).name;
@@ -55,6 +57,9 @@ MainView {
     function stationInputChanged(textfield, listview, model) {
         search.resetState();
         if(textfield.focus && textfield.displayText != listview.lastSelected) {
+            if(!model) {
+                model = textfield.stationInputModel;
+            }
             Engine.complete(trasport_selector_page.selectedItem, textfield.displayText, model);
             checkClear(textfield, listview, model);
         }
@@ -207,9 +212,9 @@ MainView {
                     DB.saveSetting("via" + options, "");
                 }
                 DB.saveSetting("optionsList", trasport_selector_page.selectedName);
-                saveStationToDb(from, from_list_view, from_list_model);
-                saveStationToDb(to, to_list_view, to_list_model);
-                saveStationToDb(via, via_list_view, via_list_model);
+                saveStationToDb(from, from.stationInputListView);
+                saveStationToDb(to, to.stationInputListView);
+                saveStationToDb(via, via.stationInputListView);
             }
 
             Flickable {
@@ -258,140 +263,31 @@ MainView {
                     }
 
                     Column {
+                        id: startEndStationsColumn
                         width: parent.width
-                        clip: true
+                        height: childrenRect.height
+                        spacing: 0
 
-                        TextField {
+                        StationQuery {
                             id: from
-                            width: parent.width
-                            placeholderText: i18n.tr("Z")
-                            hasClearButton: true
-                            onDisplayTextChanged: stationInputChanged(from, from_list_view, from_list_model);
+                            property string placeholder: i18n.tr("Z")
+                        }
 
-                            onFocusChanged: {
-                                if(focus) {
-                                    from_help.visible = true;
-                                }
-                                else {
-                                    from_help.visible = false;
-                                }
+                        Button {
+                            width: units.gu(4)
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            iconName: "swap"
+                            color: "transparent"
+                            onClicked: {
+                                var tmp_text = from.text;
+                                from.text = to.text;
+                                to.text = tmp_text;
                             }
                         }
 
-                        Rectangle {
-                            id: from_help
-                            width: parent.width
-                            height: from_list_view.contentHeight
-                            color: "#E8EAF6"
-                            clip: true
-
-                            Component {
-                                id: fromDelegate
-                                Item {
-                                    anchors.margins: units.gu(2); width: from_help.width; height: from_stop.paintedHeight + units.gu(2)
-                                    Text { id: from_stop; text: name; anchors.centerIn: parent; wrapMode: Text.Wrap }
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        onClicked: {
-                                            var name = from_list_model.get(index).name;
-                                            if(name != "") {
-                                                Qt.inputMethod.commit();
-                                                from_list_view.currentIndex = index;
-                                                from.text = name;
-                                                from.focus = false;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            ListView {
-                                id: from_list_view
-                                anchors.fill: parent
-                                model: ListModel { id: from_list_model }
-                                delegate: fromDelegate
-                                highlight: Rectangle { color: "#9FA8DA" }
-                                onCurrentIndexChanged: checkClear(from, from_list_view, model)
-                                property var lastSelected: null
-                            }
-                        }
-                    }
-
-                    Button {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: "#3949AB"
-
-                        Image {
-                            anchors.fill: parent;
-                            source: "switch.svg";
-                            scale: 0.5
-                        }
-
-                        onClicked: {
-                            var tmp_text = from.text;
-                            from.text = to.text;
-                            to.text = tmp_text;
-                        }
-                    }
-
-                    Column {
-                        width: parent.width
-                        clip: true
-
-                        TextField {
+                        StationQuery {
                             id: to
-                            width: parent.width
-                            placeholderText: i18n.tr("Do")
-                            hasClearButton: true
-                            onDisplayTextChanged: stationInputChanged(to, to_list_view, to_list_model);
-
-
-                            onFocusChanged: {
-                                if(focus) {
-                                    to_help.visible = true;
-                                }
-                                else {
-                                    to_help.visible = false;
-                                }
-                            }
-                        }
-
-                        Rectangle {
-                            id: to_help
-                            width: parent.width
-                            height: to_list_view.contentHeight
-                            color: "#E8EAF6"
-                            clip: true
-
-                            Component {
-                                id: toDelegate
-                                Item {
-                                    anchors.margins: units.gu(2); width: to_help.width; height: to_stop.paintedHeight + units.gu(2)
-                                    Text { id: to_stop; text: name; anchors.centerIn: parent; wrapMode: Text.Wrap }
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        onClicked: {
-                                            var name = to_list_model.get(index).name;
-                                            if(name != "") {
-                                                Qt.inputMethod.commit();
-                                                to_list_view.currentIndex = index;
-                                                to.text = name;
-                                                to.focus = false;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            ListView {
-                                id: to_list_view
-                                anchors.fill: parent
-                                model: ListModel { id: to_list_model }
-                                delegate: toDelegate
-                                highlight: Rectangle { color: "#9FA8DA" }
-                                onCurrentIndexChanged: checkClear(to, to_list_view, model)
-                                property var lastSelected: null
-                            }
+                            property string placeholder: i18n.tr("Do")
                         }
                     }
 
@@ -433,81 +329,25 @@ MainView {
                         spacing: units.gu(2)
                         visible: false
 
-                        Column {
-                            width: parent.width
+                        StationQuery {
+                            id: via
+                            property string placeholder: i18n.tr("Přes")
+                        }
+
+                        Row {
                             spacing: units.gu(2)
-                            clip: true
+                            anchors.horizontalCenter: parent.horizontalCenter
 
-                            TextField {
-                                id: via
-                                width: parent.width
-                                placeholderText: i18n.tr("Přes")
-                                hasClearButton: true
-                                onDisplayTextChanged: stationInputChanged(via, via_list_view, via_list_model);
-
-                                onFocusChanged: {
-                                    if(focus) {
-                                        via_help.visible = true;
-                                    }
-                                    else {
-                                        via_help.visible = false;
-                                    }
-                                }
+                            Label {
+                                id: direct_label
+                                text: i18n.tr("Jen přímá spojení")
+                                anchors.verticalCenter: parent.verticalCenter
                             }
 
-                            Rectangle {
-                                id: via_help
-                                width: parent.width
-                                height: via_list_view.contentHeight
-                                color: "#E8EAF6"
-                                clip: true
-
-                                Component {
-                                    id: viaDelegate
-                                    Item {
-                                        anchors.margins: units.gu(2); width: via_help.width; height: via_stop.paintedHeight + units.gu(2)
-                                        Text { id: via_stop; text: name; anchors.centerIn: parent; wrapMode: Text.Wrap }
-                                        MouseArea {
-                                            anchors.fill: parent
-                                            onClicked: {
-                                                var name = via_list_model.get(index).name;
-                                                if(name != "") {
-                                                    Qt.inputMethod.commit();
-                                                    via_list_view.currentIndex = index;
-                                                    via.text = name;
-                                                    via.focus = false;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                ListView {
-                                    id: via_list_view
-                                    anchors.fill: parent
-                                    model: ListModel { id: via_list_model }
-                                    delegate: viaDelegate
-                                    highlight: Rectangle { color: "#9FA8DA" }
-                                    onCurrentIndexChanged: checkClear(via, via_list_view, model)
-                                    property var lastSelected: null
-                                }
-                            }
-
-                            Row {
-                                spacing: units.gu(2)
-                                anchors.horizontalCenter: parent.horizontalCenter
-
-                                Label {
-                                    id: direct_label
-                                    text: i18n.tr("Jen přímá spojení")
-                                    anchors.verticalCenter: parent.verticalCenter
-                                }
-
-                                CheckBox {
-                                    id: direct_checkbox
-                                    checked: false
-                                    anchors.verticalCenter: parent.verticalCenter
-                                }
+                            CheckBox {
+                                id: direct_checkbox
+                                checked: false
+                                anchors.verticalCenter: parent.verticalCenter
                             }
                         }
                     }
@@ -832,8 +672,14 @@ MainView {
                     }
                 }
 
+                Rectangle {
+                    width: parent.width
+                    height: 1
+                    color: "#ddd"
+                }
+
                 Image {
-                    source: "sad.svg"
+                    source: "error.svg"
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: units.gu(12)
                     height: width

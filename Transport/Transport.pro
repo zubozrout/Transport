@@ -11,7 +11,7 @@ CONF_FILES +=   Transport.apparmor \
                 tram.svg \
                 switch.svg \
                 Transport.svg \
-                sad.svg \
+                error.svg
 
 ICON_FILES +=   icons/bus.svg \
                 icons/cableway.svg \
@@ -57,8 +57,8 @@ INSTALLS+=config_files icon_files qml_files desktop_file
 DISTFILES += \
     tram.svg \
     switch.svg \
+    error.svg \
     Transport.svg \
-    sad.svg \
     icons/bus.svg \
     icons/cableway.svg \
     icons/ship.svg \

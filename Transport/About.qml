@@ -5,10 +5,19 @@ import "localStorage.js" as DB
 
 Page {
     id: about_page
-    title: i18n.tr("O Aplikaci")
     visible: false
     clip: true
-    head.locked: true
+
+    header: PageHeader {
+        id: about_page_header
+        title: i18n.tr("O Aplikaci")
+        flickable: about_page_flickable
+
+        StyleHints {
+            foregroundColor: "#fff"
+            backgroundColor: "#3949AB"
+        }
+    }
 
     Flickable {
         id: about_page_flickable

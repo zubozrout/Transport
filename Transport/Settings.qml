@@ -10,21 +10,33 @@ import "localStorage.js" as DB
 
 Page {
     id: settings_page
-    title: i18n.tr("Nastavení")
     visible: false
     clip: true
-    head.locked: true
 
-    head.actions: [
-        Action {
-            iconName: "save"
-            text: i18n.tr("Uložit")
-            onTriggered: {
-                saveSettings();
-                settingsAnim.start();
-            }
+    header: PageHeader {
+        id: settings_page_header
+        title: i18n.tr("Nastavení")
+        flickable: settings_flickable
+
+        trailingActionBar {
+            actions: [
+                Action {
+                    iconName: "save"
+                    text: i18n.tr("Uložit")
+                    onTriggered: {
+                        saveSettings();
+                        settingsAnim.start();
+                    }
+                }
+            ]
         }
-    ]
+
+        StyleHints {
+            foregroundColor: "#fff"
+            backgroundColor: "#3949AB"
+        }
+    }
+
 
     function saveSettings() {
         // transport count

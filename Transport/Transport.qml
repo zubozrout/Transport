@@ -8,10 +8,26 @@ import "localStorage.js" as DB
 
 Page {
     id: trasport_selector_page
-    title: i18n.tr("Výběr dopravce")
     visible: false
     clip: true
-    head.locked: true
+
+    header: PageHeader {
+        id: trasport_selector_page_header
+        title: i18n.tr("Výběr dopravce")
+
+        leadingActionBar.actions: [
+            Action {
+                iconName: "back"
+                text: "Back"
+                onTriggered: pageLayout.removePages(trasport_selector_page)
+            }
+        ]
+
+        StyleHints {
+            foregroundColor: "#fff"
+            backgroundColor: "#3949AB"
+        }
+    }
 
     property var selectedItem: optionsList.model_context[optionsList.selectedIndex] ? optionsList.model_context[optionsList.selectedIndex] : 0
     property var selectedName: typeModel.count > 0 && optionsList.selectedIndex < typeModel.count && typeModel.get(optionsList.selectedIndex).name ? typeModel.get(optionsList.selectedIndex).name : ""
@@ -31,10 +47,15 @@ Page {
         expanded: true
         model: typeModel
         multiSelection: false
-        containerHeight: parent.height
         selectedIndex: typeModel.count
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.top: trasport_selector_page_header.bottom
+        containerHeight: height
 
         property var model_context: []
+        property var userSelection: -1
 
         Component.onCompleted: {
             optionsList.updateContent();
@@ -65,8 +86,9 @@ Page {
                     model_context.push(types[i].id);
                     typeModel.append({name : types[i].name});
                 }
-                if(types[i].name == DB.getSetting("optionsList")) {
+                if(userSelection < 0 && types[i].name == DB.getSetting("optionsList")) {
                     selectedIndex = i;
+                    userSelection = i;
                 }
             }
             getTextFieldContentFromDB(false);

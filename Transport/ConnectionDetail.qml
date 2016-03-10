@@ -9,10 +9,8 @@ import "localStorage.js" as DB
 
 Page {
     id: connection_detail
-    title: i18n.tr("Detail spojení")
     visible: false
     clip: true
-    head.locked: true
 
     property var detail_array: ({})
     property var current_id: null
@@ -26,21 +24,53 @@ Page {
 
     property var sections: []
 
-    head.actions: [
-        Action {
-            iconName: "edit-copy"
-            text: i18n.tr("Kopírovat")
-            onTriggered: {
-                Clipboard.push(connection_detail.console_out);
-                detailAnim.start();
+    header: PageHeader {
+        id: connection_detail_page_header
+        title: i18n.tr("Detail spojení")
+        flickable: connection_detail_flickable
+
+        leadingActionBar.actions: [
+            Action {
+                iconName: "back"
+                text: "Back"
+                onTriggered: pageLayout.removePages(connection_detail)
+            }
+        ]
+
+        trailingActionBar {
+            actions: [
+                Action {
+                    iconName: "edit-copy"
+                    text: i18n.tr("Kopírovat")
+                    onTriggered: {
+                        Clipboard.push(connection_detail.console_out);
+                        detailAnim.start();
+                    }
+                }
+            ]
+        }
+
+        extension: Sections {
+            id: connection_detail_head_sections
+            anchors {
+                left: parent.left
+                leftMargin: units.gu(2)
+                bottom: parent.bottom
+            }
+            model: [i18n.tr("Všechny zastávky"), i18n.tr("Jen projížděné zastávky")]
+            Component.onCompleted: {
+                selectedIndex: DB.getSetting("settings_show_all_or_passed") == true ? 0 : 1;
+            }
+
+            StyleHints {
+                sectionColor: UbuntuColors.lightGrey
+                selectedSectionColor: "#fff"
             }
         }
-    ]
 
-    head {
-        sections {
-            model: [i18n.tr("Všechny zastávky"), i18n.tr("Jen projížděné zastávky")]
-            selectedIndex: DB.getSetting("settings_show_all_or_passed") == true ? 0 : 1;
+        StyleHints {
+            foregroundColor: "#fff"
+            backgroundColor: "#3949AB"
         }
     }
 
@@ -213,7 +243,7 @@ Page {
 
             Column {
                 id: stationColumnList
-                visible: active || connection_detail.head.sections.selectedIndex == 0
+                visible: active || connection_detail_head_sections.selectedIndex == 0
                 width: parent.width
                 height: !visible ? 0 : childrenRect.height
 

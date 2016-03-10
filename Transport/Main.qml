@@ -127,7 +127,7 @@ MainView {
             PageColumn {
                 fillWidth: true
                 minimumWidth: units.gu(25)
-                maximumWidth: units.gu(50)
+                maximumWidth: units.gu(70)
                 preferredWidth: units.gu(40)
             }
             PageColumn {
@@ -138,29 +138,40 @@ MainView {
 
         Page {
             id: search_page
-            title: i18n.tr("Transport")
             visible: false
             clip: true
-            head.locked: true
 
-            head.actions: [
-                Action {
-                    iconName: "settings"
-                    text: i18n.tr("Nastavení")
-                    onTriggered: pageLayout.addPageToNextColumn(search_page, settings_page);
-                },
-                Action {
-                    iconName: "help"
-                    text: i18n.tr("O aplikaci")
-                    onTriggered: pageLayout.addPageToNextColumn(search_page, about_page);
-                },
-                Action {
-                    iconName: "go-to"
-                    text: i18n.tr("Výsledky vyhledávání")
-                    enabled: Object.keys(result_page.response).length > 0 ? true : false
-                    onTriggered: pageLayout.addPageToNextColumn(search_page, result_page);
+            header: PageHeader {
+                id: search_page_header
+                title: i18n.tr("Transport")
+                flickable: search_page_flickable
+
+                trailingActionBar {
+                    actions: [
+                        Action {
+                            iconName: "settings"
+                            text: i18n.tr("Nastavení")
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, settings_page);
+                        },
+                        Action {
+                            iconName: "help"
+                            text: i18n.tr("O aplikaci")
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, about_page);
+                        },
+                        Action {
+                            iconName: "go-to"
+                            text: i18n.tr("Výsledky vyhledávání")
+                            enabled: Object.keys(result_page.response).length > 0 ? true : false
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, result_page);
+                        }
+                    ]
                 }
-            ]
+
+                StyleHints {
+                    foregroundColor: "#fff"
+                    backgroundColor: "#3949AB"
+                }
+            }
 
             function search(state) {
                 if(!from.displayText || !to.displayText) {

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-12 19:34+0100\n"
-"PO-Revision-Date: 2016-03-12 18:36+0000\n"
+"POT-Creation-Date: 2016-03-12 20:02+0100\n"
+"PO-Revision-Date: 2016-03-12 19:04+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/zubozrout/transport/language/"
 "cs/)\n"
@@ -30,7 +30,7 @@ msgstr "Verze hlavní větve:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:164
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 
@@ -109,19 +109,23 @@ msgid "No departures were found for the selected station."
 msgstr "Pro zvolenou zastávku nebyly nalezeny žádné výsledky."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:212
-msgid "Destination:"
-msgstr "Cíl:"
+msgid "From:"
+msgstr "Z:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:228
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:226
+msgid "To:"
+msgstr "Do:"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:242
 msgid "Via:"
 msgstr "Přes:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:261
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:275
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:272
 msgid "departed"
 msgstr "odjelo"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:275
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:289
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:286
 #, qt-format
 msgid "in %1 hour"
@@ -130,7 +134,7 @@ msgstr[0] "Za %1 hodinu"
 msgstr[1] "Za %1 hodiny"
 msgstr[2] "Za %1 hodin"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:277
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:291
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:288
 #, qt-format
 msgid "and %1 minute"
@@ -139,12 +143,12 @@ msgstr[0] "a %1 minutu"
 msgstr[1] "a %1 minuty"
 msgstr[2] "a %1 minut"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:282
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:296
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:293
 msgid "just now"
 msgstr "právě teď"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:285
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:299
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:296
 #, qt-format
 msgid "in %1 minute"
@@ -153,29 +157,29 @@ msgstr[0] "za %1 minutu"
 msgstr[1] "za %1 minuty"
 msgstr[2] "za %1 minut"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:320
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:334
 msgid "Station"
 msgstr "Stanice"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:363
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:369
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:436
 msgid "Now"
 msgstr "Nyní"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:380
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:386
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:453
 msgid "at"
 msgstr "v"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:402
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:408
 msgid "Change time"
 msgstr "Změnit čas"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:409
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:415
 msgid "Change date"
 msgstr "Změnit datum"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:419
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:425
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:540
 msgid "Search"
 msgstr "Hledat"

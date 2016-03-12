@@ -71,7 +71,7 @@ Page {
             textOutput += heading ? "" + heading + " → " : "";
             textOutput += "** " + destination + " **\n";
 
-            departures_list_model.append({"num":num, "type":type, "typeName":typeName, "desc":desc, "dateTime":dateTime, "parsedDateTime":parsedDateTime, "destination":destination, "heading":heading, "lineColor":lineColor, "vehicleIcon":"icons/" + typeNameFromId + ".svg", "textOutput": textOutput});
+            departures_list_model.append({"start":start, "num":num, "type":type, "typeName":typeName, "desc":desc, "dateTime":dateTime, "parsedDateTime":parsedDateTime, "destination":destination, "heading":heading, "lineColor":lineColor, "vehicleIcon":"icons/" + typeNameFromId + ".svg", "textOutput": textOutput});
             if(!destination_colors.hasOwnProperty(destination)) {
                 destination_colors[destination] = randomColor(0);
             }
@@ -205,11 +205,25 @@ Page {
 
                     RowLayout {
                         width: parent.width
-                        spacing: units.gu(2)
+                        spacing: units.gu(1)
                         Layout.fillWidth: true
 
                         Text {
-                            text: (destination) ? i18n.tr("Destination:") : ""
+                            text: (start) ? i18n.tr("From:") : ""
+                            wrapMode: Text.WordWrap
+                            visible: text != ""
+                            Layout.fillWidth: false
+                        }
+
+                        Text {
+                            text: (start) ? start : ""
+                            wrapMode: Text.WordWrap
+                            visible: text != ""
+                            Layout.fillWidth: true
+                        }
+
+                        Text {
+                            text: (destination) ? i18n.tr("To:") : ""
                             wrapMode: Text.WordWrap
                             visible: text != ""
                             Layout.fillWidth: false
@@ -220,7 +234,7 @@ Page {
                             wrapMode: Text.WordWrap
                             font.bold: true
                             visible: text != ""
-                            Layout.fillWidth: true
+                            Layout.fillWidth: false
                         }
                     }
 

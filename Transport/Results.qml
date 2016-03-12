@@ -15,18 +15,18 @@ Page {
 
     header: PageHeader {
         id: result_page_header
-        title: i18n.tr("Výsledky vyhledávání")
+        title: i18n.tr("Connection results")
 
         trailingActionBar {
             actions: [
                 Action {
                     iconName: "go-next"
-                    text: i18n.tr("Následující")
+                    text: i18n.tr("Next")
                     onTriggered: search_page.search("next");
                 },
                 Action {
                     iconName: "go-previous"
-                    text: i18n.tr("Předchozí")
+                    text: i18n.tr("Previous")
                     onTriggered: search_page.search("previous");
                 }
             ]
@@ -99,8 +99,6 @@ Page {
             width: parent.width
             height: connection_padding.height + 2*connection_padding.anchors.margins
             anchors.horizontalCenter: parent.horizontalCenter
-
-            clip: true
             divider.visible: true
 
             trailingActions: ListItemActions {
@@ -271,7 +269,7 @@ Page {
                             var diff = Math.round((time_in.routeStart - now) / 60000);
                             if(diff <= 1440) {
                                 if(diff < 0) {
-                                    time_in.remaining = i18n.tr("odjelo");
+                                    time_in.remaining = i18n.tr("departed");
                                     time_in.color = "#B71C1C";
                                     repeat = false;
                                     return;
@@ -284,36 +282,18 @@ Page {
                                         minutes = diff - hours*60;
                                     }
 
-                                    var hrs = i18n.tr("hodin");
-                                    if(hours == 1) {
-                                        hrs = i18n.tr("hodinu");
-                                    }
-                                    else if(hours > 1 && hours < 5) {
-                                        hrs = i18n.tr("hodiny");
-                                    }
-
-                                    var mins = i18n.tr("minut");
-                                    if(minutes == 1) {
-                                        mins = i18n.tr("minutu");
-                                    }
-                                    else if(minutes > 1 && minutes < 5) {
-                                        mins = i18n.tr("minuty");
-                                    }
-
                                     if(hours > 0) {
-                                        if(minutes == 0) {
-                                            time_in.remaining = i18n.tr("za") + " " + hours + " " + hrs;
-                                        }
-                                        else {
-                                            time_in.remaining = i18n.tr("za") + " " + hours + " " + hrs + " a " + minutes + " " +  mins;
+                                        time_in.remaining = i18n.tr("in %1 hour", "in %1 hours", hours).arg(hours);
+                                        if(minutes > 0) {
+                                            time_in.remaining += " " + i18n.tr("and %1 minute", "and %1 minutes", minutes).arg(minutes);
                                         }
                                     }
                                     else {
                                         if(minutes == 0) {
-                                            time_in.remaining = i18n.tr("Právě teď");
+                                            time_in.remaining = i18n.tr("just now");
                                         }
                                         else {
-                                            time_in.remaining = i18n.tr("za") + " " + minutes + " " + mins;
+                                            time_in.remaining = i18n.tr("in %1 minute", "in %1 minutes", minutes).arg(minutes);
                                         }
                                     }
                                     time_in.color = "#33691E";
@@ -346,7 +326,6 @@ Page {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: result_page_header.bottom
-        spacing: units.gu(0.25)
 
         model: ListModel {
             id: connections_list_model

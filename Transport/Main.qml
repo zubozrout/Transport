@@ -70,6 +70,10 @@ MainView {
         onOnlineChanged: {
             if(!Connectivity.online){
                 api.abort();
+                offlineMessageBox.state = "OFFLINE";
+            }
+            else {
+                offlineMessageBox.state = "ONLINE";
             }
         }
     }
@@ -95,9 +99,21 @@ MainView {
     Rectangle {
         id: offlineMessageBox
         width: parent.width
-        height: Connectivity.online ? 0 : childrenRect.height * 2
         anchors.bottom: parent.bottom
         color: UbuntuColors.red
+
+        state: "ONLINE"
+
+        states: [
+            State {
+                name: "ONLINE"
+                PropertyChanges { target: offlineMessageBox; height: 0}
+            },
+            State {
+                name: "OFFLINE"
+                PropertyChanges { target: offlineMessageBox; height: childrenRect.height * 2}
+            }
+        ]
 
         Label {
             id: offlineMessageBoxText
@@ -105,7 +121,7 @@ MainView {
             anchors.centerIn: parent
             color: "#fff"
             wrapMode: Text.WordWrap
-            text: i18n.tr("Aplikace je nyní offline")
+            text: i18n.tr("You're now offline")
             font.pixelSize: FontUtils.sizeToPixels("normal")
             horizontalAlignment: Text.AlignHCenter
         }
@@ -150,21 +166,28 @@ MainView {
                     actions: [
                         Action {
                             iconName: "settings"
-                            text: i18n.tr("Nastavení")
-                            onTriggered: pageLayout.addPageToNextColumn(search_page, settings_page);
+                            text: i18n.tr("Settings")
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, settings_page)
                         },
                         Action {
                             iconName: "help"
-                            text: i18n.tr("O aplikaci")
-                            onTriggered: pageLayout.addPageToNextColumn(search_page, about_page);
+                            text: i18n.tr("About")
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, about_page)
+                        },
+                        Action {
+                            iconName: "event"
+                            text: i18n.tr("Departures")
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, departures_page)
                         },
                         Action {
                             iconName: "go-to"
-                            text: i18n.tr("Výsledky vyhledávání")
+                            text: i18n.tr("Connection results")
                             enabled: Object.keys(result_page.response).length > 0 ? true : false
-                            onTriggered: pageLayout.addPageToNextColumn(search_page, result_page);
+                            visible: enabled
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, result_page)
                         }
                     ]
+                    numberOfSlots: 4
                 }
 
                 StyleHints {
@@ -187,12 +210,12 @@ MainView {
                     switch(state) {
                         case "previous":
                             if(first_id != null) {
-                                Engine.getConnectionsFB("ABCz", handle, first_id, count, true, Engine.showConnectionsFB);
+                                Engine.getConnectionsFB(options, handle, first_id, count, true, Engine.showConnectionsFB);
                             }
                             return;
                         case "next":
                             if(last_id != null) {
-                                Engine.getConnectionsFB("ABCz", handle, last_id, count, false, Engine.showConnectionsFB);
+                                Engine.getConnectionsFB(options, handle, last_id, count, false, Engine.showConnectionsFB);
                             }
                             return;
                         default:
@@ -231,7 +254,7 @@ MainView {
             Flickable {
                 id: search_page_flickable
                 anchors.fill: parent
-                contentHeight: search_column.implicitHeight + 2* search_column.anchors.margins
+                contentHeight: search_column.implicitHeight + 2 * search_column.anchors.margins
                 contentWidth: parent.width
 
                 Column {
@@ -281,7 +304,7 @@ MainView {
 
                         StationQuery {
                             id: from
-                            property string placeholder: i18n.tr("Z")
+                            property string placeholder: i18n.tr("From")
                         }
 
                         Button {
@@ -298,7 +321,7 @@ MainView {
 
                         StationQuery {
                             id: to
-                            property string placeholder: i18n.tr("Do")
+                            property string placeholder: i18n.tr("To")
                         }
                     }
 
@@ -314,7 +337,7 @@ MainView {
 
                         Label {
                             id: avanced_label
-                            text: i18n.tr("Rozšířené hledání")
+                            text: i18n.tr("Advanced options")
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -342,7 +365,7 @@ MainView {
 
                         StationQuery {
                             id: via
-                            property string placeholder: i18n.tr("Přes")
+                            property string placeholder: i18n.tr("Via")
                         }
 
                         Row {
@@ -351,7 +374,7 @@ MainView {
 
                             Label {
                                 id: direct_label
-                                text: i18n.tr("Jen přímá spojení")
+                                text: i18n.tr("Only direct connections")
                                 anchors.verticalCenter: parent.verticalCenter
                             }
 
@@ -407,13 +430,25 @@ MainView {
                                     states: [
                                         State {
                                             name: "NOW"
-                                            PropertyChanges { target: nowLabel; text: i18n.tr("Teď") }
+                                            PropertyChanges { target: nowLabel; text: i18n.tr("Now") }
                                         },
                                         State {
                                             name: "CUSTOM"
                                             PropertyChanges {
                                                 target: nowLabel
-                                                text: departure_label.text + " " + i18n.tr("v") + " " + timePicker.date.getHours() + ":" + timePicker.date.getMinutes() + ", " + datePicker.date.getDate() + "." + (datePicker.date.getMonth() + 1) + "." + datePicker.date.getFullYear();
+                                                text: {
+                                                    var hours = timePicker.date.getHours();
+                                                    var minutes = timePicker.date.getMinutes();
+                                                    if(parseInt(minutes) < 10) {
+                                                        minutes = "0" + minutes;
+                                                    }
+
+                                                    var date = datePicker.date.getDate();
+                                                    var month = datePicker.date.getMonth() + 1;
+                                                    var year = datePicker.date.getFullYear();
+
+                                                    return departure_label.text + " " + i18n.tr("at") + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
+                                                }
                                             }
                                         }
                                     ]
@@ -447,11 +482,11 @@ MainView {
                                     states: [
                                         State {
                                             name: "DEPARTURE"
-                                            PropertyChanges { target: departure_label; text: i18n.tr("Odjezd") }
+                                            PropertyChanges { target: departure_label; text: i18n.tr("Departure") }
                                         },
                                         State {
                                             name: "ARRIVAL"
-                                            PropertyChanges { target: departure_label; text: i18n.tr("Příjezd") }
+                                            PropertyChanges { target: departure_label; text: i18n.tr("Arrival") }
                                         }
                                     ]
                                 }
@@ -464,22 +499,6 @@ MainView {
                         anchors.horizontalCenter: parent.horizontalCenter
                         spacing: units.gu(2)
                         visible: false
-
-                        /*
-                        Button {
-                            id: timeButton
-                            text: i18n.tr("Změnit čas")
-                            property date date: new Date()
-                            onClicked: PickerPanel.openDatePicker(timeButton, "date", "Hours|Minutes");
-                        }
-
-                        Button {
-                            id: dateButton
-                            text: i18n.tr("Změnit datum")
-                            property date date: new Date()
-                            onClicked: PickerPanel.openDatePicker(dateButton, "date", "Years|Months|Days");
-                        }
-                        */
 
                         DatePicker {
                             id: timePicker
@@ -515,7 +534,7 @@ MainView {
                     Button {
                         id: search
                         anchors.horizontalCenter: parent.horizontalCenter
-                        text: i18n.tr("Hledat")
+                        text: i18n.tr("Search")
                         focus: true
                         color: "#3949AB"
 
@@ -585,7 +604,7 @@ MainView {
                     Label {
                         id: searching_too_long
                         width: parent.width
-                        text: i18n.tr("Trvá vyhledávání příliš dlouho? Klepnutím na tento text ho můžete zastavit.")
+                        text: i18n.tr("Does the search take too long? You can stop it by clicking here.")
                         color: "#3949AB"
                         wrapMode: Text.Wrap
                         horizontalAlignment: Text.AlignHCenter
@@ -623,6 +642,12 @@ MainView {
         Page{
             ConnectionDetail {
                 id: connection_detail
+            }
+        }
+
+        Page{
+            Departures {
+                id: departures_page
             }
         }
 

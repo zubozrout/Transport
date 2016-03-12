@@ -15,43 +15,13 @@ Page {
 
     header: PageHeader {
         id: settings_page_header
-        title: i18n.tr("Nastavení")
+        title: i18n.tr("Settings")
         flickable: settings_flickable
-
-        trailingActionBar {
-            actions: [
-                Action {
-                    iconName: "save"
-                    text: i18n.tr("Uložit")
-                    onTriggered: {
-                        saveSettings();
-                        settingsAnim.start();
-                    }
-                }
-            ]
-        }
 
         StyleHints {
             foregroundColor: "#fff"
             backgroundColor: "#3949AB"
         }
-    }
-
-
-    function saveSettings() {
-        // transport count
-        if(!isNaN(settings_transport_count_text.text) && (settings_transport_count_text.text > 0 && settings_transport_count_text.text < 100)) {
-            DB.saveSetting("settings_transport_count", settings_transport_count_text.text);
-        }
-        else {
-            settings_transport_count_text.text = DB.getSetting("settings_transport_count");
-        }
-
-        // settings_show_all_or_passed
-        DB.saveSetting("settings_show_all_or_passed", show_all_or_passed_switch.checked);
-
-        // settings_fetch_transport_options_on_each_start
-        DB.saveSetting("fetch_transport_options_on_each_start", fetch_transport_options_on_each_start_switch.checked);
     }
 
     Flickable {
@@ -71,7 +41,7 @@ Page {
             Label {
                 id: settings_public_transport_count_label
                 width: parent.width
-                text: i18n.tr("Počet vyhledávaných spojení na stránku")
+                text: i18n.tr("Count of fetched connections per page")
                 wrapMode: Text.WordWrap
             }
 
@@ -83,9 +53,23 @@ Page {
                     id: settings_transport_count_text
                     inputMethodHints: Qt.ImhFormattedNumbersOnly
 
+                    function validation() {
+                        var tmptext = !DB.getSetting("settings_transport_count") || isNaN(DB.getSetting("settings_transport_count")) || parseInt(DB.getSetting("settings_transport_count")) < 1 ? "10" : parseInt(DB.getSetting("settings_transport_count"));
+                        DB.saveSetting("settings_transport_count", tmptext);
+                        return tmptext;
+                    }
+
                     Component.onCompleted: {
-                        text = DB.getSetting("settings_transport_count") == null || isNaN(DB.getSetting("settings_transport_count")) ? "10" : DB.getSetting("settings_transport_count");
+                        text = validation();
+                    }
+
+                    onTextChanged: {
                         DB.saveSetting("settings_transport_count", text);
+                        validation();
+                    }
+
+                    onFocusChanged: {
+                        text = validation();
                     }
                 }
             }
@@ -93,7 +77,7 @@ Page {
             Label {
                 id: show_all_or_passed_label
                 width: parent.width
-                text: i18n.tr("Zobrazovat v detailu spojení ve výchozím stavu všechny zastávky projížděné danými linkami?")
+                text: i18n.tr("Display all line stops in the connection detail?")
                 wrapMode: Text.WordWrap
             }
 
@@ -109,13 +93,17 @@ Page {
                         checked = DB.getSetting("settings_show_all_or_passed");
                         DB.saveSetting("settings_show_all_or_passed", checked);
                     }
+
+                    onCheckedChanged: {
+                        DB.saveSetting("settings_show_all_or_passed", checked);
+                    }
                 }
             }
 
             Label {
                 id: fetch_transport_options_on_each_start_label
                 width: parent.width
-                text: i18n.tr("Stahovat seznam dostupných dopravců při každém startu aplikace?")
+                text: i18n.tr("Download and refresh all transport options on each application start?")
                 wrapMode: Text.WordWrap
             }
 
@@ -131,6 +119,10 @@ Page {
                         checked = DB.getSetting("fetch_transport_options_on_each_start");
                         DB.saveSetting("fetch_transport_options_on_each_start", checked);
                     }
+
+                    onCheckedChanged: {
+                        DB.saveSetting("fetch_transport_options_on_each_start", checked);
+                    }
                 }
             }
 
@@ -140,7 +132,7 @@ Page {
 
                 Button {
                     id: fetch_transport_options_now
-                    text: i18n.tr("Obnovit seznam dopravců")
+                    text: i18n.tr("Refresh transport options")
                     color: "#3949AB"
 
                     onClicked: {
@@ -163,7 +155,7 @@ Page {
                     Label {
                         id: savedBgColor
                         width: parent.width
-                        text: i18n.tr("Ponechat uloženu barvu pozadí")
+                        text: i18n.tr("Keep background color saved")
                         wrapMode: Text.WordWrap
                     }
 
@@ -205,7 +197,7 @@ Page {
 
                 Button {
                     id: button_clear_cache
-                    text: i18n.tr("Vymazat mezipaměť")
+                    text: i18n.tr("Clear cache")
                     color: UbuntuColors.red
                     onClicked: PopupUtils.open(confirm_clearcache_dialog)
                 }
@@ -213,14 +205,14 @@ Page {
                     id: confirm_clearcache_dialog
                     Dialog {
                         id: confirm_clearcache_dialogue
-                        title: i18n.tr("Pozor!")
-                        text: i18n.tr("Sktečně chcete vymazat veškerá uložená data této aplikace?")
+                        title: i18n.tr("Attention")
+                        text: i18n.tr("Do you really want to clear all appliacation data?")
                         Button {
-                            text: i18n.tr("Ne")
+                            text: i18n.tr("No")
                             onClicked: PopupUtils.close(confirm_clearcache_dialogue)
                         }
                         Button {
-                            text: i18n.tr("Ano")
+                            text: i18n.tr("Yes")
                             color: UbuntuColors.red
                             onClicked: {
                                 DB.clearLocalStorage();
@@ -236,38 +228,5 @@ Page {
     Scrollbar {
         flickableItem: settings_flickable
         align: Qt.AlignTrailing
-    }
-
-    Rectangle {
-        id: settingsSaveStatus
-        anchors.fill: parent
-        color: "#fff"
-        opacity: 0
-        visible: opacity == 0 ? false : true
-
-        Icon {
-            anchors.centerIn: parent
-            width: parent.width > parent.height ? parent.height : parent.width
-            height: width
-            name: "ok"
-            color: UbuntuColors.green
-        }
-
-        SequentialAnimation on opacity {
-            id: settingsAnim
-            running: false
-            loops: 1
-            NumberAnimation { from: 0; to: 1; duration: 1000; easing.type: Easing.InOutQuad }
-            PauseAnimation { duration: 2000; }
-            NumberAnimation { from: 1; to: 0; duration: 5000; easing.type: Easing.InOutQuad }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                settingsAnim.stop();
-                parent.opacity = 0;
-            }
-        }
     }
 }

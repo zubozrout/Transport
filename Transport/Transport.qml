@@ -1,6 +1,6 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItem
+import Ubuntu.Components.ListItems 1.3 as ListItemSelector
 import QtQuick.LocalStorage 2.0
 
 import "engine.js" as Engine
@@ -13,7 +13,7 @@ Page {
 
     header: PageHeader {
         id: trasport_selector_page_header
-        title: i18n.tr("Výběr dopravce")
+        title: i18n.tr("Transport selector")
 
         leadingActionBar.actions: [
             Action {
@@ -31,10 +31,12 @@ Page {
 
     property var selectedItem: optionsList.model_context[optionsList.selectedIndex] ? optionsList.model_context[optionsList.selectedIndex] : 0
     property var selectedName: typeModel.count > 0 && optionsList.selectedIndex < typeModel.count && typeModel.get(optionsList.selectedIndex).name ? typeModel.get(optionsList.selectedIndex).name : ""
+    property var usedTypes: []
 
     onVisibleChanged: {
         if(visible) {
             optionsList.updateContent();
+            usedTypes = DB.getAllUsedTypes();
         }
     }
 
@@ -42,10 +44,50 @@ Page {
         id: typeModel
     }
 
-    ListItem.ItemSelector {
+    Component {
+        id: transportOption
+
+        ListItem {
+            width: parent.width
+            height: tranportLabel.contentHeight + units.gu(2)
+            divider.visible: true
+
+            Rectangle {
+                anchors.fill: parent
+                color: optionsList.selectedIndex == index ? UbuntuColors.lightGrey : "transparent"
+
+                Label {
+                    id: tranportLabel
+                    anchors.fill: parent
+                    anchors.margins: units.gu(2)
+                    text: name
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.Wrap
+                    font.pixelSize: {
+                        if(usedTypes.indexOf(name) > -1) {
+                            return FontUtils.sizeToPixels("large");
+                        }
+                        return FontUtils.sizeToPixels("normal");
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        optionsList.selectedIndex = index;
+                        optionsList.delegateClicked(index);
+                    }
+                }
+            }
+        }
+    }
+
+    ListItemSelector.ItemSelector {
         id: optionsList
         expanded: true
         model: typeModel
+        delegate: transportOption
         multiSelection: false
         selectedIndex: typeModel.count
         anchors.left: parent.left

@@ -14,7 +14,9 @@ Page {
 
     property var detail_array: ({})
     property var current_id: null
-    property var console_out: null
+    property var console_out: connection_detail_head_sections.selectedIndex == 0 ? console_out_full : console_out_basic
+    property var console_out_full: null
+    property var console_out_basic: null
 
     property var detail: null
     property var trains: null
@@ -26,7 +28,7 @@ Page {
 
     header: PageHeader {
         id: connection_detail_page_header
-        title: i18n.tr("Detail spojení")
+        title: i18n.tr("Connection detail")
         flickable: connection_detail_flickable
 
         leadingActionBar.actions: [
@@ -41,7 +43,7 @@ Page {
             actions: [
                 Action {
                     iconName: "edit-copy"
-                    text: i18n.tr("Kopírovat")
+                    text: i18n.tr("Copy")
                     onTriggered: {
                         Clipboard.push(connection_detail.console_out);
                         detailAnim.start();
@@ -57,7 +59,7 @@ Page {
                 leftMargin: units.gu(2)
                 bottom: parent.bottom
             }
-            model: [i18n.tr("Všechny zastávky"), i18n.tr("Jen projížděné zastávky")]
+            model: [i18n.tr("All stations"), i18n.tr("Only passed stations")]
             Component.onCompleted: {
                 selectedIndex: DB.getSetting("settings_show_all_or_passed") == true ? 0 : 1;
             }
@@ -104,15 +106,19 @@ Page {
                 }
                 dateIterator = stopDate;
                 stop_datetime = stopDate;
+
+                connection_detail.console_out_basic += "*\t" + stationName + " (" + stop_time + ")" + "\n";
             }
+            connection_detail.console_out_full += (active ? "*\t" : "\t") + stationName + " (" + stop_time + ")" + "\n";
 
             model.append({"stationName":stationName,"stop_time":stop_time,"stop_datetime":stop_datetime,"active":active,"from":from,"to":to});
-            connection_detail.console_out += (active ? "*\t" : "\t") + stationName + "(" + stop_time + ")" + "\n";
         }
     }
 
     function loadConnectionDetailInfo(detail, trains, infomodel) {
-        connection_detail.console_out = "";
+        connection_detail.console_out_basic = "";
+        connection_detail.console_out_full = "";
+
         for(var i = 0; i < trains.length; i++) {
             var trainData = Engine.parseTrainsAPI(trains[i], "trainData");
             var trainDataInfo = Engine.parseTrainsAPI(trains[i], "info");
@@ -162,9 +168,9 @@ Page {
                 loadConnectionDetailInfo(detail, trains, connection_trains_detail_info_model);
             }
             else {
-                statusMessagelabel.text = i18n.tr("Detail spojení nebylo možné načíst.\nNejčastější příčinou je vypršení platnosti identifikátoru. Zkuste prosím vyhledat dané spojení znova.");
+                statusMessagelabel.text = i18n.tr("An error occured while asking for the connection detail. The most probable cause is the expiration of the search results, please try again from scratch.");
                 statusMessageBox.visible = true;
-                pageLayout.removePages(connection_detail);
+                pageLayout.removePages(search_page);
             }
         }
     }
@@ -202,8 +208,8 @@ Page {
                         RowLayout {
                             width: parent.width
                             spacing: units.gu(2)
-                            Text { text: i18n.tr("Odjezd:") + " " + start_time; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; Layout.fillWidth: true; }
-                            Text { text: i18n.tr("Příjezd:") + " " + end_time; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignRight; Layout.fillWidth: true; }
+                            Text { text: i18n.tr("Departure:") + " " + start_time; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; Layout.fillWidth: true; }
+                            Text { text: i18n.tr("Arrival:") + " " + end_time; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignRight; Layout.fillWidth: true; }
                         }
                         Rectangle {
                             color: "#ddd"
@@ -228,7 +234,13 @@ Page {
             }
 
             Component.onCompleted: {
-                connection_detail.console_out += "→\t" +  type + "(" + num + ")" + "\n";
+                if(index > 0) {
+                    connection_detail.console_out_basic += "\n";
+                    connection_detail.console_out_full += "\n";
+                }
+                connection_detail.console_out_basic += "→\t" +  num + " (" + type + ")" + "\n";
+                connection_detail.console_out_full += "→\t" +  num + " (" + type + ")" + "\n";
+
                 loadConnectionDetail(index, connection_detail.trains, Engine.parseTrainsAPI(connection_detail.trains[index], "route"), connection_trains_detail_model);
             }
         }
@@ -314,9 +326,9 @@ Page {
             RowLayout {
                 width: parent.width
                 spacing: units.gu(2)
-                Text { text: distance ? i18n.tr("Vzdálenost") + ": " + distance : ""; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; verticalAlignment: Text.AlignVCenter; }
-                Text { text: timeLength ? i18n.tr("Celkový čas") + ": " + timeLength : ""; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; verticalAlignment: Text.AlignVCenter; }
-                Text { text: price ? i18n.tr("Cena") + ": " + price : ""; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter; Layout.fillWidth: true; }
+                Text { text: distance ? i18n.tr("Distance:") + " " + distance : ""; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; verticalAlignment: Text.AlignVCenter; }
+                Text { text: timeLength ? i18n.tr("Time total:") + " " + timeLength : ""; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; verticalAlignment: Text.AlignVCenter; }
+                Text { text: price ? i18n.tr("Price:") + " " + price : ""; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter; Layout.fillWidth: true; }
             }
 
             Rectangle {
@@ -345,7 +357,7 @@ Page {
     }
 
     Rectangle {
-        id: settingsSaveStatus
+        id: connectionDetailCoppiedConfirmation
         anchors.fill: parent
         color: "#fff"
         opacity: 0
@@ -353,7 +365,7 @@ Page {
 
         Icon {
             anchors.centerIn: parent
-            width: parent.width > parent.height ? parent.height : parent.width
+            width: parent.width > parent.height ? parent.height/2 : parent.width/2
             height: width
             name: "ok"
             color: UbuntuColors.green

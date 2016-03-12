@@ -10,7 +10,7 @@ Page {
 
     header: PageHeader {
         id: about_page_header
-        title: i18n.tr("O Aplikaci")
+        title: i18n.tr("About")
         flickable: about_page_flickable
 
         StyleHints {
@@ -22,7 +22,7 @@ Page {
     Flickable {
         id: about_page_flickable
         anchors.fill: parent
-        contentHeight: about_page_column.childrenRect.height + 2*about_page_column.anchors.margins
+        contentHeight: about_page_column.childrenRect.height + (2 * about_page_column.anchors.margins)
         contentWidth: parent.width
 
         Column {
@@ -36,7 +36,7 @@ Page {
 
             Text {
                 anchors.right: parent.right
-                text: i18n.tr("Verze hlavní větve") + ": " + "0.7"
+                text: i18n.tr("Main branch version:") + " " + "0.8"
                 wrapMode: Text.Wrap
                 font.pixelSize: FontUtils.sizeToPixels("small")
             }
@@ -93,7 +93,7 @@ Page {
 
             Text {
                 width: parent.width
-                text: i18n.tr("Transport") + " - " + i18n.tr("Jízdní řády")
+                text: i18n.tr("Transport") + " - " + i18n.tr("Timetables")
                 wrapMode: Text.Wrap
                 font.pixelSize: FontUtils.sizeToPixels("x-large")
                 horizontalAlignment: Text.AlignHCenter
@@ -101,7 +101,7 @@ Page {
 
             Text {
                 width: parent.width
-                text: i18n.tr("Tato aplikace využívá API jehož dokumentace je dostupná na adrese http://docs.crws.apiary.io/") + "\n\n\"" + i18n.tr("Službu provozuje společnost CHAPS spol. s.r.o., identifikátor klienta žádejte na info@chaps.cz.") + "\"";
+                text: i18n.tr("This application is based upon an API provided by CHAPS s.r.o. company, info@chaps.cz") + "\n\n" + i18n.tr("You can find the documentation of the API service here http://docs.crws.apiary.io/");
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
             }

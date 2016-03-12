@@ -5,7 +5,31 @@ function request(url, callback) {
 }
 
 function urlCommon(userDesc, lang) {
-    var out = (typeof lang !== typeof undefined) ? "lang=" + lang : "lang=CZECH";
+    var locale = Qt.locale().name;
+    if(typeof lang == typeof undefined) {
+        switch(locale.substring(0,2)) {
+            case "en":
+                lang = "ENGLISH";
+                break;
+            case "de":
+                lang = "GERMAN";
+                break;
+            case "cs":
+                lang = "CZECH";
+                break;
+            case "sk":
+                lang = "SLOVAK";
+                break;
+            case "pl":
+                lang = "POLISH";
+                break;
+            default:
+                lang = "CZECH";
+                break;
+        }
+    }
+
+    var out = "lang=" + lang;
     if(typeof userDesc !== typeof undefined && userDesc) {
         out = "userDesc=" + userDesc + "&" + out;
     }
@@ -139,6 +163,36 @@ function parseConnectionDetail(response_string) {
     return JSON.parse(response_string);
 }
 
+/*
+city = option code
+stop = stop name
+time = date of departure/arrival in format of "7.10.2015 20:13"
+isDeb = is departure?
+line = number or code of the line
+limit = number of connections
+call = function to call once data is downloaded
+*/
+function getDepartures(city, stop, time, isDep, line, limit, call) {
+    time = (time != "") ? "&dateTime=" + time : "";
+    isDep = (isDep != "") ? "&isDep=" + isDep : "";
+    line = (line != "") ? "&line=" + line : "";
+    limit = "&maxObjectsCount=" + limit;
+
+    return request("https://ext.crws.cz/api/" + city + "/departureTables?from=" + stop + time + isDep + line + limit + "&ttInfoDetails=TRTYPEID_ITEM" + "&" + urlCommon("ubuntu"), function(response){call(parseDepartures(response));});
+}
+
+function parseDepartures(response_string) {
+    if(!response_string) {
+        return;
+    }
+    var obj = JSON.parse(response_string);
+    var records = parseAPI(obj, "records");
+    if(records) {
+        records.start = parseAPI(obj, "fromObjectsName");
+    }
+    return records;
+}
+
 function completeFromDB(city, text, model) {
     var stops = DB.getRelevantStops(city, text);
     for(var i = 0; i < stops.length; i++) {
@@ -194,7 +248,7 @@ function showConnectionsFB(response) {
     if(response) {
         var connections = Engine.parseAPI(response, "connections");
         if(connections !== Object(connections)) {
-            statusMessagelabel.text = i18n.tr("Nebylo možné načíst další spojení.");
+            statusMessagelabel.text = i18n.tr("Could not load next connection results.");
             statusMessageErrorlabel.text = "\n\n" + connections;
             statusMessageBox.visible = true;
             return;
@@ -211,7 +265,7 @@ function showConnections(response) {
     if(response) {
         var connections = Engine.parseAPI(response, "connections");
         if(connections !== Object(connections)) {
-            statusMessagelabel.text = i18n.tr("Nebyly nalezeny žádné výsledky odpovídající parametrům hledání.");
+            statusMessagelabel.text = i18n.tr("No results matching input parameters were found.");
             statusMessageErrorlabel.text = "\n\n" + connections;
             statusMessageBox.visible = true;
             return;
@@ -236,7 +290,7 @@ function showConnectionDetail(detail, id) {
         pageLayout.addPageToCurrentColumn(result_page, connection_detail);
     }
     else {
-        statusMessagelabel.text = i18n.tr("Spojení nebylo možné načíst");
+        statusMessagelabel.text = i18n.tr("Could not load connection detail.");
         statusMessageBox.visible = true;
     }
     return detail;
@@ -244,15 +298,16 @@ function showConnectionDetail(detail, id) {
 
 /* ↓↓↓ IDOS API Parser ↓↓↓ */
 function parseStationObjectAPI(station, value) {
+    var object = (typeof station["timetableObject"]["item"] !== typeof undefined) ? station["timetableObject"]["item"] : station["masks"];
     switch(value) {
         case "listId":
-            return station["timetableObject"]["item"]["listId"];
+            return object[0]["listId"];
         case "item":
-            return station["timetableObject"]["item"]["item"];
+            return object[0]["item"];
         case "name":
-            return station["timetableObject"]["item"]["name"];
+            return object[0]["name"];
         default:
-            return station["timetableObject"]["item"]["name"];
+            return object[0]["name"];
     }
 }
 
@@ -362,6 +417,40 @@ function parseConnectionsAPI(connections, value) {
     }
 }
 
+function parseDeparturesAPI(records, value) {
+    if(typeof records === typeof undefined) {
+        return false;
+    }
+    switch(value) {
+        case "id":
+            return records["info"]["id"];
+        case "num":
+            return records["info"]["num1"];
+        case "type":
+            if(typeof records["info"] !== typeof undefined) {
+                return records["info"]["type"];
+            }
+            return null;
+        case "typeName":
+            return records["info"]["typeName"];
+        case "desc":
+            if(typeof records["info"]["fixedCodes"] !== typeof undefined) {
+                if(typeof records["info"]["fixedCodes"][0]["desc"] !== typeof undefined) {
+                    return records["info"]["fixedCodes"][0]["desc"];
+                }
+            }
+            return null;
+        case "dateTime":
+            return records["dateTime"];
+        case "destination":
+            return records["destination"];
+        case "direction":
+            return records["direction"];
+        default:
+            return records["info"]["id"];
+    }
+}
+
 function parseAPI(response, value) {
     if(typeof response === typeof undefined) {
         return null;
@@ -377,8 +466,13 @@ function parseAPI(response, value) {
         case "fromObjectsName":
             var fromObjects = response["fromObjects"];
             var fromObjectsName = [];
-            for(var i = 0; i < fromObjects.length; i++) {
-                fromObjectsName.push(parseStationObjectAPI(response["fromObjects"][i], "name"));
+            if(fromObjects.length > 1) {
+                for(var i = 0; i < fromObjects.length; i++) {
+                    fromObjectsName.push(parseStationObjectAPI(response["fromObjects"][i], "name"));
+                }
+            }
+            else {
+                fromObjectsName = parseStationObjectAPI(response["fromObjects"], "name");
             }
             return fromObjectsName;
         case "toObjects":
@@ -402,6 +496,8 @@ function parseAPI(response, value) {
                 return [];
             }
             return response["connInfo"]["connections"];
+        case "records":
+            return response["records"];
         default:
             return response["combId"];
     }

@@ -69,4 +69,5 @@ DISTFILES += \
     icons/tram.svg \
     icons/trol.svg \
     icons/air.svg \
-    icons/taxi.svg
+    icons/taxi.svg \
+    Departures.qml

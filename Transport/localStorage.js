@@ -199,6 +199,20 @@ function getAllStops() {
     return res;
 }
 
+function getAllUsedTypes() {
+    loadDB();
+    var res = [];
+    db.transaction(function(tx) {
+        var rs = tx.executeSql("SELECT DISTINCT type.value FROM type INNER JOIN stops on type.key = stops.key");
+        for(var i = 0; i < rs.rows.length; i++) {
+            if(typeof rs.rows.item(i) !== typeof undefined) {
+                res.push(rs.rows.item(i).value);
+            }
+        }
+    });
+    return res;
+}
+
 function deleteStop(type, name) {
     loadDB();
     if(!hasType(type)) {

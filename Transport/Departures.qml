@@ -318,14 +318,6 @@ Page {
             StationQuery {
                 id: stations
                 property string placeholder: i18n.tr("Station")
-                onTextChanged: {
-                    if(text != "") {
-                        search.state = "ENABLED";
-                    }
-                    else {
-                        search.state = "DISABLED";
-                    }
-                }
             }
 
             RowLayout {
@@ -424,7 +416,7 @@ Page {
                     departures_page.search();
                 }
 
-                state: "DISABLED"
+                state: (stations.text == "") ? "DISABLED" : (api.running ? "ACTIVE" : "ENABLED")
 
                 states: [
                     State {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-12 19:34+0100\n"
+"POT-Creation-Date: 2016-03-12 19:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:164
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""
 
@@ -149,25 +149,25 @@ msgstr[1] ""
 msgid "Station"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:363
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:355
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:436
 msgid "Now"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:380
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:372
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:453
 msgid "at"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:402
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:394
 msgid "Change time"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:409
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:401
 msgid "Change date"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:419
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:411
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:540
 msgid "Search"
 msgstr ""

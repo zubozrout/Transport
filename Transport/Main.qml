@@ -108,10 +108,12 @@ MainView {
             State {
                 name: "ONLINE"
                 PropertyChanges { target: offlineMessageBox; height: 0}
+                PropertyChanges { target: offlineMessageBox; visible: false}
             },
             State {
                 name: "OFFLINE"
                 PropertyChanges { target: offlineMessageBox; height: childrenRect.height * 2}
+                PropertyChanges { target: offlineMessageBox; visible: true}
             }
         ]
 
@@ -175,6 +177,7 @@ MainView {
                             onTriggered: pageLayout.addPageToNextColumn(search_page, about_page)
                         },
                         Action {
+                            iconSource: "icons/stop.svg"
                             iconName: "event"
                             text: i18n.tr("Departures")
                             onTriggered: pageLayout.addPageToNextColumn(search_page, departures_page)

@@ -23,7 +23,8 @@ ICON_FILES +=   icons/bus.svg \
                 icons/tram.svg \
                 icons/trol.svg \
                 icons/air.svg \
-                icons/taxi.svg
+                icons/taxi.svg \
+                icons/stop.svg
 
 AP_TEST_FILES += tests/autopilot/run \
                  $$files(tests/*.py,true)
@@ -70,4 +71,4 @@ DISTFILES += \
     icons/trol.svg \
     icons/air.svg \
     icons/taxi.svg \
-    Departures.qml
+    icons/stop.svg

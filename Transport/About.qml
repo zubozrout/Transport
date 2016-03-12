@@ -55,7 +55,7 @@ Page {
                     target: aboutImage
                     from: 0
                     to: 10 * (Math.round(Math.random())%2 == 0 ? 360 : -360)
-                    duration: 4000
+                    duration: 5000
                     running: false
                     easing.type: Easing.InOutElastic
                 }
@@ -77,8 +77,8 @@ Page {
                     property int badCounter: 0
                     onDoubleClicked: {
                         if(badCounter > 10) {
-                            headerColor = Qt.rgba(Math.random(), Math.random(), Math.random(), 1);
-                            DB.saveSetting("user_color", headerColor);
+                            backgroundColor = Qt.rgba(Math.random(), Math.random(), Math.random(), 1);
+                            DB.saveSetting("user_color", backgroundColor);
                         }
                         if(!easterEggAnim.running) {
                             easterEggAnim.start();

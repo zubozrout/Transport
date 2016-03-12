@@ -13,7 +13,6 @@ Page {
     clip: true
 
     property var starting_station: ""
-    property var text_output: []
     property var destination_colors: [{}]
 
     header: PageHeader {
@@ -52,7 +51,6 @@ Page {
 
         var start = records["start"];
         for(var i = 0; i < records.length; i++) {
-            departures_page.text_output[i] = "";
             var record = records[i];
             var num = Engine.parseDeparturesAPI(record, "num");
             var type = Engine.parseDeparturesAPI(record, "type").toLowerCase();
@@ -65,15 +63,15 @@ Page {
             var heading = direction ? direction.join(", ") : "";
             var typeNameFromId = (type == "ntram") ? "ntram" : ((type == "nbus") ? "nbus" : Engine.transportIdToName(typeId));
             var lineColor = Engine.parseColor(typeNameFromId, num);
-
-            departures_list_model.append({"num":num, "type":type, "typeName":typeName, "desc":desc, "dateTime":dateTime, "destination":destination, "heading":heading, "lineColor":lineColor, "vehicle_icon":"icons/" + typeNameFromId + ".svg"});
+            var parsedDateTime = new Date(Engine.parseDate(dateTime));
 
             // Text output
-            departures_page.text_output[i] += "* " + num + " (" + typeName + ")\n";
-            departures_page.text_output[i] += "\t→ " + destination + " (" + dateTime + ")\n";
-            departures_page.text_output[i] += "\t← " + start + "\n";
-            departures_page.text_output[i] += heading ? "(" + heading + ")" : "";
+            var textOutput = "* " + num + " (" + typeName + ") - " + start + " - " + dateTime + "\n";
+            textOutput += "\t→ ";
+            textOutput += heading ? "" + heading + " → " : "";
+            textOutput += "** " + destination + " **\n";
 
+            departures_list_model.append({"num":num, "type":type, "typeName":typeName, "desc":desc, "dateTime":dateTime, "parsedDateTime":parsedDateTime, "destination":destination, "heading":heading, "lineColor":lineColor, "vehicleIcon":"icons/" + typeNameFromId + ".svg", "textOutput": textOutput});
             if(!destination_colors.hasOwnProperty(destination)) {
                 destination_colors[destination] = randomColor(0);
             }
@@ -92,13 +90,6 @@ Page {
         DB.saveSetting("departuresStop" + trasport_selector_page.selectedItem, stations.text);
     }
 
-    ActivityIndicator {
-        id: departuresActivity
-        anchors.centerIn: parent
-        running: api.running
-        z: 10
-    }
-
     Component {
         id: departures_child_delegate
 
@@ -107,104 +98,201 @@ Page {
             height: departures_child_delegate_column.height + 2 * departures_child_delegate_column.anchors.margins
             divider.visible: true
 
+            property var expanded: false
+
             trailingActions: ListItemActions {
                 actions: [
                     Action {
                         iconName: "edit-copy"
-                        onTriggered: Clipboard.push(departures_page.text_output[index])
+                        onTriggered: Clipboard.push(textOutput)
+                    },
+                    Action {
+                        iconName: "view-expand"
+                        onTriggered: {
+                            expanded = !expanded;
+                            if(expanded) {
+                                iconName = "view-collapse";
+                            }
+                            else {
+                                iconName = "view-expand";
+                            }
+                        }
                     }
                 ]
             }
 
-            Column {
-                id: departures_child_delegate_column
-                anchors.margins: units.gu(2)
-                anchors.centerIn: parent
-                width: parent.width - 2 * anchors.margins
-                height: childrenRect.height
-                spacing: units.gu(1)
+            Rectangle {
+                anchors.fill: parent
+                color: expanded ? "#fafaef" : "#fff"
 
-                RowLayout {
-                    width: parent.width
-                    spacing: units.gu(2)
+                Column {
+                    id: departures_child_delegate_column
+                    anchors.margins: units.gu(2)
+                    anchors.centerIn: parent
+                    width: parent.width - 2 * anchors.margins
+                    spacing: units.gu(1)
 
-                    Image {
-                        width: units.gu(4)
-                        height: width
-                        sourceSize.width: width
-                        fillMode: Image.PreserveAspectFit
-                        source: vehicle_icon
-                        Layout.fillWidth: false
-                    }
-
-                    Text {
-                        text: (num) ? num : ""
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: FontUtils.sizeToPixels("large")
-                        font.bold: true
-                        color: lineColor
-                        visible: text != ""
-                        Layout.fillWidth: false
-                    }
-
-                    Text {
-                        text: (typeName) ? typeName.toUpperCase() : ""
-                        wrapMode: Text.WordWrap
-                        visible: text != ""
+                    RowLayout {
+                        width: parent.width
+                        spacing: units.gu(2)
                         Layout.fillWidth: true
-                    }
-
-                    Rectangle {
-                        width: units.gu(3)
-                        height: width
-                        radius: width
-                        color: departures_page.destination_colors[destination]
 
                         Text {
-                            anchors.fill: parent
-                            text: destination.split(" ").map(function(item){return item[0]}).join("").substring(0, 2).toUpperCase()
-                            font.pixelSize: FontUtils.sizeToPixels("normal")
-                            font.bold: true
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            color: "#fff"
+                            id: time_in
+                            width: parent.width
+                            text: remaining
+                            Layout.fillWidth: true
+                            property var remaining: 0
+                            property var routeStart: parsedDateTime
+                        }
+
+                        Text {
+                            text: (dateTime) ? dateTime : ""
+                            wrapMode: Text.WordWrap
+                            visible: text != ""
+                            Layout.fillWidth: false
                         }
                     }
-                }
 
-                RowLayout {
-                    width: parent.width
-                    spacing: units.gu(2)
-
-                    Text {
-                        text: (destination) ? i18n.tr("Destination:") + " " + destination : ""
+                    RowLayout {
                         width: parent.width
-                        wrapMode: Text.WordWrap
-                        visible: text != ""
+                        spacing: units.gu(2)
                         Layout.fillWidth: true
+
+                        Image {
+                            width: units.gu(4)
+                            height: width
+                            sourceSize.width: width
+                            fillMode: Image.PreserveAspectFit
+                            source: vehicleIcon
+                            Layout.fillWidth: false
+                        }
+
+                        Text {
+                            text: (num) ? num : ""
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: FontUtils.sizeToPixels("large")
+                            font.bold: true
+                            color: lineColor
+                            visible: text != ""
+                            Layout.fillWidth: false
+                        }
+
+                        Text {
+                            text: (typeName) ? typeName.toUpperCase() : ""
+                            wrapMode: Text.WordWrap
+                            visible: text != ""
+                            Layout.fillWidth: true
+                        }
+
+                        Rectangle {
+                            width: units.gu(4)
+                            height: width
+                            radius: width
+                            color: departures_page.destination_colors[destination]
+
+                            Text {
+                                anchors.fill: parent
+                                text: destination.split(" ").map(function(item){return item[0]}).join("").substring(0, 2).toUpperCase()
+                                font.pixelSize: FontUtils.sizeToPixels("normal")
+                                font.bold: true
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                color: "#fff"
+                            }
+                        }
+                    }
+
+                    RowLayout {
+                        width: parent.width
+                        spacing: units.gu(2)
+                        Layout.fillWidth: true
+
+                        Text {
+                            text: (destination) ? i18n.tr("Destination:") : ""
+                            wrapMode: Text.WordWrap
+                            visible: text != ""
+                            Layout.fillWidth: false
+                        }
+
+                        Text {
+                            text: (destination) ? destination : ""
+                            wrapMode: Text.WordWrap
+                            font.bold: true
+                            visible: text != ""
+                            Layout.fillWidth: true
+                        }
                     }
 
                     Text {
-                        text: (dateTime) ? dateTime : ""
+                        text: (heading) ? i18n.tr("Via:") + " " + heading : ""
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        visible: text != ""
-                        Layout.fillWidth: false
+                        visible: expanded && text != ""
+                    }
+
+                    Text {
+                        text: (desc) ? desc : ""
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        font.italic: true
+                        visible: expanded && text != ""
                     }
                 }
 
-                Text {
-                    text: (desc) ? i18n.tr("Description:") + " " + desc : ""
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                    visible: text != ""
-                }
+                Timer {
+                    interval: 30000
+                    running: true
+                    repeat: true
+                    triggeredOnStart: true
 
-                Text {
-                    text: (heading) ? i18n.tr("Direction:") + " " + heading : ""
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                    visible: text != ""
+                    onTriggered: {
+                        if(isNaN(time_in.routeStart)) {
+                            repeat = false;
+                            time_in.remaining = " ";
+                            return;
+                        }
+
+                        var now = new Date();
+                        now.setSeconds(0,0);
+                        var diff = Math.round((time_in.routeStart - now) / 60000);
+                        if(diff <= 1440) {
+                            if(diff < 0) {
+                                time_in.remaining = i18n.tr("departed");
+                                time_in.color = "#B71C1C";
+                                repeat = false;
+                                return;
+                            }
+                            else {
+                                var minutes = diff;
+                                var hours = 0;
+                                if(diff > 59) {
+                                    hours = Math.floor(minutes/60);
+                                    minutes = diff - hours*60;
+                                }
+
+                                if(hours > 0) {
+                                    time_in.remaining = i18n.tr("in %1 hour", "in %1 hours", hours).arg(hours);
+                                    if(minutes > 0) {
+                                        time_in.remaining += " " + i18n.tr("and %1 minute", "and %1 minutes", minutes).arg(minutes);
+                                    }
+                                }
+                                else {
+                                    if(minutes == 0) {
+                                        time_in.remaining = i18n.tr("just now");
+                                    }
+                                    else {
+                                        time_in.remaining = i18n.tr("in %1 minute", "in %1 minutes", minutes).arg(minutes);
+                                    }
+                                }
+                                time_in.color = "#33691E";
+                            }
+                        }
+                        else {
+                            time_in.remaining = Engine.dateToReadableFormat(connection_info.routeStart) + " → " + Engine.dateToReadableFormat(connection_info.routeEnd);
+                            return;
+                        }
+                    }
                 }
             }
         }
@@ -216,7 +304,7 @@ Page {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: departures_page_header.bottom
-        contentHeight: departures_column.implicitHeight + 2 * departures_column.anchors.margins
+        contentHeight: departures_column.implicitHeight + 2 * departures_column.anchors.margins + scrollToTopButton.height
         contentWidth: parent.width
 
         Column {
@@ -355,6 +443,12 @@ Page {
                         PropertyChanges { target: search; color: UbuntuColors.warmGrey }
                     }
                 ]
+
+                ActivityIndicator {
+                    id: searchActivity
+                    anchors.fill: parent
+                    running: api.running
+                }
             }
 
             Rectangle {
@@ -375,6 +469,34 @@ Page {
                     id: departures_list_model
                 }
                 delegate: departures_child_delegate
+            }
+        }
+    }
+
+    Rectangle {
+        id: scrollToTopButton
+        anchors {
+            margins: units.gu(2)
+            bottom: parent.bottom
+            right: parent.right
+        }
+        width: units.gu(5)
+        height: width
+        radius: width
+        color: "#3949AB"
+        visible: departures_page_flickable.contentY > departures_page.height
+
+        Icon {
+            anchors.fill: parent
+            anchors.margins: units.gu(1)
+            name: "up"
+            color: "#fff"
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                departures_page_flickable.contentY = 0;
             }
         }
     }

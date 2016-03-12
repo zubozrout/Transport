@@ -24,6 +24,12 @@ Page {
         }
     }
 
+    onVisibleChanged: {
+        if(visible) {
+            savedBgColorSwitch.checkForSavedColor();
+        }
+    }
+
     Flickable {
         id: settings_flickable
         anchors.fill: parent
@@ -167,17 +173,21 @@ Page {
                             id: savedBgColorSwitch
                             checked: true
 
-                            Component.onCompleted: {
+                            function checkForSavedColor() {
                                 checked = DB.getSetting("user_color") != null ? true : false;
                                 if(checked) {
-                                    headerColor = DB.getSetting("user_color");
+                                    backgroundColor = DB.getSetting("user_color");
                                 }
+                            }
+
+                            Component.onCompleted: {
+                                checkForSavedColor();
                             }
 
                             onCheckedChanged: {
                                 if(!checked) {
                                     DB.saveSetting("user_color", null);
-                                    headerColor = "transparent";
+                                    backgroundColor = "#fff";
                                 }
                             }
                         }

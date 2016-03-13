@@ -67,7 +67,16 @@ MainView {
 
     Connections {
         target: Connectivity
+
         onOnlineChanged: {
+            connectivityStatus();
+        }
+
+        Component.onCompleted: {
+            connectivityStatus();
+        }
+
+        function connectivityStatus() {
             if(!Connectivity.online){
                 api.abort();
                 offlineMessageBox.state = "OFFLINE";

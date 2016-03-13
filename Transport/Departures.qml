@@ -209,7 +209,7 @@ Page {
                         Layout.fillWidth: true
 
                         Text {
-                            text: (start) ? i18n.tr("From:") : ""
+                            text: (start) ? i18n.tr("From") + ":" : ""
                             wrapMode: Text.WordWrap
                             visible: text != ""
                             Layout.fillWidth: false
@@ -223,7 +223,7 @@ Page {
                         }
 
                         Text {
-                            text: (destination) ? i18n.tr("To:") : ""
+                            text: (destination) ? i18n.tr("To") + ":" : ""
                             wrapMode: Text.WordWrap
                             visible: text != ""
                             Layout.fillWidth: false
@@ -239,7 +239,7 @@ Page {
                     }
 
                     Text {
-                        text: (heading) ? i18n.tr("Via:") + " " + heading : ""
+                        text: (heading) ? i18n.tr("Via") + ":" + " " + heading : ""
                         width: parent.width
                         wrapMode: Text.WordWrap
                         visible: expanded && text != ""

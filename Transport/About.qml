@@ -101,7 +101,7 @@ Page {
 
             Text {
                 width: parent.width
-                text: i18n.tr("This application is based upon an API provided by CHAPS s.r.o. company, info@chaps.cz") + "\n\n" + i18n.tr("You can find the documentation of the API service here http://docs.crws.apiary.io/");
+                text: i18n.tr("This application is based upon an API provided by CHAPS s.r.o. company.") + " info@chaps.cz\n\n" + i18n.tr("You can find the documentation of the API service here http://docs.crws.apiary.io/");
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -115,7 +115,21 @@ Page {
 
             Text {
                 width: parent.width
-                text: i18n.tr("Martin Kozub, @zubozrout")
+                text: i18n.tr("Thank you everyone who helped translating this app.");
+                wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Rectangle {
+                color: "#ddd"
+                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
+                height: 1
+            }
+
+            Text {
+                width: parent.width
+                text: "Martin Kozub, @zubozrout"
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: FontUtils.sizeToPixels("small")

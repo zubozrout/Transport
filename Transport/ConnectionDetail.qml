@@ -273,8 +273,8 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: units.gu(2)
                         Rectangle { id: locator; height: parent.height/2; width: height; radius: height; visible: false; }
-                        Text { text: stationName; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; Layout.fillWidth: true; font.bold: active }
-                        Text { text: stop_time; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignRight; Layout.fillWidth: true; font.bold: active }
+                        Text { text: stationName; height: contentHeight; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; Layout.fillWidth: true; font.bold: active }
+                        Text { text: stop_time; height: contentHeight; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignRight; Layout.fillWidth: true; font.bold: active }
                     }
                 }
             }

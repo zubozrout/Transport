@@ -24,7 +24,7 @@ function urlCommon(userDesc, lang) {
                 lang = "POLISH";
                 break;
             default:
-                lang = "CZECH";
+                lang = "ENGLISH";
                 break;
         }
     }

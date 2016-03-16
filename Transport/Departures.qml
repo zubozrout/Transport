@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Pickers 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItemSelector
 import QtQuick.Layouts 1.1
 import QtQuick.LocalStorage 2.0
 
@@ -13,7 +14,8 @@ Page {
     clip: true
 
     property var starting_station: ""
-    property var destination_colors: [{}]
+    property var destinations: ({})
+    property var lines: []
 
     header: PageHeader {
         id: departures_page_header
@@ -42,12 +44,15 @@ Page {
     }
 
     function renderDepartures(records) {
-        if(typeof records == typeof undefined) {
+        if(typeof records == typeof undefined || records.length == 0) {
             statusMessagelabel.text = i18n.tr("No departures were found for the selected station.");
             statusMessageBox.visible = true;
             pageLayout.removePages(departures_page);
         }
+
         departures_list_model.clear();
+        destinations = {};
+        lines = [];
 
         var start = records["start"];
         for(var i = 0; i < records.length; i++) {
@@ -72,10 +77,16 @@ Page {
             textOutput += "** " + destination + " **\n";
 
             departures_list_model.append({"start":start, "num":num, "type":type, "typeName":typeName, "desc":desc, "dateTime":dateTime, "parsedDateTime":parsedDateTime, "destination":destination, "heading":heading, "lineColor":lineColor, "vehicleIcon":"icons/" + typeNameFromId + ".svg", "textOutput": textOutput});
-            if(!destination_colors.hasOwnProperty(destination)) {
-                destination_colors[destination] = randomColor(0);
+            if(!destinations.hasOwnProperty(destination)) {
+                destinations[destination] = randomColor(0);
+            }
+
+            if(lines.indexOf(num) < 0) {
+                lines.push(num);
             }
         }
+        destinationSelector.model = Object.keys(destinations);
+        lineSelector.model = lines;
     }
 
     function search() {
@@ -95,8 +106,19 @@ Page {
 
         ListItem {
             width: parent.width
-            height: departures_child_delegate_column.height + 2 * departures_child_delegate_column.anchors.margins
+            height: visible ? departures_child_delegate_column.height + 2 * departures_child_delegate_column.anchors.margins : 0
             divider.visible: true
+            visible: {
+                if(filterQuery.checked) {
+                    if(filterSwitch.state == "DESTINATION") {
+                        return destinationSelector.model[destinationSelector.selectedIndex] == destination;
+                    }
+                    if(filterSwitch.state == "LINE") {
+                        return lineSelector.model[lineSelector.selectedIndex] == num;
+                    }
+                }
+                return true;
+            }
 
             property var expanded: false
 
@@ -189,7 +211,7 @@ Page {
                             width: units.gu(4)
                             height: width
                             radius: width
-                            color: departures_page.destination_colors[destination]
+                            color: (typeof departures_page.destinations[destination] !== typeof undefined) ? departures_page.destinations[destination] : "#333"
 
                             Text {
                                 anchors.fill: parent
@@ -254,59 +276,11 @@ Page {
                     }
                 }
 
-                Timer {
-                    interval: 30000
-                    running: true
-                    repeat: true
-                    triggeredOnStart: true
-
-                    onTriggered: {
-                        if(isNaN(time_in.routeStart)) {
-                            repeat = false;
-                            time_in.remaining = " ";
-                            return;
-                        }
-
-                        var now = new Date();
-                        now.setSeconds(0,0);
-                        var diff = Math.round((time_in.routeStart - now) / 60000);
-                        if(diff <= 1440) {
-                            if(diff < 0) {
-                                time_in.remaining = i18n.tr("departed");
-                                time_in.color = "#B71C1C";
-                                repeat = false;
-                                return;
-                            }
-                            else {
-                                var minutes = diff;
-                                var hours = 0;
-                                if(diff > 59) {
-                                    hours = Math.floor(minutes/60);
-                                    minutes = diff - hours*60;
-                                }
-
-                                if(hours > 0) {
-                                    time_in.remaining = i18n.tr("in %1 hour", "in %1 hours", hours).arg(hours);
-                                    if(minutes > 0) {
-                                        time_in.remaining += " " + i18n.tr("and %1 minute", "and %1 minutes", minutes).arg(minutes);
-                                    }
-                                }
-                                else {
-                                    if(minutes == 0) {
-                                        time_in.remaining = i18n.tr("just now");
-                                    }
-                                    else {
-                                        time_in.remaining = i18n.tr("in %1 minute", "in %1 minutes", minutes).arg(minutes);
-                                    }
-                                }
-                                time_in.color = "#33691E";
-                            }
-                        }
-                        else {
-                            time_in.remaining = Engine.dateToReadableFormat(connection_info.routeStart) + " → " + Engine.dateToReadableFormat(connection_info.routeEnd);
-                            return;
-                        }
-                    }
+                DepartureTimer {
+                    property alias routeStart: time_in.routeStart
+                    property alias startTime: time_in.routeStart
+                    property alias remainingTime: time_in.remaining
+                    property alias timeColor: time_in.color
                 }
             }
         }
@@ -318,7 +292,7 @@ Page {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: departures_page_header.bottom
-        contentHeight: departures_column.implicitHeight + 2 * departures_column.anchors.margins + scrollToTopButton.height
+        contentHeight: departures_column.implicitHeight + 2 * departures_column.anchors.margins
         contentWidth: parent.width
 
         Column {
@@ -341,6 +315,7 @@ Page {
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: units.gu(2)
+
                     Switch {
                         id: nowSwitch
                         checked: true
@@ -383,11 +358,24 @@ Page {
                                         var month = dateButton.date.getMonth() + 1;
                                         var year = dateButton.date.getFullYear();
 
-                                        return departure_label.text + " " + i18n.tr("at") + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
+                                        return i18n.tr("Departure at") + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
                                     }
                                 }
                             }
                         ]
+                    }
+
+                    CheckBox {
+                        id: filterQuery
+                        checked: false
+                        Layout.fillWidth: false
+                    }
+
+                    Label {
+                        id: filterQuertLabel
+                        text: i18n.tr("Filter results")
+                        Layout.fillWidth: false
+                        wrapMode: Text.WordWrap
                     }
                 }
             }
@@ -462,6 +450,69 @@ Page {
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 1
+                visible: filterQuery.checked
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: units.gu(2)
+                visible: filterQuery.checked
+
+                Switch {
+                    id: filterSwitch
+                    checked: true
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    state: "LINE"
+                    states: [
+                        State {
+                            name: "LINE"
+                            PropertyChanges { target: filterLabel; text: i18n.tr("Filter by line") }
+                        },
+                        State {
+                            name: "DESTINATION"
+                            PropertyChanges { target: filterLabel; text: i18n.tr("Filter by destination") }
+                        }
+                    ]
+
+                    onCheckedChanged: {
+                        if(checked) {
+                            state = "LINE";
+                        }
+                        else {
+                            state = "DESTINATION";
+                        }
+                    }
+                }
+
+                Label {
+                    id: filterLabel
+                    Layout.fillWidth: true
+                    wrapMode: Text.WordWrap
+                }
+            }
+
+            ListItemSelector.ItemSelector {
+                id: destinationSelector
+                containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
+                expanded: false
+                model: []
+                visible: model.length > 0 && filterQuery.checked && filterSwitch.state == "DESTINATION"
+            }
+
+            ListItemSelector.ItemSelector {
+                id: lineSelector
+                containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
+                expanded: false
+                model: []
+                visible: model.length > 0 && filterQuery.checked && filterSwitch.state == "LINE"
+            }
+
+            Rectangle {
+                color: "#ddd"
+                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
+                height: 1
             }
 
             ListView {
@@ -482,14 +533,15 @@ Page {
     Rectangle {
         id: scrollToTopButton
         anchors {
-            margins: units.gu(2)
-            bottom: parent.bottom
-            right: parent.right
+            margins: units.gu(3)
+            top: departures_page_flickable.top
+            right: departures_page_flickable.right
         }
-        width: units.gu(5)
+        width: units.gu(6)
         height: width
         radius: width
-        color: "#3949AB"
+        color: "#333"
+        opacity: 0.85
         visible: departures_page_flickable.contentY > departures_page.height
 
         Icon {

@@ -216,7 +216,7 @@ Page {
                     Dialog {
                         id: confirm_clearcache_dialogue
                         title: i18n.tr("Attention")
-                        text: i18n.tr("Do you really want to clear all appliacation data?")
+                        text: i18n.tr("Do you really want to clear all application data?")
                         Button {
                             text: i18n.tr("No")
                             onClicked: PopupUtils.close(confirm_clearcache_dialogue)

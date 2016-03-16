@@ -121,7 +121,7 @@ MainView {
             },
             State {
                 name: "OFFLINE"
-                PropertyChanges { target: offlineMessageBox; height: childrenRect.height * 2}
+                PropertyChanges { target: offlineMessageBox; height: offlineMessageBoxText.contentHeight * 2}
                 PropertyChanges { target: offlineMessageBox; visible: true}
             }
         ]
@@ -454,12 +454,12 @@ MainView {
                                                     if(parseInt(minutes) < 10) {
                                                         minutes = "0" + minutes;
                                                     }
-
                                                     var date = datePicker.date.getDate();
                                                     var month = datePicker.date.getMonth() + 1;
                                                     var year = datePicker.date.getFullYear();
 
-                                                    return departure_label.text + " " + i18n.tr("at") + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
+                                                    var begginingStarting = departure_label.state == "DEPARTURE" ? i18n.tr("Departure at") : i18n.tr("Arrival at");
+                                                    return begginingStarting + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
                                                 }
                                             }
                                         }

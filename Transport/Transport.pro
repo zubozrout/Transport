@@ -71,4 +71,4 @@ DISTFILES += \
     icons/trol.svg \
     icons/air.svg \
     icons/taxi.svg \
-    icons/stop.svg
+    icons/stop.svg \

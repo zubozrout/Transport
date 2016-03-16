@@ -251,59 +251,12 @@ Page {
                         }
                     }
 
-                    Timer {
-                        interval: 30000
-                        running: true
-                        repeat: true
-                        triggeredOnStart: true
-
-                        onTriggered: {
-                            if(isNaN(time_in.routeStart)) {
-                                repeat = false;
-                                time_in.remaining = " ";
-                                return;
-                            }
-
-                            var now = new Date();
-                            now.setSeconds(0,0);
-                            var diff = Math.round((time_in.routeStart - now) / 60000);
-                            if(diff <= 1440) {
-                                if(diff < 0) {
-                                    time_in.remaining = i18n.tr("departed");
-                                    time_in.color = "#B71C1C";
-                                    repeat = false;
-                                    return;
-                                }
-                                else {
-                                    var minutes = diff;
-                                    var hours = 0;
-                                    if(diff > 59) {
-                                        hours = Math.floor(minutes/60);
-                                        minutes = diff - hours*60;
-                                    }
-
-                                    if(hours > 0) {
-                                        time_in.remaining = i18n.tr("in %1 hour", "in %1 hours", hours).arg(hours);
-                                        if(minutes > 0) {
-                                            time_in.remaining += " " + i18n.tr("and %1 minute", "and %1 minutes", minutes).arg(minutes);
-                                        }
-                                    }
-                                    else {
-                                        if(minutes == 0) {
-                                            time_in.remaining = i18n.tr("just now");
-                                        }
-                                        else {
-                                            time_in.remaining = i18n.tr("in %1 minute", "in %1 minutes", minutes).arg(minutes);
-                                        }
-                                    }
-                                    time_in.color = "#33691E";
-                                }
-                            }
-                            else {
-                                time_in.remaining = Engine.dateToReadableFormat(connection_info.routeStart) + " → " + Engine.dateToReadableFormat(connection_info.routeEnd);
-                                return;
-                            }
-                        }
+                    DepartureTimer {
+                        property alias routeStart: connection_info.routeStart
+                        property alias routeEnd: connection_info.routeEnd
+                        property alias startTime: time_in.routeStart
+                        property alias remainingTime: time_in.remaining
+                        property alias timeColor: time_in.color
                     }
                 }
 

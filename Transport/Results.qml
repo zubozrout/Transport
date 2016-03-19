@@ -22,12 +22,12 @@ Page {
                 Action {
                     iconName: "go-next"
                     text: i18n.tr("Next")
-                    onTriggered: search_page.search("next");
+                    onTriggered: search_page.search("next")
                 },
                 Action {
                     iconName: "go-previous"
                     text: i18n.tr("Previous")
-                    onTriggered: search_page.search("previous");
+                    onTriggered: search_page.search("previous")
                 }
             ]
         }
@@ -39,7 +39,7 @@ Page {
     }
 
     function clear() {
-        response = [];
+        response = {};
         connections_list_model.clear();
     }
 

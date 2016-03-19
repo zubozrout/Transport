@@ -470,6 +470,7 @@ MainView {
                             RowLayout {
                                 Layout.fillWidth: false
                                 spacing: units.gu(2)
+
                                 Switch {
                                     id: departure_switch
                                     checked: true

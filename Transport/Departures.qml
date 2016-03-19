@@ -21,6 +21,24 @@ Page {
         id: departures_page_header
         title: i18n.tr("Station departures")
 
+        trailingActionBar {
+            actions: [
+                Action {
+                    iconName: departures_search.visible ? "go-up" : "go-down"
+                    text: i18n.tr("Search")
+                    visible: departures_list_model.count == 0 ? false : true
+                    onTriggered: departures_search.visible = !departures_search.visible
+                },
+                Action {
+                    iconName: "filters"
+                    text: i18n.tr("Filter results")
+                    enabled: departures_list_model.count == 0 ? false : true
+                    visible: enabled
+                    onTriggered: departures_filter.visible = !departures_filter.visible
+                }
+            ]
+        }
+
         StyleHints {
             foregroundColor: "#fff"
             backgroundColor: "#3949AB"
@@ -47,12 +65,14 @@ Page {
         if(typeof records == typeof undefined || records.length == 0) {
             statusMessagelabel.text = i18n.tr("No departures were found for the selected station.");
             statusMessageBox.visible = true;
-            pageLayout.removePages(departures_page);
+            departures_search_column.visible = true;
+            return;
         }
 
         departures_list_model.clear();
         destinations = {};
         lines = [];
+        departures_search.visible = false;
 
         var start = records["start"];
         for(var i = 0; i < records.length; i++) {
@@ -109,7 +129,7 @@ Page {
             height: visible ? departures_child_delegate_column.height + 2 * departures_child_delegate_column.anchors.margins : 0
             divider.visible: true
             visible: {
-                if(filterQuery.checked) {
+                if(departures_filter.visible) {
                     if(filterSwitch.state == "DESTINATION") {
                         return destinationSelector.model[destinationSelector.selectedIndex] == destination;
                     }
@@ -292,220 +312,235 @@ Page {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: departures_page_header.bottom
-        contentHeight: departures_column.implicitHeight + 2 * departures_column.anchors.margins
+        contentHeight: departures_column.implicitHeight
         contentWidth: parent.width
 
         Column {
             id: departures_column
-            anchors {
-                fill: parent
-                margins: units.gu(2)
-            }
-            spacing: units.gu(2)
+            anchors.fill: parent
 
-            StationQuery {
-                id: stations
-                property string placeholder: i18n.tr("Station")
-            }
-
-            RowLayout {
+            Rectangle {
+                id: departures_search
                 width: parent.width
-                spacing: units.gu(2)
+                height: departures_search_column.implicitHeight + 2 * departures_search_column.anchors.margins
+                color: "transparent"
+                visible: true
 
-                RowLayout {
-                    Layout.fillWidth: true
+                onVisibleChanged: {
+                    if(visible) {
+                        departures_page_flickable.contentY = 0;
+                    }
+                }
+
+                Column {
+                    id: departures_search_column
+                    anchors.fill: parent
+                    anchors.margins: units.gu(2)
                     spacing: units.gu(2)
 
-                    Switch {
-                        id: nowSwitch
-                        checked: true
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        onCheckedChanged: {
-                            if(checked) {
-                                nowLabel.state = "NOW";
-                                time_date_picker.visible = false;
-                            }
-                            else {
-                                nowLabel.state = "CUSTOM";
-                                time_date_picker.visible = true;
-                            }
-                        }
+                    StationQuery {
+                        id: stations
+                        property string placeholder: i18n.tr("Station")
                     }
 
-                    Label {
-                        id: nowLabel
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
-                        state: "NOW"
-                        states: [
-                            State {
-                                name: "NOW"
-                                PropertyChanges { target: nowLabel; text: i18n.tr("Now") }
-                            },
-                            State {
-                                name: "CUSTOM"
-                                PropertyChanges {
-                                    target: nowLabel
-                                    text: {
-                                        var hours = timeButton.date.getHours();
-                                        var minutes = timeButton.date.getMinutes();
-                                        if(parseInt(minutes) < 10) {
-                                            minutes = "0" + minutes;
-                                        }
+                    RowLayout {
+                        width: parent.width
+                        spacing: units.gu(2)
 
-                                        var date = dateButton.date.getDate();
-                                        var month = dateButton.date.getMonth() + 1;
-                                        var year = dateButton.date.getFullYear();
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: units.gu(2)
 
-                                        return i18n.tr("Departure at") + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
+                            Switch {
+                                id: nowSwitch
+                                checked: true
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                onCheckedChanged: {
+                                    if(checked) {
+                                        nowLabel.state = "NOW";
+                                        time_date_picker.visible = false;
+                                    }
+                                    else {
+                                        nowLabel.state = "CUSTOM";
+                                        time_date_picker.visible = true;
                                     }
                                 }
                             }
+
+                            Label {
+                                id: nowLabel
+                                Layout.fillWidth: true
+                                wrapMode: Text.WordWrap
+                                state: "NOW"
+                                states: [
+                                    State {
+                                        name: "NOW"
+                                        PropertyChanges { target: nowLabel; text: i18n.tr("Now") }
+                                    },
+                                    State {
+                                        name: "CUSTOM"
+                                        PropertyChanges {
+                                            target: nowLabel
+                                            text: {
+                                                var hours = timeButton.date.getHours();
+                                                var minutes = timeButton.date.getMinutes();
+                                                if(parseInt(minutes) < 10) {
+                                                    minutes = "0" + minutes;
+                                                }
+
+                                                var date = dateButton.date.getDate();
+                                                var month = dateButton.date.getMonth() + 1;
+                                                var year = dateButton.date.getFullYear();
+
+                                                return i18n.tr("Departure at") + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+
+                    Column {
+                        id: time_date_picker
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: units.gu(2)
+                        visible: false
+
+                        RowLayout {
+                            height: childrenRect.height
+                            Layout.fillWidth: true
+                            spacing: units.gu(2)
+
+                            Button {
+                                id: timeButton
+                                text: i18n.tr("Change time")
+                                property date date: new Date()
+                                onClicked: PickerPanel.openDatePicker(timeButton, "date", "Hours|Minutes");
+                            }
+
+                            Button {
+                                id: dateButton
+                                text: i18n.tr("Change date")
+                                property date date: new Date()
+                                onClicked: PickerPanel.openDatePicker(dateButton, "date", "Years|Months|Days");
+                            }
+                        }
+                    }
+
+                    Button {
+                        id: search
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: i18n.tr("Search")
+                        focus: true
+                        color: "#3949AB"
+
+                        onClicked: {
+                            departures_page.search();
+                        }
+
+                        state: (stations.text == "") ? "DISABLED" : (api.running ? "ACTIVE" : "ENABLED")
+
+                        states: [
+                            State {
+                                name: "ENABLED"
+                                PropertyChanges { target: search; enabled: true }
+                                PropertyChanges { target: search; color: "#3949AB" }
+                            },
+                            State {
+                                name: "DISABLED"
+                                PropertyChanges { target: search; enabled: false }
+                                PropertyChanges { target: search; color: UbuntuColors.coolGrey }
+                            },
+                            State {
+                                name: "ACTIVE"
+                                PropertyChanges { target: search; enabled: false }
+                                PropertyChanges { target: search; color: UbuntuColors.warmGrey }
+                            }
                         ]
-                    }
 
-                    CheckBox {
-                        id: filterQuery
-                        checked: false
-                        Layout.fillWidth: false
-                    }
-
-                    Label {
-                        id: filterQuertLabel
-                        text: i18n.tr("Filter results")
-                        Layout.fillWidth: false
-                        wrapMode: Text.WordWrap
+                        ActivityIndicator {
+                            id: searchActivity
+                            anchors.fill: parent
+                            running: api.running
+                        }
                     }
                 }
             }
-
-            Column {
-                id: time_date_picker
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: units.gu(2)
+            Rectangle {
+                id: departures_filter
+                width: parent.width
+                height: departures_filter_column.implicitHeight + 2 * departures_filter_column.anchors.margins
+                color: "transparent"
                 visible: false
 
-                RowLayout {
-                    height: childrenRect.height
-                    Layout.fillWidth: true
+                onVisibleChanged: {
+                    if(visible) {
+                        departures_page_flickable.contentY = 0;
+                    }
+                }
+
+                Column {
+                    id: departures_filter_column
+                    anchors.fill: parent
+                    anchors.margins: units.gu(2)
                     spacing: units.gu(2)
 
-                    Button {
-                        id: timeButton
-                        text: i18n.tr("Change time")
-                        property date date: new Date()
-                        onClicked: PickerPanel.openDatePicker(timeButton, "date", "Hours|Minutes");
-                    }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: units.gu(2)
 
-                    Button {
-                        id: dateButton
-                        text: i18n.tr("Change date")
-                        property date date: new Date()
-                        onClicked: PickerPanel.openDatePicker(dateButton, "date", "Years|Months|Days");
-                    }
-                }
-            }
+                        Switch {
+                            id: filterSwitch
+                            checked: true
+                            anchors.verticalCenter: parent.verticalCenter
 
-            Button {
-                id: search
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: i18n.tr("Search")
-                focus: true
-                color: "#3949AB"
+                            state: "LINE"
+                            states: [
+                                State {
+                                    name: "LINE"
+                                    PropertyChanges { target: filterLabel; text: i18n.tr("Filter by line") }
+                                },
+                                State {
+                                    name: "DESTINATION"
+                                    PropertyChanges { target: filterLabel; text: i18n.tr("Filter by destination") }
+                                }
+                            ]
 
-                onClicked: {
-                    departures_page.search();
-                }
-
-                state: (stations.text == "") ? "DISABLED" : (api.running ? "ACTIVE" : "ENABLED")
-
-                states: [
-                    State {
-                        name: "ENABLED"
-                        PropertyChanges { target: search; enabled: true }
-                        PropertyChanges { target: search; color: "#3949AB" }
-                    },
-                    State {
-                        name: "DISABLED"
-                        PropertyChanges { target: search; enabled: false }
-                        PropertyChanges { target: search; color: UbuntuColors.coolGrey }
-                    },
-                    State {
-                        name: "ACTIVE"
-                        PropertyChanges { target: search; enabled: false }
-                        PropertyChanges { target: search; color: UbuntuColors.warmGrey }
-                    }
-                ]
-
-                ActivityIndicator {
-                    id: searchActivity
-                    anchors.fill: parent
-                    running: api.running
-                }
-            }
-
-            Rectangle {
-                color: "#ddd"
-                width: parent.width
-                anchors.horizontalCenter: parent.horizontalCenter
-                height: 1
-                visible: filterQuery.checked
-            }
-
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: units.gu(2)
-                visible: filterQuery.checked
-
-                Switch {
-                    id: filterSwitch
-                    checked: true
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    state: "LINE"
-                    states: [
-                        State {
-                            name: "LINE"
-                            PropertyChanges { target: filterLabel; text: i18n.tr("Filter by line") }
-                        },
-                        State {
-                            name: "DESTINATION"
-                            PropertyChanges { target: filterLabel; text: i18n.tr("Filter by destination") }
+                            onCheckedChanged: {
+                                if(checked) {
+                                    state = "LINE";
+                                }
+                                else {
+                                    state = "DESTINATION";
+                                }
+                            }
                         }
-                    ]
 
-                    onCheckedChanged: {
-                        if(checked) {
-                            state = "LINE";
-                        }
-                        else {
-                            state = "DESTINATION";
+                        Label {
+                            id: filterLabel
+                            Layout.fillWidth: true
+                            wrapMode: Text.WordWrap
                         }
                     }
+
+                    ListItemSelector.ItemSelector {
+                        id: destinationSelector
+                        containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
+                        expanded: false
+                        model: []
+                        visible: model.length > 0 && filterSwitch.state == "DESTINATION"
+                    }
+
+                    ListItemSelector.ItemSelector {
+                        id: lineSelector
+                        containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
+                        expanded: false
+                        model: []
+                        visible: model.length > 0 && filterSwitch.state == "LINE"
+                    }
                 }
-
-                Label {
-                    id: filterLabel
-                    Layout.fillWidth: true
-                    wrapMode: Text.WordWrap
-                }
-            }
-
-            ListItemSelector.ItemSelector {
-                id: destinationSelector
-                containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
-                expanded: false
-                model: []
-                visible: model.length > 0 && filterQuery.checked && filterSwitch.state == "DESTINATION"
-            }
-
-            ListItemSelector.ItemSelector {
-                id: lineSelector
-                containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
-                expanded: false
-                model: []
-                visible: model.length > 0 && filterQuery.checked && filterSwitch.state == "LINE"
             }
 
             Rectangle {

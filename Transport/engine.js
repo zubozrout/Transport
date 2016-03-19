@@ -134,13 +134,17 @@ function parseConnections(response_string) {
     if(!response_string) {
         return;
     }
-    var obj = JSON.parse(response_string);
-    var local_handle = Engine.parseAPI(obj, "handle");
+    var obj = checkForError(JSON.parse(response_string));
+    if(obj == "ERROR") {
+        return obj;
+    }
+
+    var local_handle = parseAPI(obj, "handle");
     if(typeof local_handle !== typeof undefined && local_handle) {
         handle = local_handle;
         return obj;
     }
-    if(Engine.parseAPI(obj, "connections").length > 0) {
+    if(parseAPI(obj, "connections").length > 0) {
         return obj;
     }
     return response_string;
@@ -160,7 +164,7 @@ function parseConnectionDetail(response_string) {
     if(!response_string) {
         return;
     }
-    return JSON.parse(response_string);
+    return checkForError(JSON.parse(response_string));
 }
 
 /*
@@ -185,7 +189,11 @@ function parseDepartures(response_string) {
     if(!response_string) {
         return;
     }
-    var obj = JSON.parse(response_string);
+    var obj = checkForError(JSON.parse(response_string));
+    if(obj == "ERROR") {
+        return obj;
+    }
+
     var records = parseAPI(obj, "records");
     if(records) {
         records.start = parseAPI(obj, "fromObjectsName");
@@ -244,27 +252,34 @@ function fill_from(response, city, text, model, DBstops) {
 }
 
 function showConnectionsFB(response) {
-    result_page.clear();
-    if(response) {
+    response = checkForError(response);
+    if(response == "ERROR") {
+        pageLayout.removePages(search_page);
+        return response;
+    }
+    else {
         var connections = Engine.parseAPI(response, "connections");
-        if(connections !== Object(connections)) {
+        if(connections.length <= 0) {
             statusMessagelabel.text = i18n.tr("Could not load next connection results.");
             statusMessageErrorlabel.text = "\n\n" + connections;
             statusMessageBox.visible = true;
             return;
         }
+        result_page.clear();
         result_page.response = response;
         result_page.render(connections);
-    }
-    else {
-        pageLayout.removePages(search_page);
     }
 }
 
 function showConnections(response) {
-    if(response) {
+    response = checkForError(response);
+    if(response == "ERROR") {
+        pageLayout.removePages(search_page);
+        return response;
+    }
+    else {
         var connections = Engine.parseAPI(response, "connections");
-        if(connections !== Object(connections)) {
+        if(connections.length <= 0) {
             statusMessagelabel.text = i18n.tr("No results matching input parameters were found.");
             statusMessageErrorlabel.text = "\n\n" + connections;
             statusMessageBox.visible = true;
@@ -274,9 +289,6 @@ function showConnections(response) {
         result_page.response = response;
         result_page.render(connections);
         pageLayout.addPageToNextColumn(search_page, result_page);
-    }
-    else {
-        pageLayout.removePages(search_page);
     }
 }
 
@@ -451,13 +463,32 @@ function parseDeparturesAPI(records, value) {
     }
 }
 
-function parseAPI(response, value) {
+function checkForError(response) {
     if(typeof response === typeof undefined) {
-        return null;
+        return "ERROR";
     }
-    if(response !== Object(response)) {
+
+    if(Object(response) != response) {
+        return "ERROR";
+    }
+
+    if(typeof response.exceptionCode !== typeof undefined) {
+        statusMessagelabel.text = i18n.tr("An error occured");
+        statusMessageErrorlabel.text = "exceptionCode: " + response.exceptionCode + "\n";
+        statusMessageErrorlabel.text += "exceptionEnum: " + response.exceptionEnum + "\n";
+        statusMessageErrorlabel.text += "exceptionMessage: " + response.exceptionMessage + "\n";
+        statusMessageBox.visible = true;
+        return "ERROR";
+    }
+    return response;
+}
+
+function parseAPI(response, value) {
+    response = checkForError(response);
+    if(response == "ERROR") {
         return response;
     }
+
     switch(value) {
         case "combId":
             return response["combId"];

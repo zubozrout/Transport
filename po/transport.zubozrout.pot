@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 14:27+0100\n"
+"POT-Creation-Date: 2016-03-28 21:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:13
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:185
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:186
 msgid "About"
 msgstr ""
 
@@ -28,8 +28,8 @@ msgid "Main branch version:"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:173
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:174
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""
 
@@ -98,8 +98,8 @@ msgid "Station departures"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:28
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:435
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:550
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:436
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:552
 msgid "Search"
 msgstr ""
 
@@ -112,47 +112,47 @@ msgid "No departures were found for the selected station."
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:254
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:319
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:321
 msgid "From"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:268
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:336
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:338
 msgid "To"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:284
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:380
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:382
 msgid "Via"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:343
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:344
 msgid "Station"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:379
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:445
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:380
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:447
 msgid "Now"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:396
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:461
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:397
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:463
 msgid "Departure at"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:418
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:419
 msgid "Change time"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:425
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:426
 msgid "Change date"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:503
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:504
 msgid "Filter by line"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:507
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:508
 msgid "Filter by destination"
 msgstr ""
 
@@ -192,45 +192,45 @@ msgid_plural "in %1 minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:135
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:136
 msgid "You're now offline"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:180
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:181
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:18
 msgid "Settings"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:191
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:192
 msgid "Departures"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:196
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:197
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:18
 msgid "Connection results"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:352
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:354
 msgid "Advanced options"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:389
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:391
 msgid "Only direct connections"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:461
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:463
 msgid "Arrival at"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:498
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:500
 msgid "Departure"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:502
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:504
 msgid "Arrival"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:620
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:622
 msgid "Does the search take too long? You can stop it by clicking here."
 msgstr ""
 
@@ -238,47 +238,47 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:29
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:30
 msgid "Previous"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:50
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:51
 msgid "Count of fetched connections per page"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:86
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:87
 msgid "Display all line stops in the connection detail?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:112
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:113
 msgid "Download and refresh all transport options on each application start?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:141
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:142
 msgid "Refresh transport options"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:164
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:165
 msgid "Keep background color saved"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:210
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:211
 msgid "Clear cache"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:218
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
 msgid "Attention"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:220
 msgid "Do you really want to clear all application data?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:221
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:222
 msgid "No"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:225
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:226
 msgid "Yes"
 msgstr ""
 

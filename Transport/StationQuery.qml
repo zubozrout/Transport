@@ -6,7 +6,7 @@ Item {
     width: parent.width
     height: childrenRect.height
 
-    property string text: ""
+    property string text: stationInput.text
     property string displayText: ""
     property var stationInputListView: stationInput_list_view
     property var stationInputModel: stationInput_list_model
@@ -28,9 +28,6 @@ Item {
             onDisplayTextChanged: {
                 stationQuery.displayText = displayText;
                 stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
-            }
-            onTextChanged: {
-                stationQuery.text = text;
             }
 
             onFocusChanged: {
@@ -73,7 +70,7 @@ Item {
                             if(name != "") {
                                 Qt.inputMethod.commit();
                                 stationInput_list_view.currentIndex = index;
-                                stationInput.text = name;
+                                stationQuery.text = name;
                                 stationInput.focus = false;
                             }
                         }
@@ -89,6 +86,7 @@ Item {
                 highlight: Rectangle { color: "#9FA8DA" }
                 onCurrentIndexChanged: checkClear(stationInput, stationInput_list_view, model)
                 property var lastSelected: null
+                clip: true
             }
         }
     }

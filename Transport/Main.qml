@@ -89,11 +89,12 @@ MainView {
 
     Api {
         id: api
-        property var callback: null;
+        property var callback: null
 
         onResponseChanged: {
             if(callback && response) {
                 callback(response);
+                callback = null;
             }
         }
 
@@ -268,6 +269,7 @@ MainView {
                 anchors.fill: parent
                 contentHeight: search_column.implicitHeight + 2 * search_column.anchors.margins
                 contentWidth: parent.width
+                clip: true
 
                 Column {
                     id: search_column
@@ -705,6 +707,7 @@ MainView {
             anchors.margins: units.gu(2)
             contentWidth: width
             contentHeight: statusMessageColumn.height
+            clip: true
 
             Column {
                 id: statusMessageColumn
@@ -764,7 +767,7 @@ MainView {
                         Clipboard.push(statusMessageErrorlabel.text);
                         statusMessageBox.visible = false;
                     }
-                    visible: statusMessageErrorlabel.text != "" ? true : false
+                    visible: /^\s+$/.test(statusMessageErrorlabel.text) ? false : true
                 }
             }
         }

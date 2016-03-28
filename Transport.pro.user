@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.5.1, 2016-03-17T11:41:40. -->
+<!-- Written by QtCreator 3.5.1, 2016-03-28T21:36:47. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -399,14 +399,18 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">UbuntuProjectManager.UploadStep</value>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles">
-       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.7.8_armhf.click</value>
-       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.7.5.2_armhf.click</value>
-       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.8_armhf.click</value>
-       <value type="QString">/usr/share/qtcreator/ubuntu/scripts/qtc_device_applaunch.py</value>
-       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.7.6_armhf.click</value>
        <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.7.5.3_armhf.click</value>
+       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.7.5.2_armhf.click</value>
+       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.8.5.2_armhf.click</value>
+       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.8_armhf.click</value>
+       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.7.8_armhf.click</value>
+       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.7.6_armhf.click</value>
+       <value type="QString">/usr/share/qtcreator/ubuntu/scripts/qtc_device_applaunch.py</value>
+       <value type="QString">/home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/transport.zubozrout_0.8.5.1_armhf.click</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
+       <value type="QString">127.0.0.1</value>
+       <value type="QString">127.0.0.1</value>
        <value type="QString">127.0.0.1</value>
        <value type="QString">127.0.0.1</value>
        <value type="QString">127.0.0.1</value>
@@ -421,6 +425,8 @@
        <value type="QString">/tmp</value>
        <value type="QString">/tmp</value>
        <value type="QString">/tmp</value>
+       <value type="QString">/tmp</value>
+       <value type="QString">/tmp</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedSysroots">
        <value type="QString">/var/lib/schroot/chroots/click-ubuntu-sdk-15.04-armhf</value>
@@ -429,14 +435,18 @@
        <value type="QString">/var/lib/schroot/chroots/click-ubuntu-sdk-15.04-armhf</value>
        <value type="QString">/var/lib/schroot/chroots/click-ubuntu-sdk-15.04-armhf</value>
        <value type="QString">/var/lib/schroot/chroots/click-ubuntu-sdk-15.04-armhf</value>
+       <value type="QString">/var/lib/schroot/chroots/click-ubuntu-sdk-15.04-armhf</value>
+       <value type="QString">/var/lib/schroot/chroots/click-ubuntu-sdk-15.04-armhf</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
-       <value type="QDateTime">2016-03-09T22:15:09</value>
-       <value type="QDateTime">2016-03-08T01:13:40</value>
-       <value type="QDateTime">2016-03-12T11:08:36</value>
-       <value type="QDateTime">2016-03-12T11:08:36</value>
-       <value type="QDateTime">2016-03-08T21:23:58</value>
        <value type="QDateTime">2016-03-08T19:48:07</value>
+       <value type="QDateTime">2016-03-08T01:13:40</value>
+       <value type="QDateTime">2016-03-28T21:08:27</value>
+       <value type="QDateTime">2016-03-12T11:08:36</value>
+       <value type="QDateTime">2016-03-09T22:15:09</value>
+       <value type="QDateTime">2016-03-08T21:23:58</value>
+       <value type="QDateTime">2016-03-28T21:08:27</value>
+       <value type="QDateTime">2016-03-28T20:49:46</value>
       </valuelist>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>

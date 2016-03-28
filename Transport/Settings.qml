@@ -35,6 +35,7 @@ Page {
         anchors.fill: parent
         contentHeight: settings_page_column.childrenRect.height + 2*settings_page_column.anchors.margins
         contentWidth: parent.width
+        clip: true
 
         Column {
             id: settings_page_column

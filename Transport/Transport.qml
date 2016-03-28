@@ -95,6 +95,7 @@ Page {
         anchors.bottom: parent.bottom
         anchors.top: trasport_selector_page_header.bottom
         containerHeight: height
+        clip: true
 
         property var model_context: []
         property var userSelection: -1

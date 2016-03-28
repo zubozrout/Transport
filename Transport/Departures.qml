@@ -314,6 +314,7 @@ Page {
         anchors.top: departures_page_header.bottom
         contentHeight: departures_column.implicitHeight
         contentWidth: parent.width
+        clip: true
 
         Column {
             id: departures_column

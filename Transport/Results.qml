@@ -23,11 +23,13 @@ Page {
                     iconName: "go-next"
                     text: i18n.tr("Next")
                     onTriggered: search_page.search("next")
+                    enabled: !api.running
                 },
                 Action {
                     iconName: "go-previous"
                     text: i18n.tr("Previous")
                     onTriggered: search_page.search("previous")
+                    enabled: !api.running
                 }
             ]
         }
@@ -279,6 +281,7 @@ Page {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: result_page_header.bottom
+        clip: true
 
         model: ListModel {
             id: connections_list_model

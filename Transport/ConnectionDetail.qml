@@ -310,10 +310,10 @@ Page {
     Flickable {
         id: connection_detail_flickable
         anchors.fill: parent
-
         contentHeight: connection_detail_view_column.childrenRect.height + 2*connection_detail_view_column.anchors.margins
         contentWidth: parent.width
         visible: connection_detail.current_id != null
+        clip: true
 
         Column {
             id: connection_detail_view_column

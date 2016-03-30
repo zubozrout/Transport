@@ -70,7 +70,7 @@ Item {
                             if(name != "") {
                                 Qt.inputMethod.commit();
                                 stationInput_list_view.currentIndex = index;
-                                stationQuery.text = name;
+                                stationInput.text = name;
                                 stationInput.focus = false;
                             }
                         }

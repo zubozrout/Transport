@@ -26,7 +26,7 @@ Item {
             placeholderText: stationQuery.placeholder
             hasClearButton: true
             onDisplayTextChanged: {
-                stationQuery.displayText = displayText;
+                stationQuery.text = displayText;
                 stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
             }
 

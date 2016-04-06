@@ -37,7 +37,7 @@ MainView {
 
     // Common functions:
     function saveStationToDb(textfield, listview, model) {
-        if(listview.lastSelected && listview.lastSelected == textfield.displayText) {
+        if(listview.lastSelected && listview.lastSelected == textfield.text) {
             DB.appendNewStop(trasport_selector_page.selectedItem, listview.lastSelected);
         }
     }
@@ -47,7 +47,7 @@ MainView {
             model = textfield.stationInputModel;
         }
 
-        if(listview.currentIndex >= 0 && typeof model.get(listview.currentIndex) !== typeof undefined && model.get(listview.currentIndex).name == textfield.displayText) {
+        if(listview.currentIndex >= 0 && typeof model.get(listview.currentIndex) !== typeof undefined && model.get(listview.currentIndex).name == textfield.text) {
             api.abort();
             listview.lastSelected = model.get(listview.currentIndex).name;
             model.clear();
@@ -56,11 +56,11 @@ MainView {
 
     function stationInputChanged(textfield, listview, model) {
         search.resetState();
-        if(textfield.focus && textfield.displayText != listview.lastSelected) {
+        if(textfield.focus && textfield.text != listview.lastSelected) {
             if(!model) {
                 model = textfield.stationInputModel;
             }
-            Engine.complete(trasport_selector_page.selectedItem, textfield.displayText, model);
+            Engine.complete(trasport_selector_page.selectedItem, textfield.text, model);
             checkClear(textfield, listview, model);
         }
     }
@@ -210,7 +210,7 @@ MainView {
             }
 
             function search(state) {
-                if(!from.displayText || !to.displayText) {
+                if(!from.text || !to.text) {
                     return;
                 }
                 api.abort();
@@ -244,16 +244,16 @@ MainView {
                 }
 
                 var departure_final = (departure_label.state == "DEPARTURE");
-                var via_final = advanced_switch.checked ? via.displayText : "";
+                var via_final = advanced_switch.checked ? via.text : "";
                 var allowChange_final = advanced_switch.checked ? !direct_checkbox.checked : true;
-                Engine.getConnections(options, date_time, departure_final, from.displayText, to.displayText, via_final, allowChange_final, count, Engine.showConnections);
+                Engine.getConnections(options, date_time, departure_final, from.text, to.text, via_final, allowChange_final, count, Engine.showConnections);
 
                 // DB save selected values:
-                DB.saveSetting("from" + options, from.displayText);
-                DB.saveSetting("to" + options, to.displayText);
+                DB.saveSetting("from" + options, from.text);
+                DB.saveSetting("to" + options, to.text);
                 if(advanced_switch.checked) {
-                    DB.saveSetting("via" + options, via.displayText);
-                    DB.appendNewStop(options, via.displayText);
+                    DB.saveSetting("via" + options, via.text);
+                    DB.appendNewStop(options, via.text);
                 }
                 else {
                     DB.saveSetting("via" + options, "");
@@ -357,7 +357,7 @@ MainView {
 
                         Switch {
                             id: advanced_switch
-                            checked: via.displayText == "" ? false : true
+                            checked: via.text == "" ? false : true
                             anchors.verticalCenter: parent.verticalCenter
 
                             onCheckedChanged: {
@@ -584,7 +584,7 @@ MainView {
                         ]
 
                         function resetState() {
-                            if((from.displayText != "" && to.displayText != "") || (from.text != "" && to.text != "")) {
+                            if(from.text != "" && to.text != "") {
                                 state = "ENABLED";
                             }
                             else {

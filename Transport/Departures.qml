@@ -189,7 +189,7 @@ Page {
                         }
 
                         Text {
-                            text: (dateTime) ? dateTime : ""
+                            text: (dateTime) ? dateTime.split(" ").pop() : ""
                             wrapMode: Text.WordWrap
                             visible: text != ""
                             Layout.fillWidth: false
@@ -571,12 +571,12 @@ Page {
         anchors {
             margins: units.gu(3)
             top: departures_page_flickable.top
-            right: departures_page_flickable.right
+            horizontalCenter: parent.horizontalCenter
         }
-        width: units.gu(6)
+        width: units.gu(8)
         height: width
         radius: width
-        color: "#333"
+        color: "#3949AB"
         opacity: 0.85
         visible: departures_page_flickable.contentY > departures_page.height
 

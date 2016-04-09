@@ -604,7 +604,7 @@ function readableDate(date, format) {
 }
 
 function dateToReadableFormat(date) {
-    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + + date.getFullYear();
+    return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
 }
 
 function transportIdToName(id) {

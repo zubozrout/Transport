@@ -36,7 +36,6 @@ Page {
     onVisibleChanged: {
         if(visible) {
             optionsList.updateContent();
-            usedTypes = DB.getAllUsedTypes();
         }
     }
 
@@ -64,12 +63,7 @@ Page {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.Wrap
-                    font.pixelSize: {
-                        if(usedTypes.indexOf(name) > -1) {
-                            return FontUtils.sizeToPixels("large");
-                        }
-                        return FontUtils.sizeToPixels("normal");
-                    }
+                    font.pixelSize: used ? FontUtils.sizeToPixels("large") : FontUtils.sizeToPixels("normal")
                 }
 
                 MouseArea {
@@ -123,13 +117,31 @@ Page {
         }
 
         function updateContent() {
+            model_context = [];
+            typeModel.clear();
+
+            trasport_selector_page.usedTypes = trasport_selector_page.usedTypes = DB.getAllUsedTypes();
+            var usedTypes = trasport_selector_page.usedTypes;
             var types = DB.getAllTypes();
+            var sortedTypes = [];
+
             for(var i = 0; i < types.length; i++) {
-                if(model_context.indexOf(types[i].id) == -1) {
-                    model_context.push(types[i].id);
-                    typeModel.append({name : types[i].name});
+                if(usedTypes.indexOf(types[i].id) > -1) {
+                    sortedTypes.push(types[i]);
                 }
-                if(userSelection < 0 && types[i].name == DB.getSetting("optionsList")) {
+            }
+            for(var i = 0; i < types.length; i++) {
+                if(usedTypes.indexOf(types[i].id) == -1) {
+                    sortedTypes.push(types[i]);
+                }
+            }
+
+            for(var i = 0; i < sortedTypes.length; i++) {
+                if(model_context.indexOf(sortedTypes[i].id) == -1) {
+                    model_context.push(sortedTypes[i].id);
+                    typeModel.append({name: sortedTypes[i].name, used: (usedTypes.indexOf(sortedTypes[i].id) > -1)});
+                }
+                if(userSelection < 0 && sortedTypes[i].name == DB.getSetting("optionsList")) {
                     selectedIndex = i;
                     userSelection = i;
                 }

@@ -31,7 +31,7 @@ Item {
             var now = new Date();
             now.setSeconds(0,0);
             var diff = Math.round((departureTimer.startTime - now) / 60000);
-            if(diff <= 1440) {
+            if(Math.abs(diff) <= 1440 && departureTimer.startTime.getDate() == now.getDate()) {
                 if(diff < 0) {
                     if(diff > -59) {
                         var minutes = Math.abs(diff);
@@ -73,7 +73,7 @@ Item {
             else {
                 if(departureTimer.routeStart) {
                     departureTimer.remainingTime = Engine.dateToReadableFormat(departureTimer.routeStart);
-                    if(departureTimer.routeEnd) {
+                    if(departureTimer.routeEnd && departureTimer.remainingTime != Engine.dateToReadableFormat(departureTimer.routeEnd)) {
                         departureTimer.remainingTime += " → " + Engine.dateToReadableFormat(departureTimer.routeEnd);
                     }
                 }

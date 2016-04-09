@@ -53,7 +53,10 @@ function saveSetting(key, value) {
         }
         try {
             db.transaction(function(tx) {
-                tx.executeSql("INSERT OR REPLACE INTO settings VALUES(?, ?)", [key, value]);
+                var linesAffected = tx.executeSql("INSERT OR REPLACE INTO settings VALUES(?, ?)", [key, value]);
+                if(linesAffected.rowsAffected != 1) {
+                    console.log("An error occured while saving [" + key + "] " + value);
+                }
             });
         } catch(err) {
             console.log("Error inserting data to the database: " + err);
@@ -90,11 +93,12 @@ function getSetting(key) {
 function appendNewType(type, typeName) {
     if(type) {
         loadDB();
-        if(!hasType(type)) {
-            db.transaction(function(tx) {
-                tx.executeSql("INSERT OR REPLACE INTO type VALUES(?, ?)", [type, typeName]);
-            });
-        }
+        db.transaction(function(tx) {
+            var linesAffected = tx.executeSql("INSERT OR REPLACE INTO type VALUES(?, ?)", [type, typeName]);
+            if(linesAffected.rowsAffected != 1) {
+                console.log("An error occured while inserting or updating transport type [" + type + "] " + typeName);
+            }
+        });
     }
 }
 
@@ -114,7 +118,7 @@ function getAllTypes() {
     loadDB();
     var res = [];
     db.transaction(function(tx) {
-        var rs = tx.executeSql("SELECT * FROM type ORDER BY value");
+        var rs = tx.executeSql("SELECT DISTINCT * FROM type ORDER BY value");
         for(var i = 0; i < rs.rows.length; i++) {
             res[i] = {};
             if(typeof rs.rows.item(i) !== typeof undefined) {
@@ -128,24 +132,57 @@ function getAllTypes() {
     return res;
 }
 
+function getAllUsedTypes() {
+    loadDB();
+    var res = [];
+    db.transaction(function(tx) {
+        var rs = tx.executeSql("SELECT DISTINCT type.key FROM type INNER JOIN stops on type.key = stops.key");
+        for(var i = 0; i < rs.rows.length; i++) {
+            if(typeof rs.rows.item(i) !== typeof undefined) {
+                res.push(rs.rows.item(i).key);
+            }
+        }
+    });
+    return res;
+}
+
 function deleteType(type) {
     loadDB();
     if(hasType(type)) {
         db.transaction(function(tx) {
-            tx.executeSql("DELETE FROM type WHERE key=?", [type]);
+            var linesAffected = tx.executeSql("DELETE FROM type WHERE key=?", [type]);
+            if(linesAffected.rowsAffected != 1) {
+                console.log("An error occured while deleting transport type " + type);
+            }
         });
     }
 }
 
 // Manages stops for each type
-function appendNewStop(type, stop) {
-    if(stop) {
+function appendNewStop(type, name) {
+    if(name) {
         loadDB();
-        if(!hasStop(type, stop)) {
-            db.transaction(function(tx) {
-                tx.executeSql("INSERT OR REPLACE INTO stops VALUES(null, ?, ?)", [type, stop]);
-            });
-        }
+        db.transaction(function(tx) {
+            var lines = tx.executeSql("SELECT rowid as id FROM stops WHERE key=? AND value=?", [type, name]);
+            var id = null;
+            var linesAffected = 0;
+            if(lines.rows.length > 0) {
+                id = lines.rows.item(0).id;
+                linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(?, ?, ?)", [id, type, name]);
+
+                if(lines.rows.length > 1) {
+                    console.log("Attention! The dababase has " + lines.rows.length + " stop duplicates: [" + type + "] " + name);
+                    console.log("Please report this bug and clear application cache to start from scratch.");
+                }
+            }
+            else {
+                linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(null, ?, ?)", [type, name]);
+            }
+
+            if(linesAffected.rowsAffected != 1) {
+                console.log("An error occured while inserting or updating stop [" + type + "] " + name);
+            }
+        });
     }
 }
 
@@ -199,25 +236,14 @@ function getAllStops() {
     return res;
 }
 
-function getAllUsedTypes() {
-    loadDB();
-    var res = [];
-    db.transaction(function(tx) {
-        var rs = tx.executeSql("SELECT DISTINCT type.value FROM type INNER JOIN stops on type.key = stops.key");
-        for(var i = 0; i < rs.rows.length; i++) {
-            if(typeof rs.rows.item(i) !== typeof undefined) {
-                res.push(rs.rows.item(i).value);
-            }
-        }
-    });
-    return res;
-}
-
 function deleteStop(type, name) {
     loadDB();
     if(!hasType(type)) {
         db.transaction(function(tx) {
-            tx.executeSql("DELETE FROM stops WHERE ?=?", [type, name]);
+            var linesAffected = tx.executeSql("DELETE FROM stops WHERE ?=?", [type, name]);
+            if(linesAffected.rowsAffected != 1) {
+                console.log("An error occured while deleting stop [" + type + "] " + name);
+            }
         });
     }
 }

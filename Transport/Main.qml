@@ -69,16 +69,18 @@ MainView {
         target: Connectivity
 
         onOnlineChanged: {
-            connectivityStatus();
+            connectivityStatus(true);
         }
 
         Component.onCompleted: {
-            connectivityStatus();
+            connectivityStatus(false);
         }
 
-        function connectivityStatus() {
+        function connectivityStatus(abort) {
             if(!Connectivity.online){
-                api.abort();
+                if(abort) {
+                    api.abort();
+                }
                 offlineMessageBox.state = "OFFLINE";
             }
             else {
@@ -94,8 +96,13 @@ MainView {
         onResponseChanged: {
             if(callback && response) {
                 callback(response);
-                callback = null;
             }
+            else if(callback && !response) {
+                statusMessagelabel.text = i18n.tr("Server is not responding. Please try again later.");
+                statusMessageErrorlabel.text = "There was no server response received.";
+                statusMessageBox.visible = true;
+            }
+            callback = null;
         }
 
         function abort() {
@@ -284,7 +291,7 @@ MainView {
                         spacing: units.gu(2)
 
                         Label {
-                            text: trasport_selector_page.selectedName
+                            text: trasport_selector_page.selectedName ? trasport_selector_page.selectedName : i18n.tr("No transport option selected")
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                             font.pixelSize: FontUtils.sizeToPixels("large")

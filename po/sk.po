@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Marek Antoži <Marek.Antozi@7gods.org>, 2016
 # Martin Kozub <zubozrout@gmail.com>, 2016
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-09 14:46+0200\n"
+"POT-Creation-Date: 2016-04-11 16:09+0200\n"
 "PO-Revision-Date: 2016-04-09 12:57+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
-"Language-Team: Slovak (http://www.transifex.com/zubozrout/transport/language/sk/)\n"
+"Language-Team: Slovak (http://www.transifex.com/zubozrout/transport/language/"
+"sk/)\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:13
@@ -31,7 +32,7 @@ msgstr "Verzia hlavnej vetvy:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:181
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 
@@ -40,14 +41,15 @@ msgid "Timetables"
 msgstr "Cestovné poriadky"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:104
-msgid ""
-"This application is based upon an API provided by CHAPS s.r.o. company."
-msgstr "Táto aplikácia je postavená na API poskytovaným spočnosťou CHAPS s.r.o. company."
+msgid "This application is based upon an API provided by CHAPS s.r.o. company."
+msgstr ""
+"Táto aplikácia je postavená na API poskytovaným spočnosťou CHAPS s.r.o. "
+"company."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:104
 msgid ""
-"You can find the documentation of the API service here "
-"http://docs.crws.apiary.io/"
+"You can find the documentation of the API service here http://docs.crws."
+"apiary.io/"
 msgstr "Dokumentáciu k API služby môžte nájsť na http://docs.crws.apiary.io/"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:118
@@ -73,9 +75,10 @@ msgstr "Len prechádzané zastávky"
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:171
 msgid ""
 "An error occured while asking for the connection detail. The most probable "
-"cause is the expiration of the search results, please try again from "
-"scratch."
-msgstr "Pri sťahovaní detailu o spojení nastala chyba. Najpravdepodobnejšou príčinou je expirácia výsledkov vyhľadávania. Skúste to prosím znovu."
+"cause is the expiration of the search results, please try again from scratch."
+msgstr ""
+"Pri sťahovaní detailu o spojení nastala chyba. Najpravdepodobnejšou príčinou "
+"je expirácia výsledkov vyhľadávania. Skúste to prosím znovu."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:211
 msgid "Departure:"

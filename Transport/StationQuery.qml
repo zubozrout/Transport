@@ -7,7 +7,7 @@ Item {
     height: childrenRect.height
 
     property string text: stationInput.text
-    property string displayText: ""
+    property string displayText: stationInput.displayText
     property var stationInputListView: stationInput_list_view
     property var stationInputModel: stationInput_list_model
 
@@ -26,7 +26,6 @@ Item {
             placeholderText: stationQuery.placeholder
             hasClearButton: true
             onDisplayTextChanged: {
-                stationQuery.text = displayText;
                 stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
             }
 

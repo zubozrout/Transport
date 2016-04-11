@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Anne 017 <anneonyme017@gmail.com>, 2016
 # Gaël Rousseau <Rodney78310@gmail.com>, 2016
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-09 14:46+0200\n"
+"POT-Creation-Date: 2016-04-11 16:09+0200\n"
 "PO-Revision-Date: 2016-04-09 12:49+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/zubozrout/transport/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/zubozrout/transport/language/"
+"fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:13
@@ -31,7 +32,7 @@ msgstr "Version de la branche principale :"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:181
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 
@@ -40,15 +41,17 @@ msgid "Timetables"
 msgstr "Horaires"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:104
-msgid ""
-"This application is based upon an API provided by CHAPS s.r.o. company."
-msgstr "Cette application est basée sur une API fournie par la société CHAPS s.r.o."
+msgid "This application is based upon an API provided by CHAPS s.r.o. company."
+msgstr ""
+"Cette application est basée sur une API fournie par la société CHAPS s.r.o."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:104
 msgid ""
-"You can find the documentation of the API service here "
-"http://docs.crws.apiary.io/"
-msgstr "Vous pouvez trouver la documentation du service API ici : http://docs.crws.apiary.io/"
+"You can find the documentation of the API service here http://docs.crws."
+"apiary.io/"
+msgstr ""
+"Vous pouvez trouver la documentation du service API ici : http://docs.crws."
+"apiary.io/"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:118
 msgid "Thank you everyone who helped translating this app."
@@ -73,9 +76,11 @@ msgstr "Seulement les arrêts dépassés"
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:171
 msgid ""
 "An error occured while asking for the connection detail. The most probable "
-"cause is the expiration of the search results, please try again from "
-"scratch."
-msgstr "Une erreur s'est produite lors de la demande du détail de liaison. La cause la plus probable est l'expiration des résultats de recherche. Veuillez réessayer plus tard depuis le début."
+"cause is the expiration of the search results, please try again from scratch."
+msgstr ""
+"Une erreur s'est produite lors de la demande du détail de liaison. La cause "
+"la plus probable est l'expiration des résultats de recherche. Veuillez "
+"réessayer plus tard depuis le début."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:211
 msgid "Departure:"
@@ -244,7 +249,8 @@ msgstr "Arrivée"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:629
 msgid "Does the search take too long? You can stop it by clicking here."
-msgstr "La recherche prend trop de temps ? Vous pouvez l'arrêter en cliquant ici."
+msgstr ""
+"La recherche prend trop de temps ? Vous pouvez l'arrêter en cliquant ici."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:24
 msgid "Next"
@@ -264,7 +270,9 @@ msgstr "Afficher tous les arrêts de la ligne dans les détails de la liaison ?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:113
 msgid "Download and refresh all transport options on each application start?"
-msgstr "Télécharger et actualiser toutes les options de transport à chaque démarrage de l'application ?"
+msgstr ""
+"Télécharger et actualiser toutes les options de transport à chaque démarrage "
+"de l'application ?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:142
 msgid "Refresh transport options"

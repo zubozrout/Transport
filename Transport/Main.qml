@@ -56,11 +56,11 @@ MainView {
 
     function stationInputChanged(textfield, listview, model) {
         search.resetState();
-        if(textfield.focus && textfield.text != listview.lastSelected) {
+        if(textfield.focus && textfield.displayText != listview.lastSelected) {
             if(!model) {
                 model = textfield.stationInputModel;
             }
-            Engine.complete(trasport_selector_page.selectedItem, textfield.text, model);
+            Engine.complete(trasport_selector_page.selectedItem, textfield.displayText, model);
             checkClear(textfield, listview, model);
         }
     }

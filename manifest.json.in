@@ -9,7 +9,7 @@
             "desktop": "Transport/Transport.desktop"
         }
     },
-    "version": "0.8.7.1",
+    "version": "0.8.7.2",
     "maintainer": "Martin Kozub <zubozrout@gmail.com>",
     "framework": "ubuntu-sdk-15.04.3"
 }

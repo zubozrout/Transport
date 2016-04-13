@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-14 00:00+0200\n"
+"POT-Creation-Date: 2016-04-14 00:07+0200\n"
 "PO-Revision-Date: 2016-04-13 21:41+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/zubozrout/transport/language/"
@@ -301,7 +301,7 @@ msgid "Clear cache"
 msgstr "امسح ذاكرة التخزين الؤقت"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:133
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
 msgid "Attention"
 msgstr "انتباه"
 
@@ -310,12 +310,12 @@ msgid "Do you really want to clear all application data?"
 msgstr "هل ترغب حقا في مسح جميع بيانات التطبيق؟"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:222
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:136
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:137
 msgid "No"
 msgstr "لا"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:226
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:140
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:141
 msgid "Yes"
 msgstr "نعم"
 
@@ -323,32 +323,32 @@ msgstr "نعم"
 msgid "Transport selector"
 msgstr "محدد المواصلات"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:135
 #, qt-format
 msgid "Do you really want to delete all saved stations for %1 transport?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:241
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:242
 msgid "Czech Republic"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:241
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:242
 msgid "Slovak Republic"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:253
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:254
 msgid "City:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:267
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:268
 msgid "Vehicle types:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:281
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:282
 msgid "Valid from:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:294
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:295
 msgid "Expires:"
 msgstr ""
 

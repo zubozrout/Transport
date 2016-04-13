@@ -102,7 +102,7 @@ Page {
         id: transportSelectorFlickable
         anchors.fill: parent
         contentWidth: parent.width
-        contentHeight: transportSelectorColumn.implicitHeight
+        contentHeight: transportSelectorColumn.childrenRect.height
 
         Column {
             id: transportSelectorColumn
@@ -113,7 +113,6 @@ Page {
 
                 ListItem {
                     width: parent.width
-                    height: transportDelegateRectangle.height + 2*transportDelegateRectangle.anchors.margins
                     divider.visible: true
                     color: selectedItem == id ? UbuntuColors.lightGrey : "transparent"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-13 23:40+0200\n"
+"POT-Creation-Date: 2016-04-14 00:00+0200\n"
 "PO-Revision-Date: 2016-04-13 21:42+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/zubozrout/transport/language/"
@@ -31,7 +31,7 @@ msgstr "Verze hlavní větve:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:181
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Ubuntu_Device_GCC_armhf_ubuntu_sdk_15_04_vivid-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 
@@ -288,7 +288,7 @@ msgid "Clear cache"
 msgstr "Vymazat mezipaměť"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:133
 msgid "Attention"
 msgstr "Pozor"
 
@@ -297,12 +297,12 @@ msgid "Do you really want to clear all application data?"
 msgstr "Skutečně chcete smazat veškerá data aplikace?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:222
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:137
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:136
 msgid "No"
 msgstr "Ne"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:226
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:141
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:140
 msgid "Yes"
 msgstr "Ano"
 
@@ -310,32 +310,32 @@ msgstr "Ano"
 msgid "Transport selector"
 msgstr "Výběr dopravce"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:135
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
 #, qt-format
 msgid "Do you really want to delete all saved stations for %1 transport?"
 msgstr "Skutečně chcete smazat všechny uložené stanice pro dopravce %1?"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:242
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:241
 msgid "Czech Republic"
 msgstr "Česká republika"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:242
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:241
 msgid "Slovak Republic"
 msgstr "Slovenská republika"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:254
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:253
 msgid "City:"
 msgstr "Město:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:268
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:267
 msgid "Vehicle types:"
 msgstr "Typy vozidel:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:282
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:281
 msgid "Valid from:"
 msgstr "Platné od:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:295
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:294
 msgid "Expires:"
 msgstr "Platné do:"
 

@@ -46,7 +46,7 @@ Page {
     }
 
     onVisibleChanged: {
-        if(DB.getSetting("departuresStop" + trasport_selector_page.selectedItem) && stations.text == "") {
+        if(DB.getSetting("departuresStop" + trasport_selector_page.selectedItem) && stations.displayText == "") {
             stations.text = DB.getSetting("departuresStop" + trasport_selector_page.selectedItem);
         }
     }
@@ -116,9 +116,9 @@ Page {
             var Pdate = Qt.formatDate(dateButton.date, "d.M.yyyy");
             date_time = Pdate + " " + Ptime;
         }
-        Engine.getDepartures(trasport_selector_page.selectedItem, stations.text, date_time, "", "", "", departures_page.renderDepartures);
+        Engine.getDepartures(trasport_selector_page.selectedItem, stations.displayText, date_time, "", "", "", departures_page.renderDepartures);
 
-        DB.saveSetting("departuresStop" + trasport_selector_page.selectedItem, stations.text);
+        DB.saveSetting("departuresStop" + trasport_selector_page.selectedItem, stations.displayText);
     }
 
     Component {
@@ -441,7 +441,7 @@ Page {
                             departures_page.search();
                         }
 
-                        state: (stations.text == "") ? "DISABLED" : (api.running ? "ACTIVE" : "ENABLED")
+                        state: (stations.displayText == "") ? "DISABLED" : (api.running ? "ACTIVE" : "ENABLED")
 
                         states: [
                             State {

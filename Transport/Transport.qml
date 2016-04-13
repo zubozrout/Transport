@@ -1,7 +1,9 @@
+
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItemSelector
 import QtQuick.LocalStorage 2.0
+import QtQuick.Layouts 1.1
+import Ubuntu.Components.Popups 1.0
 
 import "engine.js" as Engine
 import "localStorage.js" as DB
@@ -12,8 +14,9 @@ Page {
     clip: true
 
     header: PageHeader {
-        id: trasport_selector_page_header
+        id: trasportSelectorPageHeader
         title: i18n.tr("Transport selector")
+        flickable: transportSelectorFlickable
 
         leadingActionBar.actions: [
             Action {
@@ -29,160 +32,390 @@ Page {
         }
     }
 
-    property var selectedItem: optionsList.model_context[optionsList.selectedIndex] ? optionsList.model_context[optionsList.selectedIndex] : 0
-    property var selectedName: typeModel.count > 0 && optionsList.selectedIndex < typeModel.count && typeModel.get(optionsList.selectedIndex).name ? typeModel.get(optionsList.selectedIndex).name : ""
-    property var usedTypes: []
+    property var selectedItem: 0
+    property var selectedName: ""
+    property var lastUsedTransport: ""
 
-    onVisibleChanged: {
-        if(visible) {
-            optionsList.updateContent();
+    function getTextFieldContentFromDB(force) {
+        if(DB.getSetting("from" + selectedItem)) {
+            if(from.displayText == "" || force) {
+                from.text = DB.getSetting("from" + selectedItem);
+                from.stationInputModel.clear();
+            }
+        }
+        else {
+            from.text = "";
+        }
+
+        if(DB.getSetting("to" + selectedItem)) {
+            if(to.displayText == "" || force) {
+                to.text = DB.getSetting("to" + selectedItem);
+                to.stationInputModel.clear();
+            }
+        }
+        else {
+            to.text = "";
+        }
+
+        if(DB.getSetting("via" + selectedItem)) {
+            if(via.displayText == "" || force) {
+                via.text = DB.getSetting("via" + selectedItem);
+                via.stationInputModel.clear();
+            }
+        }
+        else {
+            via.text = "";
         }
     }
 
-    ListModel {
-        id: typeModel
+    function confirm() {
+        api.abort();
+        if(pageLayout != null) {
+            pageLayout.removePages(trasport_selector_page);
+        }
     }
 
-    Component {
-        id: transportOption
+    function update() {
+        knownListView.update();
+        restListView.update();
+    }
 
-        ListItem {
-            width: parent.width
-            height: tranportLabel.contentHeight + units.gu(2)
-            divider.visible: true
+    onSelectedItemChanged: {
+        lastUsedTransport = selectedItem;
+        getTextFieldContentFromDB(true);
+        from.stationInputModel.clear();
+        to.stationInputModel.clear();
+        via.stationInputModel.clear();
+    }
 
-            Rectangle {
-                anchors.fill: parent
-                color: optionsList.selectedIndex == index ? UbuntuColors.lightGrey : "transparent"
+    onVisibleChanged: {
+        if(visible) {
+            update();
+        }
+    }
 
-                Label {
-                    id: tranportLabel
-                    anchors.fill: parent
-                    anchors.margins: units.gu(2)
-                    text: name
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignVCenter
-                    wrapMode: Text.Wrap
-                    font.pixelSize: used ? FontUtils.sizeToPixels("large") : FontUtils.sizeToPixels("normal")
+    Component.onCompleted: {
+        lastUsedTransport = DB.getSetting("optionsList");
+    }
+
+    Flickable {
+        id: transportSelectorFlickable
+        anchors.fill: parent
+        contentWidth: parent.width
+        contentHeight: transportSelectorColumn.implicitHeight
+
+        Column {
+            id: transportSelectorColumn
+            anchors.fill: parent
+
+            Component {
+                id: transportDelegate
+
+                ListItem {
+                    width: parent.width
+                    height: transportDelegateRectangle.height + 2*transportDelegateRectangle.anchors.margins
+                    divider.visible: true
+                    color: selectedItem == id ? UbuntuColors.lightGrey : "transparent"
+
+                    property var expanded: false
+
+                    Component.onCompleted: {
+                        if(knownList && lastUsedTransport == id) {
+                            trasport_selector_page.selectedItem = id;
+                            trasport_selector_page.selectedName = name;
+                        }
+                    }
+
+                    Component {
+                        id: confirmDeletingAllTransportStops
+
+                        Dialog {
+                            id: confirmDeletingAllTransportStopsDialogue
+                            title: i18n.tr("Attention")
+                            text: i18n.tr("Do you really want to delete all saved stations for %1 transport?").arg(name)
+                            Button {
+                                text: i18n.tr("No")
+                                onClicked: PopupUtils.close(confirmDeletingAllTransportStopsDialogue)
+                            }
+                            Button {
+                                text: i18n.tr("Yes")
+                                color: UbuntuColors.red
+                                onClicked: {
+                                    DB.deleteAllTransportStops(id);
+                                    PopupUtils.close(confirmDeletingAllTransportStopsDialogue);
+                                    trasport_selector_page.selectedItem = "";
+                                    trasport_selector_page.selectedName = "";
+                                    trasport_selector_page.getTextFieldContentFromDB(true);
+                                    trasport_selector_page.confirm();
+                                }
+                            }
+                        }
+                    }
+
+                    leadingActions: ListItemActions {
+                        actions: [
+                            Action {
+                                iconName: "delete"
+                                enabled: knownList
+                                visible: knownList
+                                onTriggered: {
+                                    PopupUtils.open(confirmDeletingAllTransportStops);
+                                }
+                            }
+                        ]
+                    }
+
+                    trailingActions: ListItemActions {
+                        actions: [
+                            Action {
+                                iconName: "view-expand"
+                                onTriggered: {
+                                    expanded = !expanded;
+                                    if(expanded) {
+                                        iconName = "view-collapse";
+                                    }
+                                    else {
+                                        iconName = "view-expand";
+                                    }
+                                }
+                            }
+                        ]
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            trasport_selector_page.selectedItem = id;
+                            trasport_selector_page.selectedName = name;
+                            trasport_selector_page.confirm();
+                        }
+                    }
+
+                    Rectangle {
+                        id: transportDelegateRectangle
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            margins: units.gu(2)
+                            verticalCenter: parent.verticalCenter
+                        }
+                        height: childrenRect.height
+                        color: "transparent"
+
+                        Column {
+                            id: transportDelegateColumn
+                            width: parent.width
+
+                            Label {
+                                text: name
+                                width: parent.width
+                                font.pixelSize: knownList ? FontUtils.sizeToPixels("large") : FontUtils.sizeToPixels("normal")
+                                wrapMode: Text.WordWrap
+                            }
+
+                            Column {
+                                width: parent.width
+                                visible: expanded
+
+                                Rectangle {
+                                    width: parent.width
+                                    height: units.gu(2)
+                                    color: "transparent"
+                                }
+
+                                Label {
+                                    text: nameExt
+                                    width: parent.width
+                                    font.bold: true
+                                    wrapMode: Text.WordWrap
+                                }
+
+
+                                Label {
+                                    text: title
+                                    width: parent.width
+                                    wrapMode: Text.WordWrap
+                                    visible: title != nameExt
+                                }
+
+                                Label {
+                                    text: homeState != "" ? (homeState == "CZ" ? i18n.tr("Czech Republic") : i18n.tr("Slovak Republic")) : ""
+                                    width: parent.width
+                                    font.bold: true
+                                    wrapMode: Text.WordWrap
+                                    visible: homeState != ""
+                                }
+
+                                GridLayout {
+                                    width: parent.width
+                                    columns: 2
+
+                                    Label {
+                                        text: i18n.tr("City:") + " "
+                                        wrapMode: Text.WordWrap
+                                        visible: city != ""
+                                    }
+
+                                    Label {
+                                        text: city
+                                        font.bold: true
+                                        wrapMode: Text.WordWrap
+                                        visible: city != ""
+                                        Layout.fillWidth: true
+                                    }
+
+                                    Label {
+                                        text: i18n.tr("Vehicle types:") + " "
+                                        wrapMode: Text.WordWrap
+                                        visible: trTypes != ""
+                                    }
+
+                                    Label {
+                                        text: trTypes
+                                        font.italic: true
+                                        wrapMode: Text.WordWrap
+                                        visible: trTypes != ""
+                                        Layout.fillWidth: true
+                                    }
+
+                                    Label {
+                                        text: i18n.tr("Valid from:") + " "
+                                        wrapMode: Text.WordWrap
+                                        visible: ttValidFrom != ""
+                                    }
+
+                                    Label {
+                                        text: ttValidFrom
+                                        wrapMode: Text.WordWrap
+                                        visible: ttValidFrom != ""
+                                        Layout.fillWidth: true
+                                    }
+
+                                    Label {
+                                        text: i18n.tr("Expires:") + " "
+                                        wrapMode: Text.WordWrap
+                                        visible: ttValidTo != ""
+                                    }
+
+                                    Label {
+                                        text: ttValidTo
+                                        wrapMode: Text.WordWrap
+                                        visible: ttValidTo != ""
+                                        Layout.fillWidth: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            ListView {
+                id: knownListView
+                width: parent.width
+                height: childrenRect.height
+
+                interactive: false
+
+                model: ListModel {
+                    id: knownListMmodel
+                }
+                delegate: transportDelegate
+
+                Component.onCompleted: {
+                    update();
+                    Engine.getOptions(function(response) {
+                        Engine.saveOptions(response);
+                        update();
+                    });
                 }
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        optionsList.selectedIndex = index;
-                        optionsList.delegateClicked(index);
+                function update() {
+                    knownListMmodel.clear();
+
+                    var types = DB.getAllTypes();
+                    var usedTypes = DB.getAllUsedTypes();
+                    var position = Engine.langCode(true);
+                    for(var i = 0; i < types.length; i++) {
+                        var index = types[i].id;
+                        if(usedTypes.indexOf(index) > -1) {
+                            var name = types[i].name ? types[i].name[position] : "";
+                            var nameExt = types[i].nameExt ? types[i].nameExt[position] : "";
+                            var title = types[i].title ? types[i].title[position] : "";
+                            var city = types[i].city ? types[i].city[position] : "";
+                            var description = types[i].description ? types[i].description[position] : "";
+                            var homeState = types[i].homeState ? types[i].homeState.replace("*", "") : "";
+                            var trTypes = "";
+                            for(var j = 0; j < types[i].trTypes.length; j++) {
+                                trTypes += (j != 0 ? ", " : "") + types[i].trTypes[j].name[position];
+                            }
+                            var ttValidFrom = types[i].ttValidFrom ? types[i].ttValidFrom : "";
+                            var ttValidTo = types[i].ttValidTo ? types[i].ttValidTo : "";
+                            knownListMmodel.append({knownList: true, id: index, name: name, nameExt: nameExt, title: title, city: city, description: description, homeState: homeState, trTypes: trTypes, ttValidFrom: ttValidFrom, ttValidTo: ttValidTo});
+                        }
+                    }
+                }
+            }
+
+            Column {
+                width: parent.width
+                spacing: 1
+
+                Rectangle {
+                    width: parent.width
+                    height: 1
+                    color: "#ddd"
+                }
+
+                Rectangle {
+                    width: parent.width
+                    height: 1
+                    color: "#ddd"
+                }
+            }
+
+            ListView {
+                id: restListView
+                width: parent.width
+                height: childrenRect.height
+                interactive: false
+
+                model: ListModel {
+                    id: restListMmodel
+                }
+                delegate: transportDelegate
+
+                Component.onCompleted: update()
+
+                function update() {
+                    restListMmodel.clear();
+
+                    var types = DB.getAllTypes();
+                    var usedTypes = DB.getAllUsedTypes();
+                    var position = Engine.langCode(true);
+                    for(var i = 0; i < types.length; i++) {
+                        var index = types[i].id;
+                        var name = types[i].name ? types[i].name[position] : "";
+                        var nameExt = types[i].nameExt ? types[i].nameExt[position] : "";
+                        var title = types[i].title ? types[i].title[position] : "";
+                        var city = types[i].city ? types[i].city[position] : "";
+                        var description = types[i].description ? types[i].description[position] : "";
+                        var homeState = types[i].homeState ? types[i].homeState.replace("*", "") : "";
+                        var trTypes = "";
+                        for(var j = 0; j < types[i].trTypes.length; j++) {
+                            trTypes += (j != 0 ? ", " : "") + types[i].trTypes[j].name[position];
+                        }
+                        var ttValidFrom = types[i].ttValidFrom ? types[i].ttValidFrom : "";
+                        var ttValidTo = types[i].ttValidTo ? types[i].ttValidTo : "";
+                        restListMmodel.append({knownList: false, id: index, name: name, nameExt: nameExt, title: title, city: city, description: description, homeState: homeState, trTypes: trTypes, ttValidFrom: ttValidFrom, ttValidTo: ttValidTo});
                     }
                 }
             }
         }
     }
 
-    ListItemSelector.ItemSelector {
-        id: optionsList
-        expanded: true
-        model: typeModel
-        delegate: transportOption
-        multiSelection: false
-        selectedIndex: typeModel.count
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.top: trasport_selector_page_header.bottom
-        containerHeight: height
-        clip: true
-
-        property var model_context: []
-        property var userSelection: -1
-
-        Component.onCompleted: {
-            optionsList.updateContent();
-            Engine.getOptions(function(response) {
-                Engine.saveOptions(response);
-                optionsList.updateContent();
-            });
-        }
-
-        onSelectedIndexChanged: {
-            getTextFieldContentFromDB(true);
-            from.stationInputModel.clear();
-            to.stationInputModel.clear();
-            via.stationInputModel.clear();
-        }
-
-        onDelegateClicked: {
-            api.abort();
-            if(pageLayout != null) {
-                pageLayout.removePages(trasport_selector_page);
-            }
-        }
-
-        function updateContent() {
-            model_context = [];
-            typeModel.clear();
-
-            trasport_selector_page.usedTypes = trasport_selector_page.usedTypes = DB.getAllUsedTypes();
-            var usedTypes = trasport_selector_page.usedTypes;
-            var types = DB.getAllTypes();
-            var sortedTypes = [];
-
-            for(var i = 0; i < types.length; i++) {
-                if(usedTypes.indexOf(types[i].id) > -1) {
-                    sortedTypes.push(types[i]);
-                }
-            }
-            for(var i = 0; i < types.length; i++) {
-                if(usedTypes.indexOf(types[i].id) == -1) {
-                    sortedTypes.push(types[i]);
-                }
-            }
-
-            for(var i = 0; i < sortedTypes.length; i++) {
-                if(model_context.indexOf(sortedTypes[i].id) == -1) {
-                    model_context.push(sortedTypes[i].id);
-                    typeModel.append({name: sortedTypes[i].name, used: (usedTypes.indexOf(sortedTypes[i].id) > -1)});
-                }
-                if(userSelection < 0 && sortedTypes[i].name == DB.getSetting("optionsList")) {
-                    selectedIndex = i;
-                    userSelection = i;
-                }
-            }
-            getTextFieldContentFromDB(false);
-            if(selectedIndex >= typeModel.count) {
-                selectedIndex = 0;
-            }
-        }
-
-        function getTextFieldContentFromDB(force) {
-            if(DB.getSetting("from" + optionsList.model_context[optionsList.selectedIndex])) {
-                if(from.displayText == "" || force) {
-                    from.text = DB.getSetting("from" + optionsList.model_context[optionsList.selectedIndex]);
-                    from.stationInputModel.clear();
-                }
-            }
-            else {
-                from.text = "";
-            }
-
-            if(DB.getSetting("to" + optionsList.model_context[optionsList.selectedIndex])) {
-                if(to.displayText == "" || force) {
-                    to.text = DB.getSetting("to" + optionsList.model_context[optionsList.selectedIndex]);
-                    to.stationInputModel.clear();
-                }
-            }
-            else {
-                to.text = "";
-            }
-
-            if(DB.getSetting("via" + optionsList.model_context[optionsList.selectedIndex])) {
-                if(via.displayText == "" || force) {
-                    via.text = DB.getSetting("via" + optionsList.model_context[optionsList.selectedIndex]);
-                    via.stationInputModel.clear();
-                }
-            }
-            else {
-                via.text = "";
-            }
-        }
+    Scrollbar {
+        flickableItem: transportSelectorFlickable
+        align: Qt.AlignTrailing
     }
 }
-

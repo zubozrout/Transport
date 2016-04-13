@@ -30,14 +30,14 @@ MainView {
     width: units.gu(100)
     height: units.gu(75)
 
-    property var db: null;
+    property var db: null
     property var handle: null
     property var first_id: null
     property var last_id: null
 
     // Common functions:
     function saveStationToDb(textfield, listview, model) {
-        if(listview.lastSelected && listview.lastSelected == textfield.text) {
+        if(listview.lastSelected && listview.lastSelected == textfield.displayText) {
             DB.appendNewStop(trasport_selector_page.selectedItem, listview.lastSelected);
         }
     }
@@ -47,7 +47,7 @@ MainView {
             model = textfield.stationInputModel;
         }
 
-        if(listview.currentIndex >= 0 && typeof model.get(listview.currentIndex) !== typeof undefined && model.get(listview.currentIndex).name == textfield.text) {
+        if(listview.currentIndex >= 0 && typeof model.get(listview.currentIndex) !== typeof undefined && model.get(listview.currentIndex).name == textfield.displayText) {
             api.abort();
             listview.lastSelected = model.get(listview.currentIndex).name;
             model.clear();
@@ -97,9 +97,9 @@ MainView {
             if(callback && response) {
                 callback(response);
             }
-            else if(callback && !response) {
+            else if(offlineMessageBox.state == "ONLINE" && callback && !response) {
                 statusMessagelabel.text = i18n.tr("Server is not responding. Please try again later.");
-                statusMessageErrorlabel.text = "There was no server response received.";
+                statusMessageErrorlabel.text = i18n.tr("There was no server response received.");
                 statusMessageBox.visible = true;
             }
             callback = null;
@@ -217,7 +217,7 @@ MainView {
             }
 
             function search(state) {
-                if(!from.text || !to.text) {
+                if(!from.displayText || !to.displayText) {
                     return;
                 }
                 api.abort();
@@ -251,21 +251,21 @@ MainView {
                 }
 
                 var departure_final = (departure_label.state == "DEPARTURE");
-                var via_final = advanced_switch.checked ? via.text : "";
+                var via_final = advanced_switch.checked ? via.displayText : "";
                 var allowChange_final = advanced_switch.checked ? !direct_checkbox.checked : true;
-                Engine.getConnections(options, date_time, departure_final, from.text, to.text, via_final, allowChange_final, count, Engine.showConnections);
+                Engine.getConnections(options, date_time, departure_final, from.displayText, to.displayText, via_final, allowChange_final, count, Engine.showConnections);
 
                 // DB save selected values:
-                DB.saveSetting("from" + options, from.text);
-                DB.saveSetting("to" + options, to.text);
+                DB.saveSetting("from" + options, from.displayText);
+                DB.saveSetting("to" + options, to.displayText);
                 if(advanced_switch.checked) {
-                    DB.saveSetting("via" + options, via.text);
-                    DB.appendNewStop(options, via.text);
+                    DB.saveSetting("via" + options, via.displayText);
+                    DB.appendNewStop(options, via.displayText);
                 }
                 else {
                     DB.saveSetting("via" + options, "");
                 }
-                DB.saveSetting("optionsList", trasport_selector_page.selectedName);
+                DB.saveSetting("optionsList", trasport_selector_page.selectedItem);
                 saveStationToDb(from, from.stationInputListView);
                 saveStationToDb(to, to.stationInputListView);
                 saveStationToDb(via, via.stationInputListView);
@@ -334,8 +334,8 @@ MainView {
                             iconName: "swap"
                             color: "transparent"
                             onClicked: {
-                                var tmp_text = from.text;
-                                from.text = to.text;
+                                var tmp_text = from.displayText;
+                                from.text = to.displayText;
                                 to.text = tmp_text;
                             }
                         }
@@ -364,7 +364,7 @@ MainView {
 
                         Switch {
                             id: advanced_switch
-                            checked: via.text == "" ? false : true
+                            checked: via.displayText == "" ? false : true
                             anchors.verticalCenter: parent.verticalCenter
 
                             onCheckedChanged: {
@@ -591,7 +591,7 @@ MainView {
                         ]
 
                         function resetState() {
-                            if(from.text != "" && to.text != "") {
+                            if(from.displayText != "" && to.displayText != "") {
                                 state = "ENABLED";
                             }
                             else {

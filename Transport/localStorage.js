@@ -1,16 +1,20 @@
 function dbInit(tx) {
     tx.executeSql("CREATE TABLE IF NOT EXISTS stops(ID integer primary key autoincrement, key TEXT, value TEXT)");
-    tx.executeSql("CREATE TABLE IF NOT EXISTS type(key TEXT UNIQUE, value TEXT)");
+    tx.executeSql("CREATE TABLE IF NOT EXISTS type(id TEXT UNIQUE, name TEXT, nameExt TEXT, title TEXT, city TEXT, description TEXT, homeState TEXT, trTypes TEXT, ttValidFrom TEXT, ttValidTo TEXT)");
     tx.executeSql("CREATE TABLE IF NOT EXISTS settings(key TEXT UNIQUE, value TEXT)");
 }
 
 function loadDB() {
     if(db == null) {
         try {
-            db = LocalStorage.openDatabaseSync("transport-cz", "", "Simple Transport App for searching connections", 1000000, function(tx){ DBInit(tx); });
+            db = LocalStorage.openDatabaseSync("transport-cz", "", "Simple Transport App for searching connections", 1000000, function(db) {
+                db.transaction(function(tx){
+                    dbInit(tx);
+                });
+            });
 
-            if(db.version != "0.4") {
-                db.changeVersion(db.version, "0.4");
+            if(db.version && db.version != "0.5") {
+                db.changeVersion(db.version, "0.5");
                 db.transaction(function(tx){
                     tx.executeSql("DROP TABLE settings");
                     tx.executeSql("DROP TABLE type");
@@ -18,11 +22,11 @@ function loadDB() {
                     dbInit(tx);
                 });
             }
-
-            db.transaction(function(tx){
-                dbInit(tx);
-            });
-
+            else {
+                db.transaction(function(tx){
+                    dbInit(tx);
+                });
+            }
         } catch(err) {
             console.log("Error opening database: " + err);
         };
@@ -90,13 +94,13 @@ function getSetting(key) {
 }
 
 // Manages all available types
-function appendNewType(type, typeName) {
+function appendNewType(type, name, nameExt, title, city, description, homeState, trTypes, ttValidFrom, ttValidTo) {
     if(type) {
         loadDB();
         db.transaction(function(tx) {
-            var linesAffected = tx.executeSql("INSERT OR REPLACE INTO type VALUES(?, ?)", [type, typeName]);
+            var linesAffected = tx.executeSql("INSERT OR REPLACE INTO type VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [type, name, nameExt, title, city, description, homeState, trTypes, ttValidFrom, ttValidTo]);
             if(linesAffected.rowsAffected != 1) {
-                console.log("An error occured while inserting or updating transport type [" + type + "] " + typeName);
+                console.log("An error occured while inserting or updating transport type [" + type + "] " + name + "(" + city + ", " + description + ", " + trTypes + ", " + ttValidFrom + ", " + ttValidTo + ")");
             }
         });
     }
@@ -106,7 +110,7 @@ function hasType(type) {
     loadDB();
     var exists = false;
     db.transaction(function(tx) {
-        var rs = tx.executeSql("SELECT Count(*) as count FROM type WHERE key=?", [type]);
+        var rs = tx.executeSql("SELECT Count(*) as count FROM type WHERE id=?", [type]);
         if(rs.rows.item(0).count > 0) {
             exists = true;
         }
@@ -118,13 +122,19 @@ function getAllTypes() {
     loadDB();
     var res = [];
     db.transaction(function(tx) {
-        var rs = tx.executeSql("SELECT DISTINCT * FROM type ORDER BY value");
+        var rs = tx.executeSql("SELECT * FROM type ORDER BY city, homeState");
         for(var i = 0; i < rs.rows.length; i++) {
             res[i] = {};
             if(typeof rs.rows.item(i) !== typeof undefined) {
                 if(rs.rows.item(i).value != "") {
-                    res[i].id = rs.rows.item(i).key;
-                    res[i].name = rs.rows.item(i).value;
+                    res[i] = rs.rows.item(i);
+                    for(var key in res[i]) {
+                        try {
+                            res[i][key] = JSON.parse(res[i][key]);
+                        }
+                        catch(e) {
+                        }
+                    }
                 }
             }
         }
@@ -136,10 +146,10 @@ function getAllUsedTypes() {
     loadDB();
     var res = [];
     db.transaction(function(tx) {
-        var rs = tx.executeSql("SELECT DISTINCT type.key FROM type INNER JOIN stops on type.key = stops.key");
+        var rs = tx.executeSql("SELECT DISTINCT type.id FROM type INNER JOIN stops on type.id = stops.key");
         for(var i = 0; i < rs.rows.length; i++) {
             if(typeof rs.rows.item(i) !== typeof undefined) {
-                res.push(rs.rows.item(i).key);
+                res.push(rs.rows.item(i).id);
             }
         }
     });
@@ -150,7 +160,7 @@ function deleteType(type) {
     loadDB();
     if(hasType(type)) {
         db.transaction(function(tx) {
-            var linesAffected = tx.executeSql("DELETE FROM type WHERE key=?", [type]);
+            var linesAffected = tx.executeSql("DELETE FROM type WHERE id=?", [type]);
             if(linesAffected.rowsAffected != 1) {
                 console.log("An error occured while deleting transport type " + type);
             }
@@ -246,6 +256,21 @@ function deleteStop(type, name) {
             }
         });
     }
+}
+
+function deleteAllTransportStops(type) {
+    loadDB();
+    db.transaction(function(tx) {
+        var linesAffected = tx.executeSql("DELETE FROM stops WHERE key=?", [type]);
+        if(linesAffected.rowsAffected <= 0) {
+            console.log("An error occured while deleting all stops for: " + type + " transport");
+        }
+        else {
+            saveSetting("from" + type, "");
+            saveSetting("to" + type, "");
+            saveSetting("via" + type, "");
+        }
+    });
 }
 
 function latiniseString(string) {

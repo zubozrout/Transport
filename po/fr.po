@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 16:09+0200\n"
+"POT-Creation-Date: 2016-04-13 23:40+0200\n"
 "PO-Revision-Date: 2016-04-09 12:49+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/zubozrout/transport/language/"
@@ -205,6 +205,10 @@ msgstr[1] "dans %1 minutes"
 msgid "Server is not responding. Please try again later."
 msgstr "Le serveur ne répond pas. Veuillez réessayer plus tard."
 
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:102
+msgid "There was no server response received."
+msgstr ""
+
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:143
 msgid "You're now offline"
 msgstr "Vous êtes maintenant hors-ligne"
@@ -287,6 +291,7 @@ msgid "Clear cache"
 msgstr "Effacer le cache"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
 msgid "Attention"
 msgstr "Attention"
 
@@ -295,29 +300,68 @@ msgid "Do you really want to clear all application data?"
 msgstr "Souhaitez-vous vraiment effacer toutes les données de l'application ?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:222
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:137
 msgid "No"
 msgstr "Non"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:226
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:141
 msgid "Yes"
 msgstr "Oui"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:16
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:18
 msgid "Transport selector"
 msgstr "Sélecteur de transport"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:263
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:135
+#, fuzzy, qt-format
+msgid "Do you really want to delete all saved stations for %1 transport?"
+msgstr "Souhaitez-vous vraiment effacer toutes les données de l'application ?"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:242
+msgid "Czech Republic"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:242
+msgid "Slovak Republic"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:254
+msgid "City:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:268
+msgid "Vehicle types:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:282
+msgid "Valid from:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:295
+msgid "Expires:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:290
 msgid "Could not load next connection results."
 msgstr "Impossible de charger les résultats de la liaison suivante."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:283
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:310
 msgid "No results matching input parameters were found."
 msgstr "Aucun résultat correspondant aux paramètres saisis n'a été trouvé."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:305
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:332
 msgid "Could not load connection detail."
 msgstr "Impossible de charger le détail de la liaison."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:476
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:503
 msgid "An error occured"
 msgstr "Une erreur est survenue"
+
+#, fuzzy
+#~ msgid "Used transport options"
+#~ msgstr "Actualiser les options de transport"
+
+#, fuzzy
+#~ msgid "All transport options"
+#~ msgstr "Actualiser les options de transport"

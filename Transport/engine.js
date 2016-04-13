@@ -4,29 +4,48 @@ function request(url, callback) {
     return url;
 }
 
+function langCode(toInt) {
+    var locale = Qt.locale().name;
+    var lang = "";
+    var int = 0;
+
+    switch(locale.substring(0,2)) {
+        case "en":
+            lang = "ENGLISH";
+            int = 1;
+            break;
+        case "de":
+            lang = "GERMAN";
+            int = 2;
+            break;
+        case "cs":
+            lang = "CZECH";
+            int = 0;
+            break;
+        case "sk":
+            lang = "SLOVAK";
+            int = 3;
+            break;
+        case "pl":
+            lang = "POLISH";
+            int = 4;
+            break;
+        default:
+            lang = "ENGLISH";
+            int = 1;
+            break;
+    }
+
+    if(typeof toInt !== typeof undefined && toInt == true) {
+        return int;
+    }
+    return lang;
+}
+
 function urlCommon(userDesc, lang) {
     var locale = Qt.locale().name;
     if(typeof lang == typeof undefined) {
-        switch(locale.substring(0,2)) {
-            case "en":
-                lang = "ENGLISH";
-                break;
-            case "de":
-                lang = "GERMAN";
-                break;
-            case "cs":
-                lang = "CZECH";
-                break;
-            case "sk":
-                lang = "SLOVAK";
-                break;
-            case "pl":
-                lang = "POLISH";
-                break;
-            default:
-                lang = "ENGLISH";
-                break;
-        }
+        lang = langCode();
     }
 
     var out = "lang=" + lang;
@@ -57,16 +76,24 @@ function parseOptions(response_string) {
     }
     var options = [];
     for(var i = 0; i < obj.data.length; i++) {
-        var stationName = (typeof obj.data[i].nameExt[0] !== typeof undefined && obj.data[i].nameExt[0]) ? obj.data[i].nameExt[0] : obj.data[i].name[0];
-        options.push({id: obj.data[i].id, name: stationName});
+        var transportName = typeof obj.data[i].name !== typeof undefined ? JSON.stringify(obj.data[i].name) : "";
+        var transportNameExt = typeof obj.data[i].nameExt !== typeof undefined ? JSON.stringify(obj.data[i].nameExt) : "";
+        var transportTitle = typeof obj.data[i].timetableInfo[0].title !== typeof undefined ? JSON.stringify(obj.data[i].timetableInfo[0].title) : "";
+        var transportCity = typeof obj.data[i].timetableInfo[0].city !== typeof undefined ? JSON.stringify(obj.data[i].timetableInfo[0].city) : "";
+        var transportDescription = typeof obj.data[i].timetableInfo[0].description !== typeof undefined ? JSON.stringify(obj.data[i].timetableInfo[0].description) : "";
+        var transportHomeState = typeof obj.data[i].timetableInfo[0].homeState !== typeof undefined ? JSON.stringify(obj.data[i].timetableInfo[0].homeState) : "";
+        var transportTrTypes = typeof obj.data[i].timetableInfo[0].trTypes !== typeof undefined ? JSON.stringify(obj.data[i].timetableInfo[0].trTypes) : "";
+        var transportTtValidFrom = typeof obj.data[i].timetableInfo[0].ttValidFrom !== typeof undefined ? JSON.stringify(obj.data[i].timetableInfo[0].ttValidFrom) : "";
+        var transportTtValidTo = typeof obj.data[i].timetableInfo[0].ttValidTo !== typeof undefined ? JSON.stringify(obj.data[i].timetableInfo[0].ttValidTo) : "";
+        options.push({id: obj.data[i].id, name: transportName, nameExt: transportNameExt, title: transportTitle, city: transportCity, description: transportDescription, homeState: transportHomeState, trTypes: transportTrTypes, ttValidFrom: transportTtValidFrom, ttValidTo: transportTtValidTo});
     }
     var types = DB.getAllTypes();
     for(var i = 0; i < types.length; i++) {
         var type = types[i].id;
-        var stationName = types[i].name;
+        var transportName = types[i].name;
         var typeInOptions = false;
         for(var j = 0; j < options.length; j++) {
-            if(type == options[j].id && stationName == options[j].name) {
+            if(type == options[j].id && transportName == options[j].name) {
                 typeInOptions = true;
             }
         }
@@ -79,7 +106,7 @@ function parseOptions(response_string) {
 
 function saveOptions(options) {
     for(var key in options) {
-        DB.appendNewType(options[key]["id"], options[key]["name"]);
+        DB.appendNewType(options[key]["id"], options[key]["name"], options[key]["nameExt"], options[key]["title"], options[key]["city"], options[key]["description"], options[key]["homeState"], options[key]["trTypes"], options[key]["ttValidFrom"], options[key]["ttValidTo"]);
     }
 }
 

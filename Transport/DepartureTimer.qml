@@ -31,7 +31,7 @@ Item {
             var now = new Date();
             now.setSeconds(0,0);
             var diff = Math.round((departureTimer.startTime - now) / 60000);
-            if(Math.abs(diff) <= 1440 && departureTimer.startTime.getDate() == now.getDate()) {
+            if(Math.abs(diff) <= 1440 && departureTimer.startTime.getDate() >= now.getDate()) {
                 if(diff < 0) {
                     if(diff > -59) {
                         var minutes = Math.abs(diff);

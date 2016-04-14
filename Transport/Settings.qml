@@ -226,7 +226,7 @@ Page {
                             text: i18n.tr("Yes")
                             color: UbuntuColors.red
                             onClicked: {
-                                DB.clearLocalStorage();
+                                Engine.clearLocalStorage();
                                 PopupUtils.close(confirm_clearcache_dialogue);
                             }
                         }

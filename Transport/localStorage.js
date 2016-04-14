@@ -208,6 +208,18 @@ function hasStop(type, name) {
     return exists;
 }
 
+function hasTransportStop(type) {
+    loadDB();
+    var exists = false;
+    db.transaction(function(tx) {
+        var rs = tx.executeSql("SELECT Count(*) as count FROM stops WHERE key=?", [type]);
+        if(rs.rows.item(0).count > 0) {
+            exists = true;
+        }
+    });
+    return exists;
+}
+
 function getRelevantStops(type, containing) {
     loadDB();
     var res = [];

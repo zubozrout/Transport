@@ -1,4 +1,3 @@
-
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQuick.LocalStorage 2.0
@@ -88,12 +87,6 @@ Page {
         via.stationInputModel.clear();
     }
 
-    onVisibleChanged: {
-        if(visible) {
-            update();
-        }
-    }
-
     Component.onCompleted: {
         lastUsedTransport = DB.getSetting("optionsList");
     }
@@ -147,6 +140,7 @@ Page {
                                     trasport_selector_page.selectedName = "";
                                     trasport_selector_page.getTextFieldContentFromDB(true);
                                     trasport_selector_page.confirm();
+                                    trasport_selector_page.update();
                                 }
                             }
                         }
@@ -310,15 +304,33 @@ Page {
                 }
             }
 
+            ListItem {
+                Rectangle {
+                    anchors {
+                        margins: units.gu(2)
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: parent.height
+                    color: "transparent"
+
+                    Label {
+                        text: i18n.tr("Used transport types") + " (" + knownListModel.count + ")"
+                        width: parent.width
+                        font.italic: true
+                        wrapMode: Text.WordWrap
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+            }
+
             ListView {
                 id: knownListView
                 width: parent.width
                 height: childrenRect.height
-
                 interactive: false
-
                 model: ListModel {
-                    id: knownListMmodel
+                    id: knownListModel
                 }
                 delegate: transportDelegate
 
@@ -331,7 +343,7 @@ Page {
                 }
 
                 function update() {
-                    knownListMmodel.clear();
+                    knownListModel.clear();
 
                     var types = DB.getAllTypes();
                     var usedTypes = DB.getAllUsedTypes();
@@ -351,26 +363,35 @@ Page {
                             }
                             var ttValidFrom = types[i].ttValidFrom ? types[i].ttValidFrom : "";
                             var ttValidTo = types[i].ttValidTo ? types[i].ttValidTo : "";
-                            knownListMmodel.append({knownList: true, id: index, name: name, nameExt: nameExt, title: title, city: city, description: description, homeState: homeState, trTypes: trTypes, ttValidFrom: ttValidFrom, ttValidTo: ttValidTo});
+                            knownListModel.append({knownList: true, id: index, name: name, nameExt: nameExt, title: title, city: city, description: description, homeState: homeState, trTypes: trTypes, ttValidFrom: ttValidFrom, ttValidTo: ttValidTo});
                         }
                     }
                 }
             }
 
-            Column {
+            Rectangle {
                 width: parent.width
-                spacing: 1
+                height: 1
+                color: UbuntuColors.lightGrey
+            }
 
+            ListItem {
                 Rectangle {
-                    width: parent.width
-                    height: 1
-                    color: "#ddd"
-                }
+                    anchors {
+                        margins: units.gu(2)
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: parent.height
+                    color: "transparent"
 
-                Rectangle {
-                    width: parent.width
-                    height: 1
-                    color: "#ddd"
+                    Label {
+                        text: i18n.tr("All transport types") + " (" + restListModel.count + ")"
+                        width: parent.width
+                        font.italic: true
+                        wrapMode: Text.WordWrap
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                 }
             }
 
@@ -379,16 +400,15 @@ Page {
                 width: parent.width
                 height: childrenRect.height
                 interactive: false
-
                 model: ListModel {
-                    id: restListMmodel
+                    id: restListModel
                 }
                 delegate: transportDelegate
 
                 Component.onCompleted: update()
 
                 function update() {
-                    restListMmodel.clear();
+                    restListModel.clear();
 
                     var types = DB.getAllTypes();
                     var usedTypes = DB.getAllUsedTypes();
@@ -407,7 +427,7 @@ Page {
                         }
                         var ttValidFrom = types[i].ttValidFrom ? types[i].ttValidFrom : "";
                         var ttValidTo = types[i].ttValidTo ? types[i].ttValidTo : "";
-                        restListMmodel.append({knownList: false, id: index, name: name, nameExt: nameExt, title: title, city: city, description: description, homeState: homeState, trTypes: trTypes, ttValidFrom: ttValidFrom, ttValidTo: ttValidTo});
+                        restListModel.append({knownList: false, id: index, name: name, nameExt: nameExt, title: title, city: city, description: description, homeState: homeState, trTypes: trTypes, ttValidFrom: ttValidFrom, ttValidTo: ttValidTo});
                     }
                 }
             }

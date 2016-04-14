@@ -38,7 +38,11 @@ MainView {
     // Common functions:
     function saveStationToDb(textfield, listview, model) {
         if(listview.lastSelected && listview.lastSelected == textfield.displayText) {
+            var hasTransportStop = DB.hasTransportStop(trasport_selector_page.selectedItem);
             DB.appendNewStop(trasport_selector_page.selectedItem, listview.lastSelected);
+            if(!hasTransportStop) {
+                trasport_selector_page.update();
+            }
         }
     }
 

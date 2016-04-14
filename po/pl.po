@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-14 00:07+0200\n"
+"POT-Creation-Date: 2016-04-14 14:12+0200\n"
 "PO-Revision-Date: 2016-03-19 13:36+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/zubozrout/transport/language/"
@@ -22,7 +22,7 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:13
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:193
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:197
 msgid "About"
 msgstr "O programie"
 
@@ -31,7 +31,7 @@ msgid "Main branch version:"
 msgstr "Versja główna:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:181
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:185
 #: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
@@ -102,7 +102,7 @@ msgstr "Wyjazdy ze stacji"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:28
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:436
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:559
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:563
 msgid "Search"
 msgstr "Szukaj"
 
@@ -115,17 +115,17 @@ msgid "No departures were found for the selected station."
 msgstr "Nie znaleziono wyjazdy dla wybranej stacji."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:254
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:328
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:332
 msgid "From"
 msgstr "Z"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:268
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:345
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:349
 msgid "To"
 msgstr "Do"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:284
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:389
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:393
 msgid "Via"
 msgstr "Przez"
 
@@ -134,12 +134,12 @@ msgid "Station"
 msgstr "Stacja"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:380
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:454
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:458
 msgid "Now"
 msgstr "Teraz"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:397
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:470
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:474
 msgid "Departure at"
 msgstr "Wyjazd o"
 
@@ -199,57 +199,57 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:101
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:105
 msgid "Server is not responding. Please try again later."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:102
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:106
 msgid "There was no server response received."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:143
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:147
 msgid "You're now offline"
 msgstr "Jesteś teraz offline"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:188
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:192
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:18
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:199
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:203
 msgid "Departures"
 msgstr "Odloty"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:204
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:208
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:18
 msgid "Connection results"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:294
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:298
 msgid "No transport option selected"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:361
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:365
 msgid "Advanced options"
 msgstr "Zaawansowane opcje"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:398
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:402
 msgid "Only direct connections"
 msgstr "Tylko bezpośrednie połączenia"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:470
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:474
 msgid "Arrival at"
 msgstr "Przybycie na"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:507
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:511
 msgid "Departure"
 msgstr "Wyjazd"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:511
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:515
 msgid "Arrival"
 msgstr "Przyjazd"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:629
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:633
 msgid "Does the search take too long? You can stop it by clicking here."
 msgstr "Czy poszukiwanie trwa zbyt długo możesz zatrzymać go klikając tutaj."
 
@@ -286,7 +286,7 @@ msgid "Clear cache"
 msgstr "Wyczyść pamięć podręczną"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:127
 msgid "Attention"
 msgstr "Uwaga"
 
@@ -295,64 +295,70 @@ msgid "Do you really want to clear all application data?"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:222
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:137
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:130
 msgid "No"
 msgstr "Nie"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:226
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:141
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
 msgid "Yes"
 msgstr "Tak"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:18
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:17
 msgid "Transport selector"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:135
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:128
 #, qt-format
 msgid "Do you really want to delete all saved stations for %1 transport?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:242
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:236
 msgid "Czech Republic"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:242
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:236
 msgid "Slovak Republic"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:254
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:248
 msgid "City:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:268
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:262
 msgid "Vehicle types:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:282
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:276
 msgid "Valid from:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:295
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:289
 msgid "Expires:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:290
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:318
+#, fuzzy
+msgid "Used transport types"
+msgstr "Wszystkie stacje"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:389
+#, fuzzy
+msgid "All transport types"
+msgstr "Wszystkie stacje"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:291
 msgid "Could not load next connection results."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:310
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:311
 msgid "No results matching input parameters were found."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:332
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:333
 msgid "Could not load connection detail."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:503
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:504
 msgid "An error occured"
 msgstr "Wystąpił błąd"
-
-#, fuzzy
-#~ msgid "All transport options"
-#~ msgstr "Wszystkie stacje"

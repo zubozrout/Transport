@@ -108,6 +108,7 @@ function saveOptions(options) {
     for(var key in options) {
         DB.appendNewType(options[key]["id"], options[key]["name"], options[key]["nameExt"], options[key]["title"], options[key]["city"], options[key]["description"], options[key]["homeState"], options[key]["trTypes"], options[key]["ttValidFrom"], options[key]["ttValidTo"]);
     }
+    trasport_selector_page.update();
 }
 
 function getStops(city, mask, limit, call, geo) {
@@ -640,4 +641,9 @@ function transportIdToName(id) {
         return ttypes[Number(id)];
     }
     return ttypes[0];
+}
+
+function clearLocalStorage() {
+    DB.clearLocalStorage();
+    trasport_selector_page.update();
 }

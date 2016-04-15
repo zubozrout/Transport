@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-14 14:12+0200\n"
+"POT-Creation-Date: 2016-04-15 10:37+0200\n"
 "PO-Revision-Date: 2016-04-14 11:55+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/zubozrout/transport/language/"
@@ -70,7 +70,7 @@ msgstr "Všechny zastávky"
 msgid "Only passed stations"
 msgstr "Jen projížděné zastávky"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:171
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:181
 msgid ""
 "An error occured while asking for the connection detail. The most probable "
 "cause is the expiration of the search results, please try again from scratch."
@@ -78,23 +78,23 @@ msgstr ""
 "Při stahování detailu spojeni nastala chyba. Nejčastější příčinou je "
 "expirace výsledků vyhledávání. Zkuste to prosím znova."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:211
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:221
 msgid "Departure:"
 msgstr "Odjezd:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:212
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:222
 msgid "Arrival:"
 msgstr "Příjezd:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:329
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:359
 msgid "Distance:"
 msgstr "Vzdálenost:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:330
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:360
 msgid "Time total:"
 msgstr "Čas:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:331
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:361
 msgid "Price:"
 msgstr "Cena:"
 

@@ -115,7 +115,7 @@ Page {
                     Component.onCompleted: {
                         if(knownList && lastUsedTransport == id) {
                             trasport_selector_page.selectedItem = id;
-                            trasport_selector_page.selectedName = name;
+                            trasport_selector_page.selectedName = nameExt;
                         }
                     }
 
@@ -180,7 +180,7 @@ Page {
                         anchors.fill: parent
                         onClicked: {
                             trasport_selector_page.selectedItem = id;
-                            trasport_selector_page.selectedName = name;
+                            trasport_selector_page.selectedName = nameExt;
                             trasport_selector_page.confirm();
                         }
                     }
@@ -201,7 +201,7 @@ Page {
                             width: parent.width
 
                             Label {
-                                text: name
+                                text: nameExt
                                 width: parent.width
                                 font.pixelSize: knownList ? FontUtils.sizeToPixels("large") : FontUtils.sizeToPixels("normal")
                                 wrapMode: Text.WordWrap
@@ -218,7 +218,7 @@ Page {
                                 }
 
                                 Label {
-                                    text: nameExt
+                                    text: name
                                     width: parent.width
                                     font.bold: true
                                     wrapMode: Text.WordWrap

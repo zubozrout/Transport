@@ -60,19 +60,29 @@ Page {
                 bottom: parent.bottom
             }
             model: [i18n.tr("All stations"), i18n.tr("Only passed stations")]
-            Component.onCompleted: {
-                selectedIndex: DB.getSetting("settings_show_all_or_passed") == true ? 0 : 1;
-            }
+            selectedIndex: 0
+            property bool selectedIndexOverrwrite: false
 
             StyleHints {
                 sectionColor: UbuntuColors.lightGrey
                 selectedSectionColor: "#fff"
+            }
+
+            onSelectedIndexChanged: {
+                selectedIndexOverrwrite = true;
             }
         }
 
         StyleHints {
             foregroundColor: "#fff"
             backgroundColor: "#3949AB"
+        }
+    }
+
+    onVisibleChanged: {
+        if(!connection_detail_head_sections.selectedIndexOverrwrite) {
+            connection_detail_head_sections.selectedIndex = DB.getSetting("settings_show_all_or_passed") == true ? 0 : 1;
+            connection_detail_head_sections.selectedIndexOverrwrite = false;
         }
     }
 
@@ -257,24 +267,44 @@ Page {
                 id: stationColumnList
                 visible: active || connection_detail_head_sections.selectedIndex == 0
                 width: parent.width
-                height: !visible ? 0 : childrenRect.height
 
                 Rectangle {
                     width: connection_detail.width
-                    height: (3/2)*station_detail_row.height
+                    height: station_detail_row.implicitHeight * (3/2)
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: index%2 == 1 ? "#eee" : "transparent"
+                    visible: parent.visible
 
                     RowLayout {
                         id: station_detail_row
                         width: stationColumnList.width
-                        height: childrenRect.height
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: units.gu(2)
-                        Rectangle { id: locator; height: parent.height/2; width: height; radius: height; visible: false; }
-                        Text { text: stationName; height: contentHeight; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignLeft; Layout.fillWidth: true; font.bold: active }
-                        Text { text: stop_time; height: contentHeight; wrapMode: Text.WordWrap; horizontalAlignment: Text.AlignRight; Layout.fillWidth: true; font.bold: active }
+
+                        Rectangle {
+                            id: locator
+                            height: parent.height/2
+                            width: height
+                            radius: height
+                            visible: false
+                        }
+
+                        Text {
+                            text: stationName
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignLeft
+                            Layout.fillWidth: true
+                            font.bold: active
+                        }
+
+                        Text {
+                            text: stop_time
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignRight
+                            Layout.fillWidth: true
+                            font.bold: active
+                        }
                     }
                 }
             }

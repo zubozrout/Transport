@@ -136,8 +136,10 @@ Page {
                                 onClicked: {
                                     DB.deleteAllTransportStops(id);
                                     PopupUtils.close(confirmDeletingAllTransportStopsDialogue);
-                                    trasport_selector_page.selectedItem = "";
-                                    trasport_selector_page.selectedName = "";
+                                    if(id == trasport_selector_page.selectedItem) {
+                                        trasport_selector_page.selectedItem = "";
+                                        trasport_selector_page.selectedName = "";
+                                    }
                                     trasport_selector_page.getTextFieldContentFromDB(true);
                                     trasport_selector_page.confirm();
                                     trasport_selector_page.update();

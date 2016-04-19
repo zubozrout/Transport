@@ -192,7 +192,11 @@ function parseConnectionDetail(response_string) {
     if(!response_string) {
         return;
     }
-    return checkForError(JSON.parse(response_string));
+    var response = checkForError(JSON.parse(response_string));
+    if(response == "ERROR") {
+        return null;
+    }
+    return response;
 }
 
 /*

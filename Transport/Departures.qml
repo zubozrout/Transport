@@ -24,17 +24,18 @@ Page {
         trailingActionBar {
             actions: [
                 Action {
-                    iconName: departures_search.visible ? "go-up" : "go-down"
+                    iconName: "search"
                     text: i18n.tr("Search")
-                    visible: departures_list_model.count == 0 ? false : true
-                    onTriggered: departures_search.visible = !departures_search.visible
+                    enabled: departures_list_model.count == 0 ? false : true
+                    visible: enabled
+                    onTriggered: departures_page_flickable_search.state == "DISPLAYED" ? departures_page_flickable_search.state = "CLOSED" : departures_page_flickable_search.state = "DISPLAYED"
                 },
                 Action {
                     iconName: "filters"
                     text: i18n.tr("Filter results")
                     enabled: departures_list_model.count == 0 ? false : true
                     visible: enabled
-                    onTriggered: departures_filter.visible = !departures_filter.visible
+                    onTriggered: departures_page_flickable_filter.state == "DISPLAYED" ? departures_page_flickable_filter.state = "CLOSED" : departures_page_flickable_filter.state = "DISPLAYED"
                 }
             ]
         }
@@ -65,14 +66,14 @@ Page {
         if(typeof records == typeof undefined || records.length == 0) {
             statusMessagelabel.text = i18n.tr("No departures were found for the selected station.");
             statusMessageBox.visible = true;
-            departures_search_column.visible = true;
+            departures_page_flickable_search.state = "DISPLAYED";
             return;
         }
 
         departures_list_model.clear();
         destinations = {};
         lines = [];
-        departures_search.visible = false;
+        departures_page_flickable_search.state = "CLOSED";
 
         var start = records["start"];
         for(var i = 0; i < records.length; i++) {
@@ -126,14 +127,14 @@ Page {
 
         ListItem {
             width: parent.width
-            height: visible ? departures_child_delegate_column.height + 2 * departures_child_delegate_column.anchors.margins : 0
+            height: visible ? departures_child_background.height : 0
             divider.visible: true
             visible: {
-                if(departures_filter.visible) {
-                    if(filterSwitch.state == "DESTINATION") {
+                if(departures_page_flickable_filter.state == "DISPLAYED") {
+                    if(filter_by_destination_checkbox.checked && !filter_by_line_checkbox.checked) {
                         return destinationSelector.model[destinationSelector.selectedIndex] == destination;
                     }
-                    if(filterSwitch.state == "LINE") {
+                    if(filter_by_line_checkbox.checked && !filter_by_destination_checkbox.checked) {
                         return lineSelector.model[lineSelector.selectedIndex] == num;
                     }
                 }
@@ -164,7 +165,12 @@ Page {
             }
 
             Rectangle {
-                anchors.fill: parent
+                id: departures_child_background
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                height: departures_child_delegate_column.height + units.gu(0.3)
                 color: expanded ? "#fafaef" : "#fff"
 
                 Column {
@@ -176,13 +182,61 @@ Page {
 
                     RowLayout {
                         width: parent.width
-                        spacing: units.gu(2)
+                        spacing: units.gu(1)
                         Layout.fillWidth: true
+
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: units.gu(3)
+                            height: width
+                            sourceSize.width: width
+                            fillMode: Image.PreserveAspectFit
+                            source: vehicleIcon
+                            Layout.fillWidth: false
+                        }
+
+                        Rectangle {
+                            width: units.gu(4)
+                            height: width/2
+                            radius: 4
+                            color: (typeof departures_page.destinations[destination] !== typeof undefined) ? departures_page.destinations[destination] : "#333"
+
+                            Text {
+                                anchors.fill: parent
+                                text: destination.split(" ").map(function(item){return item[0]}).join("").substring(0, 2).toUpperCase()
+                                font.pixelSize: FontUtils.sizeToPixels("normal")
+                                font.bold: true
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                color: "#fff"
+                            }
+                        }
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: (num) ? num : ""
+                            wrapMode: Text.WordWrap
+                            font.bold: true
+                            color: lineColor
+                            visible: text != ""
+                            Layout.fillWidth: false
+                        }
+
+                        Text {
+                            text: destination
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: FontUtils.sizeToPixels("small")
+                            visible: text != ""
+                            Layout.fillWidth: false
+                        }
 
                         Text {
                             id: time_in
                             width: parent.width
                             text: remaining
+                            horizontalAlignment: Text.AlignRight
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: FontUtils.sizeToPixels("small")
                             Layout.fillWidth: true
                             property var remaining: 0
                             property var routeStart: parsedDateTime
@@ -196,103 +250,79 @@ Page {
                         }
                     }
 
-                    RowLayout {
+                    Column {
                         width: parent.width
-                        spacing: units.gu(2)
-                        Layout.fillWidth: true
-
-                        Image {
-                            width: units.gu(4)
-                            height: width
-                            sourceSize.width: width
-                            fillMode: Image.PreserveAspectFit
-                            source: vehicleIcon
-                            Layout.fillWidth: false
-                        }
-
-                        Text {
-                            text: (num) ? num : ""
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: FontUtils.sizeToPixels("large")
-                            font.bold: true
-                            color: lineColor
-                            visible: text != ""
-                            Layout.fillWidth: false
-                        }
+                        spacing: units.gu(0.25)
+                        visible: expanded
 
                         Text {
                             text: (typeName) ? typeName.toUpperCase() : ""
+                            font.bold: true
                             wrapMode: Text.WordWrap
                             visible: text != ""
+                        }
+
+                        RowLayout {
+                            width: parent.width
+                            spacing: units.gu(1)
                             Layout.fillWidth: true
+
+                            Text {
+                                text: (start) ? i18n.tr("From") + ":" : ""
+                                wrapMode: Text.WordWrap
+                                visible: text != ""
+                                Layout.fillWidth: false
+                            }
+
+                            Text {
+                                text: (start) ? start : ""
+                                wrapMode: Text.WordWrap
+                                visible: text != ""
+                                Layout.fillWidth: true
+                            }
+                        }
+
+                        RowLayout {
+                            width: parent.width
+                            spacing: units.gu(1)
+                            Layout.fillWidth: true
+
+                            Text {
+                                text: (destination) ? i18n.tr("To") + ":" : ""
+                                wrapMode: Text.WordWrap
+                                visible: text != ""
+                                Layout.fillWidth: false
+                            }
+
+                            Text {
+                                text: (destination) ? destination : ""
+                                wrapMode: Text.WordWrap
+                                visible: text != ""
+                                Layout.fillWidth: true
+                            }
+                        }
+
+
+                        Text {
+                            text: (heading) ? i18n.tr("Via") + ":" + " " + heading : ""
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            visible: text != ""
+                        }
+
+                        Text {
+                            text: (desc) ? desc : ""
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            font.italic: true
+                            visible: text != ""
                         }
 
                         Rectangle {
-                            width: units.gu(4)
-                            height: width
-                            radius: width
-                            color: (typeof departures_page.destinations[destination] !== typeof undefined) ? departures_page.destinations[destination] : "#333"
-
-                            Text {
-                                anchors.fill: parent
-                                text: destination.split(" ").map(function(item){return item[0]}).join("").substring(0, 2).toUpperCase()
-                                font.pixelSize: FontUtils.sizeToPixels("normal")
-                                font.bold: true
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                                color: "#fff"
-                            }
+                            width: parent.width
+                            height: units.gu(1.5)
+                            color: "transparent"
                         }
-                    }
-
-                    RowLayout {
-                        width: parent.width
-                        spacing: units.gu(1)
-                        Layout.fillWidth: true
-
-                        Text {
-                            text: (start) ? i18n.tr("From") + ":" : ""
-                            wrapMode: Text.WordWrap
-                            visible: text != ""
-                            Layout.fillWidth: false
-                        }
-
-                        Text {
-                            text: (start) ? start : ""
-                            wrapMode: Text.WordWrap
-                            visible: text != ""
-                            Layout.fillWidth: true
-                        }
-
-                        Text {
-                            text: (destination) ? i18n.tr("To") + ":" : ""
-                            wrapMode: Text.WordWrap
-                            visible: text != ""
-                            Layout.fillWidth: false
-                        }
-
-                        Text {
-                            text: (destination) ? destination : ""
-                            wrapMode: Text.WordWrap
-                            font.bold: true
-                            visible: text != ""
-                            Layout.fillWidth: false
-                        }
-                    }
-
-                    Text {
-                        text: (heading) ? i18n.tr("Via") + ":" + " " + heading : ""
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        visible: expanded && text != ""
-                    }
-
-                    Text {
-                        text: (desc) ? desc : ""
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        font.italic: true
-                        visible: expanded && text != ""
                     }
                 }
 
@@ -307,185 +337,47 @@ Page {
     }
 
     Flickable {
-        id: departures_page_flickable
+        id: departures_page_flickable_search
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
         anchors.top: departures_page_header.bottom
-        contentHeight: departures_column.implicitHeight
+        contentHeight: departures_search.height
         contentWidth: parent.width
-        clip: true
+        z: 2
+        state: "DISPLAYED"
 
-        Column {
-            id: departures_column
-            anchors.fill: parent
-
-            Rectangle {
-                id: departures_search
-                width: parent.width
-                height: departures_search_column.implicitHeight + 2 * departures_search_column.anchors.margins
-                color: "transparent"
-                visible: true
-
-                onVisibleChanged: {
-                    if(visible) {
-                        departures_page_flickable.contentY = 0;
-                    }
-                }
-
-                Column {
-                    id: departures_search_column
-                    anchors.fill: parent
-                    anchors.margins: units.gu(2)
-                    spacing: units.gu(2)
-
-                    StationQuery {
-                        id: stations
-                        property string placeholder: i18n.tr("Station")
-                    }
-
-                    RowLayout {
-                        width: parent.width
-                        spacing: units.gu(2)
-
-                        RowLayout {
-                            Layout.fillWidth: true
-                            spacing: units.gu(2)
-
-                            Switch {
-                                id: nowSwitch
-                                checked: true
-                                anchors.verticalCenter: parent.verticalCenter
-
-                                onCheckedChanged: {
-                                    if(checked) {
-                                        nowLabel.state = "NOW";
-                                        time_date_picker.visible = false;
-                                    }
-                                    else {
-                                        nowLabel.state = "CUSTOM";
-                                        time_date_picker.visible = true;
-                                    }
-                                }
-                            }
-
-                            Label {
-                                id: nowLabel
-                                Layout.fillWidth: true
-                                wrapMode: Text.WordWrap
-                                state: "NOW"
-                                states: [
-                                    State {
-                                        name: "NOW"
-                                        PropertyChanges { target: nowLabel; text: i18n.tr("Now") }
-                                    },
-                                    State {
-                                        name: "CUSTOM"
-                                        PropertyChanges {
-                                            target: nowLabel
-                                            text: {
-                                                var hours = timeButton.date.getHours();
-                                                var minutes = timeButton.date.getMinutes();
-                                                if(parseInt(minutes) < 10) {
-                                                    minutes = "0" + minutes;
-                                                }
-
-                                                var date = dateButton.date.getDate();
-                                                var month = dateButton.date.getMonth() + 1;
-                                                var year = dateButton.date.getFullYear();
-
-                                                return i18n.tr("Departure at") + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    }
-
-                    Column {
-                        id: time_date_picker
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        spacing: units.gu(2)
-                        visible: false
-
-                        RowLayout {
-                            height: childrenRect.height
-                            Layout.fillWidth: true
-                            spacing: units.gu(2)
-
-                            Button {
-                                id: timeButton
-                                text: i18n.tr("Change time")
-                                property date date: new Date()
-                                onClicked: PickerPanel.openDatePicker(timeButton, "date", "Hours|Minutes");
-                            }
-
-                            Button {
-                                id: dateButton
-                                text: i18n.tr("Change date")
-                                property date date: new Date()
-                                onClicked: PickerPanel.openDatePicker(dateButton, "date", "Years|Months|Days");
-                            }
-                        }
-                    }
-
-                    Button {
-                        id: search
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: i18n.tr("Search")
-                        focus: true
-                        color: "#3949AB"
-
-                        onClicked: {
-                            departures_page.search();
-                        }
-
-                        state: (stations.displayText == "") ? "DISABLED" : (api.running ? "ACTIVE" : "ENABLED")
-
-                        states: [
-                            State {
-                                name: "ENABLED"
-                                PropertyChanges { target: search; enabled: true }
-                                PropertyChanges { target: search; color: "#3949AB" }
-                            },
-                            State {
-                                name: "DISABLED"
-                                PropertyChanges { target: search; enabled: false }
-                                PropertyChanges { target: search; color: UbuntuColors.coolGrey }
-                            },
-                            State {
-                                name: "ACTIVE"
-                                PropertyChanges { target: search; enabled: false }
-                                PropertyChanges { target: search; color: UbuntuColors.warmGrey }
-                            }
-                        ]
-
-                        ActivityIndicator {
-                            id: searchActivity
-                            anchors.fill: parent
-                            running: api.running
-                        }
-                    }
-                }
+        states: [
+            State {
+                name: "DISPLAYED"
+                PropertyChanges { target: departures_page_flickable_search; visible: true }
+                PropertyChanges { target: departures_page_flickable_search; height: departures_search.height }
+            },
+            State {
+                name: "CLOSED"
+                PropertyChanges { target: departures_page_flickable_search; visible: false }
+                PropertyChanges { target: departures_page_flickable_search; height: 0 }
             }
-            Rectangle {
-                id: departures_filter
-                width: parent.width
-                height: departures_filter_column.implicitHeight + 2 * departures_filter_column.anchors.margins
-                color: "transparent"
-                visible: false
+        ]
 
-                onVisibleChanged: {
-                    if(visible) {
-                        departures_page_flickable.contentY = 0;
-                    }
+        Rectangle {
+            id: departures_search
+            width: parent.width
+            height: departures_search_column.implicitHeight + 2 * departures_search_column.anchors.margins
+            color: "transparent"
+
+            Column {
+                id: departures_search_column
+                anchors.fill: parent
+                anchors.margins: units.gu(2)
+                spacing: units.gu(2)
+
+                StationQuery {
+                    id: stations
+                    property string placeholder: i18n.tr("Station")
                 }
 
-                Column {
-                    id: departures_filter_column
-                    anchors.fill: parent
-                    anchors.margins: units.gu(2)
+                RowLayout {
+                    width: parent.width
                     spacing: units.gu(2)
 
                     RowLayout {
@@ -493,92 +385,261 @@ Page {
                         spacing: units.gu(2)
 
                         Switch {
-                            id: filterSwitch
+                            id: nowSwitch
                             checked: true
                             anchors.verticalCenter: parent.verticalCenter
 
-                            state: "LINE"
-                            states: [
-                                State {
-                                    name: "LINE"
-                                    PropertyChanges { target: filterLabel; text: i18n.tr("Filter by line") }
-                                },
-                                State {
-                                    name: "DESTINATION"
-                                    PropertyChanges { target: filterLabel; text: i18n.tr("Filter by destination") }
-                                }
-                            ]
-
                             onCheckedChanged: {
                                 if(checked) {
-                                    state = "LINE";
+                                    nowLabel.state = "NOW";
+                                    time_date_picker.visible = false;
                                 }
                                 else {
-                                    state = "DESTINATION";
+                                    nowLabel.state = "CUSTOM";
+                                    time_date_picker.visible = true;
                                 }
                             }
                         }
 
                         Label {
-                            id: filterLabel
+                            id: nowLabel
                             Layout.fillWidth: true
                             wrapMode: Text.WordWrap
+                            state: "NOW"
+                            states: [
+                                State {
+                                    name: "NOW"
+                                    PropertyChanges { target: nowLabel; text: i18n.tr("Now") }
+                                },
+                                State {
+                                    name: "CUSTOM"
+                                    PropertyChanges {
+                                        target: nowLabel
+                                        text: {
+                                            var hours = timeButton.date.getHours();
+                                            var minutes = timeButton.date.getMinutes();
+                                            if(parseInt(minutes) < 10) {
+                                                minutes = "0" + minutes;
+                                            }
+
+                                            var date = dateButton.date.getDate();
+                                            var month = dateButton.date.getMonth() + 1;
+                                            var year = dateButton.date.getFullYear();
+
+                                            return i18n.tr("Departure at") + " " + hours + ":" + minutes + ", " + date + "." + month + "." + year;
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+
+                Column {
+                    id: time_date_picker
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: units.gu(2)
+                    visible: false
+
+                    RowLayout {
+                        height: childrenRect.height
+                        Layout.fillWidth: true
+                        spacing: units.gu(2)
+
+                        Button {
+                            id: timeButton
+                            text: i18n.tr("Change time")
+                            property date date: new Date()
+                            onClicked: PickerPanel.openDatePicker(timeButton, "date", "Hours|Minutes");
+                        }
+
+                        Button {
+                            id: dateButton
+                            text: i18n.tr("Change date")
+                            property date date: new Date()
+                            onClicked: PickerPanel.openDatePicker(dateButton, "date", "Years|Months|Days");
+                        }
+                    }
+                }
+
+                Button {
+                    id: search
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: i18n.tr("Search")
+                    focus: true
+                    color: "#3949AB"
+
+                    onClicked: {
+                        departures_page.search();
+                    }
+
+                    state: (stations.displayText == "") ? "DISABLED" : (api.running ? "ACTIVE" : "ENABLED")
+
+                    states: [
+                        State {
+                            name: "ENABLED"
+                            PropertyChanges { target: search; enabled: true }
+                            PropertyChanges { target: search; color: "#3949AB" }
+                        },
+                        State {
+                            name: "DISABLED"
+                            PropertyChanges { target: search; enabled: false }
+                            PropertyChanges { target: search; color: UbuntuColors.coolGrey }
+                        },
+                        State {
+                            name: "ACTIVE"
+                            PropertyChanges { target: search; enabled: false }
+                            PropertyChanges { target: search; color: UbuntuColors.warmGrey }
+                        }
+                    ]
+
+                    ActivityIndicator {
+                        id: searchActivity
+                        anchors.fill: parent
+                        running: api.running
+                    }
+                }
+            }
+        }
+    }
+
+    Flickable {
+        id: departures_page_flickable_filter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: departures_page_flickable_search.bottom
+        contentHeight: departures_filter.height
+        contentWidth: parent.width
+        z: 1
+        state: "CLOSED"
+
+        states: [
+            State {
+                name: "DISPLAYED"
+                PropertyChanges { target: departures_page_flickable_filter; visible: true }
+                PropertyChanges { target: departures_page_flickable_filter; height: departures_filter.height }
+            },
+            State {
+                name: "CLOSED"
+                PropertyChanges { target: departures_page_flickable_filter; visible: false }
+                PropertyChanges { target: departures_page_flickable_filter; height: 0 }
+            }
+        ]
+
+        Rectangle {
+            id: departures_filter
+            anchors {
+                margins: units.gu(2)
+                left: parent.left
+                right: parent.right
+            }
+            height: departures_filter_column.implicitHeight + 2 * departures_filter.anchors.margins
+            color: "transparent"
+
+            Column {
+                id: departures_filter_column
+                anchors.centerIn: parent
+                width: parent.width
+                spacing: units.gu(2)
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: units.gu(2)
+
+                    CheckBox {
+                        id: filter_by_line_checkbox
+                        checked: true
+                        Layout.fillWidth: false
+
+                        onCheckedChanged: {
+                            if(checked) {
+                                filter_by_destination_checkbox.checked = false;
+                            }
+                            else {
+                                if(!filter_by_destination_checkbox.checked) {
+                                    departures_page_flickable_filter.state = "CLOSED";
+                                    filter_by_line_checkbox.checked = true;
+                                }
+                            }
                         }
                     }
 
-                    ListItemSelector.ItemSelector {
-                        id: destinationSelector
-                        containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
-                        expanded: false
-                        model: []
-                        visible: model.length > 0 && filterSwitch.state == "DESTINATION"
+                    Label {
+                        text: i18n.tr("Filter by line")
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
                     }
 
-                    ListItemSelector.ItemSelector {
-                        id: lineSelector
-                        containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
-                        expanded: false
-                        model: []
-                        visible: model.length > 0 && filterSwitch.state == "LINE"
+                    CheckBox {
+                        id: filter_by_destination_checkbox
+                        checked: false
+                        Layout.fillWidth: false
+
+                        onCheckedChanged: {
+                            if(checked) {
+                                filter_by_line_checkbox.checked = false;
+                            }
+                            else {
+                                if(!filter_by_line_checkbox.checked) {
+                                    departures_page_flickable_filter.state = "CLOSED";
+                                    filter_by_line_checkbox.checked = true;
+                                }
+                            }
+                        }
+                    }
+
+                    Label {
+                        text: i18n.tr("Filter by destination")
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
                     }
                 }
-            }
 
-            Rectangle {
-                color: "#ddd"
-                width: parent.width
-                anchors.horizontalCenter: parent.horizontalCenter
-                height: 1
-            }
-
-            ListView {
-                id: departures_list_view
-                height: childrenRect.height
-                width: departures_page.width
-                anchors.horizontalCenter: parent.horizontalCenter
-                interactive: false
-
-                model: ListModel {
-                    id: departures_list_model
+                ListItemSelector.ItemSelector {
+                    id: destinationSelector
+                    containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
+                    expanded: false
+                    model: []
+                    visible: model.length > 0 && filter_by_destination_checkbox.checked
                 }
-                delegate: departures_child_delegate
+
+                ListItemSelector.ItemSelector {
+                    id: lineSelector
+                    containerHeight: model.length > 5 ? 5 * itemHeight : model.length * itemHeight
+                    expanded: false
+                    model: []
+                    visible: model.length > 0 && filter_by_line_checkbox.checked
+                }
             }
         }
+    }
+
+    ListView {
+        id: departures_list_view
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.top: departures_page_flickable_filter.bottom
+
+        model: ListModel {
+            id: departures_list_model
+        }
+        delegate: departures_child_delegate
     }
 
     Rectangle {
         id: scrollToTopButton
         anchors {
             margins: units.gu(3)
-            top: departures_page_flickable.top
-            horizontalCenter: parent.horizontalCenter
+            top: departures_list_view.top
+            right: parent.right
         }
-        width: units.gu(8)
+        width: units.gu(7)
         height: width
         radius: width
-        color: "#3949AB"
+        color: "#000"
         opacity: 0.85
-        visible: departures_page_flickable.contentY > departures_page.height
+        visible: departures_list_view.contentY > 2 * parent.height
 
         Icon {
             anchors.fill: parent
@@ -590,13 +651,13 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                departures_page_flickable.contentY = 0;
+                departures_list_view.contentY = 0;
             }
         }
     }
 
     Scrollbar {
-        flickableItem: departures_page_flickable
+        flickableItem: departures_list_view
         align: Qt.AlignTrailing
     }
 }

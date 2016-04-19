@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Omar Mohamed <om_80_m@yahoo.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-14 13:53+0200\n"
+"POT-Creation-Date: 2016-04-19 23:31+0200\n"
 "PO-Revision-Date: 2016-04-14 13:21+0000\n"
 "Last-Translator: Omar Mohamed <om_80_m@yahoo.com>\n"
-"Language-Team: Arabic (http://www.transifex.com/zubozrout/transport/language/ar/)\n"
+"Language-Team: Arabic (http://www.transifex.com/zubozrout/transport/language/"
+"ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:13
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:197
@@ -38,15 +40,16 @@ msgid "Timetables"
 msgstr "الجداول الزمنية"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:104
-msgid ""
-"This application is based upon an API provided by CHAPS s.r.o. company."
+msgid "This application is based upon an API provided by CHAPS s.r.o. company."
 msgstr "هذا التطبيق مبني على واجهة برمجة تطبيقات مزود بواسطة شركة CHAPS s.r.o"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:104
 msgid ""
-"You can find the documentation of the API service here "
-"http://docs.crws.apiary.io/"
-msgstr "يمكنك إيجاد التوثيق الخاص بخدمة واجهة برمجة التطبيقات هنا http://docs.crws.apiary.io/"
+"You can find the documentation of the API service here http://docs.crws."
+"apiary.io/"
+msgstr ""
+"يمكنك إيجاد التوثيق الخاص بخدمة واجهة برمجة التطبيقات هنا http://docs.crws."
+"apiary.io/"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:118
 msgid "Thank you everyone who helped translating this app."
@@ -68,30 +71,31 @@ msgstr "جميع المحطات"
 msgid "Only passed stations"
 msgstr "فقط المحطات التي تم تجاوزها"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:171
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:181
 msgid ""
 "An error occured while asking for the connection detail. The most probable "
-"cause is the expiration of the search results, please try again from "
-"scratch."
-msgstr "حدث خطأ اثناء طلب الحصول على تفاصيل الاتصال. السبب الأكثر احتمالا هو انتهاء صلاحية نتائج البحث، الرجاء المحوالة مرة أخرى من الصفر."
+"cause is the expiration of the search results, please try again from scratch."
+msgstr ""
+"حدث خطأ اثناء طلب الحصول على تفاصيل الاتصال. السبب الأكثر احتمالا هو انتهاء "
+"صلاحية نتائج البحث، الرجاء المحوالة مرة أخرى من الصفر."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:211
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:221
 msgid "Departure:"
 msgstr "المغادرة:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:212
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:222
 msgid "Arrival:"
 msgstr "الوصول:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:329
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:359
 msgid "Distance:"
 msgstr "المسافة:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:330
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:360
 msgid "Time total:"
 msgstr "إجمالي الوقت:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:331
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:361
 msgid "Price:"
 msgstr "السعر:"
 
@@ -100,65 +104,65 @@ msgid "Station departures"
 msgstr "مغادرات المحطة"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:28
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:436
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:468
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:563
 msgid "Search"
 msgstr "ابحث"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:34
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:35
 msgid "Filter results"
 msgstr "رشّح النتائج"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:66
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:67
 msgid "No departures were found for the selected station."
 msgstr "لم يتم العثور على مغادرات للمحطة المنتقاة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:254
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:271
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:332
 msgid "From"
 msgstr "من"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:268
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:291
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:349
 msgid "To"
 msgstr "إلى"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:284
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:307
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:393
 msgid "Via"
 msgstr "بواسطة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:344
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:376
 msgid "Station"
 msgstr "محطة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:380
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:412
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:458
 msgid "Now"
 msgstr "الآن"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:397
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:429
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:474
 msgid "Departure at"
 msgstr "المغادرة عند"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:419
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:451
 msgid "Change time"
 msgstr "غيّر الوقت"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:426
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:458
 msgid "Change date"
 msgstr "غيّر التاريخ"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:504
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:568
 msgid "Filter by line"
 msgstr "رشّح بناء على الخط"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:508
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:592
 msgid "Filter by destination"
 msgstr "رشّح بناء على الوجهة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:38
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:46
 #, qt-format
 msgid "%1 minute ago"
 msgid_plural "%1 minutes ago"
@@ -169,11 +173,11 @@ msgstr[3] "منذ %1 دقائق"
 msgstr[4] "منذ %1 دقيقة"
 msgstr[5] "منذ %1 دقيقة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:41
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:49
 msgid "departed"
 msgstr "غادرت"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:56
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:63
 #, qt-format
 msgid "in %1 hour"
 msgid_plural "in %1 hours"
@@ -184,7 +188,7 @@ msgstr[3] "في %1 ساعات"
 msgstr[4] "في %1 ساعة"
 msgstr[5] "في %1 ساعة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:58
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:65
 #, qt-format
 msgid "and %1 minute"
 msgid_plural "and %1 minutes"
@@ -195,11 +199,11 @@ msgstr[3] "و %1 دقائق"
 msgstr[4] "و %1 دقيقة"
 msgstr[5] "و %1 دقيقة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:63
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:70
 msgid "just now"
 msgstr "الآن حالا"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:66
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:73
 #, qt-format
 msgid "in %1 minute"
 msgid_plural "in %1 minutes"
@@ -209,6 +213,14 @@ msgstr[2] "في %1 دقيقتين"
 msgstr[3] "في %1 دقائق"
 msgstr[4] "في %1 دقيقة"
 msgstr[5] "في %1 دقيقة"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:83
+msgid "yesterday"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:89
+msgid "today"
+msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:105
 msgid "Server is not responding. Please try again later."
@@ -297,7 +309,7 @@ msgid "Clear cache"
 msgstr "امسح ذاكرة التخزين الؤقت"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:128
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:127
 msgid "Attention"
 msgstr "انتباه"
 
@@ -306,68 +318,68 @@ msgid "Do you really want to clear all application data?"
 msgstr "هل ترغب حقا في مسح جميع بيانات التطبيق؟"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:222
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:131
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:130
 msgid "No"
 msgstr "لا"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:226
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:135
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
 msgid "Yes"
 msgstr "نعم"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:18
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:17
 msgid "Transport selector"
 msgstr "محدد المواصلات"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:129
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:128
 #, qt-format
 msgid "Do you really want to delete all saved stations for %1 transport?"
 msgstr "هل ترغب حقا في حذف جميع المحطات المحفوظة لمواصلات %1؟"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:237
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:238
 msgid "Czech Republic"
 msgstr "جمهورية التشيك"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:237
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:238
 msgid "Slovak Republic"
 msgstr "جمهورية سلوفاكيا"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:249
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:250
 msgid "City:"
 msgstr "المدينة:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:263
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:264
 msgid "Vehicle types:"
 msgstr "نوع المركبة:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:277
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:278
 msgid "Valid from:"
 msgstr "صالحة من:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:290
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:291
 msgid "Expires:"
 msgstr "تنتهي في:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:327
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:320
 msgid "Used transport types"
 msgstr "أنواع المواصلات المستخدمة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:406
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:391
 msgid "All transport types"
 msgstr "جميع أنواع المواصلات"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:291
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:295
 msgid "Could not load next connection results."
 msgstr "تعذر تحميل نتائج الاتصال التالي."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:311
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:315
 msgid "No results matching input parameters were found."
 msgstr "لم يتم العثور على نتائج متطابقة لمعاملات الإدخال."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:333
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:337
 msgid "Could not load connection detail."
 msgstr "تعذر تحميل بيانات الاتصال."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:504
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:508
 msgid "An error occured"
 msgstr "حدث خطأ"

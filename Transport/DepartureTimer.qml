@@ -31,6 +31,14 @@ Item {
             var now = new Date();
             now.setSeconds(0,0);
             var diff = Math.round((departureTimer.startTime - now) / 60000);
+
+            if(diff < 0) {
+                departureTimer.timeColor = "#B71C1C";
+            }
+            else {
+                departureTimer.timeColor = "#33691E";
+            }
+
             if(Math.abs(diff) <= 1440 && departureTimer.startTime.getDate() >= now.getDate()) {
                 if(diff < 0) {
                     if(diff > -59) {
@@ -41,7 +49,6 @@ Item {
                         departureTimer.remainingTime = i18n.tr("departed");
                         repeat = false;
                     }
-                    departureTimer.timeColor = "#B71C1C";
                     return;
                 }
                 else {
@@ -66,16 +73,27 @@ Item {
                             departureTimer.remainingTime = i18n.tr("in %1 minute", "in %1 minutes", minutes).arg(minutes);
                         }
                     }
-                    departureTimer.timeColor = "#33691E";
                     return;
                 }
             }
             else {
                 if(departureTimer.routeStart) {
-                    departureTimer.remainingTime = Engine.dateToReadableFormat(departureTimer.routeStart);
-                    if(departureTimer.routeEnd && departureTimer.remainingTime != Engine.dateToReadableFormat(departureTimer.routeEnd)) {
-                        departureTimer.remainingTime += " → " + Engine.dateToReadableFormat(departureTimer.routeEnd);
+                    var routeStart = Engine.dateToReadableFormat(departureTimer.routeStart);
+                    if(departureTimer.startTime.getDate() + 1 == now.getDate()) {
+                        routeStart = i18n.tr("yesterday");
                     }
+
+                    var routeEnd = null;
+                    if(departureTimer.routeEnd && departureTimer.remainingTime != Engine.dateToReadableFormat(departureTimer.routeEnd)) {
+                        if(departureTimer.startTime.getDate() + 1 == now.getDate()) {
+                            routeEnd = i18n.tr("today");
+                        }
+                        else {
+                            routeEnd = Engine.dateToReadableFormat(departureTimer.routeEnd);
+                        }
+                    }
+
+                    departureTimer.remainingTime = routeStart + (routeEnd ? " → " + routeEnd : "");
                 }
                 else {
                     departureTimer.remainingTime = "";

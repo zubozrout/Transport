@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-19 23:31+0200\n"
+"POT-Creation-Date: 2016-04-20 22:27+0200\n"
 "PO-Revision-Date: 2016-03-19 13:36+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/zubozrout/transport/language/"
@@ -96,21 +96,21 @@ msgstr "Całkowity czas:"
 msgid "Price:"
 msgstr "Cena:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:22
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:21
 msgid "Station departures"
 msgstr "Wyjazdy ze stacji"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:28
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:468
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:27
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:483
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:563
 msgid "Search"
 msgstr "Szukaj"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:35
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:34
 msgid "Filter results"
 msgstr "Filtruj wyniki"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:67
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:66
 msgid "No departures were found for the selected station."
 msgstr "Nie znaleziono wyjazdy dla wybranej stacji."
 
@@ -129,33 +129,34 @@ msgstr "Do"
 msgid "Via"
 msgstr "Przez"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:376
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:370
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:391
 msgid "Station"
 msgstr "Stacja"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:412
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:427
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:458
 msgid "Now"
 msgstr "Teraz"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:429
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:444
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:474
 msgid "Departure at"
 msgstr "Wyjazd o"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:451
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:466
 msgid "Change time"
 msgstr "Zmień godzinę"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:458
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:473
 msgid "Change date"
 msgstr "Zmień datę"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:568
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:592
 msgid "Filter by line"
 msgstr "Filtrowanie według linii"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:592
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:616
 msgid "Filter by destination"
 msgstr "Wyszukiwanie według miejscowości"
 

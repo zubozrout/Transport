@@ -13,7 +13,6 @@ Page {
     visible: false
     clip: true
 
-    property var starting_station: ""
     property var destinations: ({})
     property var lines: []
 
@@ -120,6 +119,7 @@ Page {
         Engine.getDepartures(trasport_selector_page.selectedItem, stations.displayText, date_time, "", "", "", departures_page.renderDepartures);
 
         DB.saveSetting("departuresStop" + trasport_selector_page.selectedItem, stations.displayText);
+        departures_start.station = stations.displayText;
     }
 
     Component {
@@ -341,23 +341,38 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: departures_page_header.bottom
-        contentHeight: departures_search.height
         contentWidth: parent.width
         z: 2
         state: "DISPLAYED"
+        clip: true
 
         states: [
             State {
                 name: "DISPLAYED"
-                PropertyChanges { target: departures_page_flickable_search; visible: true }
+                PropertyChanges { target: departures_search; visible: true }
+                PropertyChanges { target: departures_start; visible: false }
+                PropertyChanges { target: departures_page_flickable_search; contentHeight: departures_search.height }
                 PropertyChanges { target: departures_page_flickable_search; height: departures_search.height }
             },
             State {
                 name: "CLOSED"
-                PropertyChanges { target: departures_page_flickable_search; visible: false }
-                PropertyChanges { target: departures_page_flickable_search; height: 0 }
+                PropertyChanges { target: departures_search; visible: false }
+                PropertyChanges { target: departures_start; visible: true }
+                PropertyChanges { target: departures_page_flickable_search; contentHeight: departures_start.height }
+                PropertyChanges { target: departures_page_flickable_search; height: departures_start.height }
             }
         ]
+
+        Label {
+            id: departures_start
+            width: parent.width
+            height: contentHeight + units.gu(1)
+            text: i18n.tr("Station") + ": " + station
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WordWrap
+            property var station: ""
+        }
 
         Rectangle {
             id: departures_search
@@ -501,6 +516,13 @@ Page {
                 }
             }
         }
+
+        Rectangle {
+            anchors.bottom: parent.bottom
+            width: parent.width
+            height: 1
+            color: "#ddd"
+        }
     }
 
     Flickable {
@@ -512,6 +534,7 @@ Page {
         contentWidth: parent.width
         z: 1
         state: "CLOSED"
+        clip: true
 
         states: [
             State {
@@ -543,6 +566,7 @@ Page {
                 spacing: units.gu(2)
 
                 RowLayout {
+                    width: parent.width
                     Layout.fillWidth: true
                     spacing: units.gu(2)
 
@@ -620,6 +644,7 @@ Page {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: departures_page_flickable_filter.bottom
+        clip: true
 
         model: ListModel {
             id: departures_list_model

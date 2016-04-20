@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-19 23:31+0200\n"
+"POT-Creation-Date: 2016-04-20 22:27+0200\n"
 "PO-Revision-Date: 2016-04-14 13:21+0000\n"
 "Last-Translator: Omar Mohamed <om_80_m@yahoo.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/zubozrout/transport/language/"
@@ -99,21 +99,21 @@ msgstr "إجمالي الوقت:"
 msgid "Price:"
 msgstr "السعر:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:22
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:21
 msgid "Station departures"
 msgstr "مغادرات المحطة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:28
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:468
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:27
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:483
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:563
 msgid "Search"
 msgstr "ابحث"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:35
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:34
 msgid "Filter results"
 msgstr "رشّح النتائج"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:67
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:66
 msgid "No departures were found for the selected station."
 msgstr "لم يتم العثور على مغادرات للمحطة المنتقاة"
 
@@ -132,33 +132,34 @@ msgstr "إلى"
 msgid "Via"
 msgstr "بواسطة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:376
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:370
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:391
 msgid "Station"
 msgstr "محطة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:412
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:427
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:458
 msgid "Now"
 msgstr "الآن"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:429
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:444
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:474
 msgid "Departure at"
 msgstr "المغادرة عند"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:451
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:466
 msgid "Change time"
 msgstr "غيّر الوقت"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:458
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:473
 msgid "Change date"
 msgstr "غيّر التاريخ"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:568
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:592
 msgid "Filter by line"
 msgstr "رشّح بناء على الخط"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:592
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:616
 msgid "Filter by destination"
 msgstr "رشّح بناء على الوجهة"
 

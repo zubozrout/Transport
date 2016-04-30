@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 22:27+0200\n"
+"POT-Creation-Date: 2016-04-30 10:00+0200\n"
 "PO-Revision-Date: 2016-04-14 13:21+0000\n"
 "Last-Translator: Omar Mohamed <om_80_m@yahoo.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/zubozrout/transport/language/"
@@ -31,7 +31,7 @@ msgstr "إصدار الفرع الرئيسي:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:185
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "المواصلات"
 
@@ -105,7 +105,7 @@ msgstr "مغادرات المحطة"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:27
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:483
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:563
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:573
 msgid "Search"
 msgstr "ابحث"
 
@@ -273,7 +273,7 @@ msgstr "مغادرة"
 msgid "Arrival"
 msgstr "وصول"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:633
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:643
 msgid "Does the search take too long? You can stop it by clicking here."
 msgstr "هل البحث يستغرق وقتا طويلا؟ بإمكانك إيقافه بالضغط هنا"
 
@@ -294,37 +294,41 @@ msgid "Display all line stops in the connection detail?"
 msgstr "إظهار جميع توقفات الخط في بيانات الاتصال؟"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:113
+msgid "Ignore transport validity dates in date selector?"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:145
 msgid "Download and refresh all transport options on each application start?"
 msgstr "تنزيل و تجديد جميع خيارات المواصلات عند كل مرة يبدأ فيها التطبيق؟"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:142
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:174
 msgid "Refresh transport options"
 msgstr "جدّد خيارات المواصلات"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:165
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:197
 msgid "Keep background color saved"
 msgstr "أبقِ لون الخلفية محفوظاً"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:211
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:243
 msgid "Clear cache"
 msgstr "امسح ذاكرة التخزين الؤقت"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:127
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:251
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:157
 msgid "Attention"
 msgstr "انتباه"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:220
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:252
 msgid "Do you really want to clear all application data?"
 msgstr "هل ترغب حقا في مسح جميع بيانات التطبيق؟"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:222
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:130
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:254
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:160
 msgid "No"
 msgstr "لا"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:226
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:258
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:164
 msgid "Yes"
 msgstr "نعم"
 
@@ -332,40 +336,40 @@ msgstr "نعم"
 msgid "Transport selector"
 msgstr "محدد المواصلات"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:128
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:158
 #, qt-format
 msgid "Do you really want to delete all saved stations for %1 transport?"
 msgstr "هل ترغب حقا في حذف جميع المحطات المحفوظة لمواصلات %1؟"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:238
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:269
 msgid "Czech Republic"
 msgstr "جمهورية التشيك"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:238
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:269
 msgid "Slovak Republic"
 msgstr "جمهورية سلوفاكيا"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:250
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:281
 msgid "City:"
 msgstr "المدينة:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:264
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:295
 msgid "Vehicle types:"
 msgstr "نوع المركبة:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:278
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:309
 msgid "Valid from:"
 msgstr "صالحة من:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:291
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:322
 msgid "Expires:"
 msgstr "تنتهي في:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:320
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:351
 msgid "Used transport types"
 msgstr "أنواع المواصلات المستخدمة"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:391
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:422
 msgid "All transport types"
 msgstr "جميع أنواع المواصلات"
 

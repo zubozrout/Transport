@@ -38,10 +38,10 @@ MainView {
     // Common functions:
     function saveStationToDb(textfield, listview, model) {
         if(listview.lastSelected && listview.lastSelected == textfield.displayText) {
-            var hasTransportStop = DB.hasTransportStop(trasport_selector_page.selectedItem);
-            DB.appendNewStop(trasport_selector_page.selectedItem, listview.lastSelected);
+            var hasTransportStop = DB.hasTransportStop(transport_selector_page.selectedItem);
+            DB.appendNewStop(transport_selector_page.selectedItem, listview.lastSelected);
             if(!hasTransportStop) {
-                trasport_selector_page.update();
+                transport_selector_page.update();
             }
         }
     }
@@ -64,7 +64,7 @@ MainView {
             if(!model) {
                 model = textfield.stationInputModel;
             }
-            Engine.complete(trasport_selector_page.selectedItem, textfield.displayText, model);
+            Engine.complete(transport_selector_page.selectedItem, textfield.displayText, model);
             checkClear(textfield, listview, model);
         }
     }
@@ -228,7 +228,7 @@ MainView {
 
                 var count = Number(DB.getSetting("settings_transport_count"));
                 count = count || count <= 0 ? count : 10;
-                var options = trasport_selector_page.selectedItem;
+                var options = transport_selector_page.selectedItem;
 
                 if(typeof state !== typeof undefined) {
                     switch(state) {
@@ -269,7 +269,7 @@ MainView {
                 else {
                     DB.saveSetting("via" + options, "");
                 }
-                DB.saveSetting("optionsList", trasport_selector_page.selectedItem);
+                DB.saveSetting("optionsList", transport_selector_page.selectedItem);
                 saveStationToDb(from, from.stationInputListView);
                 saveStationToDb(to, to.stationInputListView);
                 saveStationToDb(via, via.stationInputListView);
@@ -295,7 +295,7 @@ MainView {
                         spacing: units.gu(2)
 
                         Label {
-                            text: trasport_selector_page.selectedName ? trasport_selector_page.selectedName : i18n.tr("No transport option selected")
+                            text: transport_selector_page.selectedName ? transport_selector_page.selectedName : i18n.tr("No transport option selected")
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                             font.pixelSize: FontUtils.sizeToPixels("large")
@@ -310,7 +310,7 @@ MainView {
                             iconName: "view-list-symbolic"
                             color: "transparent"
 
-                            onClicked: pageLayout.addPageToNextColumn(search_page, trasport_selector_page);
+                            onClicked: pageLayout.addPageToNextColumn(search_page, transport_selector_page);
                         }
                     }
 
@@ -538,15 +538,25 @@ MainView {
                             anchors.horizontalCenter: parent.horizontalCenter
                             mode: "Years|Months|Days"
                             date: new Date()
-                            minimum: {
-                                var d = new Date();
-                                d.setDate(d.getDate() - 3);
-                                return d;
+                            Component.onCompleted: {
+                                if(DB.getSetting("settings_ignore_transport_expire_dates")) {
+                                    setDefaults();
+                                }
                             }
-                            maximum: {
-                                var d = new Date();
-                                d.setDate(d.getDate() + 366);
-                                return d;
+
+                            function setDefaults() {
+                                var di = new Date();
+                                di.setDate(di.getDate() - 3);
+                                minimum = di;
+
+                                var da = new Date();
+                                da.setDate(da.getDate() + 366);
+                                maximum = da;
+                            }
+
+                            function setTransportDates() {
+                                minimum = transport_selector_page.minimumDate;
+                                maximum = transport_selector_page.maximumDate;
                             }
                         }
                     }
@@ -655,7 +665,7 @@ MainView {
 
         Page{
             Transport {
-                id: trasport_selector_page
+                id: transport_selector_page
             }
         }
 

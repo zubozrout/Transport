@@ -113,7 +113,7 @@ Page {
                         iconName: "view-expand"
                         onTriggered: {
                             connection_detail.current_id = null;
-                            var options = trasport_selector_page.selectedItem;
+                            var options = transport_selector_page.selectedItem;
                             Engine.connectionDetail(options, connection_id, function(response, id){connection_box.color = "#fafaef"; return Engine.showConnectionDetail(response, id);});
                         }
                     }
@@ -267,7 +267,7 @@ Page {
 
                     onClicked: {
                         connection_detail.current_id = null;
-                        var options = trasport_selector_page.selectedItem;
+                        var options = transport_selector_page.selectedItem;
                         Engine.connectionDetail(options, connection_id, function(response, id){connection_box.color = "#fafaef"; return Engine.showConnectionDetail(response, id);});
                     }
                 }

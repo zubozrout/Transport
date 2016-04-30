@@ -8,7 +8,7 @@ import "engine.js" as Engine
 import "localStorage.js" as DB
 
 Page {
-    id: trasport_selector_page
+    id: transport_selector_page
     visible: false
     clip: true
 
@@ -21,7 +21,7 @@ Page {
             Action {
                 iconName: "back"
                 text: "Back"
-                onTriggered: pageLayout.removePages(trasport_selector_page)
+                onTriggered: pageLayout.removePages(transport_selector_page)
             }
         ]
 
@@ -34,6 +34,9 @@ Page {
     property var selectedItem: 0
     property var selectedName: ""
     property var lastUsedTransport: ""
+
+    property date minimumDate: new Date()
+    property date maximumDate: new Date()
 
     function getTextFieldContentFromDB(force) {
         if(DB.getSetting("from" + selectedItem)) {
@@ -70,7 +73,7 @@ Page {
     function confirm() {
         api.abort();
         if(pageLayout != null) {
-            pageLayout.removePages(trasport_selector_page);
+            pageLayout.removePages(transport_selector_page);
         }
     }
 
@@ -105,6 +108,7 @@ Page {
                 id: transportDelegate
 
                 ListItem {
+                    id: transportDelegateItem
                     width: parent.width
                     height: transportDelegateRectangle.height + 2*transportDelegateRectangle.anchors.margins
                     divider.visible: true
@@ -114,8 +118,34 @@ Page {
 
                     Component.onCompleted: {
                         if(knownList && lastUsedTransport == id) {
-                            trasport_selector_page.selectedItem = id;
-                            trasport_selector_page.selectedName = nameExt;
+                            transport_selector_page.selectedItem = id;
+                            transport_selector_page.selectedName = nameExt;
+                            transportDelegateItem.reMapDate();
+                        }
+                    }
+
+                    function reMapDate() {
+                        var fday = ttValidFrom.split(".")[0];
+                        var fmonth = ttValidFrom.split(".")[1];
+                        var fyear = ttValidFrom.split(".")[2];
+
+                        var fromFinalDate = new Date();
+                        fromFinalDate.setFullYear(fyear, fmonth - 1, fday);
+                        fromFinalDate.setHours(0, 0, 0, 0);
+
+                        var tday = ttValidTo.split(".")[0];
+                        var tmonth = ttValidTo.split(".")[1];
+                        var tyear = ttValidTo.split(".")[2];
+
+                        var toFinalDate = new Date();
+                        toFinalDate.setFullYear(tyear, tmonth - 1, tday);
+                        toFinalDate.setHours(0, 0, 0, 0);
+
+                        transport_selector_page.minimumDate = fromFinalDate;
+                        transport_selector_page.maximumDate = toFinalDate;
+
+                        if(!DB.getSetting("settings_ignore_transport_expire_dates")) {
+                            datePicker.setTransportDates();
                         }
                     }
 
@@ -136,13 +166,13 @@ Page {
                                 onClicked: {
                                     DB.deleteAllTransportStops(id);
                                     PopupUtils.close(confirmDeletingAllTransportStopsDialogue);
-                                    if(id == trasport_selector_page.selectedItem) {
-                                        trasport_selector_page.selectedItem = "";
-                                        trasport_selector_page.selectedName = "";
+                                    if(id == transport_selector_page.selectedItem) {
+                                        transport_selector_page.selectedItem = "";
+                                        transport_selector_page.selectedName = "";
                                     }
-                                    trasport_selector_page.getTextFieldContentFromDB(true);
-                                    trasport_selector_page.confirm();
-                                    trasport_selector_page.update();
+                                    transport_selector_page.getTextFieldContentFromDB(true);
+                                    transport_selector_page.confirm();
+                                    transport_selector_page.update();
                                 }
                             }
                         }
@@ -181,9 +211,10 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            trasport_selector_page.selectedItem = id;
-                            trasport_selector_page.selectedName = nameExt;
-                            trasport_selector_page.confirm();
+                            transport_selector_page.selectedItem = id;
+                            transport_selector_page.selectedName = nameExt;
+                            transportDelegateItem.reMapDate();
+                            transport_selector_page.confirm();
                         }
                     }
 

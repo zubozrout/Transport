@@ -108,6 +108,38 @@ Page {
             }
 
             Label {
+                id: ignore_transport_expire_Dates
+                width: parent.width
+                text: i18n.tr("Ignore transport validity dates in date selector?")
+                wrapMode: Text.WordWrap
+            }
+
+            Row {
+                spacing: units.gu(2)
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Switch {
+                    id: ignore_transport_expire_Dates_switch
+                    checked: true
+
+                    Component.onCompleted: {
+                        checked = DB.getSetting("settings_ignore_transport_expire_dates");
+                        DB.saveSetting("settings_ignore_transport_expire_dates", checked);
+                    }
+
+                    onCheckedChanged: {
+                        DB.saveSetting("settings_ignore_transport_expire_dates", checked);
+                        if(checked) {
+                            datePicker.setDefaults();
+                        }
+                        else {
+                            datePicker.setTransportDates();
+                        }
+                    }
+                }
+            }
+
+            Label {
                 id: fetch_transport_options_on_each_start_label
                 width: parent.width
                 text: i18n.tr("Download and refresh all transport options on each application start?")

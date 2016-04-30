@@ -46,8 +46,8 @@ Page {
     }
 
     onVisibleChanged: {
-        if(DB.getSetting("departuresStop" + trasport_selector_page.selectedItem) && stations.displayText == "") {
-            stations.text = DB.getSetting("departuresStop" + trasport_selector_page.selectedItem);
+        if(DB.getSetting("departuresStop" + transport_selector_page.selectedItem) && stations.displayText == "") {
+            stations.text = DB.getSetting("departuresStop" + transport_selector_page.selectedItem);
         }
     }
 
@@ -116,9 +116,9 @@ Page {
             var Pdate = Qt.formatDate(dateButton.date, "d.M.yyyy");
             date_time = Pdate + " " + Ptime;
         }
-        Engine.getDepartures(trasport_selector_page.selectedItem, stations.displayText, date_time, "", "", "", departures_page.renderDepartures);
+        Engine.getDepartures(transport_selector_page.selectedItem, stations.displayText, date_time, "", "", "", departures_page.renderDepartures);
 
-        DB.saveSetting("departuresStop" + trasport_selector_page.selectedItem, stations.displayText);
+        DB.saveSetting("departuresStop" + transport_selector_page.selectedItem, stations.displayText);
         departures_start.station = stations.displayText;
     }
 

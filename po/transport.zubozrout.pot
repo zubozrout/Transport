@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 22:27+0200\n"
+"POT-Creation-Date: 2016-04-30 10:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:185
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""
 
@@ -99,7 +99,7 @@ msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:27
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:483
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:563
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:573
 msgid "Search"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "Arrival"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:633
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:643
 msgid "Does the search take too long? You can stop it by clicking here."
 msgstr ""
 
@@ -272,37 +272,41 @@ msgid "Display all line stops in the connection detail?"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:113
+msgid "Ignore transport validity dates in date selector?"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:145
 msgid "Download and refresh all transport options on each application start?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:142
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:174
 msgid "Refresh transport options"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:165
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:197
 msgid "Keep background color saved"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:211
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:243
 msgid "Clear cache"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:219
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:127
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:251
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:157
 msgid "Attention"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:220
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:252
 msgid "Do you really want to clear all application data?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:222
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:130
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:254
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:160
 msgid "No"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:226
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:134
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:258
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:164
 msgid "Yes"
 msgstr ""
 
@@ -310,40 +314,40 @@ msgstr ""
 msgid "Transport selector"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:128
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:158
 #, qt-format
 msgid "Do you really want to delete all saved stations for %1 transport?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:238
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:269
 msgid "Czech Republic"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:238
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:269
 msgid "Slovak Republic"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:250
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:281
 msgid "City:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:264
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:295
 msgid "Vehicle types:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:278
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:309
 msgid "Valid from:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:291
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:322
 msgid "Expires:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:320
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:351
 msgid "Used transport types"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:391
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:422
 msgid "All transport types"
 msgstr ""
 

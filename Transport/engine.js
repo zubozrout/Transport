@@ -1,3 +1,4 @@
+// A custom's "xmlhttprequest" wrapper
 function request(url, callback) {
     api.request = url;
     api.callback = callback;
@@ -106,7 +107,33 @@ function parseOptions(response_string) {
 
 function saveOptions(options) {
     for(var key in options) {
-        DB.appendNewType(options[key]["id"], options[key]["name"], options[key]["nameExt"], options[key]["title"], options[key]["city"], options[key]["description"], options[key]["homeState"], options[key]["trTypes"], options[key]["ttValidFrom"], options[key]["ttValidTo"]);
+        /*
+        var typeMap = new Map();
+        typeMap.set("type", options[key]["id"]);
+        typeMap.set("name", options[key]["name"]);
+        typeMap.set("nameExt", options[key]["nameExt"]);
+        typeMap.set("title", options[key]["title"]);
+        typeMap.set("city", options[key]["city"]);
+        typeMap.set("description", options[key]["description"]);
+        typeMap.set("homeState", options[key]["homeState"]);
+        typeMap.set("trTypes", options[key]["trTypes"]);
+        typeMap.set("ttValidFrom", options[key]["ttValidFrom"]);
+        typeMap.set("ttValidTo", options[key]["ttValidTo  "]);
+        DB.appendNewType(typeMap);
+        */
+
+        DB.appendNewType({
+             "type": options[key]["id"],
+             "name": options[key]["name"],
+             "nameExt": options[key]["nameExt"],
+             "title": options[key]["title"],
+             "city": options[key]["city"],
+             "description": options[key]["description"],
+             "homeState": options[key]["homeState"],
+             "trTypes": options[key]["trTypes"],
+             "ttValidFrom": options[key]["ttValidFrom"],
+             "ttValidTo": options[key]["ttValidTo"]
+         });
     }
     transport_selector_page.update();
 }
@@ -114,8 +141,7 @@ function saveOptions(options) {
 function getStops(city, mask, limit, call, geo) {
     var mask = typeof geo !== typeof undefined && geo ? "?coor=" + geo : "?mask=" + mask;
     var searchMode = "EXACT";
-    // https://ext.crws.cz/api/ABCz/timetableObjects/0?mask=%C2%A750.083910471647464,14.434774156031409&coor=WGS84_D&ttInfoDetails=item&maxCount=10&userDesc=ubuntu&lang=CZECH
-    return request("https://ext.crws.cz/api/" + city + "/timetableObjects/0" + mask + "&searchMode=" + searchMode + "&maxCount=" + limit + "&" + urlCommon("ubuntu"), call);
+    return request("https://ext.crws.cz/api/" + city + "/timetableObjects/0" + mask + "&ttInfoDetails=ITEM&ttInfoDetails=COOR" + "&searchMode=" + searchMode + "&maxCount=" + limit + "&" + urlCommon("ubuntu"), call);
 }
 
 function parseStops(response_string) {
@@ -127,7 +153,7 @@ function parseStops(response_string) {
     var stops = [];
     if(!(obj.data == null || typeof obj.data === typeof undefined)) {
         for(var i = 0; i < obj.data.length; i++) {
-            stops.push(obj.data[i].item.name);
+            stops.push({name: obj.data[i].item.name, coorX: obj.data[i].coorX, coorY: obj.data[i].coorY});
         }
     }
     return stops;
@@ -237,18 +263,18 @@ function completeFromDB(city, text, model) {
     var stops = DB.getRelevantStops(city, text);
     for(var i = 0; i < stops.length; i++) {
         for(var j = 0; j < model.count; j++) {
-            if(stops.indexOf(model.get(j).name) == -1) {
+            if(stops.map(function(stop) {return stop.name;}).indexOf(model.get(j).name) == -1) {
                 model.remove(j);
             }
         }
         var set = false;
         for(var j = 0; j < model.count; j++) {
-            if(model.get(j).name == stops[i]) {
+            if(model.get(j).name == stops[i].name) {
                 set = true;
             }
         }
         if(!set && model.count <= 10) {
-            model.append({"name": stops[i]});
+            model.append({"name": stops[i].name, "coorX": stops[i].coorX, "coorY": stops[i].coorY});
         }
     }
     return stops;
@@ -267,18 +293,19 @@ function fill_from(response, city, text, model, DBstops) {
     }
     for(var i = 0; i < response.length; i++) {
         for(var j = 0; j < model.count; j++) {
-            if(response.indexOf(model.get(j).name) == -1 && DBstops.indexOf(model.get(j).name) == -1) {
+            if(response.map(function(stop) {return stop.name;}).indexOf(model.get(j).name) == -1 /* && DBstops.indexOf(model.get(j).name) == -1 */) {
                 model.remove(j);
             }
         }
         var set = false;
         for(var j = 0; j < model.count; j++) {
-            if(model.get(j).name == response[i]) {
+            if(model.get(j).name == response[i].name) {
                 set = true;
+                model.set(j, {"name": response[i].name, "coorX": response[i].coorX, "coorY": response[i].coorY});
             }
         }
         if(!set) {
-            model.append({"name": response[i]});
+            model.append({"name": response[i].name, "coorX": response[i].coorX, "coorY": response[i].coorY});
         }
     }
 }
@@ -635,8 +662,15 @@ function readableDate(date, format) {
     return null;
 }
 
-function dateToReadableFormat(date) {
-    return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
+function dateToReadableFormat(date, returnTime) {
+    if(!date.getDate()) {
+        return "";
+    }
+    var dateStr = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
+    if(typeof returnTime !== typeof undefined && returnTime == true) {
+        dateStr += ", " + date.getHours() + ":" + date.getMinutes();
+    }
+    return dateStr;
 }
 
 function transportIdToName(id) {
@@ -650,4 +684,13 @@ function transportIdToName(id) {
 function clearLocalStorage() {
     DB.clearLocalStorage();
     transport_selector_page.update();
+}
+
+// SOURCE: http://stackoverflow.com/a/21623206/1642887
+function latLongDistance(lat1, lon1, lat2, lon2) {
+  var p = Math.PI / 180;
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))/2;
+
+  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }

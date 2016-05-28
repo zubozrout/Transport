@@ -38,6 +38,52 @@ Page {
     property date minimumDate: new Date()
     property date maximumDate: new Date()
 
+    function reMapDate(object) {
+        var fday = object.ttValidFrom.split(".")[0];
+        var fmonth = object.ttValidFrom.split(".")[1];
+        var fyear = object.ttValidFrom.split(".")[2];
+
+        var fromFinalDate = new Date();
+        fromFinalDate.setFullYear(fyear, fmonth - 1, fday);
+        fromFinalDate.setHours(0, 0, 0, 0);
+
+        var tday = object.ttValidTo.split(".")[0];
+        var tmonth = object.ttValidTo.split(".")[1];
+        var tyear = object.ttValidTo.split(".")[2];
+
+        var toFinalDate = new Date();
+        toFinalDate.setFullYear(tyear, tmonth - 1, tday);
+        toFinalDate.setHours(0, 0, 0, 0);
+
+        transport_selector_page.minimumDate = fromFinalDate;
+        transport_selector_page.maximumDate = toFinalDate;
+
+        if(!DB.getSetting("settings_ignore_transport_expire_dates")) {
+            datePicker.setTransportDates();
+        }
+    }
+
+    function selectItemByIdLocal(id, forceOverwrite) {
+        for(var i = 0; i < restListModel.count; i++) {
+            if(restListModel.get(i).id == id) {
+                selectedItem = restListModel.get(i).id;
+                selectedName = restListModel.get(i).nameExt;
+                reMapDate(restListModel.get(i));
+                confirm();
+
+                lastUsedTransport = selectedItem;
+                getTextFieldContentFromDB(forceOverwrite);
+                from.stationInputModel.clear();
+                to.stationInputModel.clear();
+                via.stationInputModel.clear();
+            }
+        }
+    }
+
+    function selectItemById(id) {
+        selectItemByIdLocal(id, false);
+    }
+
     function getTextFieldContentFromDB(force) {
         if(DB.getSetting("from" + selectedItem)) {
             if(from.displayText == "" || force) {
@@ -51,7 +97,9 @@ Page {
 
         if(DB.getSetting("to" + selectedItem)) {
             if(to.displayText == "" || force) {
-                to.text = DB.getSetting("to" + selectedItem);
+                if(DB.getSetting("to" + selectedItem) != from.displayText) {
+                    to.text = DB.getSetting("to" + selectedItem);
+                }
                 to.stationInputModel.clear();
             }
         }
@@ -61,7 +109,9 @@ Page {
 
         if(DB.getSetting("via" + selectedItem)) {
             if(via.displayText == "" || force) {
-                via.text = DB.getSetting("via" + selectedItem);
+                if(DB.getSetting("via" + selectedItem) != from.displayText) {
+                    via.text = DB.getSetting("via" + selectedItem);
+                }
                 via.stationInputModel.clear();
             }
         }
@@ -80,14 +130,6 @@ Page {
     function update() {
         knownListView.update();
         restListView.update();
-    }
-
-    onSelectedItemChanged: {
-        lastUsedTransport = selectedItem;
-        getTextFieldContentFromDB(true);
-        from.stationInputModel.clear();
-        to.stationInputModel.clear();
-        via.stationInputModel.clear();
     }
 
     Component.onCompleted: {
@@ -118,36 +160,9 @@ Page {
 
                     Component.onCompleted: {
                         if(knownList && lastUsedTransport == id) {
-                            transport_selector_page.selectedItem = id;
-                            transport_selector_page.selectedName = nameExt;
-                            transportDelegateItem.reMapDate();
+                            transport_selector_page.selectItemByIdLocal(id, true);
                         }
-                    }
-
-                    function reMapDate() {
-                        var fday = ttValidFrom.split(".")[0];
-                        var fmonth = ttValidFrom.split(".")[1];
-                        var fyear = ttValidFrom.split(".")[2];
-
-                        var fromFinalDate = new Date();
-                        fromFinalDate.setFullYear(fyear, fmonth - 1, fday);
-                        fromFinalDate.setHours(0, 0, 0, 0);
-
-                        var tday = ttValidTo.split(".")[0];
-                        var tmonth = ttValidTo.split(".")[1];
-                        var tyear = ttValidTo.split(".")[2];
-
-                        var toFinalDate = new Date();
-                        toFinalDate.setFullYear(tyear, tmonth - 1, tday);
-                        toFinalDate.setHours(0, 0, 0, 0);
-
-                        transport_selector_page.minimumDate = fromFinalDate;
-                        transport_selector_page.maximumDate = toFinalDate;
-
-                        if(!DB.getSetting("settings_ignore_transport_expire_dates")) {
-                            datePicker.setTransportDates();
-                        }
-                    }
+                    }                    
 
                     Component {
                         id: confirmDeletingAllTransportStops
@@ -211,10 +226,7 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            transport_selector_page.selectedItem = id;
-                            transport_selector_page.selectedName = nameExt;
-                            transportDelegateItem.reMapDate();
-                            transport_selector_page.confirm();
+                            transport_selector_page.selectItemByIdLocal(id, true);
                         }
                     }
 
@@ -355,6 +367,7 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
+                visible: knownListModel.count <= 0 ? false : true
             }
 
             ListView {

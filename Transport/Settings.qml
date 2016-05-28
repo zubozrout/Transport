@@ -62,6 +62,9 @@ Page {
 
                     function validation() {
                         var tmptext = !DB.getSetting("settings_transport_count") || isNaN(DB.getSetting("settings_transport_count")) || parseInt(DB.getSetting("settings_transport_count")) < 1 ? "10" : parseInt(DB.getSetting("settings_transport_count"));
+                        if(tmptext < 1 || tmptext > 100) {
+                            tmptext = 10;
+                        }
                         DB.saveSetting("settings_transport_count", tmptext);
                         return tmptext;
                     }

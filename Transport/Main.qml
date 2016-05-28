@@ -4,6 +4,7 @@ import Ubuntu.Components.Pickers 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Connectivity 1.0
+import QtPositioning 5.2
 
 import Transport 1.0
 
@@ -36,14 +37,23 @@ MainView {
     property var last_id: null
 
     // Common functions:
-    function saveStationToDb(textfield, listview, model) {
+    function saveStationToDb(textfield, listview) {
         if(listview.lastSelected && listview.lastSelected == textfield.displayText) {
             var hasTransportStop = DB.hasTransportStop(transport_selector_page.selectedItem);
-            DB.appendNewStop(transport_selector_page.selectedItem, listview.lastSelected);
+            DB.appendNewStop(transport_selector_page.selectedItem, listview.lastSelected, {x: textfield.coorX, y: textfield.coorY});
             if(!hasTransportStop) {
                 transport_selector_page.update();
             }
         }
+    }
+
+    function saveSearchCombination(transport, from, to, via) {
+        DB.appendSearchToHistory({
+            "typeid": transport,
+             "stopidfrom": DB.getStopByName({"id": transport, "name":from}),
+             "stopidto": DB.getStopByName({"id": transport, "name":to}),
+             "stopidvia": DB.getStopByName({"id": transport, "name":via})
+        });
     }
 
     function checkClear(textfield, listview, model) {
@@ -113,6 +123,43 @@ MainView {
             if(running && callback) {
                 callback = null;
                 request = "";
+            }
+        }
+    }
+
+    PositionSource {
+        id: positionSource
+        active: true
+
+        onPositionChanged: {
+            var geoPosition = (DB.getNearbyStops(transport_selector_page.selectedItem, {"x": positionSource.position.coordinate.latitude, "y": positionSource.position.coordinate.longitude}));
+            if(geoPosition.length > 0) {
+                var searchHistory = DB.getSearchHistory();
+                from.text = geoPosition[0].name;
+                from.coorX = geoPosition[0].coorX;
+                from.coorY = geoPosition[0].coorY;
+
+                var match = false;
+                for(var i = 0; i < searchHistory.length; i++) {
+                    if(searchHistory[i].stopfrom == geoPosition[0].name) {
+                        to.text = searchHistory[i].stopto;
+                        to.coorX = searchHistory[i].stoptox;
+                        to.coorY = searchHistory[i].stoptoy;
+
+                        if(searchHistory[i].stopvia) {
+                            via.text = searchHistory[i].stopvia;
+                            via.coorX = searchHistory[i].stopviax;
+                            via.coorY = searchHistory[i].stopviay;
+                        }
+                        match = true;
+                        positionSource.active = false;
+                        break;
+                    }
+                }
+                if(!match) {
+                    to.text = "";
+                    via.text = "";
+                }
             }
         }
     }
@@ -262,17 +309,18 @@ MainView {
                 // DB save selected values:
                 DB.saveSetting("from" + options, from.displayText);
                 DB.saveSetting("to" + options, to.displayText);
+                saveStationToDb(from, from.stationInputListView);
+                saveStationToDb(to, to.stationInputListView);
                 if(advanced_switch.checked) {
                     DB.saveSetting("via" + options, via.displayText);
-                    DB.appendNewStop(options, via.displayText);
+                    saveStationToDb(via, via.stationInputListView);
+                    saveSearchCombination(options, from.displayText, to.displayText, via.displayText);
                 }
                 else {
                     DB.saveSetting("via" + options, "");
+                    saveSearchCombination(options, from.displayText, to.displayText, null);
                 }
                 DB.saveSetting("optionsList", transport_selector_page.selectedItem);
-                saveStationToDb(from, from.stationInputListView);
-                saveStationToDb(to, to.stationInputListView);
-                saveStationToDb(via, via.stationInputListView);
             }
 
             Flickable {
@@ -364,6 +412,7 @@ MainView {
                             id: avanced_label
                             text: i18n.tr("Advanced options")
                             anchors.verticalCenter: parent.verticalCenter
+                            wrapMode: Text.WordWrap
                         }
 
                         Switch {
@@ -430,6 +479,7 @@ MainView {
                             RowLayout {
                                 Layout.fillWidth: true
                                 spacing: units.gu(2)
+
                                 Switch {
                                     id: nowSwitch
                                     checked: true
@@ -660,6 +710,10 @@ MainView {
             Scrollbar {
                 flickableItem: search_page_flickable
                 align: Qt.AlignTrailing
+            }
+
+            RecentBottomEdge {
+                id: bottomEdge
             }
         }
 

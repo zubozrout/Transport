@@ -36,7 +36,7 @@ Page {
 
             Text {
                 anchors.right: parent.right
-                text: i18n.tr("Main branch version:") + " " + "0.8"
+                text: i18n.tr("Main branch version:") + " " + "0.9"
                 wrapMode: Text.Wrap
                 font.pixelSize: FontUtils.sizeToPixels("small")
             }

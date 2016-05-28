@@ -8,8 +8,10 @@ Item {
 
     property alias text: stationInput.text
     property alias displayText: stationInput.displayText
-    property var stationInputListView: stationInput_list_view
-    property var stationInputModel: stationInput_list_model
+    property alias stationInputListView: stationInput_list_view
+    property alias stationInputModel: stationInput_list_model
+    property real coorX: 0
+    property real coorY: 0
 
     Column {
         width: parent.width
@@ -61,11 +63,16 @@ Item {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            var name = stationQuery.stationInputModel.get(index).name;
+                            var item = stationInput_list_model.get(index);
+                            var name = item.name;
+                            var coorX = item.coorX ? item.coorX : 0;
+                            var coorY = item.coorY ? item.coorY : 0;
                             if(name != "") {
                                 Qt.inputMethod.commit();
                                 stationInput_list_view.currentIndex = index;
                                 stationInput.text = name;
+                                stationQuery.coorX = coorX;
+                                stationQuery.coorY = coorY;
                                 stationInput.focus = false;
                             }
                         }

@@ -312,23 +312,23 @@ function getAllStops() {
     return res;
 }
 
-// Get stop ID by trasprort type id and name
-// Returns a station ID
+// Get stop by trasprort type id and name
+// Returns a station object
 function getStopByName(comb) {
     var res = null;
     if(comb && comb.name) {
         loadDB();
         db.transaction(function(tx) {
-            var rs = tx.executeSql("SELECT ID,key,value FROM stops WHERE key=? AND value=?", [comb.id, comb.name]);
+            var rs = tx.executeSql("SELECT * FROM stops WHERE key=? AND value=?", [comb.id, comb.name]);
             if(rs.rows.length > 0) {
-                res = rs.rows.item(0).ID;
+                res = ({"id": rs.rows.item(0).ID, "key": rs.rows.item(0).key, "value": rs.rows.item(0).value, "coorX": rs.rows.item(0).coorX, "coorY": rs.rows.item(0).coorY});
             }
         });
     }
     return res;
 }
 
-// Get stop ID by stop id
+// Get stop by stop id
 // Returns a station object
 function getStopByID(id) {
     var res = null;
@@ -379,9 +379,10 @@ function appendSearchToHistory(search) {
     if(search) {
         loadDB();
         db.transaction(function(tx) {
-            var countOfLines = tx.executeSql("SELECT ID FROM recent").rows.length;
+            var countOfLines = tx.executeSql("SELECT Count(*) as count FROM recent").rows.item(0).count;
             var linesAffected = 0;
-            if(countOfLines <= 10) {
+            var limit = 40;
+            if(countOfLines < limit) {
                 if(!search.stopidfrom || !search.stopidto) {
                     console.log("Can't save history entry without initial and final station.");
                     success = false;
@@ -390,16 +391,36 @@ function appendSearchToHistory(search) {
                 if(!search.stopidvia) {
                     search.stopidvia = -1;
                 }
-                var mathedLines = tx.executeSql("SELECT ID FROM recent WHERE typeid=? AND stopidfrom=? AND stopidto=? AND stopidvia=?", [search.typeid, search.stopidfrom, search.stopidto, search.stopidvia]);
-                if(mathedLines.rows.length <= 0) {
+                var matchedLines = tx.executeSql("SELECT Count(*) as count FROM recent WHERE typeid=? AND stopidfrom=? AND stopidto=? AND stopidvia=?", [search.typeid, search.stopidfrom, search.stopidto, search.stopidvia]);
+                if(matchedLines.rows.item(0).count <= 0) {
                     linesAffected = tx.executeSql("INSERT OR REPLACE INTO recent(typeid, stopidfrom, stopidto, stopidvia) VALUES(?, ?, ?, ?)", [search.typeid, search.stopidfrom, search.stopidto, search.stopidvia]);
                 }
                 else {
-                    linesAffected = tx.executeSql("INSERT OR REPLACE INTO recent(ID, typeid, stopidfrom, stopidto, stopidvia) VALUES(?, ?, ?, ?, ?)", [mathedLines.rows.item(0).id, search.typeid, search.stopidfrom, search.stopidto, search.stopidvia]);
+                    var dbFix = tx.executeSql("SELECT * FROM recent");
+                    var fixed = false;
+                    for(var i = 0; i < dbFix.rows.length; i++) {
+                        console.log(JSON.stringify(dbFix.rows.item(i)));
+                        if(!dbFix.rows.item(i).stopidfrom || !dbFix.rows.item(i).stopidto) {
+                            if(dbFix.rows.item(i).ID) {
+                                deleteSearchHistory(dbFix.rows.item(i).ID);
+                                fixed = true;
+                            }
+                            else {
+                                deleteAllSearchHistory();
+                                fixed = true;
+                                console.log("Search histroy deleted due to a DB error");
+                            }
+                        }
+                    }
+                    if(fixed) {
+                        return appendSearchToHistory(search);
+                    }
+
+                    linesAffected = tx.executeSql("INSERT OR REPLACE INTO recent(ID, typeid, stopidfrom, stopidto, stopidvia) VALUES(?, ?, ?, ?, ?)", [matchedLines.rows.item(0).id, search.typeid, search.stopidfrom, search.stopidto, search.stopidvia]);
                 }
             }
             else {
-                linesAffected = tx.executeSql("DELETE FROM recent WHERE ID IN (SELECT ID FROM recent ORDER BY ID LIMIT ?)", [(countOfLines - 10)]);
+                linesAffected = tx.executeSql("DELETE FROM recent WHERE ID IN (SELECT ID FROM recent ORDER BY ID LIMIT ?)", [(countOfLines - limit)]);
                 success = appendSearchToHistory(search);
                 return false;
             }
@@ -413,13 +434,35 @@ function appendSearchToHistory(search) {
     return success;
 }
 
+// Delete all search history by ID
+function deleteAllSearchHistory() {
+    loadDB();
+    db.transaction(function(tx) {
+        var linesAffected = tx.executeSql("DELETE FROM recent");
+        if(linesAffected.rowsAffected != 1) {
+            console.log("Nothing was deleted in the search history.");
+        }
+    });
+}
+
+// Delete search history by ID
+function deleteSearchHistory(id) {
+    loadDB();
+    db.transaction(function(tx) {
+        var linesAffected = tx.executeSql("DELETE FROM recent WHERE ID=?", [id]);
+        if(linesAffected.rowsAffected != 1) {
+            console.log("Nothing was deleted in the search history.");
+        }
+    });
+}
+
 // Get a list of recent search history
 // Returns ID, typeid, date, typename and names: stopfrom, stopto and stopvia + coordinates like stopfromx and stopfromy
 function getSearchHistory() {
     loadDB();
     var searches = [];
     db.transaction(function(tx) {
-        var rs = tx.executeSql("SELECT recent.ID as ID, recent.typeid AS typeid, datetime(recent.date, 'localtime') AS date, trtype.name as typename, stopsfrom.value AS stopfrom, stopsfrom.coorX AS stopfromx, stopsfrom.coorY AS stopfromy, stopsto.value AS stopto, stopsto.coorX AS stoptox, stopsto.coorY AS stoptoy, stopsvia.value AS stopvia, stopsvia.coorX AS stopviax, stopsvia.coorY AS stopviay FROM recent INNER JOIN type trtype ON (trtype.id = recent.typeid) INNER JOIN stops stopsfrom ON (recent.stopidfrom = stopsfrom.ID) INNER JOIN stops stopsto ON (recent.stopidto = stopsto.ID) LEFT JOIN stops stopsvia ON (recent.stopidvia = stopsvia.ID) ORDER BY ID DESC");
+        var rs = tx.executeSql("SELECT recent.ID as ID, recent.typeid AS typeid, datetime(recent.date, 'localtime') AS date, trtype.name as typename, stopsfrom.value AS stopfrom, stopsfrom.coorX AS stopfromx, stopsfrom.coorY AS stopfromy, stopsto.value AS stopto, stopsto.coorX AS stoptox, stopsto.coorY AS stoptoy, stopsvia.value AS stopvia, stopsvia.coorX AS stopviax, stopsvia.coorY AS stopviay FROM recent INNER JOIN type trtype ON (trtype.id = recent.typeid) INNER JOIN stops stopsfrom ON (recent.stopidfrom = stopsfrom.ID) INNER JOIN stops stopsto ON (recent.stopidto = stopsto.ID) LEFT JOIN stops stopsvia ON (recent.stopidvia = stopsvia.ID) ORDER BY date DESC");
         for(var i = 0; i < rs.rows.length; i++) {
             searches.push(rs.rows.item(i));
         }

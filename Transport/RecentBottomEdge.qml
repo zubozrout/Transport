@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.1
+import Ubuntu.Components.Popups 1.0
 
 import "engine.js" as Engine
 import "localStorage.js" as DB
@@ -19,9 +20,44 @@ BottomEdge {
             id: recentPageHeader
             title: i18n.tr("Recent searches")
 
+            trailingActionBar {
+                actions: [
+                    Action {
+                        iconName: "delete"
+                        text: i18n.tr("Delete all searches")
+                        onTriggered: PopupUtils.open(confirmDeletingAllHistory)
+                        enabled: recentListModel.count > 0
+                        visible: enabled
+                    }
+                ]
+            }
+
             StyleHints {
                 foregroundColor: "#fff"
                 backgroundColor: "#3949AB"
+            }
+        }
+
+        Component {
+            id: confirmDeletingAllHistory
+
+            Dialog {
+                id: confirmDeletingAllHistoryDialogue
+                title: i18n.tr("Attention")
+                text: i18n.tr("Do you really want to delete the whole search history?")
+                Button {
+                    text: i18n.tr("No")
+                    onClicked: PopupUtils.close(confirmDeletingAllHistoryDialogue)
+                }
+                Button {
+                    text: i18n.tr("Yes")
+                    color: UbuntuColors.red
+                    onClicked: {
+                        DB.deleteAllSearchHistory();
+                        PopupUtils.close(confirmDeletingAllHistoryDialogue);
+                        bottomEdge.collapse();
+                    }
+                }
             }
         }
 
@@ -32,6 +68,42 @@ BottomEdge {
                 width: parent.width
                 divider.visible: true
                 height: recentChildDelegateLayout.height + 2*recentChildDelegateLayout.anchors.margins
+
+                Component {
+                    id: confirmDeletingHistoryEntry
+
+                    Dialog {
+                        id: confirmDeletingHistoryEntryDialogue
+                        title: i18n.tr("Attention")
+                        text: i18n.tr("Do you really want to delete this history entry?")
+                        Button {
+                            text: i18n.tr("No")
+                            onClicked: PopupUtils.close(confirmDeletingHistoryEntryDialogue)
+                        }
+                        Button {
+                            text: i18n.tr("Yes")
+                            color: UbuntuColors.red
+                            onClicked: {
+                                DB.deleteSearchHistory(ID);
+                                PopupUtils.close(confirmDeletingHistoryEntryDialogue);
+                                bottomEdge.collapse();
+                            }
+                        }
+                    }
+                }
+
+                leadingActions: ListItemActions {
+                    actions: [
+                        Action {
+                            iconName: "delete"
+                            enabled: true
+                            visible: true
+                            onTriggered: {
+                                PopupUtils.open(confirmDeletingHistoryEntry);
+                            }
+                        }
+                    ]
+                }
 
                 RowLayout {
                     id: recentChildDelegateLayout
@@ -48,7 +120,7 @@ BottomEdge {
                         anchors.verticalCenter: parent.verticalCenter
                         width: units.gu(3)
                         height: width
-                        color: "#fff"
+                        color: "transparent"
                         radius: width
 
                         Text {
@@ -158,6 +230,9 @@ BottomEdge {
                             via.text = stopvia;
                             via.coorX = stopviax;
                             via.coorY = stopviay;
+                        }
+                        else {
+                            via.text = "";
                         }
 
                         bottomEdge.collapse();

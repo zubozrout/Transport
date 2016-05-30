@@ -668,7 +668,16 @@ function dateToReadableFormat(date, returnTime) {
     }
     var dateStr = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
     if(typeof returnTime !== typeof undefined && returnTime == true) {
-        dateStr += ", " + date.getHours() + ":" + date.getMinutes();
+        var hours = date.getHours();
+        if(hours.toString().length == 1) {
+            hours = "0" + hours;
+        }
+        var minutes = date.getMinutes();
+        if(minutes.toString().length == 1) {
+            minutes = "0" + minutes;
+        }
+
+        dateStr += ", " + hours + ":" + minutes;
     }
     return dateStr;
 }
@@ -693,4 +702,42 @@ function latLongDistance(lat1, lon1, lat2, lon2) {
   var a = 0.5 - c((lat2 - lat1) * p)/2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))/2;
 
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+}
+
+// Get stop based on current geolocation and try to match an existing (newest) search on it
+// requires {selectedItem, lat, long}
+// returns {from:[{name, lat, long}], to:[{name, lat, long}], via:[{name, lat, long}]} (to and via may be null), or empty object if no match was found
+function geoPositionMatch(data) {
+    var obj = {};
+    if(data.selectedItem) {
+        var geoPosition = (DB.getNearbyStops(data.selectedItem, {"x": data.lat, "y": data.long}));
+
+        if(geoPosition.length > 0) {
+            var searchHistory = DB.getSearchHistory();
+
+            obj.from = {}
+            obj.from.name = geoPosition[0].name;
+            obj.from.lat = geoPosition[0].coorX;
+            obj.from.long = geoPosition[0].coorY;
+
+            var match = false;
+            for(var i = 0; i < searchHistory.length; i++) {
+                if(searchHistory[i].stopfrom == geoPosition[0].name) {
+                    obj.to = {}
+                    obj.to.name = searchHistory[i].stopto;
+                    obj.to.lat = searchHistory[i].stoptox;
+                    obj.to.long = searchHistory[i].stoptoy;
+
+                    if(searchHistory[i].stopvia) {
+                        obj.via = {}
+                        obj.via.name = searchHistory[i].stopvia;
+                        obj.via.lat = searchHistory[i].stopviax;
+                        obj.via.long = searchHistory[i].stopviay;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return obj;
 }

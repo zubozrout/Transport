@@ -48,11 +48,14 @@ MainView {
     }
 
     function saveSearchCombination(transport, from, to, via) {
+        var fromObj = DB.getStopByName({"id": transport, "name":from});
+        var toObj = DB.getStopByName({"id": transport, "name":to});
+        var viaObj = DB.getStopByName({"id": transport, "name":via});
         DB.appendSearchToHistory({
             "typeid": transport,
-             "stopidfrom": DB.getStopByName({"id": transport, "name":from}),
-             "stopidto": DB.getStopByName({"id": transport, "name":to}),
-             "stopidvia": DB.getStopByName({"id": transport, "name":via})
+             "stopidfrom": fromObj ? fromObj.id : "",
+             "stopidto": toObj ? toObj.id : "",
+             "stopidvia": viaObj ? viaObj.id : ""
         });
     }
 
@@ -129,37 +132,48 @@ MainView {
 
     PositionSource {
         id: positionSource
+        updateInterval: 1000
         active: true
 
-        onPositionChanged: {
-            var geoPosition = (DB.getNearbyStops(transport_selector_page.selectedItem, {"x": positionSource.position.coordinate.latitude, "y": positionSource.position.coordinate.longitude}));
-            if(geoPosition.length > 0) {
-                var searchHistory = DB.getSearchHistory();
-                from.text = geoPosition[0].name;
-                from.coorX = geoPosition[0].coorX;
-                from.coorY = geoPosition[0].coorY;
+        property bool firstSuccessfullRun: false
 
-                var match = false;
-                for(var i = 0; i < searchHistory.length; i++) {
-                    if(searchHistory[i].stopfrom == geoPosition[0].name) {
-                        to.text = searchHistory[i].stopto;
-                        to.coorX = searchHistory[i].stoptox;
-                        to.coorY = searchHistory[i].stoptoy;
+        function searchForTheNearestStop() {
+            if(positionSource.valid && !isNaN(positionSource.position.coordinate.latitude)) {
+                var stopMatch = Engine.geoPositionMatch({
+                    "selectedItem": transport_selector_page.selectedItem,
+                    "lat": positionSource.position.coordinate.latitude,
+                    "long": positionSource.position.coordinate.longitude
+                });
 
-                        if(searchHistory[i].stopvia) {
-                            via.text = searchHistory[i].stopvia;
-                            via.coorX = searchHistory[i].stopviax;
-                            via.coorY = searchHistory[i].stopviay;
+                if(stopMatch.from) {
+                    from.text = stopMatch.from.name;
+                    from.coorX = stopMatch.from.lat;
+                    from.coorY = stopMatch.from.long;
+
+                    if(stopMatch.to) {
+                        to.text = stopMatch.to.name;
+                        to.coorX = stopMatch.to.lat;
+                        to.coorY = stopMatch.to.long;
+
+                        if(stopMatch.via) {
+                            via.text = stopMatch.via.name;
+                            via.coorX = stopMatch.via.lat;
+                            via.coorY = stopMatch.via.long;
                         }
-                        match = true;
-                        positionSource.active = false;
-                        break;
                     }
+                    else {
+                        to.text = "";
+                        via.text = "";
+                    }
+
+                    firstSuccessfullRun = true;
                 }
-                if(!match) {
-                    to.text = "";
-                    via.text = "";
-                }
+            }
+        }
+
+        onPositionChanged: {
+            if(!firstSuccessfullRun) {
+                searchForTheNearestStop();
             }
         }
     }
@@ -256,9 +270,15 @@ MainView {
                             enabled: Object.keys(result_page.response).length > 0 ? true : false
                             visible: enabled
                             onTriggered: pageLayout.addPageToNextColumn(search_page, result_page)
+                        },
+                        Action {
+                            iconName: "gps"
+                            text: i18n.tr("Search for the nearest stop")
+                            visible: enabled
+                            onTriggered: positionSource.searchForTheNearestStop();
                         }
                     ]
-                    numberOfSlots: 4
+                    numberOfSlots: 5
                 }
 
                 StyleHints {
@@ -307,17 +327,17 @@ MainView {
                 Engine.getConnections(options, date_time, departure_final, from.displayText, to.displayText, via_final, allowChange_final, count, Engine.showConnections);
 
                 // DB save selected values:
-                DB.saveSetting("from" + options, from.displayText);
-                DB.saveSetting("to" + options, to.displayText);
+                DB.saveSetting("fromObj" + options, JSON.stringify({"name": from.displayText, "x": from.coorX, "y": from.coorY}));
+                DB.saveSetting("toObj" + options, JSON.stringify({"name": to.displayText, "x": to.coorX, "y": to.coorY}));
                 saveStationToDb(from, from.stationInputListView);
                 saveStationToDb(to, to.stationInputListView);
                 if(advanced_switch.checked) {
-                    DB.saveSetting("via" + options, via.displayText);
+                    DB.saveSetting("viaObj" + options, JSON.stringify({"name": via.displayText, "x": via.coorX, "y": via.coorY}));
                     saveStationToDb(via, via.stationInputListView);
                     saveSearchCombination(options, from.displayText, to.displayText, via.displayText);
                 }
                 else {
-                    DB.saveSetting("via" + options, "");
+                    DB.saveSetting("viaObj" + options, "");
                     saveSearchCombination(options, from.displayText, to.displayText, null);
                 }
                 DB.saveSetting("optionsList", transport_selector_page.selectedItem);

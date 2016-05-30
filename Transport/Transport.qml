@@ -85,9 +85,12 @@ Page {
     }
 
     function getTextFieldContentFromDB(force) {
-        if(DB.getSetting("from" + selectedItem)) {
+        if(DB.getSetting("fromObj" + selectedItem)) {
             if(from.displayText == "" || force) {
-                from.text = DB.getSetting("from" + selectedItem);
+                var fromObj = JSON.parse(DB.getSetting("fromObj" + selectedItem));
+                from.text = fromObj.name;
+                from.coorX = fromObj.x;
+                from.coorY = fromObj.y;
                 from.stationInputModel.clear();
             }
         }
@@ -95,11 +98,12 @@ Page {
             from.text = "";
         }
 
-        if(DB.getSetting("to" + selectedItem)) {
+        if(DB.getSetting("toObj" + selectedItem)) {
             if(to.displayText == "" || force) {
-                if(DB.getSetting("to" + selectedItem) != from.displayText) {
-                    to.text = DB.getSetting("to" + selectedItem);
-                }
+                var toObj = JSON.parse(DB.getSetting("toObj" + selectedItem));
+                to.text = toObj.name;
+                to.coorX = toObj.x;
+                to.coorY = toObj.y;
                 to.stationInputModel.clear();
             }
         }
@@ -107,12 +111,17 @@ Page {
             to.text = "";
         }
 
-        if(DB.getSetting("via" + selectedItem)) {
+        if(DB.getSetting("viaObj" + selectedItem)) {
             if(via.displayText == "" || force) {
-                if(DB.getSetting("via" + selectedItem) != from.displayText) {
-                    via.text = DB.getSetting("via" + selectedItem);
+                if(viaObj) {
+                    var viaObj = JSON.parse(DB.getSetting("viaObj" + selectedItem));
+                    if(viaObj.name != from.displayText && viaObj.name != to.displayText) {
+                        via.text = viaObj.name;
+                        via.coorX = viaObj.x;
+                        via.coorY = viaObj.y;
+                    }
+                    via.stationInputModel.clear();
                 }
-                via.stationInputModel.clear();
             }
         }
         else {

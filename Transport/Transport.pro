@@ -25,7 +25,8 @@ ICON_FILES +=   icons/bus.svg \
                 icons/air.svg \
                 icons/taxi.svg \
                 icons/stop.svg \
-                icons/map_stop.svg
+                icons/map_stop.svg \
+                icons/map_position.svg
 
 AP_TEST_FILES += tests/autopilot/run \
                  $$files(tests/*.py,true)
@@ -74,4 +75,4 @@ DISTFILES += \
     icons/taxi.svg \
     icons/stop.svg \
     icons/map_stop.svg \
-    RecentBottomEdge.qml
+    icons/map_position.svg

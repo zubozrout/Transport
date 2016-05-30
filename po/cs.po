@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Marek Antoži <Marek.Antozi@7gods.org>, 2016
 # Martin Kozub <zubozrout@gmail.com>, 2016
@@ -10,14 +10,13 @@ msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-30 20:51+0200\n"
-"PO-Revision-Date: 2016-05-30 09:21+0000\n"
+"PO-Revision-Date: 2016-05-30 18:56+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/zubozrout/transport/language/"
-"cs/)\n"
-"Language: cs\n"
+"Language-Team: Czech (http://www.transifex.com/zubozrout/transport/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:13
@@ -40,14 +39,14 @@ msgid "Timetables"
 msgstr "Jízdní řády"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:104
-msgid "This application is based upon an API provided by CHAPS s.r.o. company."
-msgstr ""
-"Tato aplikace je postavena na API poskytovaném společností CHAPS s.r.o."
+msgid ""
+"This application is based upon an API provided by CHAPS s.r.o. company."
+msgstr "Tato aplikace je postavena na API poskytovaném společností CHAPS s.r.o."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:104
 msgid ""
-"You can find the documentation of the API service here http://docs.crws."
-"apiary.io/"
+"You can find the documentation of the API service here "
+"http://docs.crws.apiary.io/"
 msgstr "Dokumentaci ke službě API můžete nalézt na http://docs.crws.apiary.io/"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:118
@@ -73,10 +72,9 @@ msgstr "Jen projížděné zastávky"
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:181
 msgid ""
 "An error occured while asking for the connection detail. The most probable "
-"cause is the expiration of the search results, please try again from scratch."
-msgstr ""
-"Při stahování detailu spojeni nastala chyba. Nejčastější příčinou je "
-"expirace výsledků vyhledávání. Zkuste to prosím znova."
+"cause is the expiration of the search results, please try again from "
+"scratch."
+msgstr "Při stahování detailu spojeni nastala chyba. Nejčastější příčinou je expirace výsledků vyhledávání. Zkuste to prosím znova."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:221
 msgid "Departure:"
@@ -279,16 +277,16 @@ msgstr "Trvá vyhledávání příliš dlouho? Kliknutím zde ho můžete zastav
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:27
 msgid "Show my current location"
-msgstr ""
+msgstr "Zobrazit mou aktuální polohu"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:12
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:21
 msgid "Recent searches"
-msgstr ""
+msgstr "Poslední hledání"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:27
 msgid "Delete all searches"
-msgstr ""
+msgstr "Smazat všechna hledání"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:46
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:77
@@ -298,9 +296,8 @@ msgid "Attention"
 msgstr "Pozor"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:47
-#, fuzzy
 msgid "Do you really want to delete the whole search history?"
-msgstr "Skutečně chcete smazat všechny uložené stanice pro dopravce %1?"
+msgstr "Skutečně chcete smazat veškerou historii hledání?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:49
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:80
@@ -317,9 +314,8 @@ msgid "Yes"
 msgstr "Ano"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:78
-#, fuzzy
 msgid "Do you really want to delete this history entry?"
-msgstr "Skutečně chcete smazat všechny uložené stanice pro dopravce %1?"
+msgstr "Skutečně chcete smazat zvolenou položku hledání?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:24
 msgid "Next"

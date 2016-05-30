@@ -399,7 +399,6 @@ function appendSearchToHistory(search) {
                     var dbFix = tx.executeSql("SELECT * FROM recent");
                     var fixed = false;
                     for(var i = 0; i < dbFix.rows.length; i++) {
-                        console.log(JSON.stringify(dbFix.rows.item(i)));
                         if(!dbFix.rows.item(i).stopidfrom || !dbFix.rows.item(i).stopidto) {
                             if(dbFix.rows.item(i).ID) {
                                 deleteSearchHistory(dbFix.rows.item(i).ID);

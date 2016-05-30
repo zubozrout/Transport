@@ -11,10 +11,6 @@ import Transport 1.0
 import "engine.js" as Engine
 import "localStorage.js" as DB
 
-/*!
-    \brief MainView with a Label and Button elements.
-*/
-
 MainView {
     // objectName for functional testing purposes (autopilot-qt5)
     objectName: "mainView"
@@ -265,20 +261,26 @@ MainView {
                             onTriggered: pageLayout.addPageToNextColumn(search_page, departures_page)
                         },
                         Action {
-                            iconName: "go-to"
-                            text: i18n.tr("Connection results")
-                            enabled: Object.keys(result_page.response).length > 0 ? true : false
+                            iconSource: "icons/stop_location.svg"
+                            text: i18n.tr("Show station on map")
                             visible: enabled
-                            onTriggered: pageLayout.addPageToNextColumn(search_page, result_page)
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, mapPage)
                         },
                         Action {
                             iconName: "gps"
                             text: i18n.tr("Search for the nearest stop")
                             visible: enabled
                             onTriggered: positionSource.searchForTheNearestStop();
+                        },
+                        Action {
+                            iconName: "go-to"
+                            text: i18n.tr("Connection results")
+                            enabled: Object.keys(result_page.response).length > 0 ? true : false
+                            visible: enabled
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, result_page)
                         }
                     ]
-                    numberOfSlots: 5
+                    numberOfSlots: 6
                 }
 
                 StyleHints {
@@ -770,6 +772,12 @@ MainView {
         Page{
             About {
                 id: about_page
+            }
+        }
+
+        Page{
+            Map {
+                id: mapPage
             }
         }
     }

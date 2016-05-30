@@ -24,6 +24,8 @@ Item {
             placeholderText: stationQuery.placeholder
             hasClearButton: true
             onDisplayTextChanged: {
+                stationQuery.coorX = "";
+                stationQuery.coorY = "";
                 stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
             }
 

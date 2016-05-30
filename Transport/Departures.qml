@@ -1,6 +1,4 @@
 import QtQuick 2.4
-import QtPositioning 5.2
-import QtLocation 5.3
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Pickers 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItemSelector
@@ -48,7 +46,8 @@ Page {
     }
 
     onVisibleChanged: {
-        var departuresStopObj = JSON.parse(DB.getSetting("departuresStopObj" + transport_selector_page.selectedItem));
+        var options = transport_selector_page.selectedItem;
+        var departuresStopObj = JSON.parse(DB.getSetting("departuresStopObj" + options));
         if(departuresStopObj && stations.displayText == "") {
             stations.text = departuresStopObj.name;
             stations.coorX = departuresStopObj.x;
@@ -116,31 +115,17 @@ Page {
     }
 
     function search() {
+        var options = transport_selector_page.selectedItem;
         var date_time = "";
         if(nowLabel.state != "NOW") {
             var Ptime = Qt.formatTime(timeButton.date, "hh:mm");
             var Pdate = Qt.formatDate(dateButton.date, "d.M.yyyy");
             date_time = Pdate + " " + Ptime;
         }
-        Engine.getDepartures(transport_selector_page.selectedItem, stations.displayText, date_time, "", "", "", departures_page.renderDepartures);
+        Engine.getDepartures(options, stations.displayText, date_time, "", "", "", departures_page.renderDepartures);
 
-        DB.saveSetting("departuresStopObj" + transport_selector_page.selectedItem, JSON.stringify({"name": stations.displayText, "x": stations.coorX, "y": stations.coorY}));
+        DB.saveSetting("departuresStopObj" + options, JSON.stringify({"name": stations.displayText, "x": stations.coorX, "y": stations.coorY}));
         departures_start.station = stations.displayText;
-
-        if(!isNaN(stations.coorX) && !isNaN(stations.coorY)) {
-            if(stations.coorX != 0 && stations.coorY != 0) {
-                stationMap.center = QtPositioning.coordinate(stations.coorX, stations.coorY);
-                stationMap.visible = true;
-
-                stopMarker.coordinate = QtPositioning.coordinate(stations.coorX, stations.coorY);
-            }
-            else {
-                stationMap.visible = false;
-            }
-        }
-        else {
-            stationMap.visible = false;
-        }
     }
 
     Component {
@@ -397,44 +382,6 @@ Page {
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WordWrap
                 property var station: ""
-            }
-
-            Plugin {
-                id: mapPlugin
-                preferred: "osm"
-            }
-
-            Map {
-                id: stationMap
-                width: parent.width
-                height: departures_page.height/3
-                plugin: mapPlugin
-                zoomLevel: maximumZoomLevel - 3
-                gesture.enabled: true
-                visible: false
-
-                MapQuickItem {
-                    id: gpsMarker
-                    anchorPoint.x: gpsMarkerIcon.width/4
-                    anchorPoint.y: gpsMarkerIcon.height
-                    coordinate: positionSource.position.coordinate
-
-                    sourceItem: Image {
-                        id: gpsMarkerIcon
-                        source: "icons/map_position.svg"
-                    }
-                }
-
-                MapQuickItem {
-                    id: stopMarker
-                    anchorPoint.x: stopMarkerIcon.width/4
-                    anchorPoint.y: stopMarkerIcon.height
-
-                    sourceItem: Image {
-                        id: stopMarkerIcon
-                        source: "icons/map_stop.svg"
-                    }
-                }
             }
         }
 

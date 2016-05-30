@@ -25,6 +25,7 @@ ICON_FILES +=   icons/bus.svg \
                 icons/air.svg \
                 icons/taxi.svg \
                 icons/stop.svg \
+                icons/stop_location.svg \
                 icons/map_stop.svg \
                 icons/map_position.svg
 
@@ -74,5 +75,6 @@ DISTFILES += \
     icons/air.svg \
     icons/taxi.svg \
     icons/stop.svg \
+    icons/stop_location.svg \
     icons/map_stop.svg \
     icons/map_position.svg

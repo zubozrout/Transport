@@ -55,8 +55,8 @@ Page {
                     text: i18n.tr("Show route on map")
                     visible: enabled
                     onTriggered: {
-                        mapRoutePage.renderRoute();
                         pageLayout.addPageToNextColumn(connection_detail, mapRoutePage);
+                        mapRoutePage.renderRoute();
                     }
                 }
             ]

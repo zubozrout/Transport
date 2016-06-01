@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-01 02:54+0200\n"
+"POT-Creation-Date: 2016-06-01 03:05+0200\n"
 "PO-Revision-Date: 2016-06-01 00:51+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/zubozrout/transport/language/"
@@ -31,7 +31,7 @@ msgstr "Verze hlavní větve:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:242
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 

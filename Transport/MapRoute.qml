@@ -13,12 +13,16 @@ Page {
     visible: false
     clip: true
 
-    property var route: []
+    property var routeStart: null
 
-    function renderRoute() {
+    function clearRoute() {
+        routeStart = null;
+
         polyLineListModel.clear();
         stationListModel.clear();
+    }
 
+    function renderRoute(route) {
         var firstActive = null;
         for(var i = 0; i < route.length; i++) {
             var lineColor = route[i].lineColor;
@@ -43,7 +47,14 @@ Page {
                 stationListModel.append({"active": route[i].stations[j].active, "num": route[i].num, "type": route[i].type, "lineColor": route[i].lineColor, "station": route[i].stations[j].station, "latitude": route[i].stations[j].statCoorX, "lontitude": route[i].stations[j].statCoorY});
             }
         }
-        routeMap.center = QtPositioning.coordinate(firstActive.statCoorX, firstActive.statCoorY);
+        routeStart = QtPositioning.coordinate(firstActive.statCoorX, firstActive.statCoorY);
+        routeMap.center = routeStart;
+    }
+
+    onVisibleChanged: {
+        if(!visible) {
+            clearRoute();
+        }
     }
 
     header: PageHeader {
@@ -58,6 +69,13 @@ Page {
                     enabled: routeMap.center != positionSource.position.coordinate
                     visible: enabled
                     onTriggered: routeMap.center = positionSource.position.coordinate
+                },
+                Action {
+                    iconName: "start"
+                    text: i18n.tr("Show route start")
+                    enabled: routeMap.center != routeStart
+                    visible: enabled
+                    onTriggered: routeMap.center = routeStart
                 }
             ]
         }
@@ -182,7 +200,7 @@ Page {
 
                                 Image {
                                     Layout.fillWidth: false
-                                    width: units.gu(4)
+                                    width: units.gu(2.5)
                                     height: width
                                     sourceSize.width: width
                                     fillMode: Image.PreserveAspectFit
@@ -193,7 +211,7 @@ Page {
                                     id: stationNum
                                     Layout.fillWidth: true
                                     text: num
-                                    font.pixelSize: FontUtils.sizeToPixels("normal")
+                                    font.pixelSize: FontUtils.sizeToPixels("small")
                                     font.bold: true
                                     horizontalAlignment: Text.AlignHCenter
                                     wrapMode: Text.WordWrap
@@ -204,7 +222,7 @@ Page {
                                     id: stationLabel
                                     Layout.fillWidth: true
                                     text: station
-                                    font.pixelSize: FontUtils.sizeToPixels("normal")
+                                    font.pixelSize: FontUtils.sizeToPixels("small")
                                     font.bold: true
                                     wrapMode: Text.WordWrap
                                     color: "#000"

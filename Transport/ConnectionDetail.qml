@@ -24,6 +24,8 @@ Page {
     property var timeLength: ""
     property var price: ""
 
+    property var route: []
+
     property var sections: []
 
     header: PageHeader {
@@ -56,7 +58,7 @@ Page {
                     visible: enabled
                     onTriggered: {
                         pageLayout.addPageToNextColumn(connection_detail, mapRoutePage);
-                        mapRoutePage.renderRoute();
+                        mapRoutePage.renderRoute(connection_detail.route);
                     }
                 }
             ]
@@ -105,7 +107,7 @@ Page {
         var to = Engine.parseTrainsAPI(trains[i], "to");
         var dateIterator = new Date(start_time);
 
-        mapRoutePage.route[i].stations = [];
+        connection_detail.route[i].stations = [];
 
         for(var j = 0; j < trainDataRoute.length; j++) {
             var departure = Engine.parseTrainDataRouteAPI(trainDataRoute[j], "depTime");
@@ -144,7 +146,7 @@ Page {
             connection_detail.console_out_full += (active ? "*\t" : "\t") + stationName + " (" + stop_time + ")" + "\n";
 
             if(statCoorX && statCoorY) {
-                mapRoutePage.route[i].stations.push({"active": active, "station": stationName, "statCoorX": statCoorX, "statCoorY": statCoorY, "route": coorModel});
+                connection_detail.route[i].stations.push({"active": active, "station": stationName, "statCoorX": statCoorX, "statCoorY": statCoorY, "route": coorModel});
                 loadMapAction.enabled = true;
             }
             else {
@@ -158,6 +160,7 @@ Page {
     function loadConnectionDetailInfo(detail, trains, infomodel) {
         connection_detail.console_out_basic = "";
         connection_detail.console_out_full = "";
+        connection_detail.route = [];
 
         for(var i = 0; i < trains.length; i++) {
             var trainData = Engine.parseTrainsAPI(trains[i], "trainData");
@@ -190,7 +193,7 @@ Page {
             }
             var lineColor = Engine.parseColor(typeNameFromId, num);
 
-            mapRoutePage.route[i] = {"num": num, "type": typeNameFromId, "lineColor": lineColor, "stations": null};
+            connection_detail.route[i] = {"num": num, "type": typeNameFromId, "lineColor": lineColor, "stations": null};
             infomodel.append({"detail":detail,"start_time":start_time_readable,"end_time":end_time_readable,"num":num,"type":typeNameFromId,"typeName":typeName,"desc":desc,"lineColor":lineColor});
         }
     }

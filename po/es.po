@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-01 03:05+0200\n"
+"POT-Creation-Date: 2016-06-01 09:17+0200\n"
 "PO-Revision-Date: 2016-04-09 12:50+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/zubozrout/transport/"
@@ -31,7 +31,7 @@ msgstr "Versión de la rama principal:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:242
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transporte"
 
@@ -58,28 +58,28 @@ msgid "Thank you everyone who helped translating this app."
 msgstr ""
 "Muchas gracias a todos los que contribuyeron a traducir esta aplicación."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:31
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:33
 msgid "Connection detail"
 msgstr "Detalles de la conexión"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:46
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:48
 msgid "Copy"
 msgstr "Copiar"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:55
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:51
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:57
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:62
 msgid "Show route on map"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:72
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:74
 msgid "All stations"
 msgstr "Todas las estaciones"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:72
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:74
 msgid "Only passed stations"
 msgstr "Sólo estaciones pasadas"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:212
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:215
 msgid ""
 "An error occured while asking for the connection detail. The most probable "
 "cause is the expiration of the search results, please try again from scratch."
@@ -88,23 +88,23 @@ msgstr ""
 "probable sea que los resultados de la búsqueda haya expirado, por favor "
 "realice una nueva búsqueda e intente otra vez."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:252
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:255
 msgid "Departure:"
 msgstr "Salida:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:253
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:256
 msgid "Arrival:"
 msgstr "Llegada:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:390
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:393
 msgid "Distance:"
 msgstr "Distancia:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:391
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:394
 msgid "Time total:"
 msgstr "Tiempo total:"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:392
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:395
 msgid "Price:"
 msgstr "Costo:"
 
@@ -284,8 +284,12 @@ msgid "Does the search take too long? You can stop it by clicking here."
 msgstr "¿La búsqueda está demorando? Puede detenerla dando clic aquí."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:24
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:57
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:68
 msgid "Show my current location"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:75
+msgid "Show route start"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:12

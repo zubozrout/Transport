@@ -48,6 +48,16 @@ Page {
                         Clipboard.push(connection_detail.console_out);
                         detailAnim.start();
                     }
+                },
+                Action {
+                    id: loadMapAction
+                    iconSource: "icons/stop_location.svg"
+                    text: i18n.tr("Show route on map")
+                    visible: enabled
+                    onTriggered: {
+                        mapRoutePage.renderRoute();
+                        pageLayout.addPageToNextColumn(connection_detail, mapRoutePage);
+                    }
                 }
             ]
         }
@@ -95,10 +105,22 @@ Page {
         var to = Engine.parseTrainsAPI(trains[i], "to");
         var dateIterator = new Date(start_time);
 
+        mapRoutePage.route[i].stations = [];
+
         for(var j = 0; j < trainDataRoute.length; j++) {
             var departure = Engine.parseTrainDataRouteAPI(trainDataRoute[j], "depTime");
             var arrival = Engine.parseTrainDataRouteAPI(trainDataRoute[j], "arrTime");
             var stationName = Engine.parseTrainDataRouteAPI(trainDataRoute[j], "name");
+            var statCoorX = Engine.parseTrainDataRouteAPI(trainDataRoute[j], "statCoorX");
+            var statCoorY = Engine.parseTrainDataRouteAPI(trainDataRoute[j], "statCoorY");
+            var coorX = Engine.parseTrainDataRouteAPI(trainDataRoute[j], "coorX");
+            var coorY = Engine.parseTrainDataRouteAPI(trainDataRoute[j], "coorY");
+            var coorModel = [];
+            if(coorX && coorY && coorX.length == coorY.length) {
+                for(var c = 0; c < coorX.length; c++) {
+                    coorModel[c] = {"latitude": coorX[c], "longitude": coorY[c]};
+                }
+            }
 
             var active = (from && to) ? (j >= from && j <= to) : from && !to ? j >= from : to && !from ? j <= to : false;
             var stop_time = (departure && arrival) ? arrival + " → " + departure : departure ? departure : arrival;
@@ -120,6 +142,14 @@ Page {
                 connection_detail.console_out_basic += "*\t" + stationName + " (" + stop_time + ")" + "\n";
             }
             connection_detail.console_out_full += (active ? "*\t" : "\t") + stationName + " (" + stop_time + ")" + "\n";
+
+            if(statCoorX && statCoorY) {
+                mapRoutePage.route[i].stations.push({"active": active, "station": stationName, "statCoorX": statCoorX, "statCoorY": statCoorY, "route": coorModel});
+                loadMapAction.enabled = true;
+            }
+            else {
+                loadMapAction.enabled = false;
+            }
 
             model.append({"stationName":stationName,"stop_time":stop_time,"stop_datetime":stop_datetime,"active":active,"from":from,"to":to});
         }
@@ -160,6 +190,7 @@ Page {
             }
             var lineColor = Engine.parseColor(typeNameFromId, num);
 
+            mapRoutePage.route[i] = {"num": num, "type": typeNameFromId, "lineColor": lineColor, "stations": null};
             infomodel.append({"detail":detail,"start_time":start_time_readable,"end_time":end_time_readable,"num":num,"type":typeNameFromId,"typeName":typeName,"desc":desc,"lineColor":lineColor});
         }
     }

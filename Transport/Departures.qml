@@ -56,16 +56,6 @@ Page {
         }
     }
 
-    function randomColor(brightness){
-        function randomChannel(brightness){
-            var r = 255 - brightness;
-            var n = 0|((Math.random() * r) + brightness);
-            var s = n.toString(16);
-            return (s.length == 1) ? "0" + s : s;
-        }
-        return "#" + randomChannel(brightness) + randomChannel(brightness) + randomChannel(brightness);
-    }
-
     function renderDepartures(records) {
         if(typeof records == typeof undefined || records.length == 0) {
             statusMessagelabel.text = i18n.tr("No departures were found for the selected station.");
@@ -103,7 +93,7 @@ Page {
 
             departures_list_model.append({"start":start, "num":num, "type":type, "typeName":typeName, "desc":desc, "dateTime":dateTime, "parsedDateTime":parsedDateTime, "destination":destination, "heading":heading, "lineColor":lineColor, "vehicleIcon":"icons/" + typeNameFromId + ".svg", "textOutput": textOutput});
             if(!destinations.hasOwnProperty(destination)) {
-                destinations[destination] = randomColor(0);
+                destinations[destination] = Engine.randomColor(0);
             }
 
             if(lines.indexOf(num) < 0) {

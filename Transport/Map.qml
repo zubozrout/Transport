@@ -13,9 +13,6 @@ Page {
     visible: false
     clip: true
 
-    property var destinations: ({})
-    property var lines: []
-
     header: PageHeader {
         id: mapPageHeader
         title: i18n.tr("Show station on map")

@@ -207,7 +207,7 @@ function parseConnections(response_string) {
 function connectionDetail(city, id, call) {
     var connection_id = handle + id;
     if(Object.keys(connection_detail.detail_array).length == 0  || !connection_detail.detail_array[connection_id]) {
-        return request("https://ext.crws.cz/api/" + city + "/connections/" + handle + "/" + id + "?ttDetails=ROUTE_FULL&ttDetails=TRAIN_INFO&ttDetails=TRTYPE_IN_ID&ttDetails=PRICES&ttDetails=FIXED_CODES&" + urlCommon("ubuntu"), function(response){call(parseConnectionDetail(response), id);});
+        return request("https://ext.crws.cz/api/" + city + "/connections/" + handle + "/" + id + "?ttDetails=ROUTE_FULL&ttDetails=TRAIN_INFO&ttDetails=TRTYPE_IN_ID&ttDetails=PRICES&ttDetails=FIXED_CODES&ttDetails=COOR&ttDetails=ROUTE_COOR&" + urlCommon("ubuntu"), function(response){call(parseConnectionDetail(response), id);});
     }
     else {
         showConnectionDetail(null, id);
@@ -377,6 +377,20 @@ function parseStationObjectAPI(station, value) {
             return object[0]["item"];
         case "name":
             return object[0]["name"];
+        case "coorX":
+            if(typeof object[0]["coorX"] !== typeof undefined) {
+                return object[0]["coorX"];
+            }
+            else {
+                return null;
+            }
+        case "coorY":
+            if(typeof object[0]["coorY"] !== typeof undefined) {
+                return object[0]["coorY"];
+            }
+            else {
+                return null;
+            }
         default:
             return object[0]["name"];
     }
@@ -411,6 +425,20 @@ function parseTrainDataRouteAPI(route, value) {
             return route["station"]["station"];
         case "name":
             return route["station"]["name"];
+        case "statCoorX":
+            if(typeof route["station"]["coorX"] !== typeof undefined) {
+                return route["station"]["coorX"];
+            }
+            else {
+                return null;
+            }
+        case "statCoorY":
+            if(typeof route["station"]["coorY"] !== typeof undefined) {
+                return route["station"]["coorY"];
+            }
+            else {
+                return null;
+            }
         case "fixedCodes":
             return route["station"]["fixedCodes"];
         case "key":
@@ -423,6 +451,16 @@ function parseTrainDataRouteAPI(route, value) {
         case "arrTime":
             if(typeof route["arrTime"] !== typeof undefined) {
                 return route["arrTime"];
+            }
+            return null;
+        case "coorX":
+            if(typeof route["coorX"] !== typeof undefined) {
+                return String(route["coorX"]).replace(/^\[?|\]?$/, "").split(",");
+            }
+            return null;
+        case "coorY":
+            if(typeof route["coorY"] !== typeof undefined) {
+                return String(route["coorY"]).replace(/^\[?|\]?$/, "").split(",");
             }
             return null;
         case "dist":
@@ -693,6 +731,16 @@ function transportIdToName(id) {
 function clearLocalStorage() {
     DB.clearLocalStorage();
     transport_selector_page.update();
+}
+
+function randomColor(brightness){
+    function randomChannel(brightness){
+        var r = 255 - brightness;
+        var n = 0|((Math.random() * r) + brightness);
+        var s = n.toString(16);
+        return (s.length == 1) ? "0" + s : s;
+    }
+    return "#" + randomChannel(brightness) + randomChannel(brightness) + randomChannel(brightness);
 }
 
 // SOURCE: http://stackoverflow.com/a/21623206/1642887

@@ -780,6 +780,12 @@ MainView {
                 id: mapPage
             }
         }
+
+        Page{
+            MapRoute {
+                id: mapRoutePage
+            }
+        }
     }
 
     Rectangle {

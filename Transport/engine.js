@@ -758,7 +758,7 @@ function latLongDistance(lat1, lon1, lat2, lon2) {
 function geoPositionMatch(data) {
     var obj = {};
     if(data.selectedItem) {
-        var geoPosition = (DB.getNearbyStops(data.selectedItem, {"x": data.lat, "y": data.long}));
+        var geoPosition = DB.getNearbyStops(data.selectedItem, {"x": data.lat, "y": data.long});
 
         if(geoPosition.length > 0) {
             var searchHistory = DB.getSearchHistory();

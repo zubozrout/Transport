@@ -283,9 +283,9 @@ function getNearbyStops(type, coor) {
         var res = [];
         db.transaction(function(tx) {
             var fudge = Math.pow(Math.cos((coor.x) * Math.PI / 180),2);
-            var rs = tx.executeSql("SELECT value,coorX,coorY FROM stops WHERE key=? AND coorX IS NOT NULL AND coorY IS NOT NULL ORDER BY ((? - coorX) * (? - coorX) + (? - coorY) * (? - coorY) * ?) ASC LIMIT 5", [type, coor.x, coor.x, coor.y, coor.y, fudge]);
+            var rs = tx.executeSql("SELECT value,coorX,coorY FROM stops WHERE key=? AND coorX IS NOT NULL AND coorY IS NOT NULL ORDER BY ((? - coorX) * (? - coorX) + (? - coorY) * (? - coorY) * ?) ASC LIMIT 10", [type, coor.x, coor.x, coor.y, coor.y, fudge]);
             for(var i = 0; i < rs.rows.length; i++) {
-                if(Engine.latLongDistance(coor.x, coor.y, rs.rows.item(i).coorX, rs.rows.item(i).coorY) > 1) {
+                if(Engine.latLongDistance(coor.x, coor.y, rs.rows.item(i).coorX, rs.rows.item(i).coorY) > 2) {
                     break;
                 }
                 res.push({"name": rs.rows.item(i).value, "coorX": rs.rows.item(i).coorX, "coorY": rs.rows.item(i).coorY});

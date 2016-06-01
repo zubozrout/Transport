@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-01 09:17+0200\n"
+"POT-Creation-Date: 2016-06-01 20:18+0200\n"
 "PO-Revision-Date: 2016-06-01 00:50+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/zubozrout/transport/language/"
@@ -31,7 +31,7 @@ msgstr "إصدار الفرع الرئيسي:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:96
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:242
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "المواصلات"
 
@@ -64,7 +64,7 @@ msgid "Copy"
 msgstr "انسخ"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:57
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:62
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:64
 msgid "Show route on map"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr "بواسطة"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:370
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:392
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:125
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:207
 msgid "Station"
 msgstr "محطة"
 
@@ -296,12 +296,31 @@ msgid "Does the search take too long? You can stop it by clicking here."
 msgstr "هل البحث يستغرق وقتا طويلا؟ بإمكانك إيقافه بالضغط هنا"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:24
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:68
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:70
 msgid "Show my current location"
 msgstr "أظهر مقعي الحالي"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:75
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:32
+#, fuzzy
+msgid "Show nearby stations"
+msgstr "أظهر المحطة على الخريطة"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:38
+msgid "Unfortunately no nearby stations were found."
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:78
+#, fuzzy
+msgid "Go to the next stop"
+msgstr "ابحث عن أقرب موقف"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:77
+#, fuzzy
 msgid "Show route start"
+msgstr "أظهر المحطة على الخريطة"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:85
+msgid "Lock on the active station"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:12

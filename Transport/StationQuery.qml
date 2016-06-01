@@ -10,8 +10,8 @@ Item {
     property alias displayText: stationInput.displayText
     property alias stationInputListView: stationInput_list_view
     property alias stationInputModel: stationInput_list_model
-    property real coorX: 0
-    property real coorY: 0
+    property var coorX: null
+    property var coorY: null
 
     Column {
         width: parent.width
@@ -24,8 +24,8 @@ Item {
             placeholderText: stationQuery.placeholder
             hasClearButton: true
             onDisplayTextChanged: {
-                stationQuery.coorX = "";
-                stationQuery.coorY = "";
+                stationQuery.coorX = null;
+                stationQuery.coorY = null;
                 stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
             }
 
@@ -67,8 +67,8 @@ Item {
                         onClicked: {
                             var item = stationInput_list_model.get(index);
                             var name = item.name;
-                            var coorX = item.coorX ? item.coorX : 0;
-                            var coorY = item.coorY ? item.coorY : 0;
+                            var coorX = item.coorX ? item.coorX : null;
+                            var coorY = item.coorY ? item.coorY : null;
                             if(name != "") {
                                 Qt.inputMethod.commit();
                                 stationInput_list_view.currentIndex = index;

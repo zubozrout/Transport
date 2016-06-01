@@ -146,7 +146,7 @@ Page {
             connection_detail.console_out_full += (active ? "*\t" : "\t") + stationName + " (" + stop_time + ")" + "\n";
 
             if(statCoorX && statCoorY) {
-                connection_detail.route[i].stations.push({"active": active, "station": stationName, "statCoorX": statCoorX, "statCoorY": statCoorY, "route": coorModel});
+                connection_detail.route[i].stations.push({"active": active, "station": stationName, "stop_time":stop_time, "stop_datetime": stop_datetime, "statCoorX": statCoorX, "statCoorY": statCoorY, "route": coorModel});
                 loadMapAction.enabled = true;
             }
             else {

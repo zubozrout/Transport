@@ -41,10 +41,12 @@ Page {
 
                 var sequenceActive = true;
                 if(route[i].stations[j + 1]) {
-                    var sequenceActive = route[i].stations[j].active && route[i].stations[j + 1].active;
+                    sequenceActive = route[i].stations[j].active && route[i].stations[j + 1].active;
                 }
-                polyLineListModel.append({"active": sequenceActive, "num": route[i].num, "lineColor": lineColor, "linePath": JSON.stringify(linePolyLine)});
-                stationListModel.append({"active": route[i].stations[j].active, "num": route[i].num, "type": route[i].type, "lineColor": route[i].lineColor, "station": route[i].stations[j].station, "latitude": route[i].stations[j].statCoorX, "lontitude": route[i].stations[j].statCoorY});
+                if(linePolyLine.length > 0) {
+                    polyLineListModel.append({"active": sequenceActive, "num": route[i].num, "lineColor": lineColor, "linePath": JSON.stringify(linePolyLine)});
+                }
+                stationListModel.append({"active": route[i].stations[j].active, "num": route[i].num, "type": route[i].type, "lineColor": route[i].lineColor, "station": route[i].stations[j].station,"stop_time": route[i].stations[j].stop_time, "stop_datetime": route[i].stations[j].stop_datetime, "latitude": route[i].stations[j].statCoorX, "lontitude": route[i].stations[j].statCoorY});
             }
         }
         routeStart = QtPositioning.coordinate(firstActive.statCoorX, firstActive.statCoorY);
@@ -66,16 +68,23 @@ Page {
                 Action {
                     iconName: "gps"
                     text: i18n.tr("Show my current location")
-                    enabled: routeMap.center != positionSource.position.coordinate
+                    enabled: routeMap.center != positionSource.position.coordinate && !lockOnTheActiveAction.lock
                     visible: enabled
                     onTriggered: routeMap.center = positionSource.position.coordinate
                 },
                 Action {
                     iconName: "start"
                     text: i18n.tr("Show route start")
-                    enabled: routeMap.center != routeStart
+                    enabled: routeMap.center != routeStart && !lockOnTheActiveAction.lock
                     visible: enabled
                     onTriggered: routeMap.center = routeStart
+                },
+                Action {
+                    id: lockOnTheActiveAction
+                    iconName: "lock"
+                    text: i18n.tr("Lock on the active station")
+                    property bool lock: false
+                    onTriggered: lock = !lock
                 }
             ]
         }
@@ -107,15 +116,6 @@ Page {
 
             property var axe: Math.sqrt(width*width - height*height)
 
-            function markerIconSize() {
-                var minSize = units.gu(6)
-                var countSize = axe / 8;
-                if(countSize > minSize) {
-                    return countSize;
-                }
-                return minSize;
-            }
-
             MapQuickItem {
                 id: gpsMarker
                 anchorPoint.x: gpsMarkerIcon.width/4
@@ -126,7 +126,7 @@ Page {
                 sourceItem: Image {
                     id: gpsMarkerIcon
                     source: "icons/map_position.svg"
-                    width: routeMap.markerIconSize()
+                    width: units.gu(6)
                     height: width
                     sourceSize.width: width
                     sourceSize.height: height
@@ -142,9 +142,9 @@ Page {
                 model: polyLineListModel
 
                 delegate: MapPolyline {
-                    line.width: active ? routeMap.markerIconSize()/6 : routeMap.markerIconSize()/12
+                    line.width: active ? routeMap.zoomLevel/2 : routeMap.zoomLevel/4
                     line.color: active ? lineColor : "#000"
-                    opacity: active ? 1 : 0.5
+                    opacity: active ? 1 : (routeMap.zoomLevel < routeMap.maximumZoomLevel - 7 ? 0 : 0.5)
                     path: JSON.parse(linePath)
                     z: active ? index * 100 : index
                 }
@@ -161,19 +161,16 @@ Page {
                     coordinate: QtPositioning.coordinate(latitude, lontitude)
                     anchorPoint.x: stopMarkerIcon.width/2
                     anchorPoint.y: stopMarkerIcon.height/2
+                    opacity: active ? 1 : 0.5
+                    visible: active ? routeMap.zoomLevel > routeMap.maximumZoomLevel - 7 : routeMap.zoomLevel > routeMap.maximumZoomLevel - 5
                     z: active ? index * 100 * (polyLineListModel.count * 100) : index * 100
 
                     sourceItem: Rectangle {
                         id: stopMarkerIcon
-                        width: active ? computeSize() : computeSize()/2
+                        width: active ? units.gu(3) : units.gu(1.5)
                         height: width
                         radius: width
                         color: active ? "#3949AB" : "#d00"
-                        opacity: active ? 1 : 0.5
-
-                        function computeSize() {
-                            return (routeMap.markerIconSize()/30) * routeMap.zoomLevel;
-                        }
 
                         Rectangle {
                             anchors.margins: parent.width/5
@@ -227,6 +224,49 @@ Page {
                                     wrapMode: Text.WordWrap
                                     color: "#000"
                                 }
+                                Label {
+                                    id: stationTime
+                                    Layout.fillWidth: true
+                                    text: "- " + stop_time
+                                    font.pixelSize: FontUtils.sizeToPixels("small")
+                                    wrapMode: Text.WordWrap
+                                    color: "#000"
+                                }
+                            }
+                        }
+                    }
+
+                    Timer {
+                        interval: 20000
+                        running: true
+                        repeat: true
+                        triggeredOnStart: true
+                        property var lockActive: lockOnTheActiveAction.lock
+
+                        onLockActiveChanged: {
+                            if(lockActive) {
+                                start();
+                            }
+                        }
+
+                        onTriggered: {
+                            if(active) {
+                                var current_date = new Date();
+                                current_date.setSeconds(0,0);
+                                if(stop_datetime <= current_date) {
+                                    repeat = false;
+                                    stopMarkerIcon.color = "#ed0";
+                                    if(lockOnTheActiveAction.lock) {
+                                        routeMap.center = QtPositioning.coordinate(latitude, lontitude);
+                                    }
+                                }
+                                else {
+                                    repeat = true;
+                                    stopMarkerIcon.color = "#3949AB"
+                                }
+                            }
+                            else {
+                                repeat = false;
                             }
                         }
                     }

@@ -77,5 +77,4 @@ DISTFILES += \
     icons/stop.svg \
     icons/stop_location.svg \
     icons/map_stop.svg \
-    icons/map_position.svg \
-    MapRoute.qml
+    icons/map_position.svg

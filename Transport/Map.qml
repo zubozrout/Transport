@@ -25,6 +25,60 @@ Page {
                     enabled: stationMap.center != positionSource.position.coordinate
                     visible: enabled
                     onTriggered: stationMap.center = positionSource.position.coordinate
+                },
+                Action {
+                    id: nearbyAction
+                    iconName: used ? "torch-on" : "torch-off"
+                    text: i18n.tr("Show nearby stations")
+                    property var used: false
+                    property var lastFocus: -1
+
+                    function focusOnNext() {
+                        if(stationListModel.count == 0) {
+                            statusMessagelabel.text = i18n.tr("Unfortunately no nearby stations were found.");
+                            statusMessageErrorlabel.text = "";
+                            statusMessageBox.visible = true;
+                            used = false;
+                            return;
+                        }
+                        used = true;
+
+                        if(lastFocus < stationListModel.count) {
+                            if(lastFocus < 0) {
+                                lastFocus = 0;
+                            }
+                            stationMap.center = QtPositioning.coordinate(stationListModel.get(lastFocus).coorX, stationListModel.get(lastFocus).coorY);
+                            lastFocus++;
+                        }
+                        else {
+                            lastFocus = 0;
+                        }
+                    }
+
+                    onTriggered: {
+                        stationListModel.clear();
+                        if(used) {
+                            used = false;
+                            lastFocus = -1;
+                        }
+                        else {
+                            var options = transport_selector_page.selectedItem;
+                            var geoPosition = DB.getNearbyStops(options, {"x": positionSource.position.coordinate.latitude, "y": positionSource.position.coordinate.longitude});
+                            for(var i = 0; i < geoPosition.length; i++) {
+                                if(geoPosition[i].coorX && geoPosition[i].coorY) {
+                                    stationListModel.append({"name": geoPosition[i].name, "coorX": geoPosition[i].coorX, "coorY": geoPosition[i].coorY});
+                                }
+                            }
+                            focusOnNext();
+                        }
+                    }
+                },
+                Action {
+                    iconName: "next"
+                    text: i18n.tr("Go to the next stop")
+                    enabled: nearbyAction.used
+                    visible: enabled
+                    onTriggered: nearbyAction.focusOnNext()
                 }
             ]
         }
@@ -57,15 +111,6 @@ Page {
 
             property var axe: Math.sqrt(width*width - height*height)
 
-            function markerIconSize() {
-                var minSize = units.gu(6)
-                var countSize = axe / 8;
-                if(countSize > minSize) {
-                    return countSize;
-                }
-                return minSize;
-            }
-
             MapQuickItem {
                 id: gpsMarker
                 anchorPoint.x: gpsMarkerIcon.width/4
@@ -75,25 +120,62 @@ Page {
                 sourceItem: Image {
                     id: gpsMarkerIcon
                     source: "icons/map_position.svg"
-                    width: stationMap.markerIconSize()
+                    width: units.gu(4)
                     height: width
                     sourceSize.width: width
                     sourceSize.height: height
                 }
             }
 
-            MapQuickItem {
-                id: stopMarker
-                anchorPoint.x: stopMarkerIcon.width/4
-                anchorPoint.y: stopMarkerIcon.height
+            ListModel {
+                id: stationListModel
+            }
 
-                sourceItem: Image {
-                    id: stopMarkerIcon
-                    source: "icons/map_stop.svg"
-                    width: stationMap.markerIconSize()
-                    height: width
-                    sourceSize.width: width
-                    sourceSize.height: height
+            MapItemView {
+                model: stationListModel
+
+                delegate: MapQuickItem {
+                    id: stopMarker
+                    anchorPoint.x: stopMarkerIcon.width/4
+                    anchorPoint.y: stopMarkerIcon.height
+                    coordinate: QtPositioning.coordinate(coorX, coorY);
+
+                    sourceItem: Image {
+                        id: stopMarkerIcon
+                        source: "icons/map_stop.svg"
+                        width: units.gu(4)
+                        height: width
+                        sourceSize.width: width
+                        sourceSize.height: height
+
+                        Rectangle {
+                            anchors.left: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.margins: units.gu(0.5)
+                            width: stationRow.width + 2*stationRow.anchors.margins
+                            height: stationRow.height + 2*stationRow.anchors.margins
+                            color: Qt.rgba(1, 1, 1, 0.75)
+                            visible: stationMap.zoomLevel > stationMap.maximumZoomLevel - 5
+
+                            RowLayout {
+                                id: stationRow
+                                anchors.margins: units.gu(0.5)
+                                anchors.centerIn: parent
+                                spacing: units.gu(0.5)
+                                Layout.fillWidth: true
+
+                                Label {
+                                    id: stationLabel
+                                    Layout.fillWidth: true
+                                    text: name
+                                    font.pixelSize: FontUtils.sizeToPixels("small")
+                                    font.bold: true
+                                    wrapMode: Text.WordWrap
+                                    color: "#000"
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -135,8 +217,9 @@ Page {
                     iconName: "search"
                     onClicked: {
                         if(enabled) {
+                            stationListModel.clear();
+                            stationListModel.append({"name": mapQuery.text, "coorX": mapQuery.coorX, "coorY": mapQuery.coorY});
                             stationMap.center = QtPositioning.coordinate(mapQuery.coorX, mapQuery.coorY);
-                            stopMarker.coordinate = QtPositioning.coordinate(mapQuery.coorX, mapQuery.coorY);
                         }
                     }
                     enabled: mapQuery.text != "" && !isNaN(mapQuery.coorX) && mapQuery.coorX != 0 && !isNaN(mapQuery.coorY) && mapQuery.coorY != 0

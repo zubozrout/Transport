@@ -133,8 +133,15 @@ MainView {
 
         property bool firstSuccessfullRun: false
 
+        function isValid() {
+            if(valid && !isNaN(positionSource.position.coordinate.latitude) && !isNaN(positionSource.position.coordinate.lontitude)) {
+                return true;
+            }
+            return false;
+        }
+
         function searchForTheNearestStop() {
-            if(positionSource.valid && !isNaN(positionSource.position.coordinate.latitude)) {
+            if(isValid()) {
                 var stopMatch = Engine.geoPositionMatch({
                     "selectedItem": transport_selector_page.selectedItem,
                     "lat": positionSource.position.coordinate.latitude,
@@ -242,8 +249,43 @@ MainView {
                 title: i18n.tr("Transport")
                 flickable: search_page_flickable
 
+                leadingActionBar.actions: [
+                    Action {
+                        iconName: "go-to"
+                        text: i18n.tr("Connection results")
+                        enabled: Object.keys(result_page.response).length > 0 ? !result_page.visible : false
+                        visible: enabled
+                        onTriggered: pageLayout.addPageToNextColumn(search_page, result_page)
+                    }
+                ]
+
                 trailingActionBar {
                     actions: [
+                        Action {
+                            iconName: "go-to"
+                            text: i18n.tr("Connection results")
+                            enabled: Object.keys(result_page.response).length > 0 ? !result_page.visible : false
+                            visible: enabled
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, result_page)
+                        },
+                        Action {
+                            iconName: "gps"
+                            text: i18n.tr("Find nearest stop")
+                            visible: enabled
+                            onTriggered: positionSource.searchForTheNearestStop();
+                        },
+                        Action {
+                            iconSource: "icons/stop.svg"
+                            iconName: "event"
+                            text: i18n.tr("Station departures")
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, departures_page)
+                        },
+                        Action {
+                            iconSource: "icons/stop_location.svg"
+                            text: i18n.tr("Station locator")
+                            visible: enabled
+                            onTriggered: pageLayout.addPageToNextColumn(search_page, mapPage)
+                        },
                         Action {
                             iconName: "settings"
                             text: i18n.tr("Settings")
@@ -253,34 +295,9 @@ MainView {
                             iconName: "help"
                             text: i18n.tr("About")
                             onTriggered: pageLayout.addPageToNextColumn(search_page, about_page)
-                        },
-                        Action {
-                            iconSource: "icons/stop.svg"
-                            iconName: "event"
-                            text: i18n.tr("Departures")
-                            onTriggered: pageLayout.addPageToNextColumn(search_page, departures_page)
-                        },
-                        Action {
-                            iconSource: "icons/stop_location.svg"
-                            text: i18n.tr("Show station on map")
-                            visible: enabled
-                            onTriggered: pageLayout.addPageToNextColumn(search_page, mapPage)
-                        },
-                        Action {
-                            iconName: "gps"
-                            text: i18n.tr("Search for the nearest stop")
-                            visible: enabled
-                            onTriggered: positionSource.searchForTheNearestStop();
-                        },
-                        Action {
-                            iconName: "go-to"
-                            text: i18n.tr("Connection results")
-                            enabled: Object.keys(result_page.response).length > 0 ? true : false
-                            visible: enabled
-                            onTriggered: pageLayout.addPageToNextColumn(search_page, result_page)
                         }
                     ]
-                    numberOfSlots: 6
+                    numberOfSlots: 1
                 }
 
                 StyleHints {

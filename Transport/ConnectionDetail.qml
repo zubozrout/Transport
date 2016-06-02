@@ -62,6 +62,7 @@ Page {
                     }
                 }
             ]
+            numberOfSlots: 1
         }
 
         extension: Sections {

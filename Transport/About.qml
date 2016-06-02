@@ -13,6 +13,17 @@ Page {
         title: i18n.tr("About")
         flickable: about_page_flickable
 
+        trailingActionBar {
+            actions: [
+                Action {
+                    iconName: "settings"
+                    text: i18n.tr("Settings")
+                    onTriggered: pageLayout.addPageToNextColumn(search_page, settings_page)
+                }
+            ]
+            numberOfSlots: 1
+        }
+
         StyleHints {
             foregroundColor: "#fff"
             backgroundColor: "#3949AB"

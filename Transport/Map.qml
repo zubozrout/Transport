@@ -15,21 +15,27 @@ Page {
 
     header: PageHeader {
         id: mapPageHeader
-        title: i18n.tr("Show station on map")
+        title: i18n.tr("Station locator")
 
         trailingActionBar {
             actions: [
                 Action {
                     iconName: "gps"
-                    text: i18n.tr("Show my current location")
-                    enabled: stationMap.center != positionSource.position.coordinate
-                    visible: enabled
-                    onTriggered: stationMap.center = positionSource.position.coordinate
+                    text: i18n.tr("My position")
+                    onTriggered: {
+                        if(positionSource.valid) {
+                            stationMap.center = positionSource.position.coordinate
+                            gpsMarker.lock = true;
+                        }
+                        else {
+                            gpsMarker.lock = false;
+                        }
+                    }
                 },
                 Action {
                     id: nearbyAction
                     iconName: used ? "torch-on" : "torch-off"
-                    text: i18n.tr("Show nearby stations")
+                    text: i18n.tr("Nearby stations")
                     property var used: false
                     property var lastFocus: -1
 
@@ -48,7 +54,12 @@ Page {
                                 lastFocus = 0;
                             }
                             stationMap.center = QtPositioning.coordinate(stationListModel.get(lastFocus).coorX, stationListModel.get(lastFocus).coorY);
-                            lastFocus++;
+                            if(lastFocus == stationListModel.count - 1) {
+                                lastFocus = 0;
+                            }
+                            else {
+                                lastFocus++;
+                            }
                         }
                         else {
                             lastFocus = 0;
@@ -63,24 +74,28 @@ Page {
                         }
                         else {
                             var options = transport_selector_page.selectedItem;
-                            var geoPosition = DB.getNearbyStops(options, {"x": positionSource.position.coordinate.latitude, "y": positionSource.position.coordinate.longitude});
-                            for(var i = 0; i < geoPosition.length; i++) {
-                                if(geoPosition[i].coorX && geoPosition[i].coorY) {
-                                    stationListModel.append({"name": geoPosition[i].name, "coorX": geoPosition[i].coorX, "coorY": geoPosition[i].coorY});
+                            var coordinate = positionSource.position.coordinate;
+                            if(positionSource.valid) {
+                                var geoPosition = DB.getNearbyStops(options, {"x": coordinate.latitude, "y": coordinate.longitude});
+                                for(var i = 0; i < geoPosition.length; i++) {
+                                    if(geoPosition[i].coorX && geoPosition[i].coorY) {
+                                        stationListModel.append({"name": geoPosition[i].name, "coorX": geoPosition[i].coorX, "coorY": geoPosition[i].coorY});
+                                    }
                                 }
+                                stationMap.fitViewportToMapItems();
                             }
-                            focusOnNext();
                         }
                     }
                 },
                 Action {
                     iconName: "next"
-                    text: i18n.tr("Go to the next stop")
+                    text: i18n.tr("Go to next")
                     enabled: nearbyAction.used
                     visible: enabled
                     onTriggered: nearbyAction.focusOnNext()
                 }
             ]
+            numberOfSlots: 1
         }
 
         StyleHints {
@@ -111,11 +126,19 @@ Page {
 
             property var axe: Math.sqrt(width*width - height*height)
 
+            onCenterChanged: {
+                if(center != gpsMarker.coordinate) {
+                    gpsMarker.lock = false;
+                }
+            }
+
             MapQuickItem {
                 id: gpsMarker
                 anchorPoint.x: gpsMarkerIcon.width/4
                 anchorPoint.y: gpsMarkerIcon.height
                 coordinate: positionSource.position.coordinate
+
+                property bool lock: false
 
                 sourceItem: Image {
                     id: gpsMarkerIcon
@@ -124,6 +147,12 @@ Page {
                     height: width
                     sourceSize.width: width
                     sourceSize.height: height
+                }
+
+                onCoordinateChanged: {
+                    if(lock) {
+                        stationMap.center = coordinate;
+                    }
                 }
             }
 

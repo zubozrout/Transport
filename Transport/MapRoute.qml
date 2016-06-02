@@ -67,26 +67,38 @@ Page {
             actions: [
                 Action {
                     iconName: "gps"
-                    text: i18n.tr("Show my current location")
-                    enabled: routeMap.center != positionSource.position.coordinate && !lockOnTheActiveAction.lock
+                    text: i18n.tr("My position")
+                    enabled: !lockOnTheActiveAction.lock
                     visible: enabled
-                    onTriggered: routeMap.center = positionSource.position.coordinate
+                    onTriggered: {
+                        if(positionSource.valid) {
+                            routeMap.center = positionSource.position.coordinate;
+                            gpsMarker.lock = true;
+                        }
+                        else {
+                            gpsMarker.lock = false;
+                        }
+                    }
                 },
                 Action {
                     iconName: "start"
-                    text: i18n.tr("Show route start")
-                    enabled: routeMap.center != routeStart && !lockOnTheActiveAction.lock
+                    text: i18n.tr("Route start")
+                    enabled: !lockOnTheActiveAction.lock
                     visible: enabled
                     onTriggered: routeMap.center = routeStart
                 },
                 Action {
                     id: lockOnTheActiveAction
-                    iconName: "lock"
-                    text: i18n.tr("Lock on the active station")
+                    iconName: lock ? "lock" : "lock-broken"
+                    text: i18n.tr("Track the journey")
                     property bool lock: false
-                    onTriggered: lock = !lock
+                    onTriggered: {
+                        gpsMarker.lock = false;
+                        lock = !lock;
+                    }
                 }
             ]
+            numberOfSlots: 2
         }
 
         StyleHints {
@@ -116,12 +128,20 @@ Page {
 
             property var axe: Math.sqrt(width*width - height*height)
 
+            onCenterChanged: {
+                if(center != gpsMarker.coordinate) {
+                    gpsMarker.lock = false;
+                }
+            }
+
             MapQuickItem {
                 id: gpsMarker
                 anchorPoint.x: gpsMarkerIcon.width/4
                 anchorPoint.y: gpsMarkerIcon.height
                 coordinate: positionSource.position.coordinate
                 z: stationListModel.count * 100 * (polyLineListModel.count * 100) + 1
+
+                property bool lock: false
 
                 sourceItem: Image {
                     id: gpsMarkerIcon
@@ -130,6 +150,12 @@ Page {
                     height: width
                     sourceSize.width: width
                     sourceSize.height: height
+                }
+
+                onCoordinateChanged: {
+                    if(lock) {
+                        routeMap.center = coordinate;
+                    }
                 }
             }
 
@@ -167,7 +193,7 @@ Page {
 
                     sourceItem: Rectangle {
                         id: stopMarkerIcon
-                        width: active ? units.gu(3) : units.gu(1.5)
+                        width: active ? units.gu(2) : units.gu(1.5)
                         height: width
                         radius: width
                         color: active ? "#3949AB" : "#d00"

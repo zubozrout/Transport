@@ -126,8 +126,6 @@ Page {
             gesture.enabled: true
             center: positionSource.position.coordinate
 
-            property var axe: Math.sqrt(width*width - height*height)
-
             onCenterChanged: {
                 if(center != gpsMarker.coordinate) {
                     gpsMarker.lock = false;
@@ -146,7 +144,7 @@ Page {
                 sourceItem: Image {
                     id: gpsMarkerIcon
                     source: "icons/map_position.svg"
-                    width: units.gu(6)
+                    width: units.gu(4)
                     height: width
                     sourceSize.width: width
                     sourceSize.height: height

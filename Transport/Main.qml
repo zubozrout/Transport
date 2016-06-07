@@ -134,7 +134,7 @@ MainView {
         property bool firstSuccessfullRun: false
 
         function isValid() {
-            if(valid && !isNaN(positionSource.position.coordinate.latitude) && !isNaN(positionSource.position.coordinate.lontitude)) {
+            if(valid && !isNaN(positionSource.position.coordinate.latitude) && !isNaN(positionSource.position.coordinate.longitude)) {
                 return true;
             }
             return false;
@@ -262,17 +262,17 @@ MainView {
                 trailingActionBar {
                     actions: [
                         Action {
+                            iconName: "gps"
+                            text: i18n.tr("Find nearest stop")
+                            visible: enabled
+                            onTriggered: positionSource.searchForTheNearestStop();
+                        },
+                        Action {
                             iconName: "go-to"
                             text: i18n.tr("Connection results")
                             enabled: Object.keys(result_page.response).length > 0 ? !result_page.visible : false
                             visible: enabled
                             onTriggered: pageLayout.addPageToNextColumn(search_page, result_page)
-                        },
-                        Action {
-                            iconName: "gps"
-                            text: i18n.tr("Find nearest stop")
-                            visible: enabled
-                            onTriggered: positionSource.searchForTheNearestStop();
                         },
                         Action {
                             iconSource: "icons/stop.svg"
@@ -297,7 +297,7 @@ MainView {
                             onTriggered: pageLayout.addPageToNextColumn(search_page, about_page)
                         }
                     ]
-                    numberOfSlots: 1
+                    numberOfSlots: 2
                 }
 
                 StyleHints {

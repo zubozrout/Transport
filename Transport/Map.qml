@@ -24,7 +24,7 @@ Page {
                     text: i18n.tr("My position")
                     onTriggered: {
                         if(positionSource.valid) {
-                            stationMap.center = positionSource.position.coordinate
+                            stationMap.center = positionSource.position.coordinate;
                             gpsMarker.lock = true;
                         }
                         else {
@@ -52,6 +52,8 @@ Page {
                         if(lastFocus < stationListModel.count) {
                             if(lastFocus < 0) {
                                 lastFocus = 0;
+                                stationMap.fitViewportToMapItems();
+                                return;
                             }
                             stationMap.center = QtPositioning.coordinate(stationListModel.get(lastFocus).coorX, stationListModel.get(lastFocus).coorY);
                             if(lastFocus == stationListModel.count - 1) {
@@ -82,7 +84,7 @@ Page {
                                         stationListModel.append({"name": geoPosition[i].name, "coorX": geoPosition[i].coorX, "coorY": geoPosition[i].coorY});
                                     }
                                 }
-                                stationMap.fitViewportToMapItems();
+                                focusOnNext();
                             }
                         }
                     }
@@ -123,8 +125,6 @@ Page {
             zoomLevel: maximumZoomLevel - 3
             gesture.enabled: true
             center: positionSource.position.coordinate
-
-            property var axe: Math.sqrt(width*width - height*height)
 
             onCenterChanged: {
                 if(center != gpsMarker.coordinate) {

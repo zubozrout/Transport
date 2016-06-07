@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-03 01:04+0200\n"
+"POT-Creation-Date: 2016-06-07 22:17+0200\n"
 "PO-Revision-Date: 2016-05-28 14:12+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/zubozrout/transport/language/"
@@ -39,7 +39,7 @@ msgstr "Verzia hlavnej vetvy:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:107
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:249
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_i386_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 
@@ -242,12 +242,12 @@ msgid "You're now offline"
 msgstr "Aplikácia je offline"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:255
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:266
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:272
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:18
 msgid "Connection results"
 msgstr "Výsledky vyhľadávania"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:273
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:266
 msgid "Find nearest stop"
 msgstr ""
 
@@ -299,7 +299,7 @@ msgstr "Všetky zastávky"
 msgid "Unfortunately no nearby stations were found."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:92
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:94
 msgid "Go to next"
 msgstr ""
 

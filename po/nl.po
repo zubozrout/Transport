@@ -3,18 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Manuel Alejandro Jiménez Quintero <alejanjim@gmail.com>, 2016
-# Martin Kozub <zubozrout@gmail.com>, 2016
+# Heimen Stoffels <vistausss@outlook.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-07 22:17+0200\n"
-"PO-Revision-Date: 2016-04-09 12:50+0000\n"
-"Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/zubozrout/transport/"
-"language/es/)\n"
-"Language: es\n"
+"PO-Revision-Date: 2016-06-07 09:06+0000\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/zubozrout/transport/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,446 +23,424 @@ msgstr ""
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:296
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:25
 msgid "About"
-msgstr "Acerca de"
+msgstr "Over"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:20
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:291
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:18
 msgid "Settings"
-msgstr "Configuraciones"
+msgstr "Instellingen"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:50
 msgid "Main branch version:"
-msgstr "Versión de la rama principal:"
+msgstr "Hoofdtak-versie:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:107
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:249
 #: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_i386_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
-msgstr "Transporte"
+msgstr "Vervoer"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:107
 msgid "Timetables"
-msgstr "Horarios"
+msgstr "Dienstregelingen"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:115
 msgid "This application is based upon an API provided by CHAPS s.r.o. company."
 msgstr ""
-"Esta aplicación hace uso de la API desarrollada por la empresa CHAPS spol. s."
-"r.o."
+"Deze applicatie is gebaseerd op een door CHAPS s.r.o. beschikbaar gestelde "
+"API."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:115
 msgid ""
 "You can find the documentation of the API service here http://docs.crws."
 "apiary.io/"
 msgstr ""
-"Puede encontrar la documentación de la API de servicio aquí http://docs.crws."
-"apiary.io/"
+"U kunt de documentatie van deze API-dienst vinden op http://docs.crws.apiary."
+"io/"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:129
 msgid "Thank you everyone who helped translating this app."
-msgstr ""
-"Muchas gracias a todos los que contribuyeron a traducir esta aplicación."
+msgstr "Iedereen die meegeholpen heeft met het vertalen van deze app: bedankt!"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:33
 msgid "Connection detail"
-msgstr "Detalles de la conexión"
+msgstr "Overstapdetails"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:48
 msgid "Copy"
-msgstr "Copiar"
+msgstr "Kopiëren"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:57
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:64
 msgid "Show route on map"
-msgstr ""
+msgstr "Toon route op kaart"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:75
 msgid "All stations"
-msgstr "Todas las estaciones"
+msgstr "Alle stations"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:75
 msgid "Only passed stations"
-msgstr "Sólo estaciones pasadas"
+msgstr "Alleen overgeslagen stations"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:216
 msgid ""
 "An error occured while asking for the connection detail. The most probable "
 "cause is the expiration of the search results, please try again from scratch."
 msgstr ""
-"Ocurrió un error mientras se solicitaban los datos de la conexión. Lo más "
-"probable sea que los resultados de la búsqueda haya expirado, por favor "
-"realice una nueva búsqueda e intente otra vez."
+"Er is een fout opgetreden tijdens het opvragen van de verbindingsdetails. "
+"Dit komt waarschijnlijk doordat de zoekresultaten verlopen zijn; probeer "
+"opnieuw te zoeken."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:256
 msgid "Departure:"
-msgstr "Salida:"
+msgstr "Vertrek:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:257
 msgid "Arrival:"
-msgstr "Llegada:"
+msgstr "Aankomst:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:394
 msgid "Distance:"
-msgstr "Distancia:"
+msgstr "Afstand:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:395
 msgid "Time total:"
-msgstr "Tiempo total:"
+msgstr "Totale reistijd:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:396
 msgid "Price:"
-msgstr "Costo:"
+msgstr "Prijs:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:21
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:280
 msgid "Station departures"
-msgstr "Salidas de la estación"
+msgstr "Vertrekken"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:27
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:484
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:662
 msgid "Search"
-msgstr "Buscar"
+msgstr "Zoeken"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:34
 msgid "Filter results"
-msgstr "Filtrar los resultados"
+msgstr "Resultaten filteren"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:61
 msgid "No departures were found for the selected station."
-msgstr "No existen salidas disponibles desde la estación seleccionada."
+msgstr "Er zijn geen vertrekken gevonden vanaf het geselecteerde station."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:267
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:419
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:171
 msgid "From"
-msgstr "Desde"
+msgstr "Van"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:287
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:436
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:188
 msgid "To"
-msgstr "A"
+msgstr "Naar"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:303
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:481
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:206
 msgid "Via"
-msgstr "Vía"
+msgstr "Via"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:370
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:392
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:236
 msgid "Station"
-msgstr "Estación"
+msgstr "Station"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:428
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:547
 msgid "Now"
-msgstr "Ahora"
+msgstr "Nu"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:445
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:563
 msgid "Departure at"
-msgstr "Fecha y hora de salida:"
+msgstr "Vertrekt op:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:467
 msgid "Change time"
-msgstr "Cambio de hora"
+msgstr "Tijd wijzigen"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:474
 msgid "Change date"
-msgstr "Cambio de fecha"
+msgstr "Datum wijzigen"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:593
 msgid "Filter by line"
-msgstr "Filtrar por línea"
+msgstr "Filteren op lijn"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:617
 msgid "Filter by destination"
-msgstr "Filtrar por destino"
+msgstr "Filteren op aankomststation"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:46
 #, qt-format
 msgid "%1 minute ago"
 msgid_plural "%1 minutes ago"
-msgstr[0] "Hace %1 minuto"
-msgstr[1] "Hace %1 minutos"
+msgstr[0] "%1 minuut geleden"
+msgstr[1] "%1 minuten geleden"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:49
 msgid "departed"
-msgstr "en ruta"
+msgstr "vertrokken"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:63
 #, qt-format
 msgid "in %1 hour"
 msgid_plural "in %1 hours"
-msgstr[0] "en %1 hora"
-msgstr[1] "en %1 horas"
+msgstr[0] "over %1 uur"
+msgstr[1] "over %1 uur"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:65
 #, qt-format
 msgid "and %1 minute"
 msgid_plural "and %1 minutes"
-msgstr[0] "y %1 minuto"
-msgstr[1] "y %1 minutos"
+msgstr[0] "en %1 minuut"
+msgstr[1] "en %1 minuten"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:70
 msgid "just now"
-msgstr "justo ahora"
+msgstr "op dit moment"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:73
 #, qt-format
 msgid "in %1 minute"
 msgid_plural "in %1 minutes"
-msgstr[0] "en %1 minuto"
-msgstr[1] "en %1 minutos"
+msgstr[0] "over %1 minuut"
+msgstr[1] "over %1 minuten"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:83
 msgid "yesterday"
-msgstr ""
+msgstr "gisteren"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/DepartureTimer.qml:89
 msgid "today"
-msgstr ""
+msgstr "vandaag"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:114
 msgid "Server is not responding. Please try again later."
-msgstr "No hay opción de transporte seleccionado"
+msgstr "De server reageert niet; probeer het later opnieuw."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:115
 msgid "There was no server response received."
-msgstr ""
+msgstr "Er is geen antwoord ontvangen van de server."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:211
 msgid "You're now offline"
-msgstr "Ahora se encuentra desconectado"
+msgstr "U bent nu offline"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:255
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:272
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:18
 msgid "Connection results"
-msgstr "Resultados de la conexión"
+msgstr "Verbindingsresultaten"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:266
 msgid "Find nearest stop"
-msgstr ""
+msgstr "Dichtstbijzijnde halte zoeken"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:285
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:18
-#, fuzzy
 msgid "Station locator"
-msgstr "Estación"
+msgstr "Stations zoeken"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:385
 msgid "No transport option selected"
-msgstr "No hay opción de transporte seleccionado"
+msgstr "U heeft geen vervoerssoort geselecteerd"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:452
 msgid "Advanced options"
-msgstr "Opciones avanzadas"
+msgstr "Geavanceerde opties"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:490
 msgid "Only direct connections"
-msgstr "Sólo conexiones directas"
+msgstr "Alleen directe verbindingen"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:563
 msgid "Arrival at"
-msgstr "Fecha y hora de llegada:"
+msgstr "Aankomst op"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:600
 msgid "Departure"
-msgstr "Salida"
+msgstr "Vertrek"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:604
 msgid "Arrival"
-msgstr "Llegada"
+msgstr "Aankomst"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:732
 msgid "Does the search take too long? You can stop it by clicking here."
-msgstr "¿La búsqueda está demorando? Puede detenerla dando clic aquí."
+msgstr ""
+"Duurt het zoeken te lang? U kunt het zoeken beëindigen door hier te klikken."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:24
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:70
 msgid "My position"
-msgstr ""
+msgstr "Mijn locatie"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:38
-#, fuzzy
 msgid "Nearby stations"
-msgstr "Todas las estaciones"
+msgstr "Dichtstbijzinde stations"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:44
 msgid "Unfortunately no nearby stations were found."
-msgstr ""
+msgstr "Er zijn helaas geen dichtstbijzijnde stations gevonden."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:94
 msgid "Go to next"
-msgstr ""
+msgstr "Ga naar de volgende"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:85
 msgid "Route start"
-msgstr ""
+msgstr "Begin van de route"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:93
 msgid "Track the journey"
-msgstr ""
+msgstr "Volg de reis"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:12
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:21
 msgid "Recent searches"
-msgstr ""
+msgstr "Recente zoekopdrachten"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:27
 msgid "Delete all searches"
-msgstr ""
+msgstr "Alle zoekopdrachten verwijderen"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:46
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:77
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:265
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:181
 msgid "Attention"
-msgstr "Atención"
+msgstr "Let op"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:47
-#, fuzzy
 msgid "Do you really want to delete the whole search history?"
-msgstr "¿Realmente desea limpiar todos los datos de la aplicación?"
+msgstr "Weet u zeker dat u de hele zoekgeschiedenis wilt verwijderen?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:49
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:80
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:268
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:184
 msgid "No"
-msgstr "No"
+msgstr "Nee"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:53
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:84
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:272
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:188
 msgid "Yes"
-msgstr "Sí"
+msgstr "Ja"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:78
-#, fuzzy
 msgid "Do you really want to delete this history entry?"
-msgstr "¿Realmente desea limpiar todos los datos de la aplicación?"
+msgstr "Weet u zeker dat u dit geschiedenisitem wilt verwijderen?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:24
 msgid "Next"
-msgstr "Siguiente"
+msgstr "Volgende"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:30
 msgid "Previous"
-msgstr "Anterior"
+msgstr "Vorige"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:62
 msgid "Count of fetched connections per page"
-msgstr "Cantidad de conexiones obtenidas por página"
+msgstr "Aantal opgehaalde verbindingen per pagina"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:101
 msgid "Display all line stops in the connection detail?"
-msgstr "¿Mostrar todas las escalas en los detalles de la conexión?"
+msgstr "Alle tussenstations weergeven in de verbindingsdetails?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:127
-#, fuzzy
 msgid "Ignore transport validity dates in date selector?"
-msgstr "No hay opción de transporte seleccionado"
+msgstr "Vervoersgeldigheidsdata verbergen in de datumkiezer?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:159
 msgid "Download and refresh all transport options on each application start?"
-msgstr ""
-"¿Descargar y actualizar todas las opciones de transporte cada que se inicie "
-"la aplicación?"
+msgstr "Alle vervoersopties downloaden en herladen bij elke applicatiestart?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:188
 msgid "Refresh transport options"
-msgstr "Actualizar las opciones de transporte"
+msgstr "Vervoersopties herladen"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:211
 msgid "Keep background color saved"
-msgstr "Mantener el color del fondo guardado"
+msgstr "Behoud de opgeslagen achtergrondkleur"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:257
 msgid "Clear cache"
-msgstr "Limpiar cache"
+msgstr "Cache legen"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:266
 msgid "Do you really want to clear all application data?"
-msgstr "¿Realmente desea limpiar todos los datos de la aplicación?"
+msgstr "Weet u zeker dat u alle applicatiegegevens wilt wissen?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:17
 msgid "Transport selector"
-msgstr "Selector de transporte"
+msgstr "Vervoerskiezer"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:182
-#, fuzzy, qt-format
+#, qt-format
 msgid "Do you really want to delete all saved stations for %1 transport?"
-msgstr "¿Realmente desea limpiar todos los datos de la aplicación?"
+msgstr ""
+"Weet u zeker dat u alle opgeslagen stations wilt verwijderen voor vervoer %1?"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:290
 msgid "Czech Republic"
-msgstr ""
+msgstr "Tsjechië"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:290
 msgid "Slovak Republic"
-msgstr ""
+msgstr "Slowakije"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:302
 msgid "City:"
-msgstr ""
+msgstr "Stad:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:316
 msgid "Vehicle types:"
-msgstr ""
+msgstr "Voertuigsoorten:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:330
 msgid "Valid from:"
-msgstr ""
+msgstr "Geldig vanaf:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:343
 msgid "Expires:"
-msgstr ""
+msgstr "Vervalt op:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:372
-#, fuzzy
 msgid "Used transport types"
-msgstr "Actualizar las opciones de transporte"
+msgstr "Gebruikte vervoerssoorten"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Transport.qml:444
-#, fuzzy
 msgid "All transport types"
-msgstr "Actualizar las opciones de transporte"
+msgstr "Alle vervoerssoorten"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:322
 msgid "Could not load next connection results."
-msgstr "No se pudieron cargar los resultados de la siguiente conexión."
+msgstr "De volgende verbindingsresultaten konden niet worden geladen."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:342
 msgid "No results matching input parameters were found."
 msgstr ""
-"No se encontraron resultados que coincidan con los parámetros introducidos."
+"Er zijn geen resultaten gevonden die overeenkomen met de ingevoerde "
+"parameters."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:364
 msgid "Could not load connection detail."
-msgstr "No se pudieron cargar los detalles de la conexión."
+msgstr "De verbindingsdetails konden niet worden geladen."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:573
 msgid "An error occured"
-msgstr "Ocurrio un error"
-
-#~ msgid "Departures"
-#~ msgstr "Salidas"
-
-#, fuzzy
-#~ msgid "Transport type"
-#~ msgstr "Actualizar las opciones de transporte"
-
-#, fuzzy
-#~ msgid "Final destination"
-#~ msgstr "Filtrar por destino"
-
-#, fuzzy
-#~ msgid "Used transport options"
-#~ msgstr "Actualizar las opciones de transporte"
+msgstr "Er is een fout opgetreden"

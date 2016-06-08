@@ -81,7 +81,7 @@ Page {
                                 var geoPosition = DB.getNearbyStops(options, {"x": coordinate.latitude, "y": coordinate.longitude});
                                 for(var i = 0; i < geoPosition.length; i++) {
                                     if(geoPosition[i].coorX && geoPosition[i].coorY) {
-                                        stationListModel.append({"name": geoPosition[i].name, "coorX": geoPosition[i].coorX, "coorY": geoPosition[i].coorY});
+                                        stationListModel.append({"typeid": options, "name": geoPosition[i].name, "coorX": geoPosition[i].coorX, "coorY": geoPosition[i].coorY});
                                     }
                                 }
                                 focusOnNext();
@@ -204,6 +204,13 @@ Page {
                                 }
                             }
                         }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                Engine.fillStopMatch(typeid, Engine.getLatestSearchFrom(typeid, {"name": name, "coorX": stopMarker.coordinate.latitude, "coorY": stopMarker.coordinate.longitude}));
+                            }
+                        }
                     }
                 }
             }
@@ -246,8 +253,9 @@ Page {
                     iconName: "search"
                     onClicked: {
                         if(enabled) {
+                            var options = transport_selector_page.selectedItem;
                             stationListModel.clear();
-                            stationListModel.append({"name": mapQuery.text, "coorX": mapQuery.coorX, "coorY": mapQuery.coorY});
+                            stationListModel.append({"typeid": options, "name": mapQuery.text, "coorX": mapQuery.coorX, "coorY": mapQuery.coorY});
                             stationMap.center = QtPositioning.coordinate(mapQuery.coorX, mapQuery.coorY);
                         }
                     }

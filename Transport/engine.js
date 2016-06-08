@@ -261,9 +261,10 @@ function parseDepartures(response_string) {
 
 function completeFromDB(city, text, model) {
     var stops = DB.getRelevantStops(city, text);
+    var stopNames = stops.map(function(stop) {return stop.name;});
     for(var i = 0; i < stops.length; i++) {
         for(var j = 0; j < model.count; j++) {
-            if(stops.map(function(stop) {return stop.name;}).indexOf(model.get(j).name) == -1) {
+            if(stopNames.indexOf(model.get(j).name) == -1) {
                 model.remove(j);
             }
         }
@@ -282,6 +283,7 @@ function completeFromDB(city, text, model) {
 
 function complete(city, text, model) {
     if(text != "") {
+        model.clear();
         var DBstops = completeFromDB(city, text, model);
         return getStops(city, text, 10, function(response){fill_from(parseStops(response), city, text, model, DBstops);});
     }
@@ -291,9 +293,10 @@ function fill_from(response, city, text, model, DBstops) {
     if(!response) {
         return;
     }
+    var responseStopNames = response.map(function(stop) {return stop.name;});
     for(var i = 0; i < response.length; i++) {
         for(var j = 0; j < model.count; j++) {
-            if(response.map(function(stop) {return stop.name;}).indexOf(model.get(j).name) == -1 /* && DBstops.indexOf(model.get(j).name) == -1 */) {
+            if(responseStopNames.indexOf(model.get(j).name) == -1) {
                 model.remove(j);
             }
         }
@@ -326,6 +329,7 @@ function showConnectionsFB(response) {
         }
         result_page.clear();
         result_page.response = response;
+        result_page.typeid = transport_selector_page.selectedItem;
         result_page.render(connections);
     }
 }
@@ -346,17 +350,19 @@ function showConnections(response) {
         }
         result_page.clear();
         result_page.response = response;
+        result_page.typeid = transport_selector_page.selectedItem;
         result_page.render(connections);
         pageLayout.addPageToNextColumn(search_page, result_page);
     }
 }
 
-function showConnectionDetail(detail, id) {
+function showConnectionDetail(typeid, detail, id) {
     var connection_id = handle + id;
     if(detail != null && (connection_detail.detail_array == null || !connection_detail.detail_array[connection_id])) {
         connection_detail.detail_array[connection_id] = detail;
     }
     connection_detail.current_id = connection_id;
+    connection_detail.typeid = typeid;
     if(connection_detail.detail_array.hasOwnProperty(connection_id)) {
         pageLayout.addPageToCurrentColumn(result_page, connection_detail);
     }
@@ -752,7 +758,37 @@ function latLongDistance(lat1, lon1, lat2, lon2) {
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
-// Get stop based on current geolocation and try to match an existing (newest) search on it
+function getLatestSearchFrom(typeid, from) {
+    var searchHistory = DB.getSearchHistory(typeid);
+    var obj = {};
+
+    obj.from = {}
+    obj.from.name = from.name;
+    obj.from.lat = from.coorX;
+    obj.from.long = from.coorY;
+
+    var match = false;
+    for(var i = 0; i < searchHistory.length; i++) {
+        if(searchHistory[i].stopfrom == from.name) {
+            obj.to = {}
+            obj.to.name = searchHistory[i].stopto;
+            obj.to.lat = searchHistory[i].stoptox;
+            obj.to.long = searchHistory[i].stoptoy;
+
+            if(searchHistory[i].stopvia) {
+                obj.via = {}
+                obj.via.name = searchHistory[i].stopvia;
+                obj.via.lat = searchHistory[i].stopviax;
+                obj.via.long = searchHistory[i].stopviay;
+            }
+            break;
+        }
+    }
+
+    return obj;
+}
+
+// Get stop based on current selected transport typeid and geolocation and try to match an existing (newest) search on it
 // requires {selectedItem, lat, long}
 // returns {from:[{name, lat, long}], to:[{name, lat, long}], via:[{name, lat, long}]} (to and via may be null), or empty object if no match was found
 function geoPositionMatch(data) {
@@ -761,31 +797,47 @@ function geoPositionMatch(data) {
         var geoPosition = DB.getNearbyStops(data.selectedItem, {"x": data.lat, "y": data.long});
 
         if(geoPosition.length > 0) {
-            var searchHistory = DB.getSearchHistory();
-
-            obj.from = {}
-            obj.from.name = geoPosition[0].name;
-            obj.from.lat = geoPosition[0].coorX;
-            obj.from.long = geoPosition[0].coorY;
-
-            var match = false;
-            for(var i = 0; i < searchHistory.length; i++) {
-                if(searchHistory[i].stopfrom == geoPosition[0].name) {
-                    obj.to = {}
-                    obj.to.name = searchHistory[i].stopto;
-                    obj.to.lat = searchHistory[i].stoptox;
-                    obj.to.long = searchHistory[i].stoptoy;
-
-                    if(searchHistory[i].stopvia) {
-                        obj.via = {}
-                        obj.via.name = searchHistory[i].stopvia;
-                        obj.via.lat = searchHistory[i].stopviax;
-                        obj.via.long = searchHistory[i].stopviay;
-                    }
-                    break;
-                }
-            }
+            obj = getLatestSearchFrom(data.selectedItem, geoPosition[0]);
         }
     }
     return obj;
+}
+
+function fillStopMatch(transport, stopMatch) {
+    if(stopMatch.from) {
+        transport_selector_page.selectItemById(transport);
+
+        from.text = stopMatch.from.name;
+        from.coorX = stopMatch.from.lat;
+        from.coorY = stopMatch.from.long;
+
+        if(stopMatch.to) {
+            to.text = stopMatch.to.name;
+            to.coorX = stopMatch.to.lat;
+            to.coorY = stopMatch.to.long;
+
+            if(stopMatch.via) {
+                via.text = stopMatch.via.name;
+                via.coorX = stopMatch.via.lat;
+                via.coorY = stopMatch.via.long;
+            }
+        }
+        else {
+            to.text = "";
+            via.text = "";
+        }
+
+        return true;
+    }
+    return false;
+}
+
+function setGeoPositionMatch(coordinate, transport, from, to, via) {
+    var stopMatch = geoPositionMatch({
+        "selectedItem": transport,
+        "lat": coordinate.latitude,
+        "long": coordinate.longitude
+    });
+
+    return fillStopMatch(transport, stopMatch);
 }

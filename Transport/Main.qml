@@ -69,6 +69,7 @@ MainView {
 
     function stationInputChanged(textfield, listview, model) {
         search.resetState();
+        api.abort();
         if(textfield.focus && textfield.displayText != listview.lastSelected) {
             if(!model) {
                 model = textfield.stationInputModel;
@@ -142,35 +143,7 @@ MainView {
 
         function searchForTheNearestStop() {
             if(isValid()) {
-                var stopMatch = Engine.geoPositionMatch({
-                    "selectedItem": transport_selector_page.selectedItem,
-                    "lat": positionSource.position.coordinate.latitude,
-                    "long": positionSource.position.coordinate.longitude
-                });
-
-                if(stopMatch.from) {
-                    from.text = stopMatch.from.name;
-                    from.coorX = stopMatch.from.lat;
-                    from.coorY = stopMatch.from.long;
-
-                    if(stopMatch.to) {
-                        to.text = stopMatch.to.name;
-                        to.coorX = stopMatch.to.lat;
-                        to.coorY = stopMatch.to.long;
-
-                        if(stopMatch.via) {
-                            via.text = stopMatch.via.name;
-                            via.coorX = stopMatch.via.lat;
-                            via.coorY = stopMatch.via.long;
-                        }
-                    }
-                    else {
-                        to.text = "";
-                        via.text = "";
-                    }
-
-                    firstSuccessfullRun = true;
-                }
+                firstSuccessfullRun = Engine.setGeoPositionMatch(positionSource.position.coordinate, transport_selector_page.selectedItem, from, to, via);
             }
         }
 

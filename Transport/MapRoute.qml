@@ -13,6 +13,7 @@ Page {
     visible: false
     clip: true
 
+    property var typeid: null
     property var routeStart: null
 
     function clearRoute() {
@@ -46,7 +47,7 @@ Page {
                 if(linePolyLine.length > 0) {
                     polyLineListModel.append({"active": sequenceActive, "num": route[i].num, "lineColor": lineColor, "linePath": JSON.stringify(linePolyLine)});
                 }
-                stationListModel.append({"active": route[i].stations[j].active, "num": route[i].num, "type": route[i].type, "lineColor": route[i].lineColor, "station": route[i].stations[j].station,"stop_time": route[i].stations[j].stop_time, "stop_datetime": route[i].stations[j].stop_datetime, "latitude": route[i].stations[j].statCoorX, "lontitude": route[i].stations[j].statCoorY});
+                stationListModel.append({"typeid": mapRoutePage.typeid, "active": route[i].stations[j].active, "num": route[i].num, "type": route[i].type, "lineColor": route[i].lineColor, "station": route[i].stations[j].station, "stop_time": route[i].stations[j].stop_time, "stop_datetime": route[i].stations[j].stop_datetime, "latitude": route[i].stations[j].statCoorX, "longitude": route[i].stations[j].statCoorY});
             }
         }
         routeStart = QtPositioning.coordinate(firstActive.statCoorX, firstActive.statCoorY);
@@ -95,6 +96,15 @@ Page {
                     onTriggered: {
                         gpsMarker.lock = false;
                         lock = !lock;
+                    }
+
+                    onLockChanged: {
+                        if(lock) {
+                            routeMap.gesture = false;
+                        }
+                        else {
+                            routeMap.gesture = true;
+                        }
                     }
                 }
             ]
@@ -182,7 +192,8 @@ Page {
                 model: stationListModel
 
                 delegate: MapQuickItem {
-                    coordinate: QtPositioning.coordinate(latitude, lontitude)
+                    id: stopMarker
+                    coordinate: QtPositioning.coordinate(latitude, longitude)
                     anchorPoint.x: stopMarkerIcon.width/2
                     anchorPoint.y: stopMarkerIcon.height/2
                     opacity: active ? 1 : 0.5
@@ -258,6 +269,13 @@ Page {
                                 }
                             }
                         }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                 Engine.fillStopMatch(typeid, Engine.getLatestSearchFrom(typeid, {"name": station, "coorX": latitude, "coorY": longitude}));
+                            }
+                        }
                     }
 
                     Timer {
@@ -281,7 +299,7 @@ Page {
                                     repeat = false;
                                     stopMarkerIcon.color = "#ed0";
                                     if(lockOnTheActiveAction.lock) {
-                                        routeMap.center = QtPositioning.coordinate(latitude, lontitude);
+                                        routeMap.center = QtPositioning.coordinate(latitude, longitude);
                                     }
                                 }
                                 else {

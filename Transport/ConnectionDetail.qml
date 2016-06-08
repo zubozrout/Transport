@@ -14,6 +14,7 @@ Page {
 
     property var detail_array: ({})
     property var current_id: null
+    property var typeid: null
     property var console_out: connection_detail_head_sections.selectedIndex == 0 ? console_out_full : console_out_basic
     property var console_out_full: null
     property var console_out_basic: null
@@ -58,6 +59,7 @@ Page {
                     visible: enabled
                     onTriggered: {
                         pageLayout.addPageToNextColumn(connection_detail, mapRoutePage);
+                        mapRoutePage.typeid = connection_detail.typeid;
                         mapRoutePage.renderRoute(connection_detail.route);
                     }
                 }

@@ -13,6 +13,8 @@ Item {
     property var coorX: null
     property var coorY: null
 
+    property var lastDisplayTextValue: null
+
     Column {
         width: parent.width
         height: childrenRect.height
@@ -24,9 +26,12 @@ Item {
             placeholderText: stationQuery.placeholder
             hasClearButton: true
             onDisplayTextChanged: {
-                stationQuery.coorX = null;
-                stationQuery.coorY = null;
-                stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
+                if(lastDisplayTextValue != displayText) {
+                    stationQuery.coorX = null;
+                    stationQuery.coorY = null;
+                    stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
+                    lastDisplayTextValue = displayText;
+                }
             }
 
             onFocusChanged: {

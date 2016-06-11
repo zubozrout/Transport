@@ -112,10 +112,7 @@ Page {
                     },
                     Action {
                         iconName: "view-expand"
-                        onTriggered: {
-                            connection_detail.current_id = null;
-                            Engine.connectionDetail(result_page.typeid, connection_id, function(response, id){connection_box.color = "#fafaef"; return Engine.showConnectionDetail(result_page.typeid, response, id);});
-                        }
+                        onTriggered: connection_box.triggerShowConnectionDetail()
                     }
                 ]
             }
@@ -125,6 +122,18 @@ Page {
                 width: parent.width
                 height: parent.height
                 color: connection_detail.detail_array[handle + connection_id] ? "#fafaef" : "#fff"
+
+                function triggerShowConnectionDetail() {
+                    api.abort();
+                    var typeid = result_page.typeid;
+                    connection_detail.current_id = null;
+                    Engine.connectionDetail(typeid, connection_id, function(response, id) {
+                        if(response != null) {
+                            color = "#fafaef";
+                        }
+                        return Engine.showConnectionDetail(typeid, response, id);}
+                    );
+                }
 
                 Rectangle {
                     id: connection_padding
@@ -265,10 +274,7 @@ Page {
                 MouseArea {
                     anchors.fill: parent
 
-                    onClicked: {
-                        connection_detail.current_id = null;
-                        Engine.connectionDetail(result_page.typeid, connection_id, function(response, id){connection_box.color = "#fafaef"; return Engine.showConnectionDetail(result_page.typeid, response, id);});
-                    }
+                    onClicked: connection_box.triggerShowConnectionDetail()
                 }
             }
         }

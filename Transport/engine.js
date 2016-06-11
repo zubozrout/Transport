@@ -210,7 +210,7 @@ function connectionDetail(city, id, call) {
         return request("https://ext.crws.cz/api/" + city + "/connections/" + handle + "/" + id + "?ttDetails=ROUTE_FULL&ttDetails=TRAIN_INFO&ttDetails=TRTYPE_IN_ID&ttDetails=PRICES&ttDetails=FIXED_CODES&ttDetails=COOR&ttDetails=ROUTE_COOR&" + urlCommon("ubuntu"), function(response){call(parseConnectionDetail(response), id);});
     }
     else {
-        showConnectionDetail(null, id);
+        showConnectionDetail(city, null, id);
     }
 }
 

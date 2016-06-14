@@ -4,6 +4,7 @@ import QtLocation 5.3
 import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.LocalStorage 2.0
+import Ubuntu.Components.Popups 1.0
 
 import "engine.js" as Engine
 import "localStorage.js" as DB
@@ -67,13 +68,11 @@ Page {
         trailingActionBar {
             actions: [
                 Action {
-                    iconName: "gps"
-                    text: i18n.tr("My position")
-                    enabled: !lockOnTheActiveAction.lock
-                    visible: enabled
+                    iconName: gpsMarker.lock ? "lock" : "gps"
+                    text: gpsMarker.lock ? i18n.tr("Unlock GPS position") : i18n.tr("Lock to GPS")
                     onTriggered: {
-                        if(positionSource.valid) {
-                            routeMap.center = positionSource.position.coordinate;
+                        if(!gpsMarker.lock && positionSource.valid) {
+                            lockOnTheActiveAction.lock = false;
                             gpsMarker.lock = true;
                         }
                         else {
@@ -84,31 +83,36 @@ Page {
                 Action {
                     iconName: "start"
                     text: i18n.tr("Route start")
-                    enabled: !lockOnTheActiveAction.lock
-                    visible: enabled
-                    onTriggered: routeMap.center = routeStart
+                    onTriggered: {
+                        gpsMarker.lock = false;
+                        lockOnTheActiveAction.lock = false;
+                        routeMap.center = routeStart;
+                    }
                 },
                 Action {
                     id: lockOnTheActiveAction
                     iconName: lock ? "lock" : "lock-broken"
-                    text: i18n.tr("Track the journey")
+                    text: lock ? i18n.tr("Stop tracking route") : i18n.tr("Track route")
                     property bool lock: false
                     onTriggered: {
-                        gpsMarker.lock = false;
+                        if(!lock) {
+                            gpsMarker.lock = false;
+                            routeMap.center = routeStart;
+                        }
                         lock = !lock;
                     }
 
                     onLockChanged: {
                         if(lock) {
-                            routeMap.gesture = false;
+                            routeMap.gesture.panEnabled = false;
                         }
                         else {
-                            routeMap.gesture = true;
+                            routeMap.gesture.panEnabled = true;
                         }
                     }
                 }
             ]
-            numberOfSlots: 2
+            numberOfSlots: 1
         }
 
         StyleHints {
@@ -140,6 +144,9 @@ Page {
                 if(center != gpsMarker.coordinate) {
                     gpsMarker.lock = false;
                 }
+                else {
+                    center = positionSource.position.coordinate;
+                }
             }
 
             MapQuickItem {
@@ -160,9 +167,26 @@ Page {
                     sourceSize.height: height
                 }
 
+                onLockChanged: {
+                    if(lock) {
+                        routeMap.gesture.panEnabled = false;
+                        routeMap.center = coordinate;
+                    }
+                    else {
+                        routeMap.gesture.panEnabled = true;
+                    }
+                }
+
                 onCoordinateChanged: {
                     if(lock) {
                         routeMap.center = coordinate;
+                    }
+
+                    if(coordinate == routeMap.center) {
+                        gpsMarkerIcon.width = units.gu(8);
+                    }
+                    else {
+                        gpsMarkerIcon.width = units.gu(4);
                     }
                 }
             }
@@ -270,11 +294,24 @@ Page {
                             }
                         }
 
+                        Component {
+                            id: stationDialog
+
+                            Dialog {
+                                id: stationDialogue
+                                title: station
+                                text: i18n.tr("Line") + ": " + num + "\n(" + stop_time + ")"
+
+                                Button {
+                                    text: i18n.tr("Close")
+                                    onClicked: PopupUtils.close(stationDialogue)
+                                }
+                            }
+                        }
+
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: {
-                                 Engine.fillStopMatch(typeid, Engine.getLatestSearchFrom(typeid, {"name": station, "coorX": latitude, "coorY": longitude}));
-                            }
+                            onClicked: PopupUtils.open(stationDialog)
                         }
                     }
 

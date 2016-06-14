@@ -4,6 +4,7 @@ import QtLocation 5.3
 import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.LocalStorage 2.0
+import Ubuntu.Components.Popups 1.0
 
 import "engine.js" as Engine
 import "localStorage.js" as DB
@@ -20,11 +21,10 @@ Page {
         trailingActionBar {
             actions: [
                 Action {
-                    iconName: "gps"
-                    text: i18n.tr("My position")
+                    iconName: gpsMarker.lock ? "lock" : "gps"
+                    text: gpsMarker.lock ? i18n.tr("Unlock GPS position") : i18n.tr("Lock to GPS")
                     onTriggered: {
-                        if(positionSource.valid) {
-                            stationMap.center = positionSource.position.coordinate;
+                        if(!gpsMarker.lock && positionSource.valid) {
                             gpsMarker.lock = true;
                         }
                         else {
@@ -48,6 +48,7 @@ Page {
                             return;
                         }
                         used = true;
+                        gpsMarker.lock = false;
 
                         if(lastFocus < stationListModel.count) {
                             if(lastFocus < 0) {
@@ -94,7 +95,10 @@ Page {
                     text: i18n.tr("Go to next")
                     enabled: nearbyAction.used
                     visible: enabled
-                    onTriggered: nearbyAction.focusOnNext()
+                    onTriggered: {
+                        gpsMarker.lock = false;
+                        nearbyAction.focusOnNext();
+                    }
                 }
             ]
             numberOfSlots: 1
@@ -130,6 +134,9 @@ Page {
                 if(center != gpsMarker.coordinate) {
                     gpsMarker.lock = false;
                 }
+                else {
+                    center = positionSource.position.coordinate;
+                }
             }
 
             MapQuickItem {
@@ -147,6 +154,16 @@ Page {
                     height: width
                     sourceSize.width: width
                     sourceSize.height: height
+                }
+
+                onLockChanged: {
+                    if(lock) {
+                        stationMap.gesture.panEnabled = false;
+                        stationMap.center = coordinate;
+                    }
+                    else {
+                        stationMap.gesture.panEnabled = true;
+                    }
                 }
 
                 onCoordinateChanged: {
@@ -205,11 +222,37 @@ Page {
                             }
                         }
 
+                        Component {
+                            id: stationDialog
+
+                            Dialog {
+                                id: stationDialogue
+                                title: name
+
+                                function selectAndExit() {
+                                    (function() {
+                                        Engine.fillStopMatch(typeid, Engine.getLatestSearchFrom(typeid, {"name": name, "coorX": stopMarker.coordinate.latitude, "coorY": stopMarker.coordinate.longitude}));
+                                        PopupUtils.close(stationDialogue);
+                                        pageLayout.removePages(pageLayout.primaryPage);
+                                    })();
+                                }
+
+                                Button {
+                                    text: i18n.tr("Close")
+                                    onClicked: PopupUtils.close(stationDialogue)
+                                }
+
+                                Button {
+                                    text: i18n.tr("Select and go to homepage")
+                                    color: UbuntuColors.green
+                                    onClicked: stationDialogue.selectAndExit()
+                                }
+                            }
+                        }
+
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: {
-                                Engine.fillStopMatch(typeid, Engine.getLatestSearchFrom(typeid, {"name": name, "coorX": stopMarker.coordinate.latitude, "coorY": stopMarker.coordinate.longitude}));
-                            }
+                            onClicked: PopupUtils.open(stationDialog)
                         }
                     }
                 }

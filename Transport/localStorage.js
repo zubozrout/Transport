@@ -197,9 +197,10 @@ function deleteType(type) {
 function appendNewStop(type, name, coor) {
     if(name) {
         loadDB();
+        var id = null;
         db.transaction(function(tx) {
             var lines = tx.executeSql("SELECT rowid as id FROM stops WHERE key=? AND value=?", [type, name]);
-            var id = null;
+
             var linesAffected = 0;
             if(lines.rows.length > 0) {
                 id = lines.rows.item(0).id;
@@ -212,12 +213,14 @@ function appendNewStop(type, name, coor) {
             }
             else {
                 linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(null, ?, ?, ?, ?)", [type, name, coor.x, coor.y]);
+                id = linesAffected.insertId;
             }
 
             if(linesAffected.rowsAffected != 1) {
                 console.log("An error occured while inserting or updating stop [" + type + "] " + name);
             }
         });
+        return id;
     }
 }
 

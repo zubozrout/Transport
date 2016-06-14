@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-11 06:59+0200\n"
+"POT-Creation-Date: 2016-06-14 21:07+0200\n"
 "PO-Revision-Date: 2016-03-19 13:36+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/zubozrout/transport/language/"
@@ -22,13 +22,13 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:13
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:269
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:274
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:25
 msgid "About"
 msgstr "O programie"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:20
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:264
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:269
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:18
 msgid "Settings"
 msgstr "Ustawienia"
@@ -38,8 +38,8 @@ msgid "Main branch version:"
 msgstr "Versja główna:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:107
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:222
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:227
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 
@@ -70,7 +70,7 @@ msgid "Copy"
 msgstr "Kopiuj"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:58
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:65
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:66
 msgid "Show route on map"
 msgstr ""
 
@@ -109,13 +109,13 @@ msgid "Price:"
 msgstr "Cena:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:21
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:253
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:258
 msgid "Station departures"
 msgstr "Wyjazdy ze stacji"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:27
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:484
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:635
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:640
 msgid "Search"
 msgstr "Szukaj"
 
@@ -128,36 +128,36 @@ msgid "No departures were found for the selected station."
 msgstr "Nie znaleziono wyjazdy dla wybranej stacji."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:267
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:392
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:397
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:171
 msgid "From"
 msgstr "Z"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:287
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:409
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:414
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:188
 msgid "To"
 msgstr "Do"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:303
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:454
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:459
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:206
 msgid "Via"
 msgstr "Przez"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:370
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:392
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:243
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:286
 msgid "Station"
 msgstr "Stacja"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:428
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:520
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:525
 msgid "Now"
 msgstr "Teraz"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:445
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:536
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:541
 msgid "Departure at"
 msgstr "Wyjazd o"
 
@@ -225,65 +225,70 @@ msgstr ""
 msgid "today"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:115
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:120
 msgid "Server is not responding. Please try again later."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:116
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:121
 msgid "There was no server response received."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:184
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:189
 msgid "You're now offline"
 msgstr "Jesteś teraz offline"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:228
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:245
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:233
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:250
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:19
 msgid "Connection results"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:239
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:244
 msgid "Find nearest stop"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:258
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:18
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:263
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:19
 #, fuzzy
 msgid "Station locator"
 msgstr "Stacja"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:358
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:363
 msgid "No transport option selected"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:425
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:430
 msgid "Advanced options"
 msgstr "Zaawansowane opcje"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:463
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:468
 msgid "Only direct connections"
 msgstr "Tylko bezpośrednie połączenia"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:536
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:541
 msgid "Arrival at"
 msgstr "Przybycie na"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:573
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:578
 msgid "Departure"
 msgstr "Wyjazd"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:577
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:582
 msgid "Arrival"
 msgstr "Przyjazd"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:705
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:710
 msgid "Does the search take too long? You can stop it by clicking here."
 msgstr "Czy poszukiwanie trwa zbyt długo możesz zatrzymać go klikając tutaj."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:24
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:71
-msgid "My position"
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:25
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:72
+msgid "Unlock GPS position"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:25
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:72
+msgid "Lock to GPS"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:38
@@ -295,16 +300,33 @@ msgstr "Wszystkie stacje"
 msgid "Unfortunately no nearby stations were found."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:94
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:95
 msgid "Go to next"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:86
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:241
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:306
+msgid "Close"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:246
+msgid "Select and go to homepage"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:85
 msgid "Route start"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:94
-msgid "Track the journey"
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:95
+msgid "Stop tracking route"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:95
+msgid "Track route"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:303
+msgid "Line"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:12

@@ -33,25 +33,30 @@ MainView {
     property var last_id: null
 
     // Common functions:
-    function saveStationToDb(textfield, listview) {
-        if(listview.lastSelected && listview.lastSelected == textfield.displayText) {
+    function saveStationToDb(textfield) {
+        if(textfield.text && textfield.coorX && textfield.coorY) {
             var hasTransportStop = DB.hasTransportStop(transport_selector_page.selectedItem);
-            DB.appendNewStop(transport_selector_page.selectedItem, listview.lastSelected, {x: textfield.coorX, y: textfield.coorY});
+            var id = DB.appendNewStop(transport_selector_page.selectedItem, textfield.text, {x: textfield.coorX, y: textfield.coorY});
             if(!hasTransportStop) {
                 transport_selector_page.update();
             }
+            return id;
         }
+        else {
+            var nameMatch = DB.getStopByName({"id": transport_selector_page.selectedItem, "name": textfield.text});
+            if(nameMatch) {
+                return nameMatch.id;
+            }
+        }
+        return null;
     }
 
-    function saveSearchCombination(transport, from, to, via) {
-        var fromObj = DB.getStopByName({"id": transport, "name":from});
-        var toObj = DB.getStopByName({"id": transport, "name":to});
-        var viaObj = DB.getStopByName({"id": transport, "name":via});
+    function saveSearchCombination(transport, fromID, toID, viaID) {
         DB.appendSearchToHistory({
             "typeid": transport,
-             "stopidfrom": fromObj ? fromObj.id : "",
-             "stopidto": toObj ? toObj.id : "",
-             "stopidvia": viaObj ? viaObj.id : ""
+             "stopidfrom": fromID ? fromID : "",
+             "stopidto": toID ? toID : "",
+             "stopidvia": viaID ? viaID : ""
         });
     }
 
@@ -321,16 +326,16 @@ MainView {
                 // DB save selected values:
                 DB.saveSetting("fromObj" + options, JSON.stringify({"name": from.displayText, "x": from.coorX, "y": from.coorY}));
                 DB.saveSetting("toObj" + options, JSON.stringify({"name": to.displayText, "x": to.coorX, "y": to.coorY}));
-                saveStationToDb(from, from.stationInputListView);
-                saveStationToDb(to, to.stationInputListView);
+                var fromID = saveStationToDb(from);
+                var toID = saveStationToDb(to);
                 if(advanced_switch.checked) {
                     DB.saveSetting("viaObj" + options, JSON.stringify({"name": via.displayText, "x": via.coorX, "y": via.coorY}));
-                    saveStationToDb(via, via.stationInputListView);
-                    saveSearchCombination(options, from.displayText, to.displayText, via.displayText);
+                    var viaID = saveStationToDb(via);
+                    saveSearchCombination(options, fromID, toID, viaID);
                 }
                 else {
                     DB.saveSetting("viaObj" + options, "");
-                    saveSearchCombination(options, from.displayText, to.displayText, null);
+                    saveSearchCombination(options, fromID, toID, null);
                 }
                 DB.saveSetting("optionsList", transport_selector_page.selectedItem);
             }

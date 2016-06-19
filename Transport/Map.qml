@@ -33,21 +33,52 @@ Page {
                     }
                 },
                 Action {
+                    id: allStations
+                    iconName: "document-open"
+                    text: active ? i18n.tr("Hide stations") : i18n.tr("Show all used stations")
+                    property var active: false
+                    onTriggered: {
+                        active = !active;
+                        stationListModel.clear();
+                        if(active) {
+                            var options = transport_selector_page.selectedItem;
+                            var stops = DB.getAllStops(options);
+
+                            if(stops.length == 0) {
+                                statusMessagelabel.text = i18n.tr("Unfortunately no used stations for this transport type were found.");
+                                statusMessageErrorlabel.text = "";
+                                statusMessageBox.visible = true;
+                                active = false;
+                                return;
+                            }
+
+                            for(var i = 0; i < stops.length; i++) {
+                                if(stops[i].coorX && stops[i].coorY) {
+                                    stationListModel.append({"typeid": options, "name": stops[i].value, "coorX": stops[i].coorX, "coorY": stops[i].coorY});
+                                }
+                            }
+
+                            stationMap.fitViewportToMapItems();
+                        }
+                    }
+                },
+                Action {
                     id: nearbyAction
-                    iconName: used ? "torch-on" : "torch-off"
+                    iconName: active ? "torch-on" : "torch-off"
                     text: i18n.tr("Nearby stations")
-                    property var used: false
+                    property var active: false
                     property var lastFocus: -1
 
                     function focusOnNext() {
+                        allStations.active = false;
                         if(stationListModel.count == 0) {
                             statusMessagelabel.text = i18n.tr("Unfortunately no nearby stations were found.");
                             statusMessageErrorlabel.text = "";
                             statusMessageBox.visible = true;
-                            used = false;
+                            active = false;
                             return;
                         }
-                        used = true;
+                        active = true;
                         gpsMarker.lock = false;
 
                         if(lastFocus < stationListModel.count) {
@@ -71,8 +102,8 @@ Page {
 
                     onTriggered: {
                         stationListModel.clear();
-                        if(used) {
-                            used = false;
+                        if(active) {
+                            active = false;
                             lastFocus = -1;
                         }
                         else {
@@ -93,7 +124,7 @@ Page {
                 Action {
                     iconName: "next"
                     text: i18n.tr("Go to next")
-                    enabled: nearbyAction.used
+                    enabled: nearbyAction.active
                     visible: enabled
                     onTriggered: {
                         gpsMarker.lock = false;
@@ -238,14 +269,20 @@ Page {
                                 }
 
                                 Button {
-                                    text: i18n.tr("Close")
-                                    onClicked: PopupUtils.close(stationDialogue)
+                                    text: i18n.tr("Open location on Google Maps")
+                                    color: UbuntuColors.orange
+                                    onClicked: Qt.openUrlExternally("http://maps.google.com/maps?&z=17&q=" + stopMarker.coordinate.latitude + "+" + stopMarker.coordinate.longitude);
                                 }
 
                                 Button {
                                     text: i18n.tr("Select and go to homepage")
                                     color: UbuntuColors.green
                                     onClicked: stationDialogue.selectAndExit()
+                                }
+
+                                Button {
+                                    text: i18n.tr("Close")
+                                    onClicked: PopupUtils.close(stationDialogue)
                                 }
                             }
                         }

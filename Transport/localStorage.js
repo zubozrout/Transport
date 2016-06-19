@@ -299,16 +299,26 @@ function getNearbyStops(type, coor) {
     return [];
 }
 
-// Get all stops existing in the DB
+// Get all stops existing in the DB (optionaly for a defined transport type)
 // Returns a station objects containing key and value in an alphabetically ordered array
-function getAllStops() {
+function getAllStops(type) {
     loadDB();
     var res = [];
     db.transaction(function(tx) {
-        var rs = tx.executeSql("SELECT key,value,coorX,coorY FROM stops ORDER BY value ASC");
-        for(var i = 0; i < rs.rows.length; i++) {
-            if(typeof rs.rows.item(i) !== typeof undefined && rs.rows.item(i).value) {
-                res.push({"key": rs.rows.item(i).key, "value": rs.rows.item(i).value, "coorX": rs.rows.item(i).coorX, "coorY": rs.rows.item(i).coorY});
+        if(typeof type !== typeof undefined) {
+            var rs = tx.executeSql("SELECT key,value,coorX,coorY FROM stops WHERE key=? ORDER BY value ASC", [type]);
+            for(var i = 0; i < rs.rows.length; i++) {
+                if(typeof rs.rows.item(i) !== typeof undefined && rs.rows.item(i).value) {
+                    res.push({"key": rs.rows.item(i).key, "value": rs.rows.item(i).value, "coorX": rs.rows.item(i).coorX, "coorY": rs.rows.item(i).coorY});
+                }
+            }
+        }
+        else {
+            var rs = tx.executeSql("SELECT key,value,coorX,coorY FROM stops ORDER BY value ASC");
+            for(var i = 0; i < rs.rows.length; i++) {
+                if(typeof rs.rows.item(i) !== typeof undefined && rs.rows.item(i).value) {
+                    res.push({"key": rs.rows.item(i).key, "value": rs.rows.item(i).value, "coorX": rs.rows.item(i).coorX, "coorY": rs.rows.item(i).coorY});
+                }
             }
         }
     });

@@ -509,6 +509,15 @@ Page {
                         }
                     ]
 
+                    function resetState() {
+                        if(stations.displayText != "") {
+                            state = "ENABLED";
+                        }
+                        else {
+                            state = "DISABLED";
+                        }
+                    }
+
                     ActivityIndicator {
                         id: searchActivity
                         anchors.fill: parent

@@ -274,7 +274,7 @@ function completeFromDB(city, text, model) {
                 set = true;
             }
         }
-        if(!set && model.count <= 10) {
+        if(!set && model.count < 10) {
             model.append({"name": stops[i].name, "coorX": stops[i].coorX, "coorY": stops[i].coorY});
         }
     }
@@ -295,11 +295,13 @@ function fill_from(response, city, text, model, DBstops) {
     }
     var responseStopNames = response.map(function(stop) {return stop.name;});
     for(var i = 0; i < response.length; i++) {
+        /* Won't remove DB findings if commented out
         for(var j = 0; j < model.count; j++) {
             if(responseStopNames.indexOf(model.get(j).name) == -1) {
                 model.remove(j);
             }
         }
+        */
         var set = false;
         for(var j = 0; j < model.count; j++) {
             if(model.get(j).name == response[i].name) {
@@ -307,7 +309,7 @@ function fill_from(response, city, text, model, DBstops) {
                 model.set(j, {"name": response[i].name, "coorX": response[i].coorX, "coorY": response[i].coorY});
             }
         }
-        if(!set) {
+        if(!set && model.count < 10) {
             model.append({"name": response[i].name, "coorX": response[i].coorX, "coorY": response[i].coorY});
         }
     }
@@ -320,7 +322,7 @@ function showConnectionsFB(response) {
         return response;
     }
     else {
-        var connections = Engine.parseAPI(response, "connections");
+        var connections = parseAPI(response, "connections");
         if(connections.length <= 0) {
             statusMessagelabel.text = i18n.tr("Could not load next connection results.");
             statusMessageErrorlabel.text = "\n\n" + connections;
@@ -341,7 +343,7 @@ function showConnections(response) {
         return response;
     }
     else {
-        var connections = Engine.parseAPI(response, "connections");
+        var connections = parseAPI(response, "connections");
         if(connections.length <= 0) {
             statusMessagelabel.text = i18n.tr("No results matching input parameters were found.");
             statusMessageErrorlabel.text = "\n\n" + connections;
@@ -840,4 +842,55 @@ function setGeoPositionMatch(coordinate, transport, from, to, via) {
     });
 
     return fillStopMatch(transport, stopMatch);
+}
+
+function saveStationToDb(textfield) {
+    if(textfield.text && textfield.coorX && textfield.coorY) {
+        var hasTransportStop = DB.hasTransportStop(transport_selector_page.selectedItem);
+        var id = DB.appendNewStop(transport_selector_page.selectedItem, textfield.text, {x: textfield.coorX, y: textfield.coorY});
+        if(!hasTransportStop) {
+            transport_selector_page.update();
+        }
+        return id;
+    }
+    else {
+        var nameMatch = DB.getStopByName({"id": transport_selector_page.selectedItem, "name": textfield.text});
+        if(nameMatch) {
+            return nameMatch.id;
+        }
+    }
+    return null;
+}
+
+function saveSearchCombination(transport, fromID, toID, viaID) {
+    DB.appendSearchToHistory({
+        "typeid": transport,
+         "stopidfrom": fromID ? fromID : "",
+         "stopidto": toID ? toID : "",
+         "stopidvia": viaID ? viaID : ""
+    });
+}
+
+function checkClear(textfield, listview, model) {
+    if(!model) {
+        model = textfield.stationInputModel;
+    }
+
+    if(listview.currentIndex >= 0 && typeof model.get(listview.currentIndex) !== typeof undefined && model.get(listview.currentIndex).name == textfield.displayText) {
+        api.abort();
+        listview.lastSelected = model.get(listview.currentIndex).name;
+        model.clear();
+    }
+}
+
+function stationInputChanged(textfield, listview, model) {
+    search.resetState();
+    api.abort();
+    if(textfield.focus && textfield.displayText != listview.lastSelected) {
+        if(!model) {
+            model = textfield.stationInputModel;
+        }
+        complete(transport_selector_page.selectedItem, textfield.displayText, model);
+        checkClear(textfield, listview, model);
+    }
 }

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-14 21:07+0200\n"
+"POT-Creation-Date: 2016-06-19 21:56+0200\n"
 "PO-Revision-Date: 2016-06-14 17:40+0000\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/zubozrout/transport/language/"
@@ -22,13 +22,13 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:13
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:274
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:222
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:25
 msgid "About"
 msgstr "O aplikácii"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:20
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:269
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:217
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Settings.qml:18
 msgid "Settings"
 msgstr "Nastavenia"
@@ -38,7 +38,7 @@ msgid "Main branch version:"
 msgstr "Verzia hlavnej vetvy:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/About.qml:107
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:227
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:175
 #: /home/zubozrout/Dokumenty/Projects/build-Transport-Desktop-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
@@ -72,7 +72,7 @@ msgid "Copy"
 msgstr "Kopírovať"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/ConnectionDetail.qml:58
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:66
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:90
 msgid "Show route on map"
 msgstr ""
 
@@ -113,13 +113,13 @@ msgid "Price:"
 msgstr "Cena:"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:21
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:258
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:206
 msgid "Station departures"
 msgstr "Odchody zo zastávok"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:27
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:484
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:640
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:588
 msgid "Search"
 msgstr "Hľadať"
 
@@ -132,36 +132,36 @@ msgid "No departures were found for the selected station."
 msgstr "Pre zvolenú zastávku neboli nájdené žiadne odchody."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:267
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:397
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:345
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:171
 msgid "From"
 msgstr "Z"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:287
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:414
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:362
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:188
 msgid "To"
 msgstr "Do"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:303
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:459
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:407
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/RecentBottomEdge.qml:206
 msgid "Via"
 msgstr "Cez"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:370
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:392
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:286
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:323
 msgid "Station"
 msgstr "Zastávka"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:428
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:525
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:473
 msgid "Now"
 msgstr "Teraz"
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:445
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:541
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:489
 msgid "Departure at"
 msgstr "Odchod v"
 
@@ -173,11 +173,11 @@ msgstr "Zmeniť čas"
 msgid "Change date"
 msgstr "Zmeniť dátum"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:593
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:602
 msgid "Filter by line"
 msgstr "Filtrovať podľa linky"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:617
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Departures.qml:626
 msgid "Filter by destination"
 msgstr "Filtrovať podľa destinácie"
 
@@ -229,105 +229,124 @@ msgstr "včera"
 msgid "today"
 msgstr "dnes"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:120
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:68
 msgid "Server is not responding. Please try again later."
 msgstr "Server neodpovedá. Vyskúšajte neskôr prosím."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:121
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:69
 msgid "There was no server response received."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:189
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:137
 msgid "You're now offline"
 msgstr "Aplikácia je offline"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:233
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:250
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:181
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:198
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Results.qml:19
 msgid "Connection results"
 msgstr "Výsledky vyhľadávania"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:244
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:192
 msgid "Find nearest stop"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:263
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:211
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:19
 msgid "Station locator"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:363
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:311
 msgid "No transport option selected"
 msgstr "Žiadna vybraná možnosť prepravy"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:430
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:378
 msgid "Advanced options"
 msgstr "Ďalšie možnosti"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:468
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:416
 msgid "Only direct connections"
 msgstr "Len priame spojenia"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:541
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:489
 msgid "Arrival at"
 msgstr "Príchod v"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:578
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:526
 msgid "Departure"
 msgstr "Odchod"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:582
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:530
 msgid "Arrival"
 msgstr "Príchod"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:710
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Main.qml:658
 msgid "Does the search take too long? You can stop it by clicking here."
 msgstr "Trvá vyhľadávanie príliš dlho? Kliknutím ho môžte zastaviť."
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:25
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:72
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:96
 msgid "Unlock GPS position"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:25
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:72
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:96
 msgid "Lock to GPS"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:38
+#, fuzzy
+msgid "Hide stations"
+msgstr "Všetky zastávky"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:38
+#, fuzzy
+msgid "Show all used stations"
+msgstr "Len prechádzané zastávky"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:48
+msgid "Unfortunately no used stations for this transport type were found."
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:68
 msgid "Nearby stations"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:44
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:75
 msgid "Unfortunately no nearby stations were found."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:95
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:126
 msgid "Go to next"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:241
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:306
-msgid "Close"
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:272
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:420
+msgid "Open location on Google Maps"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:246
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:278
 msgid "Select and go to homepage"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:85
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/Map.qml:284
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:426
+msgid "Close"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:109
 msgid "Route start"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:95
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:119
 msgid "Stop tracking route"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:95
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:119
 msgid "Track route"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:303
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/MapRoute.qml:417
 msgid "Line"
 msgstr ""
 
@@ -450,18 +469,18 @@ msgstr ""
 msgid "All transport types"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:325
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:327
 msgid "Could not load next connection results."
 msgstr "Nepodarilo sa načítať ďalšie spojenie"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:346
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:348
 msgid "No results matching input parameters were found."
 msgstr "Nenašli sa žiadne výsledky odpovedajúce vstupným údajom."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:370
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:372
 msgid "Could not load connection detail."
 msgstr "Nepodarilo sa načítať detail spojenia."
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:579
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/engine.js:581
 msgid "An error occured"
 msgstr "Nastala chyba"

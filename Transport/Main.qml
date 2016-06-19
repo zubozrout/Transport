@@ -32,58 +32,6 @@ MainView {
     property var first_id: null
     property var last_id: null
 
-    // Common functions:
-    function saveStationToDb(textfield) {
-        if(textfield.text && textfield.coorX && textfield.coorY) {
-            var hasTransportStop = DB.hasTransportStop(transport_selector_page.selectedItem);
-            var id = DB.appendNewStop(transport_selector_page.selectedItem, textfield.text, {x: textfield.coorX, y: textfield.coorY});
-            if(!hasTransportStop) {
-                transport_selector_page.update();
-            }
-            return id;
-        }
-        else {
-            var nameMatch = DB.getStopByName({"id": transport_selector_page.selectedItem, "name": textfield.text});
-            if(nameMatch) {
-                return nameMatch.id;
-            }
-        }
-        return null;
-    }
-
-    function saveSearchCombination(transport, fromID, toID, viaID) {
-        DB.appendSearchToHistory({
-            "typeid": transport,
-             "stopidfrom": fromID ? fromID : "",
-             "stopidto": toID ? toID : "",
-             "stopidvia": viaID ? viaID : ""
-        });
-    }
-
-    function checkClear(textfield, listview, model) {
-        if(!model) {
-            model = textfield.stationInputModel;
-        }
-
-        if(listview.currentIndex >= 0 && typeof model.get(listview.currentIndex) !== typeof undefined && model.get(listview.currentIndex).name == textfield.displayText) {
-            api.abort();
-            listview.lastSelected = model.get(listview.currentIndex).name;
-            model.clear();
-        }
-    }
-
-    function stationInputChanged(textfield, listview, model) {
-        search.resetState();
-        api.abort();
-        if(textfield.focus && textfield.displayText != listview.lastSelected) {
-            if(!model) {
-                model = textfield.stationInputModel;
-            }
-            Engine.complete(transport_selector_page.selectedItem, textfield.displayText, model);
-            checkClear(textfield, listview, model);
-        }
-    }
-
     Connections {
         target: Connectivity
 
@@ -326,16 +274,16 @@ MainView {
                 // DB save selected values:
                 DB.saveSetting("fromObj" + options, JSON.stringify({"name": from.displayText, "x": from.coorX, "y": from.coorY}));
                 DB.saveSetting("toObj" + options, JSON.stringify({"name": to.displayText, "x": to.coorX, "y": to.coorY}));
-                var fromID = saveStationToDb(from);
-                var toID = saveStationToDb(to);
+                var fromID = Engine.saveStationToDb(from);
+                var toID = Engine.saveStationToDb(to);
                 if(advanced_switch.checked) {
                     DB.saveSetting("viaObj" + options, JSON.stringify({"name": via.displayText, "x": via.coorX, "y": via.coorY}));
-                    var viaID = saveStationToDb(via);
-                    saveSearchCombination(options, fromID, toID, viaID);
+                    var viaID = Engine.saveStationToDb(via);
+                    Engine.saveSearchCombination(options, fromID, toID, viaID);
                 }
                 else {
                     DB.saveSetting("viaObj" + options, "");
-                    saveSearchCombination(options, fromID, toID, null);
+                    Engine.saveSearchCombination(options, fromID, toID, null);
                 }
                 DB.saveSetting("optionsList", transport_selector_page.selectedItem);
             }

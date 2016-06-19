@@ -1,6 +1,9 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 
+import "engine.js" as Engine
+import "localStorage.js" as DB
+
 Item {
     id: stationQuery
     width: parent.width
@@ -29,7 +32,7 @@ Item {
                 if(lastDisplayTextValue != displayText) {
                     stationQuery.coorX = null;
                     stationQuery.coorY = null;
-                    stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
+                    Engine.stationInputChanged(stationInput, stationInput_list_view, stationInput_list_model);
                     lastDisplayTextValue = displayText;
                 }
             }
@@ -93,7 +96,7 @@ Item {
                 model: ListModel { id: stationInput_list_model }
                 delegate: stationInputDelegate
                 highlight: Rectangle { color: "#9FA8DA" }
-                onCurrentIndexChanged: checkClear(stationInput, stationInput_list_view, model)
+                onCurrentIndexChanged: Engine.checkClear(stationInput, stationInput_list_view, model)
                 property var lastSelected: null
                 clip: true
             }

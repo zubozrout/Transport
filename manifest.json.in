@@ -1,0 +1,15 @@
+{
+    "name": "transport-basic.zubozrout",
+    "description": "Czech and Slovak transport connection search app",
+    "architecture": "@CLICK_ARCH@",
+    "title": "Transport",
+    "hooks": {
+        "Transport": {
+            "apparmor": "Transport/Transport.apparmor",
+            "desktop": "Transport/Transport.desktop"
+        }
+    },
+    "version": "0.1.1",
+    "maintainer": "Martin Kozub <zubozrout@gmail.com>",
+    "framework": "ubuntu-sdk-15.04.6"
+}

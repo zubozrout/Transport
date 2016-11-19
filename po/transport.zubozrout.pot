@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-19 17:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:184
+msgid "now"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:188
+#, qt-format
+msgid "in %1 minute"
+msgid_plural "in %1 minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:208
+#, qt-format
+msgid "in %1 day"
+msgid_plural "in %1 days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:212
+msgid "departed"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/DatePicker.qml:55
+msgid "Selected date:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/StopSearch.qml:63
+msgid "station name"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:14
+msgid "Connections"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:16
+msgid "Transport Basic"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:99
+msgid "Select transport method"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:171
+msgid "Via"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:199
+msgid "Custom date"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:219
+msgid "Search"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:15
+msgid "Select a transport option"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:128
+msgid "City:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:142
+msgid "Valid from:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:156
+msgid "Expires:"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:195
+msgid "All transport types"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_builder_armhf_GCC_armhf_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
+msgid "Transport"
+msgstr ""

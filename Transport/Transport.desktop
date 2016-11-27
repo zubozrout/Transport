@@ -5,3 +5,4 @@ Icon=Transport/Transport.png
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true
+Name[cs]=Transport

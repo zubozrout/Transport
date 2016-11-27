@@ -1,5 +1,5 @@
 {
-    "name": "transport-basic.zubozrout",
+    "name": "transport.zubozrout",
     "description": "Czech and Slovak transport connection search app",
     "architecture": "@CLICK_ARCH@",
     "title": "Transport",
@@ -9,7 +9,7 @@
             "desktop": "Transport/Transport.desktop"
         }
     },
-    "version": "0.1.1",
+    "version": "0.1.2",
     "maintainer": "Martin Kozub <zubozrout@gmail.com>",
     "framework": "ubuntu-sdk-15.04.6"
 }

@@ -14,6 +14,44 @@ Component {
         height: connectionsDelegateItemRectangle.height + 2*connectionsDelegateItemRectangle.anchors.margins
         divider.visible: true
 
+        property var connection: null
+        property var detail: null
+
+        states: [
+            State {
+                name: "empty"
+                PropertyChanges { target: itemActivity; running: false }
+                PropertyChanges { target: connectionsDelegateItem; color: "transparent" }
+            },
+            State {
+                name: "complete"
+                PropertyChanges { target: itemActivity; running: false }
+                PropertyChanges { target: connectionsDelegateItem; color: "#eee" }
+            },
+            State {
+                name: "loading"
+                PropertyChanges { target: itemActivity; running: true }
+                PropertyChanges { target: connectionsDelegateItem; color: "#eee" }
+            }
+        ]
+
+        state: "empty"
+
+        Rectangle {
+            anchors {
+                fill: parent
+            }
+            color: Qt.rgba(255, 255, 255, 0.75)
+            z: 1
+            visible: itemActivity.running
+
+            ActivityIndicator {
+                id: itemActivity
+                anchors.centerIn: parent
+                running: false
+            }
+        }
+
         Rectangle {
             id: connectionsDelegateItemRectangle
             anchors {
@@ -86,7 +124,8 @@ Component {
                     }
 
                     Component.onCompleted: {
-                        var trains = connectionsModel.childModel[index];
+                        connectionsDelegateItem.connection = connectionsModel.childModel[index];
+                        var trains = connectionsDelegateItem.connection.trains;
                         if(trains) {
                             for(var i = 0; i < trains.length; i++) {
                                 var train = trains[i];
@@ -130,6 +169,10 @@ Component {
                                 routesModel.append(detail);
                             }
                         }
+
+                        if(connectionsDelegateItem.connection && connectionsDelegateItem.connection.detail !== null) {
+                            connectionsDelegateItem.state = "complete";
+                        }
                     }
 
                     function dateStringtoDate(dateString) {
@@ -155,9 +198,29 @@ Component {
         }
 
         MouseArea {
-            anchors.fill: parent;
+            anchors.fill: parent
             onClicked: {
-
+                if(connectionsDelegateItem.connection) {
+                    if(connectionsDelegateItem.detail !== null) {
+                        connectionDetailPage.renderDetail(connectionsDelegateItem.detail.getConnectionDetail());
+                        pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
+                        connectionsDelegateItem.state = "complete";
+                    }
+                    else {
+                        connectionsDelegateItem.state = "loading";
+                        connectionsDelegateItem.connection.getDetail(function(object) {
+                            if(object) {
+                                connectionsDelegateItem.detail = object;
+                                connectionDetailPage.renderDetail(object.getConnectionDetail());
+                                pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
+                                connectionsDelegateItem.state = "complete";
+                            }
+                            else {
+                                connectionsDelegateItem.state = "empty";
+                            }
+                        });
+                    }
+                }
             }
         }
 

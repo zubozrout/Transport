@@ -52,12 +52,11 @@ Page {
     function insertConnectionsRender(connections) {
         if(connections) {
             for(var i = 0; i < connections.length; i++) {
-                var trains = connections[i].trains;
                 connectionsModel.append({
                     distance: connections[i].getDistance(),
                     timeLength: connections[i].getTimeLength()
                 });
-                connectionsModel.childModel.push(trains);
+                connectionsModel.childModel.push(connections[i]);
             }
         }
     }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-19 17:51+0000\n"
+"POT-Creation-Date: 2016-11-27 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,25 +18,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:184
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:247
 msgid "now"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:188
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:251
 #, qt-format
 msgid "in %1 minute"
 msgid_plural "in %1 minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:208
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:271
 #, qt-format
 msgid "in %1 day"
 msgid_plural "in %1 days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:212
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:275
 msgid "departed"
 msgstr ""
 
@@ -46,6 +46,10 @@ msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/StopSearch.qml:63
 msgid "station name"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:14
+msgid "Connection detail"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:14

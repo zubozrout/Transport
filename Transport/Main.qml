@@ -1,10 +1,6 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 //import Transport 1.0
-import QtQuick.LocalStorage 2.0
-
-import "transport-api.js" as Transport
-import "generalfunctions.js" as GeneralFunctions
 
 import "pages"
 
@@ -17,7 +13,7 @@ MainView {
     objectName: "mainView"
 
     // Note! applicationName needs to match the "name" field of the click manifest
-    applicationName: "transport-basic.zubozrout"
+    applicationName: "transport.zubozrout"
 
     width: units.gu(100)
     height: units.gu(75)
@@ -42,6 +38,10 @@ MainView {
 
         ConnectionsPage {
             id: connectionsPage
+        }
+
+        ConnectionDetailPage {
+            id: connectionDetailPage
         }
     }
 }

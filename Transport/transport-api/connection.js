@@ -10,7 +10,6 @@ var Connection = function(parent, data) {
 
     this.detail = null;
 
-    //this.getDetail();
     return this;
 }
 
@@ -18,7 +17,12 @@ Connection.prototype.toString = function() {
     return JSON.stringify(this.data);
 }
 
-Connection.prototype.getDetail = function() {
+Connection.prototype.getDetail = function(callback, forceUpdate) {
+    if(!forceUpdate && this.detail !== null && callback) {
+        callback(this);
+        return;
+    }
+
     var connectionsID = this.parent.id;
     var handle = this.parent.handle;
 
@@ -34,6 +38,9 @@ Connection.prototype.getDetail = function() {
         this.request = GeneralTranport.getContent(requestURL, function(response) {
             if(response) {
                 self.parseDetail(GeneralTranport.stringToObj(response));
+                if(callback) {
+                    callback(self);
+                }
             }
         });
     }
@@ -68,4 +75,8 @@ Connection.prototype.getDistance = function() {
 
 Connection.prototype.getTimeLength = function() {
     return this.data.timeLength;
+}
+
+Connection.prototype.getConnectionDetail = function() {
+    return this.detail || null;
 }

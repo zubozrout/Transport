@@ -17,18 +17,18 @@ GeneralTranport.getContent = function(url, callback) {
     if(url && callback) {
         url = this.appendUrlParameter(url, "lang=" + langCode());
 
-		var request = new XMLHttpRequest();
-		request.onreadystatechange = function() {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
             if(request.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
                 //console.log(request.getAllResponseHeaders());
 			}
             else if(request.readyState === XMLHttpRequest.DONE) {
 				if(request.status == 200) {
-					callback(request.responseText);
-				}
+                    callback(request.responseText, "SUCCESS");
+                }
                 else {
                     console.error("Fetching " + url + " failed.", "[status: " + request.status + "]");
-					callback(false);
+                    callback(false, "FAIL");
 				}
 			}
 		}

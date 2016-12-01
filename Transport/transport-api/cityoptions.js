@@ -20,7 +20,6 @@ CityOptions.prototype.getStops = function(mask, call, failCall) {
     }
 
     this.abort();
-    this.stops = [];
 
     var transportOptions = null;
     if(this.dbConnection) {
@@ -37,7 +36,7 @@ CityOptions.prototype.getStops = function(mask, call, failCall) {
             response.coorY = transportOptions[i].coorX;
             this.parseStop(response);
         }
-        call(this);
+        call(this, "DB");
     }
 
     if(!transportOptions || transportOptions.length < this.minSearchTriggerLength) {
@@ -45,10 +44,10 @@ CityOptions.prototype.getStops = function(mask, call, failCall) {
         this.request = GeneralTranport.getContent("https://ext.crws.cz/api/" + this.id + "/timetableObjects/0?mask=" + mask + "&ttInfoDetails=ITEM&ttInfoDetails=COOR" + "&searchMode=" + this.searchMode + "&maxCount=" + this.limit, function(response) {
             if(response) {
                 self.parseStops(GeneralTranport.stringToObj(response));
-                call(self);
+                call(self, "REMOTE");
             }
             else {
-                failCall(self);
+                failCall(self, "REMOTE");
             }
         });
     }

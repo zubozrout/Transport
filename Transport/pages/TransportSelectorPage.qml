@@ -21,6 +21,8 @@ Page {
         }
     }
 
+    clip: true
+
     property var selectedTransport: null
 
     Flickable {

@@ -13,6 +13,7 @@ QML_COMPONENTS_FILES += $$files(components/*.qml)
 JS_FILES += $$files(transport-api/*.js)
 
 ICON_FILES += $$files(icons/*.svg)
+IMAGE_FILES += $$files(images/*.svg)
 
 CONF_FILES +=  Transport.apparmor \
                Transport.png
@@ -44,6 +45,10 @@ qml_js_files.files += $${JS_FILES}
 qml_icon_files.path = /Transport/icons
 qml_icon_files.files += $${ICON_FILES}
 
+#specify where the image files are installed to
+qml_image_files.path = /Transport/images
+qml_image_files.files += $${IMAGE_FILES}
+
 #specify where the config files are installed to
 config_files.path = /Transport
 config_files.files += $${CONF_FILES}
@@ -54,11 +59,13 @@ desktop_file.path = /Transport
 desktop_file.files = $$OUT_PWD/*.desktop
 desktop_file.CONFIG += no_check_exist 
 
-INSTALLS+=config_files qml_files desktop_file qml_pages_files qml_components_files qml_js_files qml_icon_files
+INSTALLS+=config_files qml_files desktop_file qml_pages_files qml_components_files qml_js_files qml_icon_files qml_image_files
 
 DISTFILES += \
     Transport.desktop \
     pages/ConnectionDetail.page \
     pages/ConnectionDetailPage.qml \
-    components/ConnectionDetailDelegate.qml
+    components/ConnectionDetailDelegate.qml \
+    components/ConnectionDetailRoutesDelegate.qml \
+    components/ErrorMessage.qml
 

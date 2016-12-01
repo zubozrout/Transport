@@ -43,7 +43,7 @@ TransportOptions.prototype.fetchDBTransports = function(transportOptions) {
 
 TransportOptions.prototype.fetchServerTransports = function() {
     var self = this;
-    GeneralTranport.getContent("https://ext.crws.cz/api/", function(response) {
+    this.request = GeneralTranport.getContent("https://ext.crws.cz/api/", function(response) {
         if(response) {
             if(self.dbConnection) {
                 self.dbConnection.saveDataJSON("transportOptions", response);
@@ -92,3 +92,10 @@ TransportOptions.prototype.setTransportUpdateCallback = function(callback) {
     this.callback = callback;
     return this;
 }
+
+TransportOptions.prototype.abort = function() {
+    if(this.request) {
+        this.request.abort();
+    }
+}
+

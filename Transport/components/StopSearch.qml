@@ -63,7 +63,7 @@ Item {
             placeholderText: i18n.tr("station name")
 
             property bool noSignal: false
-            property var cityOptions: null;
+            property var cityOptions: null
 
             onDisplayTextChanged: {
                 textChange();
@@ -76,6 +76,9 @@ Item {
             onFocusChanged: {
                 if(!focus) {
                     optionsView.state = "hidden";
+                    if(cityOptions) {
+                        cityOptions.abort();
+                    }
                 }
             }
 
@@ -100,20 +103,25 @@ Item {
                         itemActivity.running = true;
                         optionsView.state = "visible";
 
-                        cityOptions = transportOption.searchStations(search, function(options) {
-                            if(!options || !options.request) {
-                                itemActivity.running = false;
-                            }
-
+                        cityOptions = transportOption.searchStations(search, function(options, source) {
                             if(options) {
-                                var fetchedStops = options.getInnerStops(search);
-                                optionsModel.clear()
-                                for(var i = 0; i < fetchedStops.length; i++) {
-                                    optionsModel.append({
-                                        item: fetchedStops[i].getItem(),
-                                        name: fetchedStops[i].getName()
-                                    });
+                                if(source === "REMOTE") {
+                                    itemActivity.running = false;
                                 }
+
+                                var fetchedStops = options.getInnerStops(search);
+                                if(fetchedStops.length > 0) {
+                                    optionsModel.clear()
+                                    for(var i = 0; i < fetchedStops.length; i++) {
+                                        optionsModel.append({
+                                            item: fetchedStops[i].getItem(),
+                                            name: fetchedStops[i].getName()
+                                        });
+                                    }
+                                }
+                            }
+                            else {
+                                itemActivity.running = false;
                             }
                         }, function(options) {
                             if(!options.request) {

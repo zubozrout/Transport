@@ -8,7 +8,7 @@ var Connections = function(id, data) {
     this.via = this.data.via || null;
     this.change = this.data.change || 0;
     this.time = this.data.time || null;
-    this.departure = this.data.departure || true;
+    this.departure = typeof this.data.departure !== typeof undefined ? this.data.departure : true;
 
     this.limit = this.data.limit || 10;
     this.searchMode = this.data.searchMode || "EXACT";
@@ -30,10 +30,12 @@ var Connections = function(id, data) {
 }
 
 Connections.prototype.search = function(params, callback) {
+    this.lastCallback = callback;
+
     params = params || {};
     var time = params.time || this.time;
     var via = params.via || this.via;
-    var departure = params.departure || this.departure;
+    var departure = typeof params.departure !== typeof undefined ? params.departure : this.departure;
     var saveToDB = params.saveToDB || this.saveStopsToDBOnSearchDefault;
     var saveToDBonFailure = params.saveToDBonFailure || this.saveStopsToDBOnSearchDefault;
 
@@ -65,17 +67,21 @@ Connections.prototype.search = function(params, callback) {
     var self = this;
     this.request = GeneralTranport.getContent(requestURL, function(response) {
         if(response) {
-            self.parseResponse(GeneralTranport.stringToObj(response));
-            if(callback) {
-                callback(self);
-            }
+            if(self.parseResponse(GeneralTranport.stringToObj(response))) {
+                if(callback) {
+                    callback(self, "SUCCESS");
+                }
 
-            if(!saveToDBonFailure && saveToDB) {
-                self.saveStopsToDB(via);
+                if(!saveToDBonFailure && saveToDB) {
+                    self.saveStopsToDB(via);
+                }
+            }
+            else {
+                callback(false, "FAIL");
             }
         }
         else {
-            callback(false);
+            callback(false, "FAIL");
         }
     });
 
@@ -100,6 +106,8 @@ Connections.prototype.saveStopsToDB = function(via) {
 
 Connections.prototype.getNext = function(backwards, callback) {
     if(this.handle && this.connections.length > 0) {
+        this.lastCallback = callback;
+
         var connectionId = backwards ? this.connections[0].id : this.connections[this.connections.length - 1].id;
         if(connectionId) {
             var requestURL = "https://ext.crws.cz/api/";
@@ -111,11 +119,18 @@ Connections.prototype.getNext = function(backwards, callback) {
             requestURL += "&maxCount=" + this.limit;
 
             var self = this;
+            console.log(requestURL);
             this.request = GeneralTranport.getContent(requestURL, function(response) {
                 if(response) {
-                    self.parseConnInfo(GeneralTranport.stringToObj(response), backwards);
-                    if(callback) {
-                        callback(self);
+                    if(self.parseConnInfo(GeneralTranport.stringToObj(response), backwards)) {
+                        if(callback) {
+                            callback(self, "SUCCESS");
+                        }
+                    }
+                    else {
+                        if(callback) {
+                            callback(self, "FAIL");
+                        }
                     }
                 }
             });
@@ -126,6 +141,9 @@ Connections.prototype.getNext = function(backwards, callback) {
 
 Connections.prototype.abort = function() {
     if(this.request) {
+        if(this.lastCallback) {
+            this.lastCallback(this, "ABORT");
+        }
         this.request.abort();
     }
 }
@@ -134,8 +152,11 @@ Connections.prototype.parseResponse = function(response) {
     this.response = response || {};
     this.handle = this.response.handle;
 
-    this.parseConnInfo(this.response.connInfo);    
-    return this;
+    if(this.parseConnInfo(this.response.connInfo)) {
+        return true;
+    }
+
+    return false;
 }
 
 Connections.prototype.parseConnInfo = function(connInfo, prepend) {
@@ -143,8 +164,9 @@ Connections.prototype.parseConnInfo = function(connInfo, prepend) {
         var allowPrev = connInfo.allowPrev || false;
         var allowNext = connInfo.allowNext || false;
         this.parseConnections(connInfo.connections, prepend);
+        return true;
     }
-    return this;
+    return false;
 }
 
 Connections.prototype.parseConnections = function(connections, prepend) {

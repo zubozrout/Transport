@@ -11,4 +11,3 @@ var Departures = function(parent, data) {
     this.detail();
     return this;
 }
-

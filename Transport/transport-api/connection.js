@@ -18,8 +18,9 @@ Connection.prototype.toString = function() {
 }
 
 Connection.prototype.getDetail = function(callback, forceUpdate) {
+    this.lastCallback = callback;
     if(!forceUpdate && this.detail !== null && callback) {
-        callback(this);
+        callback(this, "SUCCESS");
         return;
     }
 
@@ -37,9 +38,16 @@ Connection.prototype.getDetail = function(callback, forceUpdate) {
         var self = this;
         this.request = GeneralTranport.getContent(requestURL, function(response) {
             if(response) {
-                self.parseDetail(GeneralTranport.stringToObj(response));
-                if(callback) {
-                    callback(self);
+                if(self.parseDetail(GeneralTranport.stringToObj(response))) {
+                    if(callback) {
+                        callback(self, "SUCCESS");
+                    }
+                    else {
+                        callback(self, "FAIL");
+                    }
+                }
+                else {
+                    callback(self, "FAIL");
                 }
             }
         });
@@ -49,13 +57,20 @@ Connection.prototype.getDetail = function(callback, forceUpdate) {
 
 Connection.prototype.abort = function() {
     if(this.request) {
+        if(this.lastCallback) {
+            this.lastCallback(this, "ABORT");
+        }
         this.request.abort();
     }
 }
 
 Connection.prototype.parseDetail = function(response) {
     this.detail = new ConnectionDetail(response);
-    return this;
+    if(this.detail.trainLength() > 0) {
+        return true;
+    }
+
+    return false;
 }
 
 Connection.prototype.getTrain = function(index) {

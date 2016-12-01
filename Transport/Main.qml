@@ -23,10 +23,44 @@ MainView {
         anchors.fill: parent
         primaryPage: searchPage
 
+        property var colorPalete: {
+            "headerBG": "#00796b",
+            "headerText": "#fff",
+            "baseBG": "#fff",
+            "baseText": "#333",
+            "baseAlternateText": "#b22",
+            "secondaryBG": "#b2dfdb",
+            "secondaryText": "#333",
+            "highlightBG": "#eee",
+            "highlightText": "#333"
+        }
+
         property var headerColor: "#00796b"
         property var baseColor: "#fff"
         property var baseTextColor: "#333"
         property var secondaryColor: "#b2dfdb"
+        property var highlightedTextColor: "#b22"
+
+        layouts: [
+            PageColumnsLayout {
+                when: width > units.gu(80)
+                PageColumn {
+                    minimumWidth: units.gu(40)
+                    maximumWidth: units.gu(50)
+                    preferredWidth: units.gu(40)
+                }
+                PageColumn {
+                    fillWidth: true
+                }
+            },
+            PageColumnsLayout {
+                when: true
+                PageColumn {
+                    fillWidth: true
+                    minimumWidth: units.gu(30)
+                }
+            }
+        ]
 
         SearchPage {
             id: searchPage

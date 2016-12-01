@@ -25,14 +25,26 @@ Page {
             actions: [
                 Action {
                     iconName: "search"
-                    text: "search"
+                    text: i18n.tr("Search")
                     onTriggered: {
                         pageLayout.addPageToNextColumn(searchPage, connectionsPage);
+                    }
+                },
+                Action {
+                    iconName: "cancel"
+                    text: i18n.tr("Abort")
+                    onTriggered: {
+                        var selectedTransport = Transport.transportOptions.getSelectedTransport();
+                        if(selectedTransport) {
+                            selectedTransport.abortAll();
+                        }
                     }
                 }
            ]
         }
     }
+
+    clip: true
 
     function search() {
         var fromVal = from.selectedStop ? from.selectedStop : from.value;
@@ -50,20 +62,33 @@ Page {
                 dateTime = Pdate + " " + Ptime;
             }
 
+            var departure = !arrivalSearchSwitch.checked || false;
+
             var connection = selectedTransport.createConnection({
                 from: fromVal,
                 to: toVal,
                 via: viaVal,
+                departure: departure,
                 time: dateTime
             });
 
             itemActivity.running = true;
-            connection.search({}, function(object) {
+            connection.search({}, function(object, state) {
                 itemActivity.running = false;
-                if(object) {
-                    connectionsPage.connections = connection;
-                    connectionsPage.renderAllConnections(connection);
-                    pageLayout.addPageToNextColumn(searchPage, connectionsPage);
+                if(state) {
+                    errorMessage.value = "";
+                    if(state === "ABORT") {
+                    }
+                    else if(state === "FAIL") {
+                        errorMessage.value = i18n.tr("Search failed");
+                    }
+                    else if(state === "SUCCESS") {
+                        if(object) {
+                            connectionsPage.connections = connection;
+                            connectionsPage.renderAllConnections(connection);
+                            pageLayout.addPageToNextColumn(searchPage, connectionsPage);
+                        }
+                    }
                 }
             });
         }
@@ -77,12 +102,19 @@ Page {
             id: searchFlickable
             anchors.fill: parent
             contentWidth: parent.width
-            contentHeight: searchColumn.implicitHeight + 2*searchColumn.anchors.margins
+            contentHeight: errorMessage.height + searchColumn.implicitHeight + 2*searchColumn.anchors.margins + (customDateSwitch.checked ? 0 : units.gu(20))
+
+            ErrorMessage {
+                id: errorMessage
+            }
 
             Column {
                 id: searchColumn
                 anchors {
-                    fill: parent
+                    top: errorMessage.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
                     margins: units.gu(1)
                 }
                 spacing: units.gu(2)
@@ -214,25 +246,45 @@ Page {
                     visible: customDateSwitch.checked
                 }
 
-                Button {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: i18n.tr("Search")
-                    color: "#fff"
-                    enabled: transportSelectorPage.selectedTransport && from.value && to.value
-                    z: 1
+                RowLayout {
+                    width: parent.width
+                    spacing: units.gu(2)
+                    height: childrenRect.height
+                    Layout.fillWidth: true
 
-                    ActivityIndicator {
-                        id: itemActivity
-                        anchors {
-                            fill: parent
-                            centerIn: parent
-                            margins: parent.height/6
-                        }
-                        running: false
+                    Label {
+                        text: !arrivalSearchSwitch.checked ? i18n.tr("Departure") : i18n.tr("Arrival")
+                        color: pageLayout.baseTextColor
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
                     }
 
-                    onClicked: {
-                        searchPage.search();
+                    Button {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: i18n.tr("Search")
+                        color: "#fff"
+                        enabled: transportSelectorPage.selectedTransport && from.value && to.value
+                        z: 1
+
+                        ActivityIndicator {
+                            id: itemActivity
+                            anchors {
+                                fill: parent
+                                centerIn: parent
+                                margins: parent.height/6
+                            }
+                            running: false
+                        }
+
+                        onClicked: {
+                            searchPage.search();
+                        }
+                    }
+
+                    Switch {
+                        id: arrivalSearchSwitch
+                        checked: false
+                        Layout.fillWidth: false
                     }
                 }
             }

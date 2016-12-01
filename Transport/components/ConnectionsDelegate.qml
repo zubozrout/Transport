@@ -2,6 +2,8 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.1
 
+import "../generalfunctions.js" as GeneralFunctions
+
 Component {
     id: connectionsDelegate
 
@@ -133,10 +135,10 @@ Component {
                                 var trainInfo = trainData.info || {};
 
                                 if(i === 0) {
-                                    timeToLabel.departureTime = dateStringtoDate(train.dateTime1);
+                                    timeToLabel.departureTime = GeneralFunctions.dateStringtoDate(train.dateTime1);
                                 }
                                 else if(i === trains.length - 1) {
-                                    timeToLabel.arrivalTime = dateStringtoDate(train.dateTime2);
+                                    timeToLabel.arrivalTime = GeneralFunctions.dateStringtoDate(train.dateTime2);
                                 }
 
                                 var detail = {};
@@ -165,7 +167,6 @@ Component {
                                         };
                                     }
                                 }
-
                                 routesModel.append(detail);
                             }
                         }
@@ -173,25 +174,6 @@ Component {
                         if(connectionsDelegateItem.connection && connectionsDelegateItem.connection.detail !== null) {
                             connectionsDelegateItem.state = "complete";
                         }
-                    }
-
-                    function dateStringtoDate(dateString) {
-                        var parts = dateString.split(" ");
-                        var date = parts[0];
-                        var time = parts[1];
-
-                        var dateParts = date.split(".");
-                        var day = dateParts[0];
-                        var month = parseInt(dateParts[1]) - 1;
-                        var year = dateParts[2];
-
-                        var timeParts = time.split(":");
-                        var hours = timeParts[0];
-                        var minutes = timeParts[1];
-
-                        var finalDate = new Date(year, month, day, hours, minutes, 0, 0, {timeZone:"Europe/Prague"});
-
-                        return finalDate;
                     }
                 }
             }
@@ -206,17 +188,24 @@ Component {
                         pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
                         connectionsDelegateItem.state = "complete";
                     }
-                    else {
+                    else if(connectionsDelegateItem.state !== "loading") {
                         connectionsDelegateItem.state = "loading";
-                        connectionsDelegateItem.connection.getDetail(function(object) {
-                            if(object) {
-                                connectionsDelegateItem.detail = object;
-                                connectionDetailPage.renderDetail(object.getConnectionDetail());
-                                pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
-                                connectionsDelegateItem.state = "complete";
+                        connectionsDelegateItem.connection.getDetail(function(object, state) {
+                            if(state === "SUCCESS") {
+                                if(object) {
+                                    connectionsDelegateItem.detail = object;
+                                    connectionDetailPage.renderDetail(object.getConnectionDetail());
+                                    pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
+                                    connectionsDelegateItem.state = "complete";
+                                }
+                                else {
+                                    connectionsDelegateItem.state = "empty";
+                                    errorMessage.value = i18n.tr("Could not load connection detail");
+                                }
                             }
-                            else {
+                            else if(state !== "ABORT") {
                                 connectionsDelegateItem.state = "empty";
+                                errorMessage.value = i18n.tr("Could not load connection detail");
                             }
                         });
                     }

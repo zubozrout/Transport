@@ -14,39 +14,177 @@ Page {
         title: i18n.tr("Connection detail")
         flickable: connectionDetailFlickable
 
+        extension: Sections {
+            id: connectionDetailSections
+            anchors {
+                left: parent.left
+                right: parent.right
+                leftMargin: units.gu(2)
+                bottom: parent.bottom
+            }
+            model: [i18n.tr("Only passed stations"), i18n.tr("All stations")]
+            selectedIndex: 0
+
+            StyleHints {
+                sectionColor: pageLayout.colorPalete.secondaryBG
+                selectedSectionColor: pageLayout.colorPalete.headerText
+
+            }
+        }
+
         StyleHints {
             foregroundColor: "#fff"
-            backgroundColor: pageLayout.headerColor
+            backgroundColor: pageLayout.colorPalete.headerBG
         }
     }
+
+    clip: true
 
     property var detail: null
 
     function renderDetail(detail) {
+        connectionDetailModel.clearAll();
         if(detail) {
-            console.log(detail.id);
-            console.log(detail.distance);
-            console.log(detail.timeLength);
-            console.log(detail.price);
+            distanceLabel.text = detail.distance;
+            timeLabel.text = detail.timeLength;
+            priceLabel.text = detail.price;
 
-            connectionDetailModel.append({});
+            for(var i = 0; i < detail.trainLength(); i++) {
+                connectionDetailModel.append(detail.getTrain(i));
+                connectionDetailModel.childModel.push(detail.getTrain(i).route)
+            }
         }
+    }
+
+    ConnectionDetailDelegate {
+        id: connectionDetailDelegate
     }
 
     Flickable {
         id: connectionDetailFlickable
         anchors.fill: parent
         contentWidth: parent.width
-        contentHeight: connectionDetailView.contentHeight
+        contentHeight: connectionDetailColumn.spacing + dataBar.height + connectionDetailView.height
 
-        ListView {
-            id: connectionDetailView
-            anchors.fill: parent
-            interactive: false
-            delegate: connectionDetailDelegate
+        ColumnLayout {
+            id: connectionDetailColumn
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            spacing: units.gu(2)
 
-            model: ListModel {
-                id: connectionDetailModel
+            Rectangle {
+                id: dataBar
+                color: pageLayout.secondaryColor
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                height: dataBarRow.height + 2*dataBarRow.anchors.margins
+
+                RowLayout {
+                    id: dataBarRow
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: units.gu(1)
+                        verticalCenter: parent.verticalCenter
+                    }
+                    Layout.fillHeight: false
+                    spacing: units.gu(2)
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: false
+
+                        Label {
+                            text: i18n.tr("Distance")
+                            color: pageLayout.baseTextColor
+                            wrapMode: Text.WordWrap
+                            font.bold: true
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.fillWidth: true
+                        }
+
+                        Label {
+                            id: distanceLabel
+                            text: ""
+                            color: pageLayout.baseTextColor
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: false
+
+                        Label {
+                            text: i18n.tr("Time length")
+                            color: pageLayout.baseTextColor
+                            wrapMode: Text.WordWrap
+                            font.bold: true
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.fillWidth: true
+                        }
+
+                        Label {
+                            id: timeLabel
+                            text: ""
+                            color: pageLayout.baseTextColor
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: false
+
+                        Label {
+                            text: i18n.tr("Price")
+                            color: pageLayout.baseTextColor
+                            wrapMode: Text.WordWrap
+                            font.bold: true
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.fillWidth: true
+                        }
+
+                        Label {
+                            id: priceLabel
+                            text: ""
+                            color: pageLayout.baseTextColor
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.fillWidth: true
+                        }
+                    }
+                }
+            }
+
+            ListView {
+                id: connectionDetailView
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                height: contentHeight
+                interactive: false
+                delegate: connectionDetailDelegate
+                spacing: units.gu(2)
+
+                model: ListModel {
+                    id: connectionDetailModel
+                    property var childModel: []
+
+                    function clearAll() {
+                        this.clear();
+                        this.childModel = [];
+                    }
+                }
             }
         }
     }

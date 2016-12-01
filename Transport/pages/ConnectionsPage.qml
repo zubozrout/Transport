@@ -20,13 +20,20 @@ Page {
         }
     }
 
+    clip: true
+
     property var connections: null
 
     function appendConnections() {
         if(connectionsPage.connections) {
             progressLine.state = "running";
-            connectionsPage.connections.getNext(false, function(connection) {
-                insertConnectionsRender(connection.getLastConnections());
+            connectionsPage.connections.getNext(false, function(connection, state) {
+                if(state === "SUCCESS") {
+                    insertConnectionsRender(connection.getLastConnections());
+                }
+                else if(state !== "ABORT") {
+                    errorMessage.value = i18n.tr("Loading following connections failed");
+                }
                 progressLine.state = "idle";
             });
         }
@@ -35,8 +42,13 @@ Page {
     function prependConnections() {
         if(connectionsPage.connections) {
             progressLine.state = "running";
-            connectionsPage.connections.getNext(true, function(connection) {
-                renderAllConnections(connection);
+            connectionsPage.connections.getNext(true, function(connection, state) {
+                if(state === "SUCCESS") {
+                    renderAllConnections(connection);
+                }
+                else if(state !== "ABORT") {
+                    errorMessage.value = i18n.tr("Loading previous connections failed");
+                }
                 progressLine.state = "idle";
             });
         }
@@ -81,7 +93,7 @@ Page {
         id: connectionsFlickable
         anchors.fill: parent
         contentWidth: parent.width
-        contentHeight: connectionsView.contentHeight
+        contentHeight: errorMessage.height + connectionsView.contentHeight
 
         property var sensitivity: 150
         property var topblock: false
@@ -116,9 +128,19 @@ Page {
             }
         }
 
+        ErrorMessage {
+            id: errorMessage
+        }
+
         ListView {
             id: connectionsView
-            anchors.fill: parent
+            anchors {
+                top: errorMessage.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+
             interactive: false
             delegate: connectionsDelegate
 

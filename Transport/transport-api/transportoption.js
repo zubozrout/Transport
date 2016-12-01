@@ -113,6 +113,12 @@ TransportOption.prototype.searchStations = function(mask, call, failCall) {
     return this.cityOptions.getStops(mask, call, failCall);
 }
 
+TransportOption.prototype.abort = function() {
+    if(this.request) {
+        this.request.abort();
+    }
+}
+
 TransportOption.prototype.abortAll = function() {
     if(this.cityOptions) {
         this.cityOptions.abort();
@@ -145,7 +151,7 @@ TransportOption.prototype.departures = function(data) {
         requestURL += "&ttInfoDetails=TRTYPEID_ITEM";
 
         var self = this;
-        GeneralTranport.getContent(requestURL, function(response) {
+        this.request = GeneralTranport.getContent(requestURL, function(response) {
             if(response) {
                 console.log(response);
             }
@@ -153,3 +159,4 @@ TransportOption.prototype.departures = function(data) {
     }
     return this;
 }
+

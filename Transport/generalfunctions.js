@@ -62,3 +62,56 @@ function getTranpsortType(index) {
        return "empty";
     }
 }
+
+function dateStringtoDate(dateString) {
+    if(!dateString) {
+        return "";
+    }
+
+    var parts = dateString.split(" ");
+    var date = parts[0];
+    var time = parts[1];
+
+    var dateTime = {
+        day: 0,
+        month: 0,
+        year: 0,
+        hours: 0,
+        minutes: 0
+    }
+
+    if(date) {
+        var dateParts = date.split(".");
+        dateTime.day = dateParts[0];
+        dateTime.month = parseInt(dateParts[1]) - 1;
+        dateTime.year = dateParts[2];
+    }
+
+    if(time) {
+        var timeParts = time.split(":");
+        dateTime.hours = timeParts[0];
+        dateTime.minutes = timeParts[1];
+    }
+
+    var finalDate = new Date(dateTime.year, dateTime.month, dateTime.day, dateTime.hours, dateTime.minutes, 0, 0, {timeZone:"Europe/Prague"});
+
+    return finalDate;
+}
+
+function dateToTimeString(date) {
+    if(date) {
+        date = new Date(date);
+
+        var hours = String(date.getHours());
+        var minutes = String(date.getMinutes());
+        if(hours.length === 1) {
+            hours = "0" + hours;
+        }
+        if(minutes.length === 1) {
+            minutes = "0" + minutes;
+        }
+        return hours + ":" + minutes;
+    }
+    return "";
+}
+

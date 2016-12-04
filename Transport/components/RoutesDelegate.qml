@@ -48,6 +48,7 @@ Component {
 
                 Label {
                     text: num
+                    color: lineColor
                     font.pixelSize: FontUtils.sizeToPixels("large")
                     font.bold: true
                     horizontalAlignment: Text.AlignHCenter

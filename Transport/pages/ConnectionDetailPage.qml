@@ -28,7 +28,6 @@ Page {
             StyleHints {
                 sectionColor: pageLayout.colorPalete.secondaryBG
                 selectedSectionColor: pageLayout.colorPalete.headerText
-
             }
         }
 

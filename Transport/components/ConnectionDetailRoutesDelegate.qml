@@ -36,22 +36,22 @@ Component {
             }
 
             Label {
-                text: GeneralFunctions.dateToTimeString(depTime)
-                font.pixelSize: FontUtils.sizeToPixels("normal")
-                font.bold: stopPassed ? true : false
-                horizontalAlignment: Text.AlignLeft
-                wrapMode: Text.WordWrap
-                width: parent.width/4
-            }
-
-            Label {
                 text: GeneralFunctions.dateToTimeString(arrTime)
                 font.pixelSize: FontUtils.sizeToPixels("normal")
                 font.bold: stopPassed ? true : false
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
-                width: parent.width/4
+                width: parent.width/4 - parent.spacing
             }
+
+            Label {
+                text: GeneralFunctions.dateToTimeString(depTime)
+                font.pixelSize: FontUtils.sizeToPixels("normal")
+                font.bold: stopPassed ? true : false
+                horizontalAlignment: Text.AlignLeft
+                wrapMode: Text.WordWrap
+                width: parent.width/4 - parent.spacing
+            }            
         }
     }
 }

@@ -80,6 +80,9 @@ Item {
                         cityOptions.abort();
                     }
                 }
+                else {
+                    optionsView.state = "visible";
+                }
             }
 
             onAccepted: {

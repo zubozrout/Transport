@@ -115,3 +115,18 @@ function dateToTimeString(date) {
     return "";
 }
 
+function lineColor(line) {
+    if(line.toLowerCase() === "a") {
+        return "#080"; // Green
+    }
+    if(line.toLowerCase() === "b") {
+        return "#ec1"; // Yellow
+    }
+    if(line.toLowerCase() === "c") {
+        return "#d00"; // Red
+    }
+    if(line.toLowerCase() === "d") {
+        return "#00d"; // Blue
+    }
+    return "#000";
+}

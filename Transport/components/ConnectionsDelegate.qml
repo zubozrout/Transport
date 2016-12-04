@@ -19,6 +19,37 @@ Component {
         property var connection: null
         property var detail: null
 
+        function openConnectionDetail() {
+            if(connectionsDelegateItem.connection) {
+                if(connectionsDelegateItem.detail !== null) {
+                    connectionDetailPage.renderDetail(connectionsDelegateItem.detail.getConnectionDetail());
+                    pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
+                    connectionsDelegateItem.state = "complete";
+                }
+                else if(connectionsDelegateItem.state !== "loading") {
+                    connectionsDelegateItem.state = "loading";
+                    connectionsDelegateItem.connection.getDetail(function(object, state) {
+                        if(state === "SUCCESS") {
+                            if(object) {
+                                connectionsDelegateItem.detail = object;
+                                connectionDetailPage.renderDetail(object.getConnectionDetail());
+                                pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
+                                connectionsDelegateItem.state = "complete";
+                            }
+                            else {
+                                connectionsDelegateItem.state = "empty";
+                                errorMessage.value = i18n.tr("Could not load connection detail");
+                            }
+                        }
+                        else if(state !== "ABORT") {
+                            connectionsDelegateItem.state = "empty";
+                            errorMessage.value = i18n.tr("Could not load connection detail");
+                        }
+                    });
+                }
+            }
+        }
+
         states: [
             State {
                 name: "empty"
@@ -38,6 +69,28 @@ Component {
         ]
 
         state: "empty"
+
+        trailingActions: ListItemActions {
+            actions: [
+                Action {
+                    iconName: "edit-copy"
+                    onTriggered: {
+                        var clipboardText = "";
+                        for(var i = 0; i < routesModel.count; i++) {
+                            var route = routesModel.get(i);
+                            clipboardText += route.num + " (" + route.type + ")\n";
+                            clipboardText += " - " + route.from.name + " " + route.from.time + "\n";
+                            clipboardText += " - " + route.to.name + " " + route.to.time + "\n";
+                        }
+                        Clipboard.push(clipboardText);
+                    }
+                },
+                Action {
+                    iconName: "view-expand"
+                    onTriggered: connectionsDelegateItem.openConnectionDetail();
+                }
+            ]
+        }
 
         Rectangle {
             anchors {
@@ -146,7 +199,7 @@ Component {
                                 detail.type = trainInfo.type || "";
                                 detail.typeName = trainInfo.typeName || "";
                                 detail.typeIndex = trainInfo.id || 0;
-                                detail.color = trainInfo.color || "";
+                                detail.lineColor = GeneralFunctions.lineColor(detail.num);
                                 detail.desc = trainInfo.fixedCodes ? trainInfo.fixedCodes.desc : "";
 
                                 var routes = trainData.route;
@@ -182,34 +235,7 @@ Component {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if(connectionsDelegateItem.connection) {
-                    if(connectionsDelegateItem.detail !== null) {
-                        connectionDetailPage.renderDetail(connectionsDelegateItem.detail.getConnectionDetail());
-                        pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
-                        connectionsDelegateItem.state = "complete";
-                    }
-                    else if(connectionsDelegateItem.state !== "loading") {
-                        connectionsDelegateItem.state = "loading";
-                        connectionsDelegateItem.connection.getDetail(function(object, state) {
-                            if(state === "SUCCESS") {
-                                if(object) {
-                                    connectionsDelegateItem.detail = object;
-                                    connectionDetailPage.renderDetail(object.getConnectionDetail());
-                                    pageLayout.addPageToCurrentColumn(connectionsPage, connectionDetailPage);
-                                    connectionsDelegateItem.state = "complete";
-                                }
-                                else {
-                                    connectionsDelegateItem.state = "empty";
-                                    errorMessage.value = i18n.tr("Could not load connection detail");
-                                }
-                            }
-                            else if(state !== "ABORT") {
-                                connectionsDelegateItem.state = "empty";
-                                errorMessage.value = i18n.tr("Could not load connection detail");
-                            }
-                        });
-                    }
-                }
+                connectionsDelegateItem.openConnectionDetail();
             }
         }
 

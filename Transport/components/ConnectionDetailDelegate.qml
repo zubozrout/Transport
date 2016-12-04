@@ -25,7 +25,6 @@ Component {
                 left: parent.left
                 right: parent.right
             }
-            spacing: units.gu(2)
 
             RowLayout {
                 id: transportRow
@@ -53,6 +52,7 @@ Component {
 
                 Label {
                     text: trainInfo.num || ""
+                    color: GeneralFunctions.lineColor(trainInfo.num)
                     font.pixelSize: FontUtils.sizeToPixels("large")
                     font.bold: true
                     horizontalAlignment: Text.AlignLeft
@@ -71,6 +71,7 @@ Component {
                     right: parent.right
                     margins: units.gu(2)
                 }
+                spacing: units.gu(1)
 
                 Label {
                     text: i18n.tr("Station name")
@@ -80,15 +81,15 @@ Component {
                 }
 
                 Label {
-                    text: i18n.tr("Departure")
-                    width: parent.width/4
+                    text: i18n.tr("Arrival")
+                    width: parent.width/4 - parent.spacing
                     horizontalAlignment: Text.AlignLeft
                     wrapMode: Text.WordWrap
                 }
 
                 Label {
-                    text: i18n.tr("Arrival")
-                    width: parent.width/4
+                    text: i18n.tr("Departure")
+                    width: parent.width/4 - parent.spacing
                     horizontalAlignment: Text.AlignLeft
                     wrapMode: Text.WordWrap
                 }

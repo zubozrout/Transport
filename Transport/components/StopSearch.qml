@@ -12,6 +12,7 @@ Item {
 
     property var selectedStop: null
     property var value: textField.displayText
+    property var running: itemActivity.running
 
     function getData() {
         var model = [];
@@ -64,13 +65,17 @@ Item {
 
             property bool noSignal: false
             property var cityOptions: null
+            property var lastTextValue: null
 
             onDisplayTextChanged: {
                 textChange();
             }
 
             onTextChanged: {
-                textChange();
+                if(lastTextValue !== textField.displayText) {
+                    textChange();
+                }
+                lastTextValue = textField.displayText;
             }
 
             onFocusChanged: {

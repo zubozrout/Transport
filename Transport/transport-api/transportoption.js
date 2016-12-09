@@ -7,7 +7,7 @@ var TransportOption = function(data) {
     this.dbConnection = data.dbConnection || null;
 
     this.cityOptions = null;
-    this.connection = null;
+    this.connections = [];
     return this;
 }
 
@@ -129,8 +129,57 @@ TransportOption.prototype.abortAll = function() {
 }
 
 TransportOption.prototype.createConnection = function(data) {
-    this.connection = new Connections(this.id, data);
-    return this.connection;
+    var oldConnection = this.checkIfConnectionExists(data);
+    if(!oldConnection) {
+        var connection = new Connections(this.id, data);
+        this.connections.push(connection);
+        return connection;
+    }
+    oldConnection.clearAllConnections();
+    return oldConnection;
+}
+
+TransportOption.prototype.checkIfConnectionExists = function(data) {
+    for(var i = 0; i < this.connections.length; i++) {
+        var connectionData = this.connections[i].data;
+        var compateStop = function(stopA, stopB) {
+            if(stopA && stopB) {
+                var stopAID = "";
+                if(stopA instanceof Stop) {
+                    stopAID = stopA.getItem();
+                }
+                else {
+                    stopAID = stopA.data.item.id;
+                }
+
+                var stopBID = "";
+                if(stopB instanceof Stop) {
+                    stopBID = stopB.getItem();
+                }
+                else {
+                    stopBID = stopB.data.item.id;
+                }
+
+                if(stopAID === stopBID) {
+                    return true;
+                }
+                return false;
+            }
+            else if(stopA && !stopB || stopA && !stopB) {
+                return false;
+            }
+            return true;
+        }
+
+        if(compateStop(data.from, connectionData.from) && compateStop(data.to, connectionData.to) && compateStop(connectionData.via, connectionData.via)) {
+            return this.connections[i];
+        }
+    }
+    return null;
+}
+
+TransportOption.prototype.getAllConnections = function() {
+    return this.connections;
 }
 
 TransportOption.prototype.departures = function(data) {

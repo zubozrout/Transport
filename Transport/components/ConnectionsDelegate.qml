@@ -87,7 +87,19 @@ Component {
                 },
                 Action {
                     iconName: "view-expand"
-                    onTriggered: connectionsDelegateItem.openConnectionDetail();
+                    onTriggered: {
+                        if(progressLine.state !== "running") {
+                            connectionsDelegateItem.openConnectionDetail();
+                        }
+                    }
+                },
+                Action {
+                    iconName: "cancel"
+                    visible: connectionsDelegateItem.state === "loading"
+                    onTriggered: {
+                        connectionsDelegateItem.connection.abort();
+                        connectionsDelegateItem.state = "empty";
+                    }
                 }
             ]
         }
@@ -235,7 +247,9 @@ Component {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                connectionsDelegateItem.openConnectionDetail();
+                if(progressLine.state !== "running") {
+                    connectionsDelegateItem.openConnectionDetail();
+                }
             }
         }
 

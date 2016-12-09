@@ -3,9 +3,18 @@
 var Connections = function(id, data) {
     this.id = id || null;
     this.data = data || {};
-    this.from = this.data.from || null;
-    this.to = this.data.to || null;
-    this.via = this.data.via || null;
+    var from = this.data.from || null;
+    if(from) {
+        this.from = new Stop(from.data, from.parentData || {});
+    }
+    var to = this.data.to || null;
+    if(to) {
+        this.to = new Stop(to.data, to.parentData || {});
+    }
+    var via = this.data.via || null;
+    if(via) {
+        this.via = new Stop(via.data, via.parentData || {});
+    }
     this.change = this.data.change || 0;
     this.time = this.data.time || null;
     this.departure = typeof this.data.departure !== typeof undefined ? this.data.departure : true;
@@ -43,7 +52,7 @@ Connections.prototype.search = function(params, callback) {
     if(this.from instanceof Stop) {
         fromValue = this.from.getName();
     }
-    var toValue = this.from;
+    var toValue = this.to;
     if(this.to instanceof Stop) {
         toValue = this.to.getName();
     }
@@ -199,6 +208,11 @@ Connections.prototype.checkIfConnectionExists = function(connection) {
         }
     }
     return false;
+}
+
+Connections.prototype.clearAllConnections = function() {
+    this.connections = [];
+    return this;
 }
 
 Connections.prototype.getConnectionsInInterval = function(from, to) {

@@ -63,13 +63,14 @@ Page {
         id: connectionDetailFlickable
         anchors.fill: parent
         contentWidth: parent.width
-        contentHeight: connectionDetailColumn.spacing + dataBar.height + connectionDetailView.height
+        contentHeight: connectionDetailColumn.spacing + connectionDetailColumn.anchors.bottomMargin + dataBar.height + connectionDetailView.height
 
         ColumnLayout {
             id: connectionDetailColumn
             anchors {
                 left: parent.left
                 right: parent.right
+                bottomMargin: units.gu(2)
             }
             spacing: units.gu(2)
 

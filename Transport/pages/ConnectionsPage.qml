@@ -18,15 +18,67 @@ Page {
             foregroundColor: "#fff"
             backgroundColor: pageLayout.headerColor
         }
+
+        trailingActionBar {
+            actions: [
+                Action {
+                    iconName: "next"
+                    text: i18n.tr("Next")
+                    onTriggered: {
+                        var allConnections = Transport.transportOptions.getSelectedTransport().getAllConnections();
+                        var currentConnectionIndex = allConnections.indexOf(connections);
+                        var newConnectionIndex = currentConnectionIndex < allConnections.length - 1 ? currentConnectionIndex + 1 : 0;
+                        var selectedConnection = allConnections[newConnectionIndex];
+                        connections = selectedConnection;
+                        renderAllConnections(selectedConnection);
+                    }
+                },
+                Action {
+                    iconName: "previous"
+                    text: i18n.tr("Previous")
+                    onTriggered: {
+                        var allConnections = Transport.transportOptions.getSelectedTransport().getAllConnections();
+                        var currentConnectionIndex = allConnections.indexOf(connections);
+                        var newConnectionIndex = currentConnectionIndex > 0 ? currentConnectionIndex - 1 : allConnections.length - 1;
+                        var selectedConnection = allConnections[newConnectionIndex];
+                        connections = selectedConnection;
+                        renderAllConnections(selectedConnection);
+                    }
+                }
+           ]
+        }
     }
 
     clip: true
 
     property var connections: null
+    property var transport: null
+
+    onVisibleChanged: {
+        if(visible) {
+            var currentTransport = Transport.transportOptions.getSelectedTransport();
+            if(transport !== null && transport !== currentTransport) {
+                var connections = currentTransport.getAllConnections();
+                if(connections.length > 0) {
+                    renderAllConnections(connections[0]);
+                }
+            }
+            transport = Transport.transportOptions.getSelectedTransport();
+        }
+    }
 
     function appendConnections() {
         if(connectionsPage.connections) {
             progressLine.state = "running";
+
+            loadTimeout.go(function() {
+                if(progressLine.state === "running") {
+                    connectionsPage.connections.abort();
+                    progressLine.state = "idle";
+                    errorMessage.value = i18n.tr("Loading following connections timed out");
+                }
+            });
+
             connectionsPage.connections.getNext(false, function(connection, state) {
                 if(state === "SUCCESS") {
                     insertConnectionsRender(connection.getLastConnections());
@@ -42,9 +94,36 @@ Page {
     function prependConnections() {
         if(connectionsPage.connections) {
             progressLine.state = "running";
+
+            loadTimeout.go(function() {
+                if(progressLine.state === "running") {
+                    connectionsPage.connections.abort();
+                    progressLine.state = "idle";
+                    errorMessage.value = i18n.tr("Loading previous connections timed out");
+                }
+            });
+
             connectionsPage.connections.getNext(true, function(connection, state) {
                 if(state === "SUCCESS") {
+                    var prevLength = connectionsModel.count;
+
                     renderAllConnections(connection);
+                    connectionsView.forceLayout();
+
+                    var newItemsCount = connection.connections.length - prevLength;
+
+                    var topSize = 0;
+                    var iterator = 0;
+                    for(var child in connectionsView.contentItem.children) {
+                        if(iterator >= newItemsCount) {
+                            break;
+                        }
+
+                        topSize += connectionsView.contentItem.children[child].height;
+                        iterator++;
+                    }
+
+                    connectionsFlickable.contentY = topSize;
                 }
                 else if(state !== "ABORT") {
                     errorMessage.value = i18n.tr("Loading previous connections failed");
@@ -70,6 +149,25 @@ Page {
                 });
                 connectionsModel.childModel.push(connections[i]);
             }
+        }
+    }
+
+    Timer {
+        id: loadTimeout
+        interval: 10000
+        repeat: false
+
+        property var callback: null
+
+        onTriggered: {
+            if(typeof callback === "function") {
+                callback();
+            }
+        }
+
+        function go(call) {
+            callback = call;
+            start();
         }
     }
 

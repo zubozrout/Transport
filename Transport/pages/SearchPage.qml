@@ -29,16 +29,6 @@ Page {
                     onTriggered: {
                         pageLayout.addPageToNextColumn(searchPage, connectionsPage);
                     }
-                },
-                Action {
-                    iconName: "cancel"
-                    text: i18n.tr("Abort")
-                    onTriggered: {
-                        var selectedTransport = Transport.transportOptions.getSelectedTransport();
-                        if(selectedTransport) {
-                            selectedTransport.abortAll();
-                        }
-                    }
                 }
            ]
         }
@@ -261,8 +251,8 @@ Page {
 
                     Button {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        text: i18n.tr("Search")
-                        color: "#fff"
+                        text: itemActivity.running ? i18n.tr("Abort search") : i18n.tr("Search")
+                        color: itemActivity.running ? UbuntuColors.red : "#fff"
                         enabled: transportSelectorPage.selectedTransport && from.value && to.value
                         z: 1
 
@@ -277,7 +267,15 @@ Page {
                         }
 
                         onClicked: {
-                            searchPage.search();
+                            if(!itemActivity.running) {
+                                searchPage.search();
+                            }
+                            else {
+                                var selectedTransport = Transport.transportOptions.getSelectedTransport();
+                                if(selectedTransport) {
+                                    selectedTransport.abortAll();
+                                }
+                            }
                         }
                     }
 

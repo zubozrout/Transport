@@ -66,9 +66,10 @@ Item {
             anchors {
                 left: parent.left
                 right: parent.right
+                bottom: errorRectangle.bottom
             }
-            height: units.gu(1)
-            color: pageLayout.baseColor
+            height: 1
+            color: pageLayout.colorPalete["secondaryBG"] || "#333"
         }
 
         MouseArea {

@@ -67,5 +67,6 @@ DISTFILES += \
     pages/ConnectionDetailPage.qml \
     components/ConnectionDetailDelegate.qml \
     components/ConnectionDetailRoutesDelegate.qml \
-    components/ErrorMessage.qml
+    components/ErrorMessage.qml \
+    components/RecentBottomEdge.qml
 

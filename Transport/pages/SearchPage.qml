@@ -77,6 +77,8 @@ Page {
                             connectionsPage.connections = connection;
                             connectionsPage.renderAllConnections(connection);
                             pageLayout.addPageToNextColumn(searchPage, connectionsPage);
+
+                            connectionsPage.enablePrevNextButtons(selectedTransport.getAllConnections());
                         }
                     }
                 }
@@ -92,8 +94,7 @@ Page {
             id: searchFlickable
             anchors.fill: parent
             contentWidth: parent.width
-            contentHeight: errorMessage.height + searchColumn.implicitHeight + 2*searchColumn.anchors.margins + (customDateSwitch.checked ? 0 : units.gu(20))
-
+            contentHeight: errorMessage.height + searchColumn.implicitHeight + 2*searchColumn.anchors.margins + (customDateSwitch.checked ? 0 : units.gu(20)) + units.gu(4)
             ErrorMessage {
                 id: errorMessage
             }
@@ -292,5 +293,9 @@ Page {
             flickableItem: searchFlickable
             align: Qt.AlignTrailing
         }
+    }
+
+    RecentBottomEdge {
+        id: bottomEdge
     }
 }

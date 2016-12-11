@@ -123,15 +123,21 @@ TransportOption.prototype.abortAll = function() {
     if(this.cityOptions) {
         this.cityOptions.abort();
     }
-    if(this.connection) {
-        this.connection.abort();
+    if(this.connections) {
+        for(var i = 0; i < this.connections.length; i++) {
+            this.connections[i].abort();
+        }
     }
 }
 
 TransportOption.prototype.createConnection = function(data) {
     var oldConnection = this.checkIfConnectionExists(data);
     if(!oldConnection) {
-        var connection = new Connections(this.id, data);
+        var connection = new Connections({
+            id: this.id,
+            dbConnection: this.dbConnection,
+            data: data
+        });
         this.connections.push(connection);
         return connection;
     }
@@ -142,6 +148,7 @@ TransportOption.prototype.createConnection = function(data) {
 TransportOption.prototype.checkIfConnectionExists = function(data) {
     for(var i = 0; i < this.connections.length; i++) {
         var connectionData = this.connections[i].data;
+        var forcestring = false;
         var compateStop = function(stopA, stopB) {
             if(stopA && stopB) {
                 var stopAID = "";
@@ -149,7 +156,13 @@ TransportOption.prototype.checkIfConnectionExists = function(data) {
                     stopAID = stopA.getItem();
                 }
                 else {
-                    stopAID = stopA.data.item.id;
+                    if(typeof stopA === typeof "string") {
+                        stopAID = stopA;
+                        forcestring = true;
+                    }
+                    else {
+                        stopAID = stopA.data.item.id;
+                    }
                 }
 
                 var stopBID = "";
@@ -157,7 +170,17 @@ TransportOption.prototype.checkIfConnectionExists = function(data) {
                     stopBID = stopB.getItem();
                 }
                 else {
-                    stopBID = stopB.data.item.id;
+                    if(typeof stopBID === typeof "string") {
+                        stopBID = stopB;
+                    }
+                    else {
+                        if(forcestring) {
+                            stopBID = stopB.data.item.name;
+                        }
+                        else {
+                            stopBID = stopB.data.item.id;
+                        }
+                    }
                 }
 
                 if(stopAID === stopBID) {
@@ -178,8 +201,23 @@ TransportOption.prototype.checkIfConnectionExists = function(data) {
     return null;
 }
 
+TransportOption.prototype.removeConnectionById = function(id) {
+    for(var i = 0; i < this.connections.length; i++) {
+        if(this.connections[i].id === id) {
+            this.connections.splice(i, 1);
+        }
+    }
+    return this;
+}
+
 TransportOption.prototype.getAllConnections = function() {
-    return this.connections;
+    var connections = [];
+    for(var i = 0; i < this.connections.length; i++) {
+        if(this.connections[i].getAllConnections().length > 0) {
+            connections.push(this.connections[i]);
+        }
+    }
+    return connections;
 }
 
 TransportOption.prototype.departures = function(data) {

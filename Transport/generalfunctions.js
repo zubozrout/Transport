@@ -115,6 +115,19 @@ function dateToTimeString(date) {
     return "";
 }
 
+function dateToString(date) {
+    if(date) {
+        date = new Date(date);
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        return day + "." + month + "." + year + " " + dateToTimeString(date);
+    }
+    return "";
+}
+
 function lineColor(line) {
     if(line.toLowerCase() === "a") {
         return "#080"; // Green

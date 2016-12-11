@@ -77,6 +77,16 @@ TransportOptions.prototype.selectIndex = function(index) {
     return this;
 }
 
+TransportOptions.prototype.selectTransportById = function(id) {
+    for(var i = 0; i < this.transports.length; i++) {
+        if(this.transports[i].id === id) {
+            this.selectIndex(i);
+            return this.getSelectedTransport();
+        }
+    }
+    return false;
+}
+
 TransportOptions.prototype.getSelectedIndex = function() {
     return this.selectedIndex;
 }

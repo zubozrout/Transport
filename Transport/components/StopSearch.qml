@@ -68,10 +68,6 @@ Item {
             property var lastTextValue: null
 
             onDisplayTextChanged: {
-                textChange();
-            }
-
-            onTextChanged: {
                 if(lastTextValue !== textField.displayText) {
                     textChange();
                 }
@@ -81,8 +77,8 @@ Item {
             onFocusChanged: {
                 if(!focus) {
                     optionsView.state = "hidden";
-                    if(cityOptions) {
-                        cityOptions.abort();
+                    if(textField.cityOptions) {
+                        textField.cityOptions.abort();
                     }
                 }
                 else {
@@ -110,7 +106,6 @@ Item {
                     if(transportOption && search !== "") {
                         itemActivity.running = true;
                         optionsView.state = "visible";
-
                         cityOptions = transportOption.searchStations(search, function(options, source) {
                             if(options) {
                                 if(source === "REMOTE") {

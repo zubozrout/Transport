@@ -22,6 +22,7 @@ Page {
         trailingActionBar {
             actions: [
                 Action {
+                    id: trailingNext
                     iconName: "next"
                     text: i18n.tr("Next")
                     onTriggered: {
@@ -31,9 +32,12 @@ Page {
                         var selectedConnection = allConnections[newConnectionIndex];
                         connections = selectedConnection;
                         renderAllConnections(selectedConnection);
+
+                        console.log(currentConnectionIndex, newConnectionIndex, "all:", allConnections.length);
                     }
                 },
                 Action {
+                    id: trailingPrevious
                     iconName: "previous"
                     text: i18n.tr("Previous")
                     onTriggered: {
@@ -43,6 +47,8 @@ Page {
                         var selectedConnection = allConnections[newConnectionIndex];
                         connections = selectedConnection;
                         renderAllConnections(selectedConnection);
+
+                        console.log(currentConnectionIndex, newConnectionIndex, "all:", allConnections.length);
                     }
                 }
            ]
@@ -57,13 +63,29 @@ Page {
     onVisibleChanged: {
         if(visible) {
             var currentTransport = Transport.transportOptions.getSelectedTransport();
-            if(transport !== null && transport !== currentTransport) {
-                var connections = currentTransport.getAllConnections();
-                if(connections.length > 0) {
-                    renderAllConnections(connections[0]);
+            if(currentTransport) {
+                if(transport !== null && transport !== currentTransport) {
+                    var allConnections = currentTransport.getAllConnections();
+                    if(allConnections.length > 0) {
+                        renderAllConnections(allConnections[0]);
+                    }
+                    else {
+                        connectionsModel.clearAll();
+                    }
                 }
+                transport = Transport.transportOptions.getSelectedTransport();
             }
-            transport = Transport.transportOptions.getSelectedTransport();
+        }
+    }
+
+    function enablePrevNextButtons(connections) {
+        if(connections.length > 1) {
+            trailingNext.visible = true;
+            trailingPrevious.visible = true;
+        }
+        else {
+            trailingNext.visible = false;
+            trailingPrevious.visible = false;
         }
     }
 
@@ -165,7 +187,8 @@ Page {
             }
         }
 
-        function go(call) {
+        function go(call, time) {
+            interval = time || 10000
             callback = call;
             start();
         }

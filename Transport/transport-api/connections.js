@@ -1,20 +1,26 @@
 "use strict";
 
-var Connections = function(id, data) {
-    this.id = id || null;
-    this.data = data || {};
+var Connections = function(data) {
+    data = data || {};
+    this.id = data.id || null;
+    this.dbConnection = data.dbConnection || null;
+    this.data = data.data || {};
+
     var from = this.data.from || null;
     if(from) {
-        this.from = new Stop(from.data, from.parentData || {});
+        this.from = new Stop(from.data || from, from.parentData || {});
     }
+
     var to = this.data.to || null;
     if(to) {
-        this.to = new Stop(to.data, to.parentData || {});
+        this.to = new Stop(to.data || to, to.parentData || {});
     }
+
     var via = this.data.via || null;
     if(via) {
-        this.via = new Stop(via.data, via.parentData || {});
+        this.via = new Stop(via.data || via, via.parentData || {});
     }
+
     this.change = this.data.change || 0;
     this.time = this.data.time || null;
     this.departure = typeof this.data.departure !== typeof undefined ? this.data.departure : true;
@@ -22,8 +28,9 @@ var Connections = function(id, data) {
     this.limit = this.data.limit || 10;
     this.searchMode = this.data.searchMode || "EXACT";
 
-    this.saveStopsToDBOnSearchDefault = true;
-    this.saveStopsToDBOnSearchFailureDefault = false;
+    this.config = {};
+    this.config.saveStopsToDB = true;
+    this.config.saveSearchToDB = true;
 
     this.connections = [];
     this.handle = null;
@@ -45,27 +52,22 @@ Connections.prototype.search = function(params, callback) {
     var time = params.time || this.time;
     var via = params.via || this.via;
     var departure = typeof params.departure !== typeof undefined ? params.departure : this.departure;
-    var saveToDB = params.saveToDB || this.saveStopsToDBOnSearchDefault;
-    var saveToDBonFailure = params.saveToDBonFailure || this.saveStopsToDBOnSearchDefault;
 
-    var fromValue = this.from;
-    if(this.from instanceof Stop) {
-        fromValue = this.from.getName();
+    if(!this.from instanceof Stop) {
+        return false;
     }
-    var toValue = this.to;
-    if(this.to instanceof Stop) {
-        toValue = this.to.getName();
+    if(!this.to instanceof Stop) {
+        return false
     }
-    var viaValue = via;
-    if(this.via instanceof Stop) {
-        viaValue = this.via.getName();
+    if(via && !via instanceof Stop) {
+        return false;
     }
 
     var requestURL = "https://ext.crws.cz/api/";
     requestURL += this.id + "/connections";
-    requestURL += "?from=" + fromValue;
-    requestURL += "&to=" + toValue;
-    requestURL += viaValue ? ("&via=" + viaValue) : "";
+    requestURL += "?from=" + this.from.getName();
+    requestURL += "&to=" + this.to.getName();
+    requestURL += via ? ("&via=" + via.getName()) : "";
     requestURL += this.change ? ("&change=" + this.change) : "";
     requestURL += time ? ("&dateTime=" + time) : "";
     requestURL += "&isDep=" + departure;
@@ -80,10 +82,6 @@ Connections.prototype.search = function(params, callback) {
                 if(callback) {
                     callback(self, "SUCCESS");
                 }
-
-                if(!saveToDBonFailure && saveToDB) {
-                    self.saveStopsToDB(via);
-                }
             }
             else {
                 callback(false, "FAIL");
@@ -94,23 +92,38 @@ Connections.prototype.search = function(params, callback) {
         }
     });
 
-    if(saveToDBonFailure) {
-        this.saveStopsToDB(via);
+    if(this.config.saveStopsToDB) {
+        this.saveStopToDB(this.from);
+        this.saveStopToDB(this.to);
+        if(via) {
+            this.saveStopToDB(via);
+        }
+    }
+
+    if(this.config.saveSearchToDB) {
+        this.saveConnectionToDB({
+            id: this.id,
+            from: this.from.getItem(),
+            to: this.to.getItem(),
+            via: via ? via.getItem() : null
+        });
     }
 
     return this;
 }
 
-Connections.prototype.saveStopsToDB = function(via) {
-    if(this.from && this.from instanceof Stop) {
-        this.from.saveToDB();
+Connections.prototype.saveStopToDB = function(stop) {
+    if(stop && stop instanceof Stop) {
+        stop.saveToDB();
     }
-    if(this.to && this.to instanceof Stop) {
-        this.to.saveToDB();
+    return this;
+}
+
+Connections.prototype.saveConnectionToDB = function(data) {
+    if(this.dbConnection) {
+        this.dbConnection.appendSearchToHistory(data);
     }
-    if(via && via instanceof Stop) {
-        via.saveToDB();
-    }
+    return this;
 }
 
 Connections.prototype.getNext = function(backwards, callback) {
@@ -208,6 +221,10 @@ Connections.prototype.checkIfConnectionExists = function(connection) {
         }
     }
     return false;
+}
+
+Connections.prototype.getAllConnections = function(position) {
+    return this.connections;
 }
 
 Connections.prototype.clearAllConnections = function() {

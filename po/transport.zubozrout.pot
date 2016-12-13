@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-11 15:31+0100\n"
+"POT-Creation-Date: 2016-12-13 17:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,6 +209,6 @@ msgstr ""
 msgid "All transport types"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_builder_amd64_GCC_amd64_ubuntu_sdk_15_04-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_builder_amd64_GCC_amd64_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""

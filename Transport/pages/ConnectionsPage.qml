@@ -174,24 +174,8 @@ Page {
         }
     }
 
-    Timer {
+    CallbackTimer {
         id: loadTimeout
-        interval: 10000
-        repeat: false
-
-        property var callback: null
-
-        onTriggered: {
-            if(typeof callback === "function") {
-                callback();
-            }
-        }
-
-        function go(call, time) {
-            interval = time || 10000
-            callback = call;
-            start();
-        }
     }
 
     ConnectionsDelegate {
@@ -217,36 +201,50 @@ Page {
         contentHeight: errorMessage.height + connectionsView.contentHeight
 
         property var sensitivity: 150
-        property var topblock: false
-        property var bottomblock: false
 
-        onContentYChanged: {
+        function checkDrag() {
             if(contentHeight > 0 && progressLine.state == "idle") {
                 var topEdge = contentY + pageHeader.height;
                 var bottomEdge = topEdge + height - pageHeader.height;
-                if(!bottomblock) {
-                    if(bottomEdge > contentHeight + sensitivity) {
-                        // Load more (next) connections;
-                        connectionsPage.appendConnections();
-                        bottomblock = true;
-                    }
+
+                if(bottomEdge > contentHeight + sensitivity) {
+                    // Load more (next) connections;
+                    return "append";
                 }
-                if(!topblock) {
-                    if(topEdge < -sensitivity) {
-                        // Load more (previous) connections;
-                        connectionsPage.prependConnections();
-                        topblock = true;
-                    }
-                }
-                if(bottomblock || topblock) {
-                    if(bottomEdge <= contentHeight) {
-                        bottomblock = false;
-                    }
-                    if(topEdge >= 0) {
-                        topblock = false;
-                    }
+
+                if(topEdge < -sensitivity) {
+                    // Load more (previous) connections;
+                    return "prepend";
                 }
             }
+            return false;
+        }
+
+        function drag() {
+            var drag = connectionsFlickable.checkDrag();
+            if(drag === "append") {
+                connectionsPage.appendConnections();
+                return true;
+            }
+            else if(drag === "prepend") {
+                connectionsPage.prependConnections();
+                return true;
+            }
+            return;
+        }
+
+        onContentYChanged: {
+            if(connectionsFlickable.checkDrag()) {
+                if(!dragTimer.running) {
+                    dragTimer.go(function() {
+                        connectionsFlickable.drag();
+                    }, 750);
+                }
+            }
+        }
+
+        CallbackTimer {
+            id: dragTimer
         }
 
         ErrorMessage {

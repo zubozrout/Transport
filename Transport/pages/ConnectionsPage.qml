@@ -12,19 +12,41 @@ Page {
     header: PageHeader {
         id: pageHeader
         title: i18n.tr("Connections")
-        flickable: connectionsFlickable
+        flickable: overlayDetail.visible ? overlayDetail.flickable : connectionsFlickable
 
         StyleHints {
-            foregroundColor: "#fff"
-            backgroundColor: pageLayout.headerColor
+            foregroundColor: pageLayout.colorPalete["headerText"]
+            backgroundColor: pageLayout.colorPalete["headerBG"]
         }
 
         trailingActionBar {
             actions: [
                 Action {
+                    iconName: "edit-copy"
+                    onTriggered: {
+                        Clipboard.push(overlayDetail.overlayDetailData.text);
+                    }
+                },
+                Action {
+                    id: trailinginfo
+                    iconName: "info"
+                    text: i18n.tr("Info")
+                    onTriggered: {
+                        if(overlayDetail.visible) {
+                            overlayDetail.visible = false;
+                        }
+                        else {
+                            if(updateConnectionDetail()) {
+                                overlayDetail.visible = true;
+                            }
+                        }
+                    }
+                },
+                Action {
                     id: trailingNext
                     iconName: "next"
                     text: i18n.tr("Next")
+                    visible: false
                     onTriggered: {
                         var allConnections = Transport.transportOptions.getSelectedTransport().getAllConnections();
                         var currentConnectionIndex = allConnections.indexOf(connections);
@@ -32,6 +54,7 @@ Page {
                         var selectedConnection = allConnections[newConnectionIndex];
                         connections = selectedConnection;
                         renderAllConnections(selectedConnection);
+                        updateConnectionDetail();
 
                         console.log(currentConnectionIndex, newConnectionIndex, "all:", allConnections.length);
                     }
@@ -40,6 +63,7 @@ Page {
                     id: trailingPrevious
                     iconName: "previous"
                     text: i18n.tr("Previous")
+                    visible: false
                     onTriggered: {
                         var allConnections = Transport.transportOptions.getSelectedTransport().getAllConnections();
                         var currentConnectionIndex = allConnections.indexOf(connections);
@@ -47,6 +71,7 @@ Page {
                         var selectedConnection = allConnections[newConnectionIndex];
                         connections = selectedConnection;
                         renderAllConnections(selectedConnection);
+                        updateConnectionDetail();
 
                         console.log(currentConnectionIndex, newConnectionIndex, "all:", allConnections.length);
                     }
@@ -75,7 +100,68 @@ Page {
                 }
                 transport = Transport.transportOptions.getSelectedTransport();
             }
+
+            updateConnectionDetail();
+            overlayDetail.visible = false;
         }
+    }
+
+    function updateConnectionDetail() {
+        var allConnections = Transport.transportOptions.getSelectedTransport().getAllConnections();
+        if(allConnections.length > 0) {
+            var currentConnectionIndex = allConnections.indexOf(connections);
+            var currentConnection = allConnections[currentConnectionIndex];
+
+            var from = "";
+            if(currentConnection.from) {
+                from = (currentConnection.from.getName());
+            }
+            var to = "";
+            if(currentConnection.to) {
+                to = (currentConnection.to.getName());
+            }
+            var via = "";
+            if(currentConnection.via) {
+                via = (currentConnection.via.getName());
+            }
+
+            var connectionTextDetail = function(connection) {
+                var arrOrDepTime = function(route) {
+                    return route.arrTime || route.depTime || null;
+                }
+
+                var routesList = "";
+                for(var i = 0; i < connection.trains.length; i++) {
+                    var trainData = connection.getTrain(i).trainData;
+                    routesList += "\t" + trainData.info.num1 + " (" + trainData.info.type + ")" + "\n";
+                    var stations = trainData.route;
+                    for(var j = 0; j < stations.length; j++) {
+                        routesList += "\t" + stations[j].station.name + " - " + arrOrDepTime(stations[j]) + "\n";
+                    }
+                }
+                return routesList;
+            }
+
+            var connectionsList = "";
+            for(var i = 0; i < currentConnection.connections.length; i++) {
+                connectionsList += ((i + 1) + ".") + connectionTextDetail(currentConnection.connections[i]);
+                if(i + 1 < currentConnection.connections.length - 1) {
+                    connectionsList += "\n\n";
+                }
+            }
+
+            var finalText = i18n.tr("Journey start: ") + from + "\n\n";
+            finalText += i18n.tr("Journey end: ") + to + "\n\n";
+            finalText += (via ? i18n.tr("Selected transfer station: " + "\n\n") + via : "");
+            finalText += i18n.tr("Number of cached connection results: ") + currentConnection.connections.length + "\n\n" + connectionsList;
+
+            overlayDetail.overlayDetailData = {
+                title: i18n.tr("Searched connections detail"),
+                text: finalText
+            };
+            return true;
+        }
+        return false;
     }
 
     function enablePrevNextButtons(connections) {
@@ -109,6 +195,7 @@ Page {
                     errorMessage.value = i18n.tr("Loading following connections failed");
                 }
                 progressLine.state = "idle";
+                updateConnectionDetail();
             });
         }
     }
@@ -151,6 +238,7 @@ Page {
                     errorMessage.value = i18n.tr("Loading previous connections failed");
                 }
                 progressLine.state = "idle";
+                updateConnectionDetail();
             });
         }
     }
@@ -192,6 +280,27 @@ Page {
             top: pageHeader.bottom
         }
         z: 10
+    }
+
+    Rectangle {
+        id: pullInfo
+        anchors {
+            top: pageHeader.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        color: Qt.rgba(255, 255, 255, 0.8)
+        z: 10
+        visible: false
+
+        Label {
+            anchors {
+                centerIn: parent
+                margins: units.gu(2)
+            }
+            text: i18n.tr("Keep pulled to load more")
+        }
     }
 
     Flickable {
@@ -236,7 +345,9 @@ Page {
         onContentYChanged: {
             if(connectionsFlickable.checkDrag()) {
                 if(!dragTimer.running) {
+                    pullInfo.visible = true;
                     dragTimer.go(function() {
+                        pullInfo.visible = false;
                         connectionsFlickable.drag();
                     }, 750);
                 }
@@ -278,5 +389,9 @@ Page {
     Scrollbar {
         flickableItem: connectionsFlickable
         align: Qt.AlignTrailing
+    }
+
+    OverlayDetail {
+        id: overlayDetail
     }
 }

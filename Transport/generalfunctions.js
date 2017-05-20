@@ -143,3 +143,18 @@ function lineColor(line) {
     }
     return "#000";
 }
+
+function setStopData(stopSearch, stopidfrom, stopnamefrom, typeid) {
+    stopSearch.setData({
+        selectedStop: new Transport.Stop({
+            item: {
+                item: stopidfrom,
+                name: stopnamefrom
+        }
+        }, {
+            transportID: typeid,
+            dbConnection: Transport.transportOptions.dbConnection
+        }),
+        value: stopnamefrom
+    });
+}

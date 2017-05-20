@@ -149,7 +149,7 @@ TransportOption.prototype.checkIfConnectionExists = function(data) {
     for(var i = 0; i < this.connections.length; i++) {
         var connectionData = this.connections[i].data;
         var forcestring = false;
-        var compateStop = function(stopA, stopB) {
+        var compareStop = function(stopA, stopB) {
             if(stopA && stopB) {
                 var stopAID = "";
                 if(stopA instanceof Stop) {
@@ -188,13 +188,13 @@ TransportOption.prototype.checkIfConnectionExists = function(data) {
                 }
                 return false;
             }
-            else if(stopA && !stopB || stopA && !stopB) {
+            else if(stopA && !stopB || !stopA && stopB) {
+                console.log("false");
                 return false;
             }
             return true;
         }
-
-        if(compateStop(data.from, connectionData.from) && compateStop(data.to, connectionData.to) && compateStop(connectionData.via, connectionData.via)) {
+        if(compareStop(data.from, connectionData.from) && compareStop(data.to, connectionData.to) && compareStop(data.via, connectionData.via)) {
             return this.connections[i];
         }
     }
@@ -239,8 +239,8 @@ TransportOption.prototype.departures = function(data) {
 
         var self = this;
         this.request = GeneralTranport.getContent(requestURL, function(response) {
-            if(response) {
-                console.log(response);
+            if(response && response.data) {
+                console.log(response.data);
             }
         });
     }

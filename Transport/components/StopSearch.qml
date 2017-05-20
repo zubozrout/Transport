@@ -11,8 +11,8 @@ Item {
     height: childrenRect.height
 
     property var selectedStop: null
-    property var value: textField.displayText
-    property var running: itemActivity.running
+    property string value: textField.displayText
+    property bool running: itemActivity.running
 
     function getData() {
         var model = [];
@@ -106,9 +106,10 @@ Item {
                     if(transportOption && search !== "") {
                         itemActivity.running = true;
                         optionsView.state = "visible";
-                        cityOptions = transportOption.searchStations(search, function(options, source) {
+                        cityOptions = transportOption.searchStations(search, function(data) {
+                            var options = data.caller || null;
                             if(options) {
-                                if(source === "REMOTE") {
+                                if(data.source === "REMOTE") {
                                     itemActivity.running = false;
                                 }
 
@@ -126,9 +127,14 @@ Item {
                             else {
                                 itemActivity.running = false;
                             }
-                        }, function(options) {
-                            if(!options.request) {
-                                itemActivity.running = false;
+
+                            if(searchItem.errorMessageComponent) {
+                                searchItem.errorMessageComponent.value = "";
+                            }
+                        }, function(data) {
+                            itemActivity.running = false;
+                            if(data.status !== 0 && searchItem.errorMessageComponent) {
+                                searchItem.errorMessageComponent.value = i18n.tr("Remote station search failed");
                             }
                         });
                     }
@@ -137,6 +143,10 @@ Item {
                         if(textField.cityOptions) {
                             textField.cityOptions.abort();
                             itemActivity.running = false;
+                        }
+
+                        if(searchItem.errorMessageComponent) {
+                            searchItem.errorMessageComponent.value = "";
                         }
                     }
                 }

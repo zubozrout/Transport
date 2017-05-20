@@ -69,5 +69,6 @@ DISTFILES += \
     components/ConnectionDetailRoutesDelegate.qml \
     components/ErrorMessage.qml \
     components/RecentBottomEdge.qml \
-    components/CallbackTimer.qml
+    components/CallbackTimer.qml \
+    components/OverlayDetail.qml
 

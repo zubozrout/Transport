@@ -42,12 +42,20 @@ CityOptions.prototype.getStops = function(mask, call, failCall) {
     if(!transportOptions || transportOptions.length < this.minSearchTriggerLength) {
         var self = this;
         this.request = GeneralTranport.getContent("https://ext.crws.cz/api/" + this.id + "/timetableObjects/0?mask=" + mask + "&ttInfoDetails=ITEM&ttInfoDetails=COOR" + "&searchMode=" + this.searchMode + "&maxCount=" + this.limit, function(response) {
-            if(response) {
-                self.parseStops(GeneralTranport.stringToObj(response));
-                call(self, "REMOTE");
+            if(response && response.data) {
+                self.parseStops(GeneralTranport.stringToObj(response.data));
+                call({
+                    caller: self,
+                    source: "REMOTE",
+                    status: response.status
+                });
             }
             else {
-                failCall(self, "REMOTE");
+                failCall({
+                    caller: self,
+                    source: "REMOTE",
+                    status: response.status
+                });
             }
         });
     }

@@ -1,5 +1,6 @@
 .pragma library
 .import QtQuick.LocalStorage 2.0 as Sql
+.import QtQml 2.0 as QML
 
 "use strict";
 

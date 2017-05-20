@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-13 17:53+0100\n"
+"POT-Creation-Date: 2017-05-20 21:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,197 +18,225 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:77
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:77
 msgid "Station name"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:247
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:84
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:284
 msgid "Arrival"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:247
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:91
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:284
 msgid "Departure"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:41
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:46
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:41
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:46
 msgid "Could not load connection detail"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:276
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:276
 msgid "now"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:280
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:280
 #, qt-format
 msgid "in %1 minute"
 msgid_plural "in %1 minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:300
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:300
 #, qt-format
 msgid "in %1 day"
 msgid_plural "in %1 days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/ConnectionsDelegate.qml:304
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:304
 msgid "departed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/DatePicker.qml:55
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/DatePicker.qml:55
 msgid "Selected date:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:12
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:25
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:12
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:25
 msgid "Recent searches"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:31
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:31
 msgid "Delete all searches"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:50
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:81
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:50
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:81
 msgid "Attention"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:51
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:51
 msgid "Do you really want to delete the whole search history?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:53
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:84
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:53
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:84
 msgid "No"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:57
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:88
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:57
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:88
 msgid "Yes"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:82
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:82
 msgid "Do you really want to delete this history entry?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:178
-msgid "From"
-msgstr ""
-
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:195
-msgid "To"
-msgstr ""
-
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/RecentBottomEdge.qml:213
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:194
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:205
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:230
 msgid "Via"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/components/StopSearch.qml:64
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/StopSearch.qml:64
 msgid "station name"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:14
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/StopSearch.qml:137
+msgid "Remote station search failed"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:14
 msgid "Connection detail"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:25
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:25
 msgid "Only passed stations"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:25
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:25
 msgid "All stations"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:102
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:102
 msgid "Distance"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:125
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:125
 msgid "Time length"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:148
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:148
 msgid "Price"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:14
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:14
 msgid "Connections"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:27
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:33
+msgid "Info"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:48
 msgid "Next"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:42
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:65
 msgid "Previous"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:100
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:153
+msgid "Journey start: "
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:154
+msgid "Journey end: "
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:155
+msgid "Selected transfer station: "
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:156
+msgid "Number of cached connection results: "
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:159
+msgid "Searched connections detail"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:186
 msgid "Loading following connections timed out"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:109
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:195
 msgid "Loading following connections failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:124
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:211
 msgid "Loading previous connections timed out"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/ConnectionsPage.qml:151
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:238
 msgid "Loading previous connections failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:16
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:302
+msgid "Keep pulled to load more"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:16
 msgid "Transport Basic"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:28
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:255
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:28
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:292
 msgid "Search"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:73
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:73
 msgid "Search failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:122
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:156
 msgid "Select transport method"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:222
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:259
 msgid "Custom date"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/SearchPage.qml:255
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:292
 msgid "Abort search"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:15
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:15
 msgid "Select a transport option"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:130
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:27
+msgid "Refresh transport options"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:153
 msgid "City:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:144
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:167
 msgid "Valid from:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:158
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:181
 msgid "Expires:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/Transport/Transport/pages/TransportSelectorPage.qml:197
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:220
 msgid "All transport types"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/Projects/build-Transport-UbuntuSDK_for_builder_amd64_GCC_amd64_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_builder_i386_GCC_i386_ubuntu_sdk_16_04-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""

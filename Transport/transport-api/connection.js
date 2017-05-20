@@ -37,8 +37,8 @@ Connection.prototype.getDetail = function(callback, forceUpdate) {
 
         var self = this;
         this.request = GeneralTranport.getContent(requestURL, function(response) {
-            if(response) {
-                if(self.parseDetail(GeneralTranport.stringToObj(response))) {
+            if(response && response.data) {
+                if(self.parseDetail(GeneralTranport.stringToObj(response.data))) {
                     if(callback) {
                         callback(self, "SUCCESS");
                     }

@@ -17,8 +17,8 @@ Page {
         flickable: searchFlickable
 
         StyleHints {
-            foregroundColor: "#fff"
-            backgroundColor: pageLayout.headerColor
+            foregroundColor: pageLayout.colorPalete["headerText"]
+            backgroundColor: pageLayout.colorPalete["headerBG"]
         }
 
         trailingActionBar {
@@ -86,6 +86,39 @@ Page {
         }
     }
 
+    function lastSearchPopulate() {
+        var modelData = Transport.transportOptions.dbConnection.getSearchHistory();
+        if(modelData.length > 0) {
+            var lastSearched = modelData[0];
+            var newSelectedTransport = Transport.transportOptions.selectTransportById(lastSearched.typeid);
+            if(newSelectedTransport) {
+                from.empty();
+                to.empty();
+                via.empty();
+
+                if(lastSearched.stopidfrom >= 0 && lastSearched.stopnamefrom) {
+                    GeneralFunctions.setStopData(from, lastSearched.stopidfrom, lastSearched.stopnamefrom, lastSearched.typeid);
+                }
+                if(lastSearched.stopidto >= 0 && lastSearched.stopnameto) {
+                    GeneralFunctions.setStopData(to, lastSearched.stopidto, lastSearched.stopnameto, lastSearched.typeid);
+                }
+                if(lastSearched.stopidvia >= 0 && lastSearched.stopnamevia) {
+                    GeneralFunctions.setStopData(via, lastSearched.stopidvia, lastSearched.stopnamevia, lastSearched.typeid);
+                    advancedSearchSwitch.checked = true;
+                }
+                else {
+                    advancedSearchSwitch.checked = false;
+                }
+            }
+            var langCode = Transport.langCode(true);
+            transportSelectorPage.selectedTransport = newSelectedTransport.getName(langCode);
+        }
+    }
+
+    Component.onCompleted: {
+        lastSearchPopulate();
+    }
+
     Rectangle {
         anchors.fill: parent
         color: pageLayout.baseColor
@@ -95,6 +128,7 @@ Page {
             anchors.fill: parent
             contentWidth: parent.width
             contentHeight: errorMessage.height + searchColumn.implicitHeight + 2*searchColumn.anchors.margins + (customDateSwitch.checked ? 0 : units.gu(20)) + units.gu(4)
+
             ErrorMessage {
                 id: errorMessage
             }
@@ -154,6 +188,7 @@ Page {
                     z: 10
 
                     property var searchFunction: searchPage.search
+                    property var errorMessageComponent: errorMessage
                 }
 
                 Button {
@@ -182,6 +217,7 @@ Page {
                     z: 9
 
                     property var searchFunction: searchPage.search
+                    property var errorMessageComponent: errorMessage.value
                 }
 
                 RowLayout {
@@ -210,6 +246,7 @@ Page {
                     visible: advancedSearchSwitch.checked
 
                     property var searchFunction: searchPage.search
+                    property var errorMessageComponent: errorMessage.value
                 }
 
                 RowLayout {

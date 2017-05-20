@@ -12,7 +12,7 @@ BottomEdge {
     hint.text: i18n.tr("Recent searches")
 
     Component.onCompleted: {
-        QuickUtils.mouseAttached = true
+        QuickUtils.mouseAttached = true;
     }
 
     contentComponent: Rectangle {
@@ -175,26 +175,18 @@ BottomEdge {
                             Layout.fillWidth: true
 
                             Text {
-                                text: i18n.tr("From") + ":"
+                                text: stopnamefrom
                                 font.pixelSize: FontUtils.sizeToPixels("normal")
+                                font.bold: true
                                 horizontalAlignment: Text.AlignLeft
                                 Layout.fillWidth: false
                                 wrapMode: Text.WordWrap
                             }
 
                             Text {
-                                text: stopnamefrom
+                                text: "→"
                                 font.pixelSize: FontUtils.sizeToPixels("normal")
-                                font.bold: true
-                                horizontalAlignment: Text.AlignLeft
-                                Layout.fillWidth: true
-                                wrapMode: Text.WordWrap
-                            }
-
-                            Text {
-                                text: i18n.tr("To") + ":"
-                                font.pixelSize: FontUtils.sizeToPixels("normal")
-                                horizontalAlignment: Text.AlignRight
+                                horizontalAlignment: Text.AlignHCenter
                                 Layout.fillWidth: true
                                 wrapMode: Text.WordWrap
                             }
@@ -225,35 +217,28 @@ BottomEdge {
                     onClicked: {
                         var newSelectedTransport = Transport.transportOptions.selectTransportById(typeid);
                         if(newSelectedTransport) {
+                            from.empty();
+                            to.empty();
+                            via.empty();
+
                             if(stopidfrom >= 0 && stopnamefrom) {
-                                setStopData(from, stopidfrom, stopnamefrom);
+                                GeneralFunctions.setStopData(from, stopidfrom, stopnamefrom, typeid);
                             }
                             if(stopidto >= 0 && stopnameto) {
-                                setStopData(to, stopidto, stopnameto);
+                                GeneralFunctions.setStopData(to, stopidto, stopnameto, typeid);
                             }
                             if(stopidvia >= 0 && stopnamevia) {
-                                setStopData(via, stopidvia, stopnamevia);
+                                GeneralFunctions.setStopData(via, stopidvia, stopnamevia, typeid);
+                                advancedSearchSwitch.checked = true;
+                            }
+                            else {
+                                advancedSearchSwitch.checked = false;
                             }
                         }
                         var langCode = Transport.langCode(true);
                         transportSelectorPage.selectedTransport = newSelectedTransport.getName(langCode);
 
                         bottomEdge.collapse();
-                    }
-
-                    function setStopData(stopSearch, stopidfrom, stopnamefrom) {
-                        stopSearch.setData({
-                            selectedStop: new Transport.Stop({
-                                item: {
-                                    item: stopidfrom,
-                                    name: stopnamefrom
-                            }
-                            }, {
-                                transportID: typeid,
-                                dbConnection: Transport.transportOptions.dbConnection
-                            }),
-                            value: stopnamefrom
-                        });
                     }
                 }
             }

@@ -16,14 +16,37 @@ Page {
         flickable: transportSelectorFlickable
 
         StyleHints {
-            foregroundColor: "#fff"
-            backgroundColor: pageLayout.headerColor
+            foregroundColor: pageLayout.colorPalete["headerText"]
+            backgroundColor: pageLayout.colorPalete["headerBG"]
+        }
+
+        trailingActionBar {
+            actions: [
+                Action {
+                    iconName: "reload"
+                    text: i18n.tr("Refresh transport options")
+                    onTriggered: {
+                        progressLine.state = "running";
+                        Transport.transportOptions.fetchServerTransports(function() {
+                            progressLine.state = "idle";
+                        });
+                    }
+                }
+           ]
         }
     }
 
     clip: true
 
     property var selectedTransport: null
+
+    ProgressLine {
+        id: progressLine
+        anchors {
+            top: pageHeader.bottom
+        }
+        z: 10
+    }
 
     Flickable {
         id: transportSelectorFlickable
@@ -203,7 +226,7 @@ Page {
 
                     ActivityIndicator {
                         anchors.centerIn: parent
-                        running: restListView.inProgress
+                        running: progressLine.state === "running"
                         z: 1
                     }
                 }
@@ -219,16 +242,14 @@ Page {
                 }
                 delegate: transportDelegate
 
-                property bool inProgress: false
-
                 Component.onCompleted: update()
 
                 function update() {
-                    var inProgress = this.inProgress;
-                    inProgress = true;
+                    progressLine.state = "running";
                     Transport.transportOptions.setTransportUpdateCallback(function(options) {
-                        inProgress = false;
+                        progressLine.state = "idle";
                         if(options) {
+                            restListModel.clear();
                             var langCode = Transport.langCode(true);
                             for(var i = 0; i < options.transports.length; i++) {
                                 var item = {};
@@ -243,7 +264,7 @@ Page {
                                 restListModel.append(item);
                             }
 
-                            transportSelectorPage.selectedTransport = options.getSelectedTransport().getName(langCode);
+                            //transportSelectorPage.selectedTransport = options.getSelectedTransport().getName(langCode);
                         }
                     });
 

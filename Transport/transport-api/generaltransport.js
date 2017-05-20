@@ -1,7 +1,6 @@
 "use strict";
 
 var GeneralTranport = function() {
-
 }
 
 GeneralTranport.appendUrlParameter = function(url, parameter) {
@@ -13,30 +12,62 @@ GeneralTranport.appendUrlParameter = function(url, parameter) {
     }
 }
 
+GeneralTranport.customXMLHttpRequest = function(data) {
+    data = data || {};
+    var component = Qt.createComponent("components/Api.qml");
+    var api = null;
+
+    var onLoaded = function() {
+        if(component.status === QML.Component.Ready) {
+            api = component.createObject(null, {
+                request: data.url,
+                callback: data.callback
+            });
+        }
+        else if (component.status === QML.Component.Error) {
+            console.log("Error loading Api.qml component:", component.errorString());
+        }
+    }
+
+    if(component.status === QML.Component.Ready) {
+        onLoaded();
+    }
+    else {
+        component.statusChanged.connect(onLoaded);
+    }
+
+    return api;
+}
+
 GeneralTranport.getContent = function(url, callback) {
     if(url && callback) {
         url = this.appendUrlParameter(url, "lang=" + langCode());
 
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-            if(request.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
-                //console.log(request.getAllResponseHeaders());
-			}
-            else if(request.readyState === XMLHttpRequest.DONE) {
-				if(request.status == 200) {
-                    callback(request.responseText, "SUCCESS");
+        var requestApi = this.customXMLHttpRequest({
+            url: url,
+            callback: function(data) {
+                data = data || {};
+                var response = data.response;
+                var statusCode = data.statusCode;
+
+                if(statusCode === 200) {
+                    callback({
+                        data: response,
+                        summary: "SUCCESS",
+                        status: statusCode
+                    });
                 }
                 else {
                     console.error("Fetching " + url + " failed.", "[status: " + request.status + "]");
-                    callback(false, "FAIL");
-				}
-			}
-		}
-
-        request.open("GET", encodeURI(url), true);
-        request.send();
-
-        return request;
+                    callback({
+                        data: null,
+                        summary: "FAIL",
+                        status: statusCode
+                    });
+                }
+            }
+        });
+        return requestApi;
     }
     return false;
 }

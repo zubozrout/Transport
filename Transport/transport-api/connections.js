@@ -77,8 +77,8 @@ Connections.prototype.search = function(params, callback) {
 
     var self = this;
     this.request = GeneralTranport.getContent(requestURL, function(response) {
-        if(response) {
-            if(self.parseResponse(GeneralTranport.stringToObj(response))) {
+        if(response && response.data) {
+            if(self.parseResponse(GeneralTranport.stringToObj(response.data))) {
                 if(callback) {
                     callback(self, "SUCCESS");
                 }
@@ -88,7 +88,7 @@ Connections.prototype.search = function(params, callback) {
             }
         }
         else {
-            callback(false, "FAIL");
+            callback(false, response.status === 0 ? "ABORT" : "FAIL");
         }
     });
 
@@ -143,8 +143,8 @@ Connections.prototype.getNext = function(backwards, callback) {
             var self = this;
             console.log(requestURL);
             this.request = GeneralTranport.getContent(requestURL, function(response) {
-                if(response) {
-                    if(self.parseConnInfo(GeneralTranport.stringToObj(response), backwards)) {
+                if(response && response.data) {
+                    if(self.parseConnInfo(GeneralTranport.stringToObj(response.data), backwards)) {
                         if(callback) {
                             callback(self, "SUCCESS");
                         }

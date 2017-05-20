@@ -32,8 +32,8 @@ Page {
         }
 
         StyleHints {
-            foregroundColor: "#fff"
-            backgroundColor: pageLayout.colorPalete.headerBG
+            foregroundColor: pageLayout.colorPalete["headerText"]
+            backgroundColor: pageLayout.colorPalete["headerBG"]
         }
     }
 

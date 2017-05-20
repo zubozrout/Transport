@@ -26,6 +26,47 @@ Component {
             }
             spacing: units.gu(1)
 
+            Rectangle {
+                id: positionIndicator
+                anchors.verticalCenter: parent.verticalCenter
+                width: units.gu(1.5)
+                height: width
+                color: pageLayout.colorPalete["headerBG"]
+                radius: width
+                opacity: 0
+
+                Timer {
+                    repeat: true
+                    interval: 5000
+                    triggeredOnStart: true
+                    running: visible
+                    onTriggered: {
+                        if(checkStationPassed()) {
+                            positionIndicator.opacity = 1;
+                        }
+                        else {
+                            positionIndicator.opacity = 0;
+                        }
+                    }
+
+                    function checkStationPassed() {
+                        var currentDate = new Date();
+                        if(arrTime) {
+                            if(new Date(arrTime) <= currentDate) {
+                                return true;
+                            }
+                            return false;
+                        }
+                        if(depTime) {
+                            if(new Date(depTime) <= currentDate) {
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                }
+            }
+
             Label {
                 text: station.name || ""
                 font.pixelSize: FontUtils.sizeToPixels("normal")

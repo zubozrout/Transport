@@ -41,25 +41,31 @@ TransportOptions.prototype.fetchDBTransports = function(transportOptions) {
     }
 }
 
-TransportOptions.prototype.fetchServerTransports = function() {
+TransportOptions.prototype.fetchServerTransports = function(callback) {
     var self = this;
     this.request = GeneralTranport.getContent("https://ext.crws.cz/api/", function(response) {
-        if(response) {
+        if(response && response.data) {
             if(self.dbConnection) {
-                self.dbConnection.saveDataJSON("transportOptions", response);
+                self.dbConnection.saveDataJSON("transportOptions", response.data);
             }
-            self.transportsData = GeneralTranport.stringToObj(response);
+            self.transportsData = GeneralTranport.stringToObj(response.data);
             self.parseAllTransports();
             self.selectIndex(self.transports.length - 1);
 
             if(self.callback) {
                 self.callback(self);
             }
+
+            if(callback) {
+                callback(self);
+            }
         }
     });
 }
 
 TransportOptions.prototype.parseAllTransports = function() {
+    this.transports.length = 0;
+
     for(var key in this.transportsData.data) {
         this.transports.push(new TransportOption({
              raw: this.transportsData.data[key],

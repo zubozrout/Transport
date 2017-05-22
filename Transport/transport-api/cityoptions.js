@@ -44,14 +44,14 @@ CityOptions.prototype.getStops = function(mask, call, failCall) {
         this.request = GeneralTranport.getContent("https://ext.crws.cz/api/" + this.id + "/timetableObjects/0?mask=" + mask + "&ttInfoDetails=ITEM&ttInfoDetails=COOR" + "&searchMode=" + this.searchMode + "&maxCount=" + this.limit, function(response) {
             if(response && response.data) {
                 self.parseStops(GeneralTranport.stringToObj(response.data));
-                call({
+                call(self, {
                     caller: self,
                     source: "REMOTE",
                     status: response.status
                 });
             }
             else {
-                failCall({
+                failCall(self, {
                     caller: self,
                     source: "REMOTE",
                     status: response.status

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-22 21:29+0000\n"
+"POT-Creation-Date: 2017-05-22 21:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,12 +23,12 @@ msgid "Station name"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:292
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:294
 msgid "Arrival"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:292
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:294
 msgid "Departure"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgid "Do you really want to delete this history entry?"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:205
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:238
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:240
 msgid "Via"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgid "About"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:89
-#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_desktop_GCC_amd64_ubuntu_sdk_16_04-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_device_i386_GCC_i386_ubuntu_sdk_15_04-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""
 
@@ -230,7 +230,7 @@ msgid "Transport Basic"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:35
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:300
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:302
 msgid "Search"
 msgstr ""
 
@@ -238,15 +238,15 @@ msgstr ""
 msgid "Search failed"
 msgstr ""
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:164
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:166
 msgid "Select transport method"
 msgstr ""
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:267
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:269
 msgid "Custom date"
 msgstr ""
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:300
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:302
 msgid "Abort search"
 msgstr ""
 

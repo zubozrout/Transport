@@ -76,6 +76,10 @@ MainView {
         ConnectionDetailPage {
             id: connectionDetailPage
         }
+
+        AboutPage {
+            id: aboutPage
+        }
     }
 }
 

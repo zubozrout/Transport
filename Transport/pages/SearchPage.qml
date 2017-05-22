@@ -24,6 +24,13 @@ Page {
         trailingActionBar {
             actions: [
                 Action {
+                    iconName: "help"
+                    text: i18n.tr("About")
+                    onTriggered: {
+                        pageLayout.addPageToNextColumn(searchPage, aboutPage);
+                    }
+                },
+                Action {
                     iconName: "search"
                     text: i18n.tr("Search")
                     onTriggered: {
@@ -92,9 +99,14 @@ Page {
             var lastSearched = modelData[0];
             var newSelectedTransport = Transport.transportOptions.selectTransportById(lastSearched.typeid);
             if(newSelectedTransport) {
+                /*
                 from.empty();
                 to.empty();
                 via.empty();
+                */
+
+                var langCode = Transport.langCode(true);
+                transportSelectorPage.selectedTransport = newSelectedTransport.getName(langCode);
 
                 if(lastSearched.stopidfrom >= 0 && lastSearched.stopnamefrom) {
                     GeneralFunctions.setStopData(from, lastSearched.stopidfrom, lastSearched.stopnamefrom, lastSearched.typeid);
@@ -110,8 +122,6 @@ Page {
                     advancedSearchSwitch.checked = false;
                 }
             }
-            var langCode = Transport.langCode(true);
-            transportSelectorPage.selectedTransport = newSelectedTransport.getName(langCode);
         }
     }
 

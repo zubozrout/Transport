@@ -11,7 +11,7 @@ Page {
     id: connectionsPage
     header: PageHeader {
         id: pageHeader
-        title: i18n.tr("Connections")
+        title: i18n.tr("Connections") + (connectionsPage.connections ? " (" + Transport.transportOptions.getSelectedTransport().getAllConnections().length + ")" : "")
         flickable: overlayDetail.visible ? overlayDetail.flickable : connectionsFlickable
 
         StyleHints {
@@ -76,7 +76,8 @@ Page {
                         console.log(currentConnectionIndex, newConnectionIndex, "all:", allConnections.length);
                     }
                 }
-           ]
+            ]
+            numberOfSlots: 4
         }
     }
 
@@ -107,59 +108,61 @@ Page {
     }
 
     function updateConnectionDetail() {
-        var allConnections = Transport.transportOptions.getSelectedTransport().getAllConnections();
-        if(allConnections.length > 0) {
-            var currentConnectionIndex = allConnections.indexOf(connections);
-            var currentConnection = allConnections[currentConnectionIndex];
+        if(Transport.transportOptions.getSelectedTransport()) {
+            var allConnections = Transport.transportOptions.getSelectedTransport().getAllConnections();
+            if(allConnections.length > 0) {
+                var currentConnectionIndex = allConnections.indexOf(connections);
+                var currentConnection = allConnections[currentConnectionIndex];
 
-            var from = "";
-            if(currentConnection.from) {
-                from = (currentConnection.from.getName());
-            }
-            var to = "";
-            if(currentConnection.to) {
-                to = (currentConnection.to.getName());
-            }
-            var via = "";
-            if(currentConnection.via) {
-                via = (currentConnection.via.getName());
-            }
-
-            var connectionTextDetail = function(connection) {
-                var arrOrDepTime = function(route) {
-                    return route.arrTime || route.depTime || null;
+                var from = "";
+                if(currentConnection.from) {
+                    from = (currentConnection.from.getName());
+                }
+                var to = "";
+                if(currentConnection.to) {
+                    to = (currentConnection.to.getName());
+                }
+                var via = "";
+                if(currentConnection.via) {
+                    via = (currentConnection.via.getName());
                 }
 
-                var routesList = "";
-                for(var i = 0; i < connection.trains.length; i++) {
-                    var trainData = connection.getTrain(i).trainData;
-                    routesList += "\t" + trainData.info.num1 + " (" + trainData.info.type + ")" + "\n";
-                    var stations = trainData.route;
-                    for(var j = 0; j < stations.length; j++) {
-                        routesList += "\t" + stations[j].station.name + " - " + arrOrDepTime(stations[j]) + "\n";
+                var connectionTextDetail = function(connection) {
+                    var arrOrDepTime = function(route) {
+                        return route.arrTime || route.depTime || null;
+                    }
+
+                    var routesList = "";
+                    for(var i = 0; i < connection.trains.length; i++) {
+                        var trainData = connection.getTrain(i).trainData;
+                        routesList += "\t" + trainData.info.num1 + " (" + trainData.info.type + ")" + "\n";
+                        var stations = trainData.route;
+                        for(var j = 0; j < stations.length; j++) {
+                            routesList += "\t" + stations[j].station.name + " - " + arrOrDepTime(stations[j]) + "\n";
+                        }
+                    }
+                    return routesList;
+                }
+
+                var connectionsList = "";
+                for(var i = 0; i < currentConnection.connections.length; i++) {
+                    connectionsList += ((i + 1) + ".") + connectionTextDetail(currentConnection.connections[i]);
+                    if(i + 1 < currentConnection.connections.length - 1) {
+                        connectionsList += "\n\n";
                     }
                 }
-                return routesList;
+
+                var finalText = i18n.tr("Journey start: ") + from + "\n\n";
+                finalText += i18n.tr("Journey end: ") + to + "\n\n";
+                finalText += (via ? i18n.tr("Selected transfer station: " + "\n\n") + via : "");
+                finalText += i18n.tr("Number of cached connection results: ") + currentConnection.connections.length + "\n\n" + connectionsList;
+
+                overlayDetail.overlayDetailData = {
+                    title: i18n.tr("Searched connections detail"),
+                    text: finalText
+                };
+                return true;
             }
-
-            var connectionsList = "";
-            for(var i = 0; i < currentConnection.connections.length; i++) {
-                connectionsList += ((i + 1) + ".") + connectionTextDetail(currentConnection.connections[i]);
-                if(i + 1 < currentConnection.connections.length - 1) {
-                    connectionsList += "\n\n";
-                }
-            }
-
-            var finalText = i18n.tr("Journey start: ") + from + "\n\n";
-            finalText += i18n.tr("Journey end: ") + to + "\n\n";
-            finalText += (via ? i18n.tr("Selected transfer station: " + "\n\n") + via : "");
-            finalText += i18n.tr("Number of cached connection results: ") + currentConnection.connections.length + "\n\n" + connectionsList;
-
-            overlayDetail.overlayDetailData = {
-                title: i18n.tr("Searched connections detail"),
-                text: finalText
-            };
-            return true;
         }
         return false;
     }

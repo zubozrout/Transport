@@ -217,9 +217,14 @@ BottomEdge {
                     onClicked: {
                         var newSelectedTransport = Transport.transportOptions.selectTransportById(typeid);
                         if(newSelectedTransport) {
+                            /*
                             from.empty();
                             to.empty();
                             via.empty();
+                            */
+
+                            var langCode = Transport.langCode(true);
+                            transportSelectorPage.selectedTransport = newSelectedTransport.getName(langCode);
 
                             if(stopidfrom >= 0 && stopnamefrom) {
                                 GeneralFunctions.setStopData(from, stopidfrom, stopnamefrom, typeid);
@@ -235,8 +240,6 @@ BottomEdge {
                                 advancedSearchSwitch.checked = false;
                             }
                         }
-                        var langCode = Transport.langCode(true);
-                        transportSelectorPage.selectedTransport = newSelectedTransport.getName(langCode);
 
                         bottomEdge.collapse();
                     }

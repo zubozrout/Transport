@@ -70,5 +70,6 @@ DISTFILES += \
     components/ErrorMessage.qml \
     components/RecentBottomEdge.qml \
     components/CallbackTimer.qml \
-    components/OverlayDetail.qml
+    components/OverlayDetail.qml \
+    pages/AboutPage.qml
 

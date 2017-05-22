@@ -108,12 +108,12 @@ Item {
                         optionsView.state = "visible";
                         cityOptions = transportOption.searchStations(search, function(data) {
                             var options = data.caller || null;
-                            if(options) {
+                            if(data) {
                                 if(data.source === "REMOTE") {
                                     itemActivity.running = false;
                                 }
 
-                                var fetchedStops = options.getInnerStops(search);
+                                var fetchedStops = cityOptions.getInnerStops(search);
                                 if(fetchedStops.length > 0) {
                                     optionsModel.clear()
                                     for(var i = 0; i < fetchedStops.length; i++) {

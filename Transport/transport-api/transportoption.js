@@ -189,13 +189,14 @@ TransportOption.prototype.checkIfConnectionExists = function(data) {
                 return false;
             }
             else if(stopA && !stopB || !stopA && stopB) {
-                console.log("false");
                 return false;
             }
             return true;
         }
         if(compareStop(data.from, connectionData.from) && compareStop(data.to, connectionData.to) && compareStop(data.via, connectionData.via)) {
-            return this.connections[i];
+            if(connectionData.departure === data.departure && connectionData.time === data.time && connectionData.change === data.change) {
+                return this.connections[i];
+            }
         }
     }
     return null;

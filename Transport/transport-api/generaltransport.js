@@ -33,7 +33,21 @@ GeneralTranport.customXMLHttpRequest = function(data) {
         onLoaded();
     }
     else {
-        component.statusChanged.connect(onLoaded);
+        console.log("Error loading Api.qml component. Reverting to classical XMLHttpRequest and no idos api key.");
+        api = new XMLHttpRequest();
+        api.onreadystatechange = function() {
+            if(api.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
+                //console.log(api.getAllResponseHeaders());
+            }
+            else if(api.readyState === XMLHttpRequest.DONE) {
+                data.callback({
+                    response: api.responseText,
+                    statusCode: api.status
+                });
+            }
+        }
+        api.open("GET", data.url, true);
+        api.send();
     }
 
     return api;
@@ -44,7 +58,7 @@ GeneralTranport.getContent = function(url, callback) {
         url = this.appendUrlParameter(url, "lang=" + langCode());
 
         var requestApi = this.customXMLHttpRequest({
-            url: url,
+            url: encodeURI(url),
             callback: function(data) {
                 data = data || {};
                 var response = data.response;
@@ -58,7 +72,7 @@ GeneralTranport.getContent = function(url, callback) {
                     });
                 }
                 else {
-                    console.error("Fetching " + url + " failed.", "[status: " + request.status + "]");
+                    console.error("Fetching " + url + " failed.", "[status: " + statusCode + "]");
                     callback({
                         data: null,
                         summary: "FAIL",

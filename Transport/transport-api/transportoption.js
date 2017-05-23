@@ -8,7 +8,13 @@ var TransportOption = function(data) {
 
     this.cityOptions = null;
     this.connections = [];
+
     return this;
+}
+
+TransportOption.prototype.isUsed = function() {
+    var allUsedConnectionTypes = this.dbConnection.getAllUsedTypesFromSavedStations();
+    return allUsedConnectionTypes.indexOf(this.id) > -1;
 }
 
 TransportOption.prototype.getName = function(locale) {

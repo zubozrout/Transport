@@ -65,7 +65,6 @@ TransportOptions.prototype.fetchServerTransports = function(callback) {
 
 TransportOptions.prototype.parseAllTransports = function() {
     this.transports.length = 0;
-
     for(var key in this.transportsData.data) {
         this.transports.push(new TransportOption({
              raw: this.transportsData.data[key],
@@ -83,12 +82,28 @@ TransportOptions.prototype.selectIndex = function(index) {
     return this;
 }
 
-TransportOptions.prototype.selectTransportById = function(id) {
+TransportOptions.prototype.getTransportIndexById = function(id) {
     for(var i = 0; i < this.transports.length; i++) {
         if(this.transports[i].id === id) {
-            this.selectIndex(i);
-            return this.getSelectedTransport();
+            return i;
         }
+    }
+    return false;
+}
+
+TransportOptions.prototype.getTransportById = function(id) {
+    var index = this.getTransportIndexById(id);
+    if(index !== false) {
+        return this.transports[index];
+    }
+    return false;
+}
+
+TransportOptions.prototype.selectTransportById = function(id) {
+    var transport = this.getTransportIndexById(id);
+    if(transport !== false) {
+        this.selectIndex(transport);
+        return this.getSelectedTransport();
     }
     return false;
 }

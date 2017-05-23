@@ -221,6 +221,23 @@ DBConnection.prototype.getStationByValue = function(key, value) {
     return false;
 }
 
+DBConnection.prototype.getAllUsedTypesFromSavedStations = function() {
+    if(this.db) {
+        var returnValue = [];
+        this.db.transaction(function(tx) {
+            var rs = tx.executeSql('SELECT DISTINCT key FROM stops');
+            var item = rs.rows;
+            for(var i = 0; i < rs.rows.length; i++) {
+                if(item.item(i).key) {
+                    returnValue.push(item.item(i).key);
+                }
+            }
+        });
+        return returnValue;
+    }
+    return false;
+}
+
 // Append new search to history
 DBConnection.prototype.appendSearchToHistory = function(search) {
     var success = false;

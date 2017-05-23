@@ -151,7 +151,7 @@ BottomEdge {
                             Text {
                                 text: {
                                     var langCode = Transport.langCode(true);
-                                    return Transport.transportOptions.selectTransportById(typeid).getName(langCode);
+                                    return Transport.transportOptions.getTransportById(typeid).getName(langCode);
                                 }
                                 font.pixelSize: FontUtils.sizeToPixels("small")
                                 font.bold: true

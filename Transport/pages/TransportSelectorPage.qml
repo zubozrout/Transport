@@ -52,11 +52,15 @@ Page {
         id: transportSelectorFlickable
         anchors.fill: parent
         contentWidth: parent.width
-        contentHeight: transportSelectorColumn.childrenRect.height
+        contentHeight: transportSelectorColumn.height
 
         Column {
             id: transportSelectorColumn
-            anchors.fill: parent
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            height: childrenRect.height
 
             Component {
                 id: transportDelegate
@@ -105,11 +109,24 @@ Page {
                             id: transportDelegateColumn
                             width: parent.width
 
-                            Label {
-                                text: nameExt
-                                width: parent.width
-                                font.pixelSize: FontUtils.sizeToPixels("normal")
-                                wrapMode: Text.WordWrap
+                            RowLayout {
+                                spacing: units.gu(2)
+
+                                Icon {
+                                    name: "favorite-selected"
+                                    width: visible ? units.gu(2) : 0
+                                    color: pageLayout.colorPalete["headerBG"]
+                                    visible: isUsed ? true : false
+                                }
+
+                                Label {
+                                    text: nameExt
+                                    font.pixelSize: FontUtils.sizeToPixels("normal")
+                                    color: isUsed ? pageLayout.colorPalete["baseAlternateText"] : pageLayout.colorPalete["baseText"]
+                                    wrapMode: Text.WordWrap
+
+                                    Layout.fillWidth: true
+                                }
                             }
 
                             Column {
@@ -207,6 +224,39 @@ Page {
             }
 
             ListItem {
+                visible: usedListModel.count > 0 && usedListModel.count !== restListModel.count
+
+                Rectangle {
+                    anchors {
+                        margins: units.gu(2)
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: parent.height
+                    color: "transparent"
+
+                    Label {
+                        text: i18n.tr("Used transport types") + " (" + usedListModel.count + ")"
+                        width: parent.width
+                        font.italic: true
+                        wrapMode: Text.WordWrap
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+            }
+
+            ListView {
+                id: usedListView
+                width: parent.width
+                height: childrenRect.height
+                interactive: false
+                model: ListModel {
+                    id: usedListModel
+                }
+                delegate: transportDelegate
+            }
+
+            ListItem {
                 Rectangle {
                     anchors {
                         margins: units.gu(2)
@@ -229,6 +279,26 @@ Page {
                         running: progressLine.state === "running"
                         z: 1
                     }
+
+                    Button {
+                        width: units.gu(4)
+                        anchors {
+                            right: parent.right
+                            verticalCenter: parent.verticalCenter
+                        }
+                        visible: usedListModel.count > 0
+                        color: "transparent"
+
+                        onClicked: {
+                            restListView.visible = !restListView.visible
+                        }
+
+                        Icon {
+                            anchors.fill: parent
+                            name: "search"
+                            color: pageLayout.baseTextColor
+                        }
+                    }
                 }
             }
 
@@ -242,16 +312,22 @@ Page {
                 }
                 delegate: transportDelegate
 
-                Component.onCompleted: update()
+                Component.onCompleted: {
+                    update();
+                    visible = usedListModel.count === 0;
+                }
 
                 function update() {
                     progressLine.state = "running";
                     Transport.transportOptions.setTransportUpdateCallback(function(options) {
                         progressLine.state = "idle";
                         if(options) {
+                            usedListModel.clear();
                             restListModel.clear();
                             var langCode = Transport.langCode(true);
                             for(var i = 0; i < options.transports.length; i++) {
+                                var transportUsed = options.transports[i].isUsed();
+
                                 var item = {};
                                 item.name = options.transports[i].getName(langCode);
                                 item.nameExt = options.transports[i].getNameExt(langCode);
@@ -261,7 +337,12 @@ Page {
                                 item.homeState = options.transports[i].getHomeState();
                                 item.ttValidFrom = options.transports[i].getTimetableInfo().ttValidFrom;
                                 item.ttValidTo = options.transports[i].getTimetableInfo().ttValidTo;
+                                item.isUsed = transportUsed;
                                 restListModel.append(item);
+
+                                if(transportUsed && options.transports.length > 10) {
+                                    usedListModel.append(item);
+                                }
                             }
 
                             //transportSelectorPage.selectedTransport = options.getSelectedTransport().getName(langCode);

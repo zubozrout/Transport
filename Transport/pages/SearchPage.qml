@@ -13,7 +13,7 @@ Page {
     id: searchPage
     header: PageHeader {
         id: pageHeader
-        title: i18n.tr("Transport Basic")
+        title: i18n.tr("Transport")
         flickable: searchFlickable
 
         StyleHints {
@@ -49,6 +49,7 @@ Page {
         var viaVal = advancedSearchSwitch.checked ? (via.selectedStop ? via.selectedStop : via.value) : "";
 
         var selectedTransport = Transport.transportOptions.getSelectedTransport();
+
         if(selectedTransport && fromVal && toVal) {
             selectedTransport.abortAll();
 

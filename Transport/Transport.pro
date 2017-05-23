@@ -16,7 +16,8 @@ ICON_FILES += $$files(icons/*.svg)
 IMAGE_FILES += $$files(images/*.svg)
 
 CONF_FILES +=  Transport.apparmor \
-               Transport.png
+               Transport.png \
+               Transport.svg
 
 AP_TEST_FILES += tests/autopilot/run \
                  $$files(tests/*.py,true)
@@ -71,5 +72,6 @@ DISTFILES += \
     components/RecentBottomEdge.qml \
     components/CallbackTimer.qml \
     components/OverlayDetail.qml \
-    pages/AboutPage.qml
+    pages/AboutPage.qml \
+    components/CustomDataList.qml
 

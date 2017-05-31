@@ -14,7 +14,7 @@ var TransportOptions = function(data) {
     return this;
 }
 
-TransportOptions.prototype.fetchTrasports = function(forceServer) {
+TransportOptions.prototype.fetchTrasports = function(forceServer, callback) {
     var transportOptions = null;
     if(this.dbConnection) {
         transportOptions = this.dbConnection.getDataJSON("transportOptions");
@@ -22,22 +22,26 @@ TransportOptions.prototype.fetchTrasports = function(forceServer) {
 
     var checkServer = forceServer || !transportOptions || GeneralTranport.dateOlderThan(new Date(transportOptions.date), new Date(), "week");
     if(checkServer) {
-        this.fetchServerTransports();
+        this.fetchServerTransports(callback);
     }
     else {
-        this.fetchDBTransports(transportOptions);
+        this.fetchDBTransports(transportOptions, callback);
     }
 
     return this;
 }
 
-TransportOptions.prototype.fetchDBTransports = function(transportOptions) {
+TransportOptions.prototype.fetchDBTransports = function(transportOptions, callback) {
     this.transportsData = GeneralTranport.stringToObj(transportOptions.value);
     this.parseAllTransports();
     this.selectIndex(this.transports.length - 1);
 
     if(this.callback) {
         this.callback(this);
+    }
+
+    if(callback) {
+        callback(self);
     }
 }
 
@@ -110,6 +114,10 @@ TransportOptions.prototype.selectTransportById = function(id) {
 
 TransportOptions.prototype.getSelectedIndex = function() {
     return this.selectedIndex;
+}
+
+TransportOptions.prototype.getSelectedId = function() {
+    return this.transports[this.getSelectedIndex()].getId();
 }
 
 TransportOptions.prototype.getSelectedTransport = function() {

@@ -4,7 +4,7 @@ import Ubuntu.Components 1.3
 Rectangle {
     id: overlayDetail
     anchors.fill: parent
-    color: "#fff"
+    color: pageLayout.colorPalete["baseBG"]
     visible: false
     clip: true
 
@@ -32,6 +32,7 @@ Rectangle {
                 top: parent.top
                 margins: units.gu(2)
             }
+            color: "transparent"
             height: overlayDetailColumn.height + 2 * anchors.margins
 
             Column {
@@ -46,16 +47,18 @@ Rectangle {
                     id: detailTitle
                     horizontalAlignment: Text.AlignHCenter
                     fontSize: "large"
+                    color: pageLayout.colorPalete["baseText"]
                 }
 
                 Rectangle {
                     width: parent.width
                     height: 1
-                    color: "#444"
+                    color: pageLayout.colorPalete["baseText"]
                 }
 
                 Label {
                     id: detailText
+                    color: pageLayout.colorPalete["baseText"]
                 }
             }
         }

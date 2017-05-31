@@ -5,4 +5,4 @@ Icon=Transport/Transport.svg
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true
-Name[cs]=Jízdní řády
+X-Ubuntu-Splash-Color=#00796b

@@ -86,7 +86,7 @@ Page {
                             connectionsPage.renderAllConnections(connection);
                             pageLayout.addPageToNextColumn(searchPage, connectionsPage);
 
-                            connectionsPage.enablePrevNextButtons(selectedTransport.getAllConnections());
+                            connectionsPage.enableHeaderButtons(selectedTransport.getAllConnections());
                         }
                     }
                 }
@@ -100,15 +100,6 @@ Page {
             var lastSearched = modelData[0];
             var newSelectedTransport = Transport.transportOptions.selectTransportById(lastSearched.typeid);
             if(newSelectedTransport) {
-                /*
-                from.empty();
-                to.empty();
-                via.empty();
-                */
-
-                var langCode = Transport.langCode(true);
-                transportSelectorPage.selectedTransport = newSelectedTransport.getName(langCode);
-
                 if(lastSearched.stopidfrom >= 0 && lastSearched.stopnamefrom) {
                     GeneralFunctions.setStopData(from, lastSearched.stopidfrom, lastSearched.stopnamefrom, lastSearched.typeid);
                 }
@@ -124,6 +115,11 @@ Page {
                 }
             }
         }
+    }
+
+    function setSelectedTransportLabelValue(data) {
+        transportOptionLabel.ok = data.ok || false;
+        transportOptionLabel.text = data.value || "";
     }
 
     Component.onCompleted: {
@@ -164,13 +160,15 @@ Page {
                         id: transportOptionLabel
                         width: parent.width - searchButton.width - parent.spacing
                         height: parent.height
-                        text: transportSelectorPage.selectedTransport || i18n.tr("Select transport method");
+                        text: ""
 
                         color: pageLayout.baseTextColor
                         font.pixelSize: FontUtils.sizeToPixels("normal")
                         font.bold: true
                         wrapMode: Text.WordWrap
                         verticalAlignment: Text.AlignVCenter
+
+                        property bool ok: false
 
                         onTextChanged: {
                             from.empty();
@@ -302,7 +300,7 @@ Page {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: itemActivity.running ? i18n.tr("Abort search") : i18n.tr("Search")
                         color: itemActivity.running ? UbuntuColors.red : "#fff"
-                        enabled: transportSelectorPage.selectedTransport && from.value && to.value
+                        enabled: transportOptionLabel.ok && from.value && to.value
                         z: 1
 
                         ActivityIndicator {

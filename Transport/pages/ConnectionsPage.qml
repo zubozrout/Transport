@@ -22,15 +22,10 @@ Page {
         trailingActionBar {
             actions: [
                 Action {
-                    iconName: "edit-copy"
-                    onTriggered: {
-                        Clipboard.push(overlayDetail.overlayDetailData.text);
-                    }
-                },
-                Action {
                     id: trailinginfo
                     iconName: "info"
                     text: i18n.tr("Info")
+                    visible: false
                     onTriggered: {
                         if(overlayDetail.visible) {
                             overlayDetail.visible = false;
@@ -98,7 +93,7 @@ Page {
                     else {
                         connectionsModel.clearAll();
                     }
-                    enablePrevNextButtons(allConnections);
+                    enableHeaderButtons(allConnections);
                 }
                 transport = currentTransport;
             }
@@ -129,35 +124,10 @@ Page {
                         via = (currentConnection.via.getName());
                     }
 
-                    var connectionTextDetail = function(connection) {
-                        var arrOrDepTime = function(route) {
-                            return route.arrTime || route.depTime || null;
-                        }
-
-                        var routesList = "";
-                        for(var i = 0; i < connection.trains.length; i++) {
-                            var trainData = connection.getTrain(i).trainData;
-                            routesList += "\t" + trainData.info.num1 + " (" + trainData.info.type + ")" + "\n";
-                            var stations = trainData.route;
-                            for(var j = 0; j < stations.length; j++) {
-                                routesList += "\t" + stations[j].station.name + " - " + arrOrDepTime(stations[j]) + "\n";
-                            }
-                        }
-                        return routesList;
-                    }
-
-                    var connectionsList = "";
-                    for(var i = 0; i < currentConnection.connections.length; i++) {
-                        connectionsList += ((i + 1) + ".") + connectionTextDetail(currentConnection.connections[i]);
-                        if(i + 1 < currentConnection.connections.length - 1) {
-                            connectionsList += "\n\n";
-                        }
-                    }
-
                     var finalText = i18n.tr("Journey start: ") + from + "\n\n";
                     finalText += i18n.tr("Journey end: ") + to + "\n\n";
                     finalText += (via ? i18n.tr("Selected transfer station: " + "\n\n") + via : "");
-                    finalText += i18n.tr("Number of cached connection results: ") + currentConnection.connections.length + "\n\n" + connectionsList;
+                    finalText += i18n.tr("Number of cached connection results: ") + currentConnection.connections.length;
 
                     overlayDetail.overlayDetailData = {
                         title: i18n.tr("Searched connections detail"),
@@ -170,7 +140,7 @@ Page {
         return false;
     }
 
-    function enablePrevNextButtons(connections) {
+    function enableHeaderButtons(connections) {
         if(connections.length > 1) {
             trailingNext.visible = true;
             trailingPrevious.visible = true;
@@ -178,6 +148,13 @@ Page {
         else {
             trailingNext.visible = false;
             trailingPrevious.visible = false;
+        }
+
+        if(connections.length > 0) {
+            trailinginfo.visible = true;
+        }
+        else {
+            trailinginfo.visible = false;
         }
     }
 

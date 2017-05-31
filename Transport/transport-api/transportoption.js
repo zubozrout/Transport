@@ -17,6 +17,10 @@ TransportOption.prototype.isUsed = function() {
     return allUsedConnectionTypes.indexOf(this.id) > -1;
 }
 
+TransportOption.prototype.getId = function(locale) {
+    return this.id;
+}
+
 TransportOption.prototype.getName = function(locale) {
     if(!this.name) {
         locale = locale || 0;

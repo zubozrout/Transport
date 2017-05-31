@@ -27,7 +27,7 @@ Page {
                     text: i18n.tr("Refresh transport options")
                     onTriggered: {
                         progressLine.state = "running";
-                        Transport.transportOptions.fetchServerTransports(function() {
+                        Transport.transportOptions.fetchTrasports(true, function() {
                             progressLine.state = "idle";
                         });
                     }
@@ -38,7 +38,21 @@ Page {
 
     clip: true
 
-    property var selectedTransport: null
+    function selectedIndexChange() {
+        var selectedTransport = Transport.transportOptions.getSelectedTransport();
+        if(selectedTransport) {
+            searchPage.setSelectedTransportLabelValue({
+                ok: true,
+                value: selectedTransport.getNameExt(Transport.langCode(true))
+            });
+        }
+        else {
+            searchPage.setSelectedTransportLabelValue({
+                ok: false,
+                value: i18n.tr("Select a transport method")
+            });
+        }
+    }
 
     ProgressLine {
         id: progressLine
@@ -72,7 +86,7 @@ Page {
                     divider.visible: true
 
                     onVisibleChanged: {
-                        this.color = Transport.transportOptions.getSelectedIndex() === index ? pageLayout.secondaryColor : "transparent";
+                        this.color = Transport.transportOptions.getSelectedId() === id ? pageLayout.secondaryColor : "transparent";
                     }
 
                     property var expanded: false
@@ -151,7 +165,7 @@ Page {
                                     text: title
                                     width: parent.width
                                     wrapMode: Text.WordWrap
-                                    visible: this.text != nameExt.text
+                                    visible: this.text !== nameExt.text
                                 }
 
                                 Label {
@@ -215,9 +229,9 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            Transport.transportOptions.selectIndex(index);
+                            Transport.transportOptions.selectTransportById(id);
+                            transportSelectorPage.selectedIndexChange();
                             pageLayout.removePages(transportSelectorPage);
-                            transportSelectorPage.selectedTransport = name;
                         }
                     }
                 }
@@ -329,6 +343,7 @@ Page {
                                 var transportUsed = options.transports[i].isUsed();
 
                                 var item = {};
+                                item.id = options.transports[i].getId();
                                 item.name = options.transports[i].getName(langCode);
                                 item.nameExt = options.transports[i].getNameExt(langCode);
                                 item.description = options.transports[i].getDescription(langCode);
@@ -344,9 +359,9 @@ Page {
                                     usedListModel.append(item);
                                 }
                             }
-
-                            //transportSelectorPage.selectedTransport = options.getSelectedTransport().getName(langCode);
                         }
+
+                        transportSelectorPage.selectedIndexChange();
                     });
 
                     Transport.transportOptions.fetchTrasports();

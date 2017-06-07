@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-07 15:50+0000\n"
+"POT-Creation-Date: 2017-06-07 16:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
@@ -119,7 +119,7 @@ msgstr "O Aplikaci Transport"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:47
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:17
-#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_device_i386_GCC_i386_ubuntu_sdk_15_04-Vydání/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_device_armhf_GCC_armhf_ubuntu_sdk_15_04-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 

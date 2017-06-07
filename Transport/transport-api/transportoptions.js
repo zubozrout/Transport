@@ -78,23 +78,36 @@ TransportOptions.prototype.parseAllTransports = function() {
         })
         this.transports.push(newTransportOption);
 
+
+
         var workingID = newTransportOption.getId();
-        var oldConnectionData = GeneralTranport.stringToObj(this.dbConnection.getDataJSON(this.transportOptionPrefix + workingID).value);
         var newConnectionData = this.transportsData.data[key];
-        if(oldConnectionData.ttValidFrom !== newConnectionData.ttValidFrom || oldConnectionData.ttValidTo !== newConnectionData.ttValidTo) {
-            this.dbConnection.saveDataJSON(this.transportOptionPrefix + workingID, JSON.stringify({
-                id: newConnectionData.id,
-                loaded: newConnectionData.loaded,
-                name: newConnectionData.name,
-                nameExt: newConnectionData.nameExt,
-                ttValidFrom: newConnectionData.ttValidFrom,
-                ttValidTo: newConnectionData.ttValidTo
-            }));
-            this.dbConnection.clearStationsForId(workingID);
+        var oldConnectionDataSource = this.dbConnection.getDataJSON(this.transportOptionPrefix + workingID);
+
+        if(oldConnectionDataSource) {
+            var oldConnectionData = GeneralTranport.stringToObj(oldConnectionDataSource.value);
+            if(oldConnectionData.ttValidFrom !== newConnectionData.ttValidFrom || oldConnectionData.ttValidTo !== newConnectionData.ttValidTo) {
+                this.saveNewConnectionInfo(workingID, newConnectionData);
+                this.dbConnection.clearStationsForId(workingID);
+            }
+        }
+        else {
+            this.saveNewConnectionInfo(workingID, newConnectionData);
         }
     }
 
     return this;
+}
+
+TransportOptions.prototype.saveNewConnectionInfo = function(id, newConnectionData) {
+    this.dbConnection.saveDataJSON(this.transportOptionPrefix + id, JSON.stringify({
+        id: newConnectionData.id,
+        loaded: newConnectionData.loaded,
+        name: newConnectionData.name,
+        nameExt: newConnectionData.nameExt,
+        ttValidFrom: newConnectionData.ttValidFrom,
+        ttValidTo: newConnectionData.ttValidTo
+    }));
 }
 
 TransportOptions.prototype.selectIndex = function(index) {

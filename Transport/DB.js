@@ -21,7 +21,8 @@ DBConnection.prototype.open = function() {
             if(this.db) {
                 if(!this.db.version || this.db.version !== this.version) {
                     console.log("Changing DB version:", this.db.version, this.version);
-                    this.db.changeVersion(this.db.version, this.version, this.dropTables);
+                    this.db.changeVersion(this.db.version, this.version);
+                    this.dropTables();
                 }
 
                 this.db.transaction(function(tx){

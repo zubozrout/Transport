@@ -233,11 +233,11 @@ Page {
                                 }
 
                                 Label {
-                                    text: homeState
+                                    text: typeof homeState !== typeof undefined ? homeState : ""
                                     width: parent.width
                                     font.bold: true
                                     wrapMode: Text.WordWrap
-                                    visible: this.text != ""
+                                    visible: this.text !== ""
                                 }
 
                                 GridLayout {

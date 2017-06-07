@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.1
+import Ubuntu.Components.Popups 1.0
 
 import "../components"
 
@@ -12,7 +13,7 @@ Page {
     header: PageHeader {
         id: pageHeader
         title: i18n.tr("Connections")
-        flickable: overlayDetail.visible ? overlayDetail.flickable : connectionsFlickable
+        flickable: connectionsFlickable
 
         StyleHints {
             foregroundColor: pageLayout.colorPalete["headerText"]
@@ -27,14 +28,7 @@ Page {
                     text: i18n.tr("Info")
                     visible: false
                     onTriggered: {
-                        if(overlayDetail.visible) {
-                            overlayDetail.visible = false;
-                        }
-                        else {
-                            if(updateConnectionDetail()) {
-                                overlayDetail.visible = true;
-                            }
-                        }
+                        PopupUtils.open(infoBox);
                     }
                 },
                 Action {
@@ -80,6 +74,7 @@ Page {
 
     property var connections: null
     property var transport: null
+    property string overviewText: ""
 
     onVisibleChanged: {
         if(visible) {
@@ -99,7 +94,6 @@ Page {
             }
 
             updateConnectionDetail();
-            overlayDetail.visible = false;
         }
     }
 
@@ -128,11 +122,8 @@ Page {
                     finalText += i18n.tr("Journey end: ") + to + "\n\n";
                     finalText += (via ? i18n.tr("Selected transfer station: " + "\n\n") + via : "");
                     finalText += i18n.tr("Number of cached connection results: ") + currentConnection.connections.length;
+                    this.overviewText = finalText;
 
-                    overlayDetail.overlayDetailData = {
-                        title: i18n.tr("Searched connections detail"),
-                        text: finalText
-                    };
                     return true;
                 }
             }
@@ -241,6 +232,20 @@ Page {
                     timeLength: connections[i].getTimeLength()
                 });
                 connectionsModel.childModel.push(connections[i]);
+            }
+        }
+    }
+
+    Component {
+        id: infoBox
+
+        Dialog {
+            id: infoBoxDialogue
+            title: i18n.tr("Connection overview info")
+            text: connectionsPage.overviewText
+            Button {
+                text: i18n.tr("Ok")
+                onClicked: PopupUtils.close(infoBoxDialogue)
             }
         }
     }
@@ -371,9 +376,5 @@ Page {
     Scrollbar {
         flickableItem: connectionsFlickable
         align: Qt.AlignTrailing
-    }
-
-    OverlayDetail {
-        id: overlayDetail
     }
 }

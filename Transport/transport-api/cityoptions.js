@@ -31,6 +31,7 @@ CityOptions.prototype.getStops = function(mask, call, failCall) {
             var response = {};
             response.item = {};
             response.item.item = transportOptions[i].item;
+            response.item.listId = transportOptions[i].listId;
             response.item.name = transportOptions[i].value;
             response.coorX = transportOptions[i].coorX;
             response.coorY = transportOptions[i].coorX;

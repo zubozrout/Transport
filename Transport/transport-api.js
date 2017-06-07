@@ -18,5 +18,5 @@ Qt.include(includeFolder + "connection.js");
 Qt.include(includeFolder + "connectiondetail.js");
 
 var transportOptions = new TransportOptions({
-    dbConnection: new DBConnection("0.1")
+    dbConnection: new DBConnection("0.2")
 });

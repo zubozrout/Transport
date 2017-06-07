@@ -16,12 +16,11 @@ DBConnection.prototype.open = function() {
     if(this.db === null) {
         try {
             var self = this;
-
             this.db = Sql.LocalStorage.openDatabaseSync(this.name, "", this.fullName, this.size);
 
             if(this.db) {
-                if(this.db.version && this.db.version !== this.version) {
-                    console.log(this.db.version, this.version);
+                if(!this.db.version || this.db.version !== this.version) {
+                    console.log("Changing DB version:", this.db.version, this.version);
                     this.db.changeVersion(this.db.version, this.version, this.dropTables);
                 }
 
@@ -40,13 +39,15 @@ DBConnection.prototype.open = function() {
 DBConnection.prototype.dropTables = function() {
     console.log("dropTables");
     var self = this;
-    this.db.transaction(function(tx){
-        tx.executeSql("DROP TABLE settings");
-        tx.executeSql("DROP TABLE datajson");
-        tx.executeSql("DROP TABLE stops");
-        tx.executeSql("DROP TABLE recent");
-        self.createTables();
-    });
+    if(this.db) {
+        this.db.transaction(function(tx){
+            tx.executeSql("DROP TABLE settings");
+            tx.executeSql("DROP TABLE datajson");
+            tx.executeSql("DROP TABLE stops");
+            tx.executeSql("DROP TABLE recent");
+            self.createTables();
+        });
+    }
 }
 
 DBConnection.prototype.createTables = function() {
@@ -56,7 +57,7 @@ DBConnection.prototype.createTables = function() {
             this.db.transaction(function(tx){
                 tx.executeSql("CREATE TABLE IF NOT EXISTS settings(key TEXT UNIQUE, value TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS datajson(key TEXT UNIQUE, date DATETIME DEFAULT CURRENT_TIMESTAMP, value TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS stops(ID INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT, item INTEGER, value TEXT, coorX REAL, coorY REAL, UNIQUE (key, item) ON CONFLICT REPLACE)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS stops(ID INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT, item INTEGER, listId INTEGER, value TEXT, coorX REAL, coorY REAL, UNIQUE (key, item) ON CONFLICT REPLACE)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS recent(ID INTEGER PRIMARY KEY AUTOINCREMENT, date DATETIME DEFAULT CURRENT_TIMESTAMP, typeid TEXT, stopidfrom INTEGER, stopidto INTEGER, stopidvia INTEGER, CONSTRAINT unq UNIQUE (typeid, stopidfrom, stopidto, stopidvia))");
             });
         } catch(err) {
@@ -151,12 +152,25 @@ DBConnection.prototype.clearStations = function() {
     }
 }
 
+DBConnection.prototype.clearStationsForId = function(transportId) {
+    console.log("Deleting stops for transport option with id: " + transportId);
+    if(this.db) {
+        try {
+            this.db.transaction(function(tx){
+                tx.executeSql("DELETE from stops where key=?", [transportId]);
+            });
+        } catch(err) {
+            console.log("Error deleting stops for " + transportId + ": " + err);
+        };
+    }
+}
+
 DBConnection.prototype.saveStation = function(key, data) {
     if(this.db) {
         data = data || {};
         if(data.value && data.item && data.coorX && data.coorY) {
             this.db.transaction(function(tx) {
-                tx.executeSql('INSERT OR REPLACE INTO stops(key, value, item, coorX, coorY) VALUES(?, ?, ?, ?, ?)', [key, data.value, data.item, data.coorX, data.coorY]);
+                tx.executeSql('INSERT OR REPLACE INTO stops(key, value, item, listId, coorX, coorY) VALUES(?, ?, ?, ?, ?, ?)', [key, data.value, data.item, data.listId, data.coorX, data.coorY]);
             });
         }
     }
@@ -169,7 +183,7 @@ DBConnection.prototype.getStationsByName = function(key, value) {
         var searchBaseString = GeneralTranport.baseString(value);
 
         this.db.transaction(function(tx) {
-            var rs = tx.executeSql("SELECT ID,key,value,item,coorX,coorY FROM stops WHERE key=? ORDER BY value ASC", [key]);
+            var rs = tx.executeSql("SELECT ID,key,value,item,listId,coorX,coorY FROM stops WHERE key=? ORDER BY value ASC", [key]);
             for(var i = 0; i < rs.rows.length; i++) {
                 if(typeof rs.rows.item(i) !== typeof undefined && rs.rows.item(i).value) {
                     if(startsWithMatches.length <= 10) {
@@ -178,6 +192,7 @@ DBConnection.prototype.getStationsByName = function(key, value) {
                             key: item.key,
                             value: item.value,
                             item: item.item,
+                            listId: item.listId,
                             coorX: item.coorX,
                             coorY: item.coorY
                         };
@@ -204,13 +219,14 @@ DBConnection.prototype.getStationByValue = function(key, value) {
     if(this.db) {
         var returnValue = null;
         this.db.transaction(function(tx) {
-            var rs = tx.executeSql('SELECT ID,key,value,item,coorX,coorY FROM stops WHERE key=? AND value=?', [key, value]);
+            var rs = tx.executeSql('SELECT ID,key,value,item,listId,coorX,coorY FROM stops WHERE key=? AND value=?', [key, value]);
             var item = rs.rows.item(0);
             if(item) {
                 returnValue = {
                     key: item.key,
                     value: item.value,
                     item: item.item,
+                    listId: item.listId,
                     coorX: item.coorX,
                     coorY: item.coorY
                 };

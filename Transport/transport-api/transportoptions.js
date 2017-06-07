@@ -10,6 +10,8 @@ var TransportOptions = function(data) {
     this.callback = data.callback || null;
     this.dbConnection = data.dbConnection || null;
 
+    this.transportOptionPrefix = "transportOption-";
+
     this.selectedIndex = -1;
     return this;
 }
@@ -70,10 +72,26 @@ TransportOptions.prototype.fetchServerTransports = function(callback) {
 TransportOptions.prototype.parseAllTransports = function() {
     this.transports.length = 0;
     for(var key in this.transportsData.data) {
-        this.transports.push(new TransportOption({
-             raw: this.transportsData.data[key],
-             dbConnection: this.dbConnection
-         }));
+        var newTransportOption = new TransportOption({
+            raw: this.transportsData.data[key],
+            dbConnection: this.dbConnection
+        })
+        this.transports.push(newTransportOption);
+
+        var workingID = newTransportOption.getId();
+        var oldConnectionData = GeneralTranport.stringToObj(this.dbConnection.getDataJSON(this.transportOptionPrefix + workingID).value);
+        var newConnectionData = this.transportsData.data[key];
+        if(oldConnectionData.ttValidFrom !== newConnectionData.ttValidFrom || oldConnectionData.ttValidTo !== newConnectionData.ttValidTo) {
+            this.dbConnection.saveDataJSON(this.transportOptionPrefix + workingID, JSON.stringify({
+                id: newConnectionData.id,
+                loaded: newConnectionData.loaded,
+                name: newConnectionData.name,
+                nameExt: newConnectionData.nameExt,
+                ttValidFrom: newConnectionData.ttValidFrom,
+                ttValidTo: newConnectionData.ttValidTo
+            }));
+            this.dbConnection.clearStationsForId(workingID);
+        }
     }
 
     return this;

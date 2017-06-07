@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.1
+import Ubuntu.Components.Popups 1.0
 
 import "../components"
 
@@ -99,6 +100,7 @@ Page {
         if(modelData.length > 0) {
             var lastSearched = modelData[0];
             var newSelectedTransport = Transport.transportOptions.selectTransportById(lastSearched.typeid);
+            transportSelectorPage.selectedIndexChange();
             if(newSelectedTransport) {
                 if(lastSearched.stopidfrom >= 0 && lastSearched.stopnamefrom) {
                     GeneralFunctions.setStopData(from, lastSearched.stopidfrom, lastSearched.stopnamefrom, lastSearched.typeid);

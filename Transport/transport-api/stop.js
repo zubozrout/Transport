@@ -54,6 +54,7 @@ Stop.prototype.saveToDB = function() {
         this.dbConnection.saveStation(this.transportID, {
             value: this.getName(),
             item: this.getItem(),
+            listId: this.getListId(),
             coorX: this.getCoor().coorX,
             coorY: this.getCoor().coorY
         });

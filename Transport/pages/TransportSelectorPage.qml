@@ -43,7 +43,7 @@ Page {
         if(selectedTransport) {
             searchPage.setSelectedTransportLabelValue({
                 ok: true,
-                value: selectedTransport.getNameExt(Transport.langCode(true))
+                value: selectedTransport.getName(Transport.langCode(true))
             });
         }
         else {
@@ -52,6 +52,42 @@ Page {
                 value: i18n.tr("Select a transport method")
             });
         }
+    }
+
+    function update() {
+        progressLine.state = "running";
+        Transport.transportOptions.setTransportUpdateCallback(function(options) {
+            progressLine.state = "idle";
+            if(options) {
+                usedListModel.clear();
+                restListModel.clear();
+                var langCode = Transport.langCode(true);
+                for(var i = 0; i < options.transports.length; i++) {
+                    var transportUsed = options.transports[i].isUsed();
+
+                    var item = {};
+                    item.id = options.transports[i].getId();
+                    item.name = options.transports[i].getName(langCode);
+                    item.nameExt = options.transports[i].getNameExt(langCode);
+                    item.description = options.transports[i].getDescription(langCode);
+                    item.title = options.transports[i].getTitle(langCode);
+                    item.city = options.transports[i].getCity(langCode);
+                    item.homeState = options.transports[i].getHomeState();
+                    item.ttValidFrom = options.transports[i].getTimetableInfo().ttValidFrom;
+                    item.ttValidTo = options.transports[i].getTimetableInfo().ttValidTo;
+                    item.isUsed = transportUsed;
+                    restListModel.append(item);
+
+                    if(transportUsed && options.transports.length > 10) {
+                        usedListModel.append(item);
+                    }
+                }
+            }
+
+            selectedIndexChange();
+        });
+
+        Transport.transportOptions.fetchTrasports();
     }
 
     ProgressLine {
@@ -104,8 +140,36 @@ Page {
                                         iconName = "view-expand";
                                     }
                                 }
+                            },
+                            Action {
+                                iconName: "delete"
+                                onTriggered: PopupUtils.open(confirmStationStopRemoval)
+                                visible: isUsed ? true : false
                             }
                         ]
+                    }
+
+                    Component {
+                        id: confirmStationStopRemoval
+
+                        Dialog {
+                            id: confirmStationStopRemovalDialogue
+                            title: i18n.tr("Attention")
+                            text: i18n.tr("Do you really want to delete all saved stops for %1 transport option?").arg((name ? name : ""))
+                            Button {
+                                text: i18n.tr("No")
+                                onClicked: PopupUtils.close(confirmStationStopRemovalDialogue)
+                            }
+                            Button {
+                                text: i18n.tr("Yes")
+                                color: UbuntuColors.red
+                                onClicked: {
+                                    Transport.transportOptions.dbConnection.clearStationsForId(id);
+                                    PopupUtils.close(confirmStationStopRemovalDialogue);
+                                    pageLayout.removePages(transportSelectorPage);
+                                }
+                            }
+                        }
                     }
 
                     Rectangle {
@@ -327,44 +391,8 @@ Page {
                 delegate: transportDelegate
 
                 Component.onCompleted: {
-                    update();
+                    transportSelectorPage.update();
                     visible = usedListModel.count === 0;
-                }
-
-                function update() {
-                    progressLine.state = "running";
-                    Transport.transportOptions.setTransportUpdateCallback(function(options) {
-                        progressLine.state = "idle";
-                        if(options) {
-                            usedListModel.clear();
-                            restListModel.clear();
-                            var langCode = Transport.langCode(true);
-                            for(var i = 0; i < options.transports.length; i++) {
-                                var transportUsed = options.transports[i].isUsed();
-
-                                var item = {};
-                                item.id = options.transports[i].getId();
-                                item.name = options.transports[i].getName(langCode);
-                                item.nameExt = options.transports[i].getNameExt(langCode);
-                                item.description = options.transports[i].getDescription(langCode);
-                                item.title = options.transports[i].getTitle(langCode);
-                                item.city = options.transports[i].getCity(langCode);
-                                item.homeState = options.transports[i].getHomeState();
-                                item.ttValidFrom = options.transports[i].getTimetableInfo().ttValidFrom;
-                                item.ttValidTo = options.transports[i].getTimetableInfo().ttValidTo;
-                                item.isUsed = transportUsed;
-                                restListModel.append(item);
-
-                                if(transportUsed && options.transports.length > 10) {
-                                    usedListModel.append(item);
-                                }
-                            }
-                        }
-
-                        transportSelectorPage.selectedIndexChange();
-                    });
-
-                    Transport.transportOptions.fetchTrasports();
                 }
             }
         }

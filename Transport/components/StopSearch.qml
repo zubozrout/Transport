@@ -32,6 +32,9 @@ Item {
         if(data.value) {
             textField.setTextWithNoSignal(data.value);
         }
+        else {
+            textField.setTextWithNoSignal("");
+        }
         if(typeof data.model !== typeof undefined && data.model.length > 0) {
             optionsModel.clear();
             for(var i = 0; i < data.model.length; i++) {

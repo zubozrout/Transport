@@ -28,7 +28,7 @@ Item {
             left: parent.left
             right: parent.right
         }
-        height: errorRow.height + 2*errorRow.anchors.margins + errorLineSeparator.height
+        height: errorRow.height + 2 * errorRow.anchors.margins + errorLineSeparator.height
         color: pageLayout.baseColor
 
         RowLayout {

@@ -73,5 +73,6 @@ DISTFILES += \
     components/CallbackTimer.qml \
     components/OverlayDetail.qml \
     pages/AboutPage.qml \
-    components/CustomDataList.qml
+    components/CustomDataList.qml \
+    pages/SettingsPage.qml
 

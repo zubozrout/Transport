@@ -26,10 +26,7 @@ Page {
                     iconName: "reload"
                     text: i18n.tr("Refresh transport options")
                     onTriggered: {
-                        progressLine.state = "running";
-                        Transport.transportOptions.fetchTrasports(true, function() {
-                            progressLine.state = "idle";
-                        });
+                        serverUpdate();
                     }
                 }
            ]
@@ -52,6 +49,13 @@ Page {
                 value: i18n.tr("Select a transport method")
             });
         }
+    }
+
+    function serverUpdate() {
+        progressLine.state = "running";
+        Transport.transportOptions.fetchTrasports(true, function() {
+            progressLine.state = "idle";
+        });
     }
 
     function update() {
@@ -96,6 +100,15 @@ Page {
             top: pageHeader.bottom
         }
         z: 10
+
+        onStateChanged: {
+            if(state === "running") {
+                searchPage.setProgressIndicatorRunning(true);
+            }
+            if(state === "idle") {
+                searchPage.setProgressIndicatorRunning(false);
+            }
+        }
     }
 
     Flickable {

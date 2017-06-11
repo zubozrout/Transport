@@ -56,6 +56,7 @@ GeneralTranport.customXMLHttpRequest = function(data) {
 GeneralTranport.getContent = function(url, callback) {
     if(url && callback) {
         url = this.appendUrlParameter(url, "lang=" + langCode());
+        url = this.appendUrlParameter(url, "userDesc=ubuntu");
 
         var requestApi = this.customXMLHttpRequest({
             url: encodeURI(url),

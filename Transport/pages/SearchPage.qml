@@ -22,15 +22,35 @@ Page {
             backgroundColor: pageLayout.colorPalete["headerBG"]
         }
 
-        trailingActionBar {
+        leadingActionBar {
             actions: [
+                Action {
+                    iconName: "search"
+                    text: i18n.tr("Search")
+                    onTriggered: {
+                        pageLayout.addPageToNextColumn(searchPage, connectionsPage);
+                    }
+                },
+                Action {
+                    iconName: "settings"
+                    text: i18n.tr("Settings")
+                    onTriggered: {
+                        pageLayout.addPageToNextColumn(searchPage, settingsPage);
+                    }
+                },
                 Action {
                     iconName: "help"
                     text: i18n.tr("About")
                     onTriggered: {
                         pageLayout.addPageToNextColumn(searchPage, aboutPage);
                     }
-                },
+                }
+            ]
+            numberOfSlots: 0
+        }
+
+        trailingActionBar {
+            actions: [
                 Action {
                     iconName: "search"
                     text: i18n.tr("Search")
@@ -71,9 +91,9 @@ Page {
                 time: dateTime
             });
 
-            itemActivity.running = true;
+            setProgressIndicatorRunning(true);
             connection.search({}, function(object, state) {
-                itemActivity.running = false;
+                setProgressIndicatorRunning(false);
                 if(state) {
                     errorMessage.value = "";
                     if(state === "ABORT") {
@@ -122,6 +142,15 @@ Page {
     function setSelectedTransportLabelValue(data) {
         transportOptionLabel.ok = data.ok || false;
         transportOptionLabel.text = data.value || "";
+    }
+
+    function setProgressIndicatorRunning(running) {
+        if(running === true) {
+            itemActivity.running = true;
+        }
+        else {
+            itemActivity.running = false;
+        }
     }
 
     Component.onCompleted: {

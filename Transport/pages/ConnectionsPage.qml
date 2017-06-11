@@ -118,10 +118,12 @@ Page {
                         via = (currentConnection.via.getName());
                     }
 
-                    var finalText = i18n.tr("Journey start: ") + from + "\n\n";
-                    finalText += i18n.tr("Journey end: ") + to + "\n\n";
-                    finalText += (via ? i18n.tr("Selected transfer station: " + "\n\n") + via : "");
-                    finalText += i18n.tr("Number of cached connection results: ") + currentConnection.connections.length;
+                    var connectionsLength = currentConnection.connections.length;
+
+                    var finalText = i18n.tr("Journey start: %1", from).arg(from) + "\n";
+                    finalText += i18n.tr("Journey end: %1", to).arg(to) + "\n";
+                    finalText += (via ? i18n.tr("Transfering at: %1", via).arg(via) : "");
+                    finalText += i18n.tr("Number of results: %1", connectionsLength).arg(connectionsLength) + "\n";
                     this.overviewText = finalText;
 
                     return true;

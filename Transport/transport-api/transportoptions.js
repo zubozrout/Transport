@@ -16,6 +16,25 @@ var TransportOptions = function(data) {
     return this;
 }
 
+TransportOptions.prototype.clearAll = function(database) {
+    console.log("Clearing app data...");
+    if(database === true) {
+        console.log("Dropping tables...");
+        this.dbConnection.dropTables();
+        console.log("Re-creating tables...");
+        this.dbConnection.createTables();
+    }
+
+    console.log("Clearing this instance cached data...");
+    this.transportsData = {};
+    this.transports = [];
+
+    if(this.callback) {
+        console.log("Calling update info callback...");
+        this.callback(this);
+    }
+}
+
 TransportOptions.prototype.fetchTrasports = function(forceServer, callback) {
     var transportOptions = null;
     if(this.dbConnection) {
@@ -34,6 +53,7 @@ TransportOptions.prototype.fetchTrasports = function(forceServer, callback) {
 }
 
 TransportOptions.prototype.fetchDBTransports = function(transportOptions, callback) {
+    console.log("Fetching local DB transport info ...");
     this.transportsData = GeneralTranport.stringToObj(transportOptions.value);
     this.parseAllTransports();
     this.selectIndex(this.transports.length - 1);
@@ -48,6 +68,7 @@ TransportOptions.prototype.fetchDBTransports = function(transportOptions, callba
 }
 
 TransportOptions.prototype.fetchServerTransports = function(callback) {
+    console.log("Fetching server-side (CHAPS s.r.o.) transport info ...");
     var self = this;
     this.request = GeneralTranport.getContent("https://ext.crws.cz/api/", function(response) {
         if(response && response.data) {
@@ -77,8 +98,6 @@ TransportOptions.prototype.parseAllTransports = function() {
             dbConnection: this.dbConnection
         })
         this.transports.push(newTransportOption);
-
-
 
         var workingID = newTransportOption.getId();
         var newConnectionData = this.transportsData.data[key];
@@ -148,7 +167,10 @@ TransportOptions.prototype.getSelectedIndex = function() {
 }
 
 TransportOptions.prototype.getSelectedId = function() {
-    return this.transports[this.getSelectedIndex()].getId();
+    if(this.transports.length > 0) {
+        return this.transports[this.getSelectedIndex()].getId();
+    }
+    return null;
 }
 
 TransportOptions.prototype.getSelectedTransport = function() {

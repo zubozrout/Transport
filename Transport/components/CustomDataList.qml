@@ -10,12 +10,29 @@ Item {
     }
     height: dataList.height
 
+    property var callbacks: [{}]
+
     function append(itemData) {
         dataListModel.append(itemData);
     }
 
+    function count() {
+        return dataListModel.count;
+    }
+
     function clear() {
         dataListModel.clear();
+    }
+
+    function setCallbackFor(n, callback) {
+        callbacks[n] = callback;
+    }
+
+    function hasCallback(n) {
+        if(typeof callbacks[n] === typeof function() {}) {
+            return callbacks[n];
+        }
+        return false;
     }
 
     Component {
@@ -57,12 +74,32 @@ Item {
 
                 Label {
                     id: label
-                    text: value
+                    text: typeof value !== typeof undefined ? value : ""
                     wrapMode: Text.WordWrap
-                    fontSize: fontScale ? fontScale : "normal"
-                    font.underline: url ? true : false
+                    fontSize: typeof fontScale !== typeof undefined ? fontScale : "normal"
+                    font.underline: typeof url !== typeof undefined ? true : false
+                    visible: value !== "" ? true : false
 
                     Layout.fillWidth: true
+                }
+
+                Button {
+                    id: button
+                    iconName: typeof buttonIcon !== typeof undefined ? buttonIcon : "add"
+                    color: "transparent"
+                    visible: customDataList.hasCallback(index) ? true : false
+
+                    Layout.minimumWidth: units.gu(4)
+                    Layout.maximumWidth: units.gu(4)
+                    Layout.preferredWidth: units.gu(4)
+                    Layout.fillWidth: false
+
+                    onClicked: {
+                        var callback = customDataList.hasCallback(index);
+                        if(callback) {
+                            callback();
+                        }
+                    }
                 }
             }
 
@@ -71,12 +108,14 @@ Item {
                 width: parent.width
                 height: 1
                 color: "#ddd"
+                visible: typeof bottomBorder !== typeof undefined && bottomBorder === true
             }
 
             MouseArea {
                 anchors.fill: parent
+                enabled: typeof url !== typeof undefined ? true : false
                 onClicked: {
-                    if(url) {
+                    if(typeof url !== typeof undefined) {
                         Qt.openUrlExternally(url);
                     }
                 }

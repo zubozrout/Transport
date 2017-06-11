@@ -80,6 +80,10 @@ MainView {
         AboutPage {
             id: aboutPage
         }
+
+        SettingsPage {
+            id: settingsPage
+        }
     }
 }
 

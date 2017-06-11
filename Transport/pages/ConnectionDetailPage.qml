@@ -81,7 +81,7 @@ Page {
                     left: parent.left
                     right: parent.right
                 }
-                height: dataBarRow.height + 2*dataBarRow.anchors.margins
+                height: dataBarRow.height + 2 * dataBarRow.anchors.margins
 
                 RowLayout {
                     id: dataBarRow

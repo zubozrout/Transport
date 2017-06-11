@@ -2,30 +2,30 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-11 19:33+0000\n"
+"POT-Creation-Date: 2017-06-11 19:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:77
 msgid "Station name"
-msgstr "Název stanice"
+msgstr "Nzev stanice"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:84
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:324
 msgid "Arrival"
-msgstr "Příjezd"
+msgstr "Pjezd"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:91
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:324
@@ -35,11 +35,11 @@ msgstr "Odjezd"
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:41
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:46
 msgid "Could not load connection detail"
-msgstr "Detail spojení nebylo možné načíst"
+msgstr "Detail spojen nebylo mon nast"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:276
 msgid "now"
-msgstr "nyní"
+msgstr "nyn"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:280
 #, qt-format
@@ -55,7 +55,7 @@ msgid "in %1 day"
 msgid_plural "in %1 days"
 msgstr[0] "za %1 den"
 msgstr[1] "za %1 dny"
-msgstr[2] "za %1 dní"
+msgstr[2] "za %1 dn"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionsDelegate.qml:304
 msgid "departed"
@@ -63,16 +63,16 @@ msgstr "odjelo"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/DatePicker.qml:55
 msgid "Selected date:"
-msgstr "Zvolené datum:"
+msgstr "Zvolen datum:"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:12
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:25
 msgid "Recent searches"
-msgstr "Nedávná hledání"
+msgstr "Nedvn hledn"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:31
 msgid "Delete all searches"
-msgstr "Vymazat všechna hledání"
+msgstr "Vymazat vechna hledn"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:50
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:81
@@ -82,7 +82,7 @@ msgstr "Pozor"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:51
 msgid "Do you really want to delete the whole search history?"
-msgstr "Skutečně chcete smazat celou historii vyhledávání?"
+msgstr "Skuten chcete smazat celou historii vyhledvn?"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:53
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:84
@@ -98,20 +98,20 @@ msgstr "Ano"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:82
 msgid "Do you really want to delete this history entry?"
-msgstr "Skutečně chcete smazat tuto položku vyhledávání?"
+msgstr "Skuten chcete smazat tuto poloku vyhledvn?"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:205
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:270
 msgid "Via"
-msgstr "Přes"
+msgstr "Pes"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/StopSearch.qml:67
 msgid "station name"
-msgstr "název stanice"
+msgstr "nzev stanice"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/StopSearch.qml:140
 msgid "Remote station search failed"
-msgstr "Vyhledávání stanice skončilo chybou"
+msgstr "Vyhledvn stanice skonilo chybou"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:9
 msgid "About Transport App"
@@ -119,7 +119,7 @@ msgstr "O Aplikaci Transport"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:47
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:17
-#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_builder_i386_GCC_i386_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_desktop_GCC_amd64_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr "Transport"
 
@@ -128,54 +128,52 @@ msgid ""
 "Transport is here to allow you searching for Czech and Slovak public "
 "transport connections."
 msgstr ""
-"Transport je zde k tomu aby Vám umožnil vyhledávat česká a slovenská spojení"
-" veřejné dopravy."
+"Transport je zde k tomu aby Vm umonil vyhledvat esk a slovensk spojen veejn "
+"dopravy."
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:49
+msgid "This application is based upon an API provided by CHAPS s.r.o. company."
+msgstr "Tato aplikace vyuv API poskytnut spolenost CHAPS s.r.o."
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:49
 msgid ""
-"This application is based upon an API provided by CHAPS s.r.o. company."
-msgstr "Tato aplikace využívá API poskytnuté společností CHAPS s.r.o."
-
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:49
-msgid ""
-"You can find the documentation of the API service here "
-"http://docs.crws.apiary.io/"
+"You can find the documentation of the API service here http://docs.crws."
+"apiary.io/"
 msgstr ""
-"Dokumentaci k využívané API můžete najít na adrese "
-"http://docs.crws.apiary.io/"
+"Dokumentaci k vyuvan API mete najt na adrese http://docs.crws.apiary.io/"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:50
 msgid ""
 "Feel free to report bugs on the github page but please note many of the "
-"existing bugs are know and the reason why they are not fixed yet is the fact"
-" I don't have enough time to take care of those just yet."
+"existing bugs are know and the reason why they are not fixed yet is the fact "
+"I don't have enough time to take care of those just yet."
 msgstr ""
-"Chyby nahlašujte na stránce projektu na GitHubu. Mějte však na paměti, že o "
-"mnoha chybách autor aplikace ví a pouze se k nim neměl čas zatím dostat."
+"Chyby nahlaujte na strnce projektu na GitHubu. Mjte vak na pamti, e o mnoha "
+"chybch autor aplikace v a pouze se k nim neml as zatm dostat."
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:51
 msgid "Check out project's GitHub page"
-msgstr "Podívejte se na stránku projektu na GitHubu"
+msgstr "Podvejte se na strnku projektu na GitHubu"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:14
 msgid "Connection detail"
-msgstr "Detail spojení"
+msgstr "Detail spojen"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:25
 msgid "Only passed stations"
-msgstr "Jen projížděné stanice"
+msgstr "Jen projdn stanice"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:25
 msgid "All stations"
-msgstr "Všechny stanice"
+msgstr "Vechny stanice"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:102
 msgid "Distance"
-msgstr "Vzdálenost"
+msgstr "Vzdlenost"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:125
 msgid "Time length"
-msgstr "Délka jízdy"
+msgstr "Dlka jzdy"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionDetailPage.qml:148
 msgid "Price"
@@ -183,7 +181,7 @@ msgstr "Cena"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:15
 msgid "Connections"
-msgstr "Spojení"
+msgstr "Spojen"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:28
 msgid "Info"
@@ -191,16 +189,16 @@ msgstr "Informace"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:37
 msgid "Next"
-msgstr "Další"
+msgstr "Dal"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:54
 msgid "Previous"
-msgstr "Předchozí"
+msgstr "Pedchoz"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:123
 #, qt-format
 msgid "Journey start: %1"
-msgstr "Začátek trasy: %1"
+msgstr "Zatek trasy: %1"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:124
 #, qt-format
@@ -210,32 +208,32 @@ msgstr "Konec trasy: %1"
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:125
 #, qt-format
 msgid "Transfering at: %1"
-msgstr "Přestup ve stanici: %1"
+msgstr "Pestup ve stanici: %1"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:126
 #, qt-format
 msgid "Number of results: %1"
-msgstr "Počet výsledků: %1"
+msgstr "Poet vsledk: %1"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:162
 msgid "Loading following connections timed out"
-msgstr "Načítání dalších spojení vypršelo"
+msgstr "Natn dalch spojen vyprelo"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:171
 msgid "Loading following connections failed"
-msgstr "Načítání dalších spojení se nepovedlo"
+msgstr "Natn dalch spojen se nepovedlo"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:187
 msgid "Loading previous connections timed out"
-msgstr "Načítání předchozích spojení vypršelo"
+msgstr "Natn pedchozch spojen vyprelo"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:214
 msgid "Loading previous connections failed"
-msgstr "Načítání předchozích spojení se nepovedlo"
+msgstr "Natn pedchozch spojen se nepovedlo"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:246
 msgid "Connection overview info"
-msgstr "Přehled vyhledaných spojení"
+msgstr "Pehled vyhledanch spojen"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:249
 msgid "Ok"
@@ -243,7 +241,7 @@ msgstr "Ok"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/ConnectionsPage.qml:292
 msgid "Keep pulled to load more"
-msgstr "Podržte pro načtení dalších výsledků"
+msgstr "Podrte pro naten dalch vsledk"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:29
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:56
@@ -254,7 +252,7 @@ msgstr "Hledat"
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:36
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:12
 msgid "Settings"
-msgstr "Nastavení"
+msgstr "Nastaven"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:43
 msgid "About"
@@ -262,27 +260,27 @@ msgstr "O aplikaci"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:102
 msgid "Search failed"
-msgstr "Vyhledávání se nepovedlo"
+msgstr "Vyhledvn se nepovedlo"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:299
 msgid "Custom date"
-msgstr "Vlastní datum"
+msgstr "Vlastn datum"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:332
 msgid "Abort search"
-msgstr "Přerušit vyhledávání"
+msgstr "Peruit vyhledvn"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:51
 msgid "Clear cache"
-msgstr "Vymazat mezipaměť"
+msgstr "Vymazat mezipam"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:61
 msgid ""
 "By pressing this button you'll delete all saved data including search "
 "history, cached stations and respective transport option settings."
 msgstr ""
-"Zmáčknutím tohoto tlačítka smažete všechna uložená data včetně historie "
-"vyhledávání, uložených stanic a příslušných dopravců."
+"Zmknutm tohoto tlatka smaete vechna uloen data vetn historie vyhledvn, "
+"uloench stanic a pslunch dopravc."
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:67
 msgid "Refresh data"
@@ -290,7 +288,7 @@ msgstr "Obnovit data"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:77
 msgid "Renew all Transport options data"
-msgstr "Obnovit data o všech dopravcích."
+msgstr "Obnovit data o vech dopravcch."
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:15
 msgid "Select a transport option"
@@ -298,7 +296,7 @@ msgstr "Vyberte dopravce"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:27
 msgid "Refresh transport options"
-msgstr "Znova načíst dopravce"
+msgstr "Znova nast dopravce"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:49
 msgid "Select a transport method"
@@ -307,11 +305,11 @@ msgstr "Zvolte si dopravce"
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:171
 #, qt-format
 msgid "Do you really want to delete all saved stops for %1 transport option?"
-msgstr "Skutečně chcete smazat všechny uložené stanice pro dopravce %1?"
+msgstr "Skuten chcete smazat vechny uloen stanice pro dopravce %1?"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:261
 msgid "City:"
-msgstr "Město:"
+msgstr "Msto:"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:275
 msgid "Valid from:"
@@ -319,12 +317,12 @@ msgstr "Platnost od:"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:289
 msgid "Expires:"
-msgstr "Vyprší:"
+msgstr "Vypr:"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:330
 msgid "Used transport types"
-msgstr "Využívaní dopravci"
+msgstr "Vyuvan dopravci"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:361
 msgid "All transport types"
-msgstr "Všichni dopravci"
+msgstr "Vichni dopravci"

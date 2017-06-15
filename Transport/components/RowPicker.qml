@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
+import Ubuntu.Components 1.3
 
 Item {
     id: rowPicker
@@ -93,6 +94,7 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
+                    Haptics.play();
                     var callback = rowPicker.hasCallback(index);
                     if(callback) {
                         callback(index);

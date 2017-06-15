@@ -1,4 +1,5 @@
 import QtQuick 2.4
+import Ubuntu.Components 1.3
 
 Rectangle {
     id: rectangleButton
@@ -41,9 +42,13 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            if(rectangleButton.enabled && typeof rectangleButton.callback !== typeof undefined) {
-                if(rectangleButton.callback) {
-                    rectangleButton.callback();
+            if(rectangleButton.enabled) {
+                Haptics.play();
+
+                if(typeof rectangleButton.callback !== typeof undefined) {
+                    if(rectangleButton.callback) {
+                        rectangleButton.callback();
+                    }
                 }
             }
         }

@@ -330,12 +330,18 @@ Page {
                     }
                 }
 
+                Rectangle {
+                    width: parent.width
+                    height: 1
+                    color: "#ddd"
+                }
+
                 RectangleButton {
                     id: rectangleButton
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: itemActivity.running ? i18n.tr("Abort search") : i18n.tr("Search")
                     enabled: transportOptionLabel.ok && from.value && to.value
-                    color: active ? pageLayout.colorPalete["headerBG"] : "#ddd";
+                    color: active ? pageLayout.colorPalete["headerBG"] : "#ddd"
                     z: 1
 
                     ActivityIndicator {

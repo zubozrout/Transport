@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-15 23:06+0000\n"
+"POT-Creation-Date: 2017-06-15 23:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
@@ -252,7 +252,7 @@ msgstr "Podržte pro načtení dalších výsledků"
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:29
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:56
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:336
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:342
 msgid "Search"
 msgstr "Hledat"
 
@@ -273,7 +273,7 @@ msgstr "Vyhledávání se nepovedlo"
 msgid "Custom date"
 msgstr "Vlastní datum"
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:336
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:342
 msgid "Abort search"
 msgstr "Přerušit vyhledávání"
 

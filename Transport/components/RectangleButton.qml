@@ -13,10 +13,11 @@ Rectangle {
     property var textColor: "#333"
     property var callback: null
 
-    function updateSizes() {
-        var buttonWidthWithPadding = buttonText.contentWidth * (5/3);
-        var buttonHeightWithPadding = 2 * buttonText.contentHeight;
+    property var horizontalMargins: units.gu(3)
 
+    function updateSizes() {
+        var buttonWidthWithPadding = buttonText.contentWidth + 2 * horizontalMargins;
+        var buttonHeightWithPadding = 2 * buttonText.contentHeight;
         width = parent.width > buttonWidthWithPadding ? buttonWidthWithPadding : parent.width;
         height = buttonHeightWithPadding;
     }

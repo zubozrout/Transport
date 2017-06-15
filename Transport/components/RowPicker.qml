@@ -126,6 +126,7 @@ Item {
                     right: parent.right
                 }
                 height: titleText.contentHeight * 2
+                visible: titleText.text !== ""
 
                 Text {
                     id: titleText
@@ -134,7 +135,6 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     font.pointSize: units.gu(1.75)
                     text: ""
-                    visible: text !== ""
                 }
             }
 

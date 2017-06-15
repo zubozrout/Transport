@@ -8,13 +8,13 @@ var Stop = function(data, parentData) {
     else {
         this.basic = false;
         this.data = data || {};
+        this.id = this.data.id || -1;
         this.data.item = this.data.item || {};
     }
 
     this.parentData = parentData || {};
     this.transportID = this.parentData.transportID || null;
     this.dbConnection = this.parentData.dbConnection || null;
-
     return this;
 }
 
@@ -39,6 +39,14 @@ Stop.prototype.getItem = function() {
     return null;
 }
 
+Stop.prototype.setItem = function(item) {
+    if(!this.basic) {
+        this.data.item.item = item;
+        return true;
+    }
+    return false;
+}
+
 Stop.prototype.getCoor = function() {
     if(!this.basic) {
         return {
@@ -51,7 +59,7 @@ Stop.prototype.getCoor = function() {
 
 Stop.prototype.saveToDB = function() {
     if(!this.basic && this.transportID && this.dbConnection) {
-        this.dbConnection.saveStation(this.transportID, {
+        return this.dbConnection.saveStation(this.transportID, {
             value: this.getName(),
             item: this.getItem(),
             listId: this.getListId(),
@@ -59,4 +67,5 @@ Stop.prototype.saveToDB = function() {
             coorY: this.getCoor().coorY
         });
     }
+    return false;
 }

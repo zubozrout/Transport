@@ -125,6 +125,8 @@ GeneralTranport.dateOlderThan = function(oldDate, newDate, difference) {
             case "day":
                 var day = hour * 24;
                 return newDate - oldDate > day;
+            case "everytime":
+                return true;
             default:
                 return newDate - oldDate > hour;
         }

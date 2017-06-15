@@ -55,6 +55,7 @@ Page {
 
                     customDataList.setCallbackFor(customDataList.count(), function() {
                         Transport.transportOptions.clearAll(true);
+                        rowPicker.update(function(model) { rowPicker.render(model) });
                     });
 
                     customDataList.append({
@@ -71,6 +72,7 @@ Page {
 
                     customDataList.setCallbackFor(customDataList.count(), function() {
                         transportSelectorPage.serverUpdate();
+                        rowPicker.update(function(model) { rowPicker.render(model) });
                     });
 
                     customDataList.append({
@@ -78,6 +80,26 @@ Page {
                         buttonIcon: "reload",
                         bottomBorder: true
                     });
+                }
+
+                RowPicker {
+                    id: rowPicker
+
+                    property var render: function(model) {
+                        clear();
+
+                        var options = [i18n.tr("Weekly"), i18n.tr("Daily"), i18n.tr("Everytime")];
+                        var index = Transport.transportOptions.getDBSetting("check-frequency") || 0;
+
+                        initialize(options, index, function(itemIndex) {
+                            Transport.transportOptions.saveDBSetting("check-frequency", itemIndex);
+                        });
+                    }
+
+                    Component.onCompleted: {
+                        setTite( i18n.tr("How often would you like the transport options data to be refreshed?"));
+                        rowPicker.update(function(model) { rowPicker.render(model) });
+                    }
                 }
             }
         }

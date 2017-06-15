@@ -41,7 +41,20 @@ TransportOptions.prototype.fetchTrasports = function(forceServer, callback) {
         transportOptions = this.dbConnection.getDataJSON("transportOptions");
     }
 
-    var checkServer = forceServer || !transportOptions || GeneralTranport.dateOlderThan(new Date(transportOptions.date), new Date(), "week");
+    var checkFrequencyNumber = Number(this.getDBSetting("check-frequency"));
+    var checkFrequency = "week";
+    switch(checkFrequencyNumber) {
+        case 2:
+            checkFrequency = "everytime";
+            break;
+        case 1:
+            checkFrequency = "day";
+            break;
+        default:
+            checkFrequency = "week";
+    }
+
+    var checkServer = forceServer || !transportOptions || GeneralTranport.dateOlderThan(new Date(transportOptions.date), new Date(), checkFrequency);
     if(checkServer) {
         this.fetchServerTransports(callback);
     }
@@ -107,7 +120,6 @@ TransportOptions.prototype.parseAllTransports = function() {
             var oldConnectionData = GeneralTranport.stringToObj(oldConnectionDataSource.value);
             if(oldConnectionData.ttValidFrom !== newConnectionData.ttValidFrom || oldConnectionData.ttValidTo !== newConnectionData.ttValidTo) {
                 this.saveNewConnectionInfo(workingID, newConnectionData);
-                this.dbConnection.clearStationsForId(workingID);
             }
         }
         else {
@@ -191,3 +203,12 @@ TransportOptions.prototype.abort = function() {
     }
 }
 
+// Database Settings manipulation
+TransportOptions.prototype.getDBSetting = function(key) {
+    return this.dbConnection.getSetting(key);
+}
+
+TransportOptions.prototype.saveDBSetting = function(key, value) {
+    console.log("Saving setting to DB", key, value);
+    return this.dbConnection.saveSetting(key, value);
+}

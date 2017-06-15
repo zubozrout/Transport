@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-11 19:48+0000\n"
+"POT-Creation-Date: 2017-06-15 21:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,6 +59,24 @@ msgstr[1] ""
 msgid "departed"
 msgstr ""
 
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/CustomDataList.qml:51
+msgid "Do you really want to proceed with this action?"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/CustomDataList.qml:54
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:53
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:84
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:173
+msgid "No"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/CustomDataList.qml:58
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:57
+#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:88
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:177
+msgid "Yes"
+msgstr ""
+
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/DatePicker.qml:55
 msgid "Selected date:"
 msgstr ""
@@ -80,18 +98,6 @@ msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:51
 msgid "Do you really want to delete the whole search history?"
-msgstr ""
-
-#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:53
-#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:84
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:173
-msgid "No"
-msgstr ""
-
-#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:57
-#: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:88
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:177
-msgid "Yes"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/RecentBottomEdge.qml:82
@@ -117,7 +123,7 @@ msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:47
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:17
-#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_desktop_GCC_amd64_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_builder_i386_GCC_i386_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""
 
@@ -238,7 +244,7 @@ msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:29
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:56
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:332
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:340
 msgid "Search"
 msgstr ""
 
@@ -259,7 +265,7 @@ msgstr ""
 msgid "Custom date"
 msgstr ""
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:332
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:340
 msgid "Abort search"
 msgstr ""
 
@@ -267,18 +273,34 @@ msgstr ""
 msgid "Clear cache"
 msgstr ""
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:61
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:62
 msgid ""
 "By pressing this button you'll delete all saved data including search "
 "history, cached stations and respective transport option settings."
 msgstr ""
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:67
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:68
 msgid "Refresh data"
 msgstr ""
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:77
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:79
 msgid "Renew all Transport options data"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:91
+msgid "Weekly"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:91
+msgid "Daily"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:91
+msgid "Everytime"
+msgstr ""
+
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SettingsPage.qml:100
+msgid "How often would you like the transport options data to be refreshed?"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/TransportSelectorPage.qml:15

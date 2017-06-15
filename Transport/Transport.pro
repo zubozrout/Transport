@@ -74,5 +74,7 @@ DISTFILES += \
     components/OverlayDetail.qml \
     pages/AboutPage.qml \
     components/CustomDataList.qml \
-    pages/SettingsPage.qml
+    pages/SettingsPage.qml \
+    components/RowPicker.qml \
+    components/RectangleButton.qml
 

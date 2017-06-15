@@ -34,8 +34,8 @@ CityOptions.prototype.getStops = function(mask, call, failCall) {
             response.item.listId = transportOptions[i].listId;
             response.item.name = transportOptions[i].value;
             response.coorX = transportOptions[i].coorX;
-            response.coorY = transportOptions[i].coorX;
-            this.parseStop(response);
+            response.coorY = transportOptions[i].coorY;
+            this.parseStop(response, false);
         }
         call(this, "DB");
     }
@@ -44,7 +44,7 @@ CityOptions.prototype.getStops = function(mask, call, failCall) {
         var self = this;
         this.request = GeneralTranport.getContent("https://ext.crws.cz/api/" + this.id + "/timetableObjects/0?mask=" + mask + "&ttInfoDetails=ITEM&ttInfoDetails=COOR" + "&searchMode=" + this.searchMode + "&maxCount=" + this.limit, function(response) {
             if(response && response.data) {
-                self.parseStops(GeneralTranport.stringToObj(response.data));
+                self.parseStops(GeneralTranport.stringToObj(response.data), true);
                 call(self, {
                     caller: self,
                     source: "REMOTE",
@@ -70,15 +70,15 @@ CityOptions.prototype.abort = function() {
     }
 }
 
-CityOptions.prototype.parseStops = function(stops) {
+CityOptions.prototype.parseStops = function(stops, remote) {
     stops.data = stops.data || {};
     for(var key in stops.data) {
-        this.parseStop(stops.data[key]);
+        this.parseStop(stops.data[key], remote);
     }
     return this;
 }
 
-CityOptions.prototype.parseStop = function(data) {
+CityOptions.prototype.parseStop = function(data, remote) {
     data = data || {};
     var newStop = new Stop(data, {
         transportID: this.id,
@@ -87,8 +87,19 @@ CityOptions.prototype.parseStop = function(data) {
 
     var exists = false;
     for(var i = 0; i < this.stops.length; i++) {
-        if(this.stops[i].getItem() === newStop.getItem()) {
+        // I would use stop.getItem() but found out it is not static and changes quite often :(
+        if(this.stops[i].getName() === newStop.getName()) {
             exists = true;
+            this.stops[i].saveToDB();
+            // So at least we will update the item (index) in the DB once it changes and we find out here...
+            if(remote && this.stops[i].getItem() !== newStop.getItem()) {
+                if(this.stops[i].setItem(newStop.getItem())) {
+                    console.log(i, this.stops[i].getName() + " station index changed to " + newStop.getItem() + ". Updating in the local DB...");
+                    if(!this.stops[i].saveToDB()) {
+                        console.log("Resaving the station failed.");
+                    }
+                }
+            }
         }
     }
 

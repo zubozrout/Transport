@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.1
+import Ubuntu.Components.Popups 1.0
 
 Item {
     id: customDataList
@@ -42,6 +43,31 @@ Item {
             height: layout.height + units.gu(4)
             width: parent.width
 
+            Component {
+                id: confirmAction
+
+                Dialog {
+                    id: confirmActionDialogue
+                    title: i18n.tr("Do you really want to proceed with this action?")
+                    text: typeof value !== typeof undefined ? value : ""
+                    Button {
+                        text: i18n.tr("No")
+                        onClicked: PopupUtils.close(confirmActionDialogue)
+                    }
+                    Button {
+                        text: i18n.tr("Yes")
+                        color: UbuntuColors.red
+                        onClicked: {
+                            var callback = customDataList.hasCallback(index);
+                            if(callback) {
+                                callback();
+                            }
+                            PopupUtils.close(confirmActionDialogue);
+                        }
+                    }
+                }
+            }
+
             RowLayout {
                 id: layout
                 width: parent.width
@@ -72,15 +98,30 @@ Item {
                     }
                 }
 
-                Label {
+                Text {
                     id: label
                     text: typeof value !== typeof undefined ? value : ""
                     wrapMode: Text.WordWrap
-                    fontSize: typeof fontScale !== typeof undefined ? fontScale : "normal"
+                    font.pointSize: fontSizeCounter();
                     font.underline: typeof url !== typeof undefined ? true : false
                     visible: value !== "" ? true : false
 
                     Layout.fillWidth: true
+
+                    function fontSizeCounter() {
+                        if(typeof fontScale !== typeof undefined) {
+                            if(fontScale === "large") {
+                                return units.gu(1.75);
+                            }
+                            else if("small") {
+                                return units.gu(1);
+                            }
+                            else {
+                                return units.gu(1.35);
+                            }
+                        }
+                        return units.gu(1.35);
+                    }
                 }
 
                 Button {
@@ -95,9 +136,8 @@ Item {
                     Layout.fillWidth: false
 
                     onClicked: {
-                        var callback = customDataList.hasCallback(index);
-                        if(callback) {
-                            callback();
+                        if(customDataList.hasCallback(index)) {
+                            PopupUtils.open(confirmAction);
                         }
                     }
                 }

@@ -167,14 +167,35 @@ DBConnection.prototype.clearStationsForId = function(transportId) {
 }
 
 DBConnection.prototype.saveStation = function(key, data) {
+    var id = null;
     if(this.db) {
         data = data || {};
-        if(data.value && data.item && data.coorX && data.coorY) {
+        if(key && data.value && data.item && data.coorX && data.coorY) {
             this.db.transaction(function(tx) {
-                tx.executeSql('INSERT OR REPLACE INTO stops(key, value, item, listId, coorX, coorY) VALUES(?, ?, ?, ?, ?, ?)', [key, data.value, data.item, data.listId, data.coorX, data.coorY]);
+                var lines = tx.executeSql("SELECT ID FROM stops WHERE key=? AND value=?", [key, data.value]);
+
+                var linesAffected = 0;
+                if(lines.rows.length > 0) {
+                    id = lines.rows.item(0).id;
+                    linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(?, ?, ?, ?, ?, ?, ?)", [id, key, data.value, data.item, data.listId, data.coorX, data.coorY]);
+
+                    if(lines.rows.length > 1) {
+                        console.log("Attention! The dababase has " + lines.rows.length + " stop duplicates: [" + key + "] " + data.value);
+                        console.log("Please report this bug and clear application cache to start again from scratch.");
+                    }
+                }
+                else {
+                    linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(null, ?, ?, ?, ?, ?, ?)", [key, data.value, data.item, data.listId, data.coorX, data.coorY]);
+                    id = linesAffected.insertId;
+                }
+
+                if(linesAffected.rowsAffected !== 1) {
+                    console.log("An error occured while inserting or updating stop [" + key + "] " + data.value);
+                }
             });
         }
     }
+    return id;
 }
 
 DBConnection.prototype.getStationsByName = function(key, value) {
@@ -190,6 +211,7 @@ DBConnection.prototype.getStationsByName = function(key, value) {
                     if(startsWithMatches.length <= 10) {
                         var item = rs.rows.item(i);
                         var stopObj = {
+                            id: item.id,
                             key: item.key,
                             value: item.value,
                             item: item.item,
@@ -224,6 +246,7 @@ DBConnection.prototype.getStationByValue = function(key, value) {
             var item = rs.rows.item(0);
             if(item) {
                 returnValue = {
+                    id: item.id,
                     key: item.key,
                     value: item.value,
                     item: item.item,

@@ -81,7 +81,7 @@ Page {
                 dateTime = Pdate + " " + Ptime;
             }
 
-            var departure = !arrivalSearchSwitch.checked || false;
+            var departure = arrivalDeparturePicker.departure;
 
             var connection = selectedTransport.createConnection({
                 from: fromVal,
@@ -314,37 +314,46 @@ Page {
                     visible: customDateSwitch.checked
                 }
 
-                RowLayout {
-                    width: parent.width
-                    spacing: units.gu(2)
-                    height: childrenRect.height
-                    Layout.fillWidth: true
+                RowPicker {
+                    id: arrivalDeparturePicker
 
-                    Label {
-                        text: !arrivalSearchSwitch.checked ? i18n.tr("Departure") : i18n.tr("Arrival")
-                        color: pageLayout.baseTextColor
-                        wrapMode: Text.WordWrap
-                        Layout.fillWidth: true
+                    property bool departure: true
+                    property var render: function(model) {
+                        clear();
+
+                        var options = [i18n.tr("Departure"), i18n.tr("Arrival")];
+                        var index = 0;
+
+                        initialize(options, index, function(itemIndex) {
+                            arrivalDeparturePicker.departure = itemIndex === 0;
+                        });
                     }
 
-                    Button {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: itemActivity.running ? i18n.tr("Abort search") : i18n.tr("Search")
-                        color: itemActivity.running ? UbuntuColors.red : "#fff"
-                        enabled: transportOptionLabel.ok && from.value && to.value
-                        z: 1
+                    Component.onCompleted: {
+                        arrivalDeparturePicker.update(function(model) { arrivalDeparturePicker.render(model) });
+                    }
+                }
 
-                        ActivityIndicator {
-                            id: itemActivity
-                            anchors {
-                                fill: parent
-                                centerIn: parent
-                                margins: parent.height/6
-                            }
-                            running: false
+                RectangleButton {
+                    id: rectangleButton
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: itemActivity.running ? i18n.tr("Abort search") : i18n.tr("Search")
+                    enabled: transportOptionLabel.ok && from.value && to.value
+                    color: active ? pageLayout.colorPalete["headerBG"] : "#ddd";
+                    z: 1
+
+                    ActivityIndicator {
+                        id: itemActivity
+                        anchors {
+                            fill: parent
+                            centerIn: parent
+                            margins: parent.height/6
                         }
+                        running: false
+                    }
 
-                        onClicked: {
+                    Component.onCompleted: {
+                        setCallback(function() {
                             if(!itemActivity.running) {
                                 searchPage.search();
                             }
@@ -354,13 +363,7 @@ Page {
                                     selectedTransport.abortAll();
                                 }
                             }
-                        }
-                    }
-
-                    Switch {
-                        id: arrivalSearchSwitch
-                        checked: false
-                        Layout.fillWidth: false
+                        });
                     }
                 }
             }

@@ -1,8 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
 
-import "../components"
-
 Item {
     id: rowPicker
     anchors {
@@ -120,16 +118,22 @@ Item {
             }
             spacing: units.gu(2)
 
-            Text {
-                id: titleText
+            Rectangle {
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
-                wrapMode: Text.WordWrap
-                font.pointSize: units.gu(1.75)
-                text: ""
-                visible: text !== ""
+                height: titleText.contentHeight * 2
+
+                Text {
+                    id: titleText
+                    anchors.fill: parent
+                    wrapMode: Text.WordWrap
+                    verticalAlignment: Text.AlignVCenter
+                    font.pointSize: units.gu(1.75)
+                    text: ""
+                    visible: text !== ""
+                }
             }
 
             ListView {

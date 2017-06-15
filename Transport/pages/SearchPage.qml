@@ -320,11 +320,7 @@ Page {
                     property bool departure: true
                     property var render: function(model) {
                         clear();
-
-                        var options = [i18n.tr("Departure"), i18n.tr("Arrival")];
-                        var index = 0;
-
-                        initialize(options, index, function(itemIndex) {
+                        initialize([i18n.tr("Departure"), i18n.tr("Arrival")], 0, function(itemIndex) {
                             arrivalDeparturePicker.departure = itemIndex === 0;
                         });
                     }

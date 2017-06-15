@@ -97,7 +97,7 @@ Page {
                     }
 
                     Component.onCompleted: {
-                        setTite( i18n.tr("How often would you like the transport options data to be refreshed?"));
+                        setTite(i18n.tr("How often would you like the transport options data to be refreshed?"));
                         rowPicker.update(function(model) { rowPicker.render(model) });
                     }
                 }

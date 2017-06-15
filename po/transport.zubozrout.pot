@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-15 21:44+0000\n"
+"POT-Creation-Date: 2017-06-15 22:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
@@ -23,12 +23,12 @@ msgid "Station name"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:324
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:323
 msgid "Arrival"
 msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:324
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:323
 msgid "Departure"
 msgstr ""
 
@@ -123,7 +123,7 @@ msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:47
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:17
-#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_builder_i386_GCC_i386_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_device_armhf_GCC_armhf_ubuntu_sdk_15_04-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:29
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:56
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:340
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:336
 msgid "Search"
 msgstr ""
 
@@ -265,7 +265,7 @@ msgstr ""
 msgid "Custom date"
 msgstr ""
 
-#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:340
+#: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:336
 msgid "Abort search"
 msgstr ""
 

@@ -177,7 +177,7 @@ DBConnection.prototype.saveStation = function(key, data) {
                 var linesAffected = 0;
                 if(lines.rows.length > 0) {
                     id = lines.rows.item(0).id;
-                    linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(?, ?, ?, ?, ?, ?, ?)", [id, key, data.value, data.item, data.listId, data.coorX, data.coorY]);
+                    linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(?, ?, ?, ?, ?, ?, ?)", [id, key, data.item, data.listId, data.value, data.coorX, data.coorY]);
 
                     if(lines.rows.length > 1) {
                         console.log("Attention! The dababase has " + lines.rows.length + " stop duplicates: [" + key + "] " + data.value);
@@ -185,7 +185,7 @@ DBConnection.prototype.saveStation = function(key, data) {
                     }
                 }
                 else {
-                    linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(null, ?, ?, ?, ?, ?, ?)", [key, data.value, data.item, data.listId, data.coorX, data.coorY]);
+                    linesAffected = tx.executeSql("INSERT OR REPLACE INTO stops VALUES(null, ?, ?, ?, ?, ?, ?)", [key, data.item, data.listId, data.value, data.coorX, data.coorY]);
                     id = linesAffected.insertId;
                 }
 
@@ -285,6 +285,7 @@ DBConnection.prototype.appendSearchToHistory = function(search) {
         if(search) {
             var self = this;
             this.db.transaction(function(tx) {
+                console.log(JSON.stringify(search));
                 var countOfLines = tx.executeSql("SELECT Count(*) as count FROM recent").rows.item(0).count;
                 var linesAffected = 0;
                 var limit = 80;

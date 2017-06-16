@@ -88,7 +88,7 @@ Page {
                     property var render: function(model) {
                         clear();
 
-                        var options = [i18n.tr("Weekly"), i18n.tr("Daily"), i18n.tr("Everytime")];
+                        var options = [i18n.tr("Weekly"), i18n.tr("Daily"), i18n.tr("Everytime"), i18n.tr("Never")];
                         var index = Transport.transportOptions.getDBSetting("check-frequency") || 0;
 
                         initialize(options, index, function(itemIndex) {

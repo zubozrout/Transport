@@ -42,20 +42,26 @@ TransportOptions.prototype.fetchTrasports = function(forceServer, callback) {
     }
 
     var checkFrequencyNumber = Number(this.getDBSetting("check-frequency"));
-    var checkFrequency = "week";
+    var checkServer = !transportOptions;
     switch(checkFrequencyNumber) {
+        case 3:
+            // never
+            checkServer = false;
+            break;
         case 2:
-            checkFrequency = "everytime";
+            // everytime
+            checkServer = true;
             break;
         case 1:
-            checkFrequency = "day";
+            // daily
+            checkServer = checkServer || GeneralTranport.dateOlderThan(new Date(transportOptions.date), new Date(), "day");
             break;
         default:
-            checkFrequency = "week";
+            // weekly
+            checkServer = checkServer || GeneralTranport.dateOlderThan(new Date(transportOptions.date), new Date(), "week");
     }
 
-    var checkServer = forceServer || !transportOptions || GeneralTranport.dateOlderThan(new Date(transportOptions.date), new Date(), checkFrequency);
-    if(checkServer) {
+    if(forceServer || checkServer) {
         this.fetchServerTransports(callback);
     }
     else {
@@ -66,10 +72,22 @@ TransportOptions.prototype.fetchTrasports = function(forceServer, callback) {
 }
 
 TransportOptions.prototype.fetchDBTransports = function(transportOptions, callback) {
-    console.log("Fetching local DB transport info ...");
-    this.transportsData = GeneralTranport.stringToObj(transportOptions.value);
-    this.parseAllTransports();
-    this.selectIndex(this.transports.length - 1);
+    if(transportOptions) {
+        console.log("Fetching local DB transport info ...");
+        this.transportsData = GeneralTranport.stringToObj(transportOptions.value);
+        this.parseAllTransports();
+
+        var searchHistory = this.dbConnection.getSearchHistory();
+        if(searchHistory.length > 0) {
+            var previouslySelectedId = lastSearched.typeid;
+            if(!this.selectTransportById(previouslySelectedId)) {
+                this.selectIndex(this.transports.length - 1);
+            }
+        }
+        else {
+            this.selectIndex(this.transports.length - 1);
+        }
+    }
 
     if(this.callback) {
         this.callback(this);

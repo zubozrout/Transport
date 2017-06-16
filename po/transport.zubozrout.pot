@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-16 09:14+0000\n"
+"POT-Creation-Date: 2017-06-16 09:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,7 @@ msgstr ""
 
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/AboutPage.qml:47
 #: /home/zubozrout/Misc/Projects/Transport/Transport/pages/SearchPage.qml:17
-#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_builder_i386_GCC_i386_ubuntu_sdk_15_04-Ladění/Transport/Transport.desktop.h:1
+#: /home/zubozrout/Misc/Projects/build-Transport-UbuntuSDK_for_builder_i386_GCC_i386_ubuntu_sdk_15_04-Vydání/Transport/Transport.desktop.h:1
 msgid "Transport"
 msgstr ""
 

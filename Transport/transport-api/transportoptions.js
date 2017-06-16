@@ -71,22 +71,25 @@ TransportOptions.prototype.fetchTrasports = function(forceServer, callback) {
     return this;
 }
 
+TransportOptions.prototype.trySelectingTransportIndexFromHistory = function() {
+    var searchHistory = this.dbConnection.getSearchHistory();
+    if(searchHistory.length > 0) {
+        var previouslySelectedId = searchHistory[0].typeid;
+        if(!this.selectTransportById(previouslySelectedId)) {
+            this.selectIndex(this.transports.length - 1);
+        }
+    }
+    else {
+        this.selectIndex(this.transports.length - 1);
+    }
+}
+
 TransportOptions.prototype.fetchDBTransports = function(transportOptions, callback) {
     if(transportOptions) {
         console.log("Fetching local DB transport info ...");
         this.transportsData = GeneralTranport.stringToObj(transportOptions.value);
         this.parseAllTransports();
-
-        var searchHistory = this.dbConnection.getSearchHistory();
-        if(searchHistory.length > 0) {
-            var previouslySelectedId = searchHistory.typeid;
-            if(!this.selectTransportById(previouslySelectedId)) {
-                this.selectIndex(this.transports.length - 1);
-            }
-        }
-        else {
-            this.selectIndex(this.transports.length - 1);
-        }
+        this.trySelectingTransportIndexFromHistory();
     }
 
     if(this.callback) {
@@ -108,7 +111,7 @@ TransportOptions.prototype.fetchServerTransports = function(callback) {
             }
             self.transportsData = GeneralTranport.stringToObj(response.data);
             self.parseAllTransports();
-            self.selectIndex(self.transports.length - 1);
+            self.trySelectingTransportIndexFromHistory();
 
             if(self.callback) {
                 self.callback(self);

@@ -285,7 +285,6 @@ DBConnection.prototype.appendSearchToHistory = function(search) {
         if(search) {
             var self = this;
             this.db.transaction(function(tx) {
-                console.log(JSON.stringify(search));
                 var countOfLines = tx.executeSql("SELECT Count(*) as count FROM recent").rows.item(0).count;
                 var linesAffected = 0;
                 var limit = 80;

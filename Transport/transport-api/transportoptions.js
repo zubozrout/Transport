@@ -79,7 +79,7 @@ TransportOptions.prototype.fetchDBTransports = function(transportOptions, callba
 
         var searchHistory = this.dbConnection.getSearchHistory();
         if(searchHistory.length > 0) {
-            var previouslySelectedId = lastSearched.typeid;
+            var previouslySelectedId = searchHistory.typeid;
             if(!this.selectTransportById(previouslySelectedId)) {
                 this.selectIndex(this.transports.length - 1);
             }

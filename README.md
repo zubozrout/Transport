@@ -1,4 +1,4 @@
-[logo]: https://github.com/zubozrout/Transport/blob/master/Transport/transport.png "Transport Logo"
+![Transport Logo](https://github.com/zubozrout/Transport/blob/master/Transport/transport.png)
 # Transport
 Ubuntu Phone Transport Application v2 - Czech and Slovak public transport schedules + European trains + Airlines.
 
@@ -13,7 +13,7 @@ Here is the CHAPS API documentation: http://docs.crws.apiary.io/#reference
 Please help translate this app here: https://www.transifex.com/zubozrout/transport/
 
 # Building for Xenial
-clickable -k 16.04 --arch="armhf"
+`clickable -k 16.04 --arch="armhf"`
 
 # Prerequisites
 You need to have this file in place (not part of this repository):

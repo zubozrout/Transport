@@ -1,4 +1,4 @@
-# Transport ![Transport Logo](https://github.com/zubozrout/Transport/blob/master/Transport/transport.png)
+# Transport
 
 Ubuntu Phone Transport Application v2 - Czech and Slovak public transport schedules + European trains + Airlines.
 
@@ -25,3 +25,5 @@ containing the following line:
 `QString KEY = "";`
 
 (You can fill in the API key provided by CHAPS s.r.o. for extended functionality or leave the string empty as above)
+
+![Transport Logo](https://github.com/zubozrout/Transport/blob/master/Transport/transport.png)

@@ -11,5 +11,5 @@
     },
     "version": "0.9.4.3",
     "maintainer": "Martin Kozub <zubozrout@gmail.com>",
-    "framework": "ubuntu-sdk-15.04.5"
+    "framework": "ubuntu-sdk-16.04"
 }

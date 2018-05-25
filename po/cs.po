@@ -2,47 +2,46 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-25 20:12+0000\n"
+"POT-Creation-Date: 2018-05-25 20:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
-"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionDetailDelegate.qml:77
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:77
 msgid "Station name"
 msgstr "Název stanice"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:337
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:84
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:337
 msgid "Arrival"
 msgstr "Příjezd"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:337
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:91
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:337
 msgid "Departure"
 msgstr "Odjezd"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionsDelegate.qml:41
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionsDelegate.qml:46
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:41
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:46
 msgid "Could not load connection detail"
 msgstr "Detail spojení nebylo možné načíst"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionsDelegate.qml:276
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:276
 msgid "now"
 msgstr "nyní"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionsDelegate.qml:280
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:280
 #, qt-format
 msgid "in %1 minute"
 msgid_plural "in %1 minutes"
@@ -51,7 +50,7 @@ msgstr[1] "za %1 minuty"
 msgstr[2] "za %1 minut"
 msgstr[3] "za %1 minut"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionsDelegate.qml:300
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:300
 #, qt-format
 msgid "in %1 day"
 msgid_plural "in %1 days"
@@ -60,267 +59,268 @@ msgstr[1] "za %1 dny"
 msgstr[2] "za %1 dní"
 msgstr[3] "za %1 dní"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/ConnectionsDelegate.qml:305
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:305
 msgid "departed"
 msgstr "odjelo"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/CustomDataList.qml:51
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/CustomDataList.qml:51
 msgid "Do you really want to proceed with this action?"
 msgstr "Skutečně chcete provést tuto akci?"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/CustomDataList.qml:54
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:53
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:93
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:173
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/CustomDataList.qml:54
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:53
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:84
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:93
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:173
 msgid "No"
 msgstr "Ne"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/CustomDataList.qml:58
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:57
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:88
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:93
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:177
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/CustomDataList.qml:58
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:57
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:88
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:93
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:177
 msgid "Yes"
 msgstr "Ano"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/DatePicker.qml:55
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/DatePicker.qml:55
 msgid "Selected date:"
 msgstr "Zvolené datum:"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:12
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:25
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:12
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:25
 msgid "Recent searches"
 msgstr "Nedávná hledání"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:31
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:31
 msgid "Delete all searches"
 msgstr "Vymazat všechna hledání"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:50
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:81
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:170
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:50
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:81
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:170
 msgid "Attention"
 msgstr "Pozor"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:51
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:51
 msgid "Do you really want to delete the whole search history?"
 msgstr "Skutečně chcete smazat celou historii vyhledávání?"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:82
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:82
 msgid "Do you really want to delete this history entry?"
 msgstr "Skutečně chcete smazat tuto položku vyhledávání?"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:201
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:201
 msgid "From"
 msgstr "Z"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:235
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:235
 msgid "To"
 msgstr "Do"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/RecentBottomEdge.qml:256
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:284
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:256
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:284
 msgid "Via"
 msgstr "Přes"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/StopSearch.qml:67
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:67
 msgid "station name"
 msgstr "název stanice"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/components/StopSearch.qml:140
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:140
 msgid "Remote station search failed"
 msgstr "Vyhledávání stanice skončilo chybou"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/AboutPage.qml:9
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:9
 msgid "About Transport App"
 msgstr "O Aplikaci Transport"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/AboutPage.qml:47
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:17
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:47
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:17
 msgid "Transport"
 msgstr "Transport"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/AboutPage.qml:48
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:48
 msgid ""
 "Transport is here to allow you searching for Czech and Slovak public "
 "transport connections."
 msgstr ""
-"Transport je zde k tomu aby Vám umožnil vyhledávat česká a slovenská spojení "
-"veřejné dopravy."
+"Transport je zde k tomu aby Vám umožnil vyhledávat česká a slovenská spojení"
+" veřejné dopravy."
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/AboutPage.qml:49
-msgid "This application is based upon an API provided by CHAPS s.r.o. company."
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:49
+msgid ""
+"This application is based upon an API provided by CHAPS s.r.o. company."
 msgstr "Tato aplikace využívá API poskytnuté společností CHAPS s.r.o."
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/AboutPage.qml:49
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:49
 msgid ""
-"You can find the documentation of the API service here http://docs.crws."
-"apiary.io/"
+"You can find the documentation of the API service here "
+"http://docs.crws.apiary.io/"
 msgstr ""
-"Dokumentaci k využívané API můžete najít na adrese http://docs.crws.apiary."
-"io/"
+"Dokumentaci k využívané API můžete najít na adrese "
+"http://docs.crws.apiary.io/"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/AboutPage.qml:50
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:50
 msgid ""
 "Feel free to report bugs on the github page but please note many of the "
-"existing bugs are know and the reason why they are not fixed yet is the fact "
-"I don't have enough time to take care of those just yet."
+"existing bugs are know and the reason why they are not fixed yet is the fact"
+" I don't have enough time to take care of those just yet."
 msgstr ""
 "Chyby nahlašujte na stránce projektu na GitHubu. Mějte však na paměti, že o "
 "mnoha chybách autor aplikace ví a pouze se k nim neměl čas zatím dostat."
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/AboutPage.qml:51
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:51
 msgid "Check out project's GitHub page"
 msgstr "Podívejte se na stránku projektu na GitHubu"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/AboutPage.qml:52
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:52
 msgid ""
 "GDPR notice: CHAPS s.r.o. API doesn't collect any personal data but can log "
-"searched values combined with IP addresses and a platform string passed with "
-"every single query - \"ubuntu\"."
+"searched values combined with IP addresses and a platform string passed with"
+" every single query - \"ubuntu\"."
 msgstr ""
 "Upozornění v souvislosti s obecným nařízením o ochraně osobních údajů GDPR: "
 "API společnosti CHAPS s.r.o. nesbírá žádné osobní údaje, ale může "
-"zaznamenávat vyhledávané údaje v kombinaci s IP adresami a názvem operačního "
-"systému, který tato aplikace předává při každém dotazu - \"ubuntu\"."
+"zaznamenávat vyhledávané údaje v kombinaci s IP adresami a názvem operačního"
+" systému, který tato aplikace předává při každém dotazu - \"ubuntu\"."
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionDetailPage.qml:14
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:14
 msgid "Connection detail"
 msgstr "Detail spojení"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionDetailPage.qml:21
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:38
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:21
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:38
 msgid "Map page"
 msgstr "Zobrazení mapy"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionDetailPage.qml:39
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:39
 msgid "Only passed stations"
 msgstr "Jen projížděné stanice"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionDetailPage.qml:39
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:39
 msgid "All stations"
 msgstr "Všechny stanice"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionDetailPage.qml:117
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:117
 msgid "Distance"
 msgstr "Vzdálenost"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionDetailPage.qml:140
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:140
 msgid "Time length"
 msgstr "Délka jízdy"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionDetailPage.qml:163
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:163
 msgid "Price"
 msgstr "Cena"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:15
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:15
 msgid "Connections"
 msgstr "Spojení"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:28
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:28
 msgid "Info"
 msgstr "Informace"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:37
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:37
 msgid "Next"
 msgstr "Další"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:54
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:54
 msgid "Previous"
 msgstr "Předchozí"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:123
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:123
 #, qt-format
 msgid "Journey start: %1"
 msgstr "Začátek trasy: %1"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:124
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:124
 #, qt-format
 msgid "Journey end: %1"
 msgstr "Konec trasy: %1"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:125
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:125
 #, qt-format
 msgid "Transfering at: %1"
 msgstr "Přestup ve stanici: %1"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:126
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:126
 #, qt-format
 msgid "Number of results: %1"
 msgstr "Počet výsledků: %1"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:162
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:162
 msgid "Loading following connections timed out"
 msgstr "Načítání dalších spojení vypršelo"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:171
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:171
 msgid "Loading following connections failed"
 msgstr "Načítání dalších spojení se nepovedlo"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:187
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:187
 msgid "Loading previous connections timed out"
 msgstr "Načítání předchozích spojení vypršelo"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:214
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:214
 msgid "Loading previous connections failed"
 msgstr "Načítání předchozích spojení se nepovedlo"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:246
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:246
 msgid "Connection overview info"
 msgstr "Přehled vyhledaných spojení"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:249
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:249
 msgid "Ok"
 msgstr "Ok"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/ConnectionsPage.qml:292
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:292
 msgid "Keep pulled to load more"
 msgstr "Podržte pro načtení dalších výsledků"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/MapPage.qml:16
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/MapPage.qml:16
 msgid "Map"
 msgstr "Mapa"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/MapPage.qml:41
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/MapPage.qml:41
 msgid "Location"
 msgstr "Pozice"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:30
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:66
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:30
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:66
 msgid "Search results"
 msgstr "Výsledky hledání"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:45
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:12
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:45
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:12
 msgid "Settings"
 msgstr "Nastavení"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:52
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:52
 msgid "About"
 msgstr "O aplikaci"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:114
 msgid "Search failed"
 msgstr "Vyhledávání se nepovedlo"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:313
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:313
 msgid "Custom date"
 msgstr "Vlastní datum"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:356
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:356
 msgid "Abort search"
 msgstr "Přerušit vyhledávání"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SearchPage.qml:356
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:356
 msgid "Search"
 msgstr "Hledat"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:51
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:51
 msgid "Clear cache"
 msgstr "Vymazat mezipaměť"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:63
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:63
 msgid ""
 "By pressing this button you'll delete all saved data including search "
 "history, cached stations and respective transport option settings."
@@ -328,71 +328,71 @@ msgstr ""
 "Zmáčknutím tohoto tlačítka smažete všechna uložená data včetně historie "
 "vyhledávání, uložených stanic a příslušných dopravců."
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:69
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:69
 msgid "Refresh data"
 msgstr "Obnovit data"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:81
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:81
 msgid "Renew all Transport options data"
 msgstr "Obnovit data o všech dopravcích."
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:103
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:103
 msgid "Use GeoLocation search on start?"
-msgstr ""
+msgstr "Použít Geolokaci po startu aplikace?"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:114
 msgid "Weekly"
 msgstr "Týdně"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:114
 msgid "Daily"
 msgstr "Denně"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:114
 msgid "Everytime"
 msgstr "Pokaždé"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:114
 msgid "Never"
 msgstr "Nikdy"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/SettingsPage.qml:123
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:123
 msgid "How often would you like the transport options data to be refreshed?"
 msgstr "Jak často chcete obnovovat informace o dopravcích?"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:15
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:15
 msgid "Select a transport option"
 msgstr "Vyberte dopravce"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:27
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:27
 msgid "Refresh transport options"
 msgstr "Znova načíst dopravce"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:49
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:49
 msgid "Select a transport method"
 msgstr "Zvolte si dopravce"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:171
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:171
 #, qt-format
 msgid "Do you really want to delete all saved stops for %1 transport option?"
 msgstr "Skutečně chcete smazat všechny uložené stanice pro dopravce %1?"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:261
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:261
 msgid "City:"
 msgstr "Město:"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:275
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:275
 msgid "Valid from:"
 msgstr "Platnost od:"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:289
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:289
 msgid "Expires:"
 msgstr "Vyprší:"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:330
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:330
 msgid "Used transport types"
 msgstr "Využívaní dopravci"
 
-#: /home/zubozrout/Dokumenty/ubports/transport-devel/Transport/Transport/pages/TransportSelectorPage.qml:361
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:361
 msgid "All transport types"
 msgstr "Všichni dopravci"

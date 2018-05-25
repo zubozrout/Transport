@@ -1,7 +1,5 @@
-<img src="https://github.com/zubozrout/Transport/raw/master/Transport/transport.png" alt="Transport Logo" style="padding:0px 0px 20px 20px;max-width:128px;float:right;">
+# Transport ![Transport Logo](https://github.com/zubozrout/Transport/blob/master/Transport/transport.png)
 
-# Transport
-![Transport Logo](https://github.com/zubozrout/Transport/blob/master/Transport/transport.png)
 Ubuntu Phone Transport Application v2 - Czech and Slovak public transport schedules + European trains + Airlines.
 
 This is a Ubuntu Phone application for searching connections for public transport - mostly in the Czech and Slovak republic.

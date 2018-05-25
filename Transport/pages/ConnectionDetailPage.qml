@@ -13,6 +13,20 @@ Page {
         id: pageHeader
         title: i18n.tr("Connection detail")
         flickable: connectionDetailFlickable
+        
+        trailingActionBar {
+            actions: [
+                Action {
+                    iconName: "map"
+                    text: i18n.tr("Map page")
+                    onTriggered: {
+                        pageLayout.addPageToNextColumn(connectionDetailPage, mapPage);
+                        mapPage.renderRoute(connectionDetailPage.detail);
+                    }
+                }
+            ]
+            numberOfSlots: 1
+        }
 
         extension: Sections {
             id: connectionDetailSections
@@ -44,6 +58,7 @@ Page {
     function renderDetail(detail) {
         connectionDetailModel.clearAll();
         if(detail) {
+			connectionDetailPage.detail = detail;
             distanceLabel.text = detail.distance;
             timeLabel.text = detail.timeLength;
             priceLabel.text = detail.price;

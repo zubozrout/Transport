@@ -224,6 +224,10 @@ TransportOptions.prototype.abort = function() {
     }
 }
 
+TransportOptions.prototype.searchSavedStationsByLocation = function(coords) {
+    return this.dbConnection.getNearbyStops(coords)
+}
+
 // Database Settings manipulation
 TransportOptions.prototype.getDBSetting = function(key) {
     return this.dbConnection.getSetting(key);

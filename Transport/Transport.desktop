@@ -1,8 +1,9 @@
 [Desktop Entry]
-_Name=Transport
+Name=Transport
 Exec=qmlscene %U Transport/Main.qml
-Icon=Transport/Transport.svg
+Icon=Transport/transport.svg
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true
 X-Ubuntu-Splash-Color=#00796b
+Name[cs_CZ]=Transport

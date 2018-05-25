@@ -158,3 +158,12 @@ function setStopData(stopSearch, stopidfrom, stopnamefrom, typeid) {
         value: stopnamefrom
     });
 }
+
+// SOURCE: http://stackoverflow.com/a/21623206/1642887
+function latLongDistance(lat1, lon1, lat2, lon2) {
+  var p = Math.PI / 180;
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))/2;
+
+  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+}

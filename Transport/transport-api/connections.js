@@ -141,7 +141,6 @@ Connections.prototype.getNext = function(backwards, callback) {
             requestURL += "&maxCount=" + this.limit;
 
             var self = this;
-            console.log(requestURL);
             this.request = GeneralTranport.getContent(requestURL, function(response) {
                 if(response && response.data) {
                     if(self.parseConnInfo(GeneralTranport.stringToObj(response.data), backwards)) {

@@ -299,9 +299,11 @@ Component {
                         else {
                             timeToLabel.text = i18n.tr("in %1 day", "in %1 days", days).arg(days);
                         }
+                        timeToLabel.color = pageLayout.colorPalete["headerBG"];
                     }
                     else {
                         timeToLabel.text = i18n.tr("departed");
+                        timeToLabel.color = pageLayout.colorPalete["warningText"];
                         repeat = false;
                     }
                 }

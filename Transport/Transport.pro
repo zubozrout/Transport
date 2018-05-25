@@ -57,7 +57,7 @@ config_files.files += $${CONF_FILES}
 #install the desktop file, a translated version is automatically created in 
 #the build directory
 desktop_file.path = /Transport
-desktop_file.files = $$OUT_PWD/*.desktop
+desktop_file.files = $$OUT_PWD/Transport.desktop
 desktop_file.CONFIG += no_check_exist 
 
 INSTALLS+=config_files qml_files desktop_file qml_pages_files qml_components_files qml_js_files qml_icon_files qml_image_files

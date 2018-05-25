@@ -55,7 +55,8 @@ Page {
 
                     customDataList.setCallbackFor(customDataList.count(), function() {
                         Transport.transportOptions.clearAll(true);
-                        rowPicker.update(function(model) { rowPicker.render(model) });
+                        rowPickerA.update(function(model) { rowPickerA.render(model) });
+                        rowPickerB.update(function(model) { rowPickerB.render(model) });
                     });
 
                     customDataList.append({
@@ -72,7 +73,8 @@ Page {
 
                     customDataList.setCallbackFor(customDataList.count(), function() {
                         transportSelectorPage.serverUpdate();
-                        rowPicker.update(function(model) { rowPicker.render(model) });
+                        rowPickerA.update(function(model) { rowPickerA.render(model) });
+                        rowPickerB.update(function(model) { rowPickerB.render(model) });
                     });
 
                     customDataList.append({
@@ -81,15 +83,36 @@ Page {
                         bottomBorder: true
                     });
                 }
+                
+                RowPicker {
+                    id: rowPickerA
+
+                    property var render: function(model) {
+                        clear();
+
+                        var options = [i18n.tr("Yes"), i18n.tr("No")];
+                                                
+                        var index = Number(Transport.transportOptions.getDBSetting("geolocation-on-start") || 0)
+
+                        initialize(options, index, function(itemIndex) {
+                            Transport.transportOptions.saveDBSetting("geolocation-on-start", itemIndex);
+                        });
+                    }
+
+                    Component.onCompleted: {
+                        setTite(i18n.tr("Use GeoLocation search on start?"));
+                        rowPickerA.update(function(model) { rowPickerA.render(model) });
+                    }
+                }
 
                 RowPicker {
-                    id: rowPicker
+                    id: rowPickerB
 
                     property var render: function(model) {
                         clear();
 
                         var options = [i18n.tr("Weekly"), i18n.tr("Daily"), i18n.tr("Everytime"), i18n.tr("Never")];
-                        var index = Transport.transportOptions.getDBSetting("check-frequency") || 0;
+                        var index = Number(Transport.transportOptions.getDBSetting("check-frequency") || 0);
 
                         initialize(options, index, function(itemIndex) {
                             Transport.transportOptions.saveDBSetting("check-frequency", itemIndex);
@@ -98,7 +121,7 @@ Page {
 
                     Component.onCompleted: {
                         setTite(i18n.tr("How often would you like the transport options data to be refreshed?"));
-                        rowPicker.update(function(model) { rowPicker.render(model) });
+                        rowPickerB.update(function(model) { rowPickerB.render(model) });
                     }
                 }
             }

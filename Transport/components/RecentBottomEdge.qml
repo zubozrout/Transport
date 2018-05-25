@@ -71,7 +71,7 @@ BottomEdge {
             ListItem {
                 width: parent.width
                 divider.visible: true
-                height: recentChildDelegateLayout.height + 2*recentChildDelegateLayout.anchors.margins
+                height: recentChildDelegateLayoutWrapper.height
 
                 Component {
                     id: confirmDeletingHistoryEntry
@@ -108,109 +108,161 @@ BottomEdge {
                         }
                     ]
                 }
+                
+                Rectangle {
+					id: recentChildDelegateLayoutWrapper
+					anchors {
+						left: parent.left
+						right: parent.right
+					}
+					height: recentChildDelegateLayout.height + 2 * recentChildDelegateLayout.anchors.margins
+					color: index % 2 === 0 ? "transparent" : "#efefef"
+					
+					RowLayout {
+						id: recentChildDelegateLayout
+						anchors {
+							centerIn: parent
+							margins: units.gu(2)
+						}
+						width: parent.width - 2 * anchors.margins
+						height: childrenRect.height
+						spacing: units.gu(2)
+						Layout.fillWidth: true
 
-                RowLayout {
-                    id: recentChildDelegateLayout
-                    anchors {
-                        centerIn: parent
-                        margins: units.gu(2)
-                    }
-                    width: parent.width - 2*anchors.margins
-                    spacing: units.gu(2)
-                    Layout.fillWidth: true
+						Rectangle {
+							id: recentChildDelegateIndex
+							anchors.verticalCenter: parent.verticalCenter
+							width: units.gu(3)
+							height: width
+							color: "transparent"
 
-                    Rectangle {
-                        id: recentChildDelegateIndex
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: units.gu(3)
-                        height: width
-                        color: "transparent"
-                        radius: width
+							Text {
+								anchors.fill: parent
+								horizontalAlignment: Text.AlignHCenter
+								verticalAlignment: Text.AlignVCenter
+								text: (index + 1) + "."
+								font.pixelSize: FontUtils.sizeToPixels("large")
+								font.bold: true
+								wrapMode: Text.WordWrap
+							}
+						}
 
-                        Text {
-                            anchors.fill: parent
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            text: (index + 1) + "."
-                            font.pixelSize: FontUtils.sizeToPixels("large")
-                            font.bold: true
-                            wrapMode: Text.WordWrap
-                        }
-                    }
+						ColumnLayout {
+							anchors.margins: units.gu(2)
+							spacing: units.gu(0.25)
+							Layout.fillWidth: true
 
-                    ColumnLayout {
-                        anchors.margins: units.gu(2)
-                        spacing: units.gu(0.25)
-                        Layout.fillWidth: true
+							RowLayout {
+								width: parent.width
+								spacing: units.gu(1)
+								Layout.fillWidth: true
 
-                        RowLayout {
-                            width: parent.width
-                            spacing: units.gu(1)
-                            Layout.fillWidth: true
+								Text {
+									text: {
+										var langCode = Transport.langCode(true);
+										return Transport.transportOptions.getTransportById(typeid).getName(langCode);
+									}
+									font.pixelSize: FontUtils.sizeToPixels("small")
+									font.bold: true
+									horizontalAlignment: Text.AlignLeft
+									wrapMode: Text.WordWrap
+									Layout.fillWidth: true
+								}
 
-                            Text {
-                                text: {
-                                    var langCode = Transport.langCode(true);
-                                    return Transport.transportOptions.getTransportById(typeid).getName(langCode);
-                                }
-                                font.pixelSize: FontUtils.sizeToPixels("small")
-                                font.bold: true
-                                horizontalAlignment: Text.AlignLeft
-                                wrapMode: Text.WordWrap
-                                Layout.fillWidth: true
-                            }
+								Text {
+									text: GeneralFunctions.dateToString(new Date(date.replace(/-/g, "/")))
+									font.pixelSize: FontUtils.sizeToPixels("small")
+									horizontalAlignment: Text.AlignRight
+									wrapMode: Text.WordWrap
+									Layout.fillWidth: true
+								}
+							}
 
-                            Text {
-                                text: GeneralFunctions.dateToString(new Date(date.replace(/-/g, "/")))
-                                font.pixelSize: FontUtils.sizeToPixels("small")
-                                horizontalAlignment: Text.AlignRight
-                                wrapMode: Text.WordWrap
-                                Layout.fillWidth: true
-                            }
-                        }
+							RowLayout {
+								id: historyRowLayout
+								spacing: units.gu(1)
+								Layout.fillWidth: true
+								
+								Rectangle {
+									width: parent.width / 2
+									height: childrenRect.height
+									color: "transparent"
+									Layout.fillWidth: true
+									
+									ColumnLayout {
+										anchors {
+											left: parent.left
+											right: parent.right
+										}
+										spacing: units.gu(0.25)
+										Layout.fillWidth: true
+										
+										Text {
+											text: i18n.tr("From")
+											font.pixelSize: FontUtils.sizeToPixels("small")
+											font.bold: false
+											horizontalAlignment: Text.AlignLeft
+											Layout.fillWidth: true
+											wrapMode: Text.WordWrap
+										}
 
-                        RowLayout {
-                            width: parent.width
-                            spacing: units.gu(1)
-                            Layout.fillWidth: true
+										Text {
+											text: stopnamefrom
+											font.pixelSize: FontUtils.sizeToPixels("normal")
+											font.bold: true
+											horizontalAlignment: Text.AlignLeft
+											Layout.fillWidth: true
+											wrapMode: Text.WordWrap
+										}
+									}
+								}
+								
+								Rectangle {
+									width: parent.width / 2
+									height: childrenRect.height
+									color: "transparent"
+									Layout.fillWidth: true
+									
+									ColumnLayout {
+										anchors {
+											left: parent.left
+											right: parent.right
+										}
+										spacing: units.gu(0.25)
+										Layout.fillWidth: true
+										
+										Text {
+											text: i18n.tr("To")
+											font.pixelSize: FontUtils.sizeToPixels("small")
+											font.bold: false
+											horizontalAlignment: Text.AlignLeft
+											Layout.fillWidth: true
+											wrapMode: Text.WordWrap
+										}
 
-                            Text {
-                                text: stopnamefrom
-                                font.pixelSize: FontUtils.sizeToPixels("normal")
-                                font.bold: true
-                                horizontalAlignment: Text.AlignLeft
-                                Layout.fillWidth: false
-                                wrapMode: Text.WordWrap
-                            }
+										Text {
+											text: stopnameto
+											font.pixelSize: FontUtils.sizeToPixels("normal")
+											font.bold: true
+											horizontalAlignment: Text.AlignLeft
+											Layout.fillWidth: true
+											wrapMode: Text.WordWrap
+										}
+									}
+								}
+							}
 
-                            Text {
-                                text: "→"
-                                font.pixelSize: FontUtils.sizeToPixels("normal")
-                                horizontalAlignment: Text.AlignHCenter
-                                Layout.fillWidth: true
-                                wrapMode: Text.WordWrap
-                            }
-
-                            Text {
-                                text: stopnameto
-                                font.pixelSize: FontUtils.sizeToPixels("normal")
-                                font.bold: true
-                                horizontalAlignment: Text.AlignLeft
-                                Layout.fillWidth: false
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-
-                        Text {
-                            text: visible ? i18n.tr("Via") + ": " + stopnamevia : ""
-                            font.pixelSize: FontUtils.sizeToPixels("small")
-                            width: parent.width
-                            horizontalAlignment: Text.AlignLeft
-                            wrapMode: Text.WordWrap
-                            visible: typeof stopidvia !== typeof undefined && stopidvia >= 0 && stopnamevia ? true : false
-                        }
-                    }
-                }
+							Text {
+								text: visible ? i18n.tr("Via") + ": " + stopnamevia : ""
+								font.pixelSize: FontUtils.sizeToPixels("small")
+								width: parent.width
+								horizontalAlignment: Text.AlignLeft
+								wrapMode: Text.WordWrap
+								visible: typeof stopidvia !== typeof undefined && stopidvia >= 0 && stopnamevia ? true : false
+							}
+						}
+					}
+				}
 
                 MouseArea {
                     anchors.fill: parent

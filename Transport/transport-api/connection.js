@@ -6,7 +6,7 @@ var Connection = function(parent, data) {
     this.id = this.data.id || null;
     this.trains = this.data.trains || [];
 
-    this.getRouteCoors = false;
+    this.getRouteCoors = true;
 
     this.detail = null;
 

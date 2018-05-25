@@ -31,7 +31,8 @@ MainView {
             "secondaryBG": "#b2dfdb",
             "secondaryText": "#333",
             "highlightBG": "#eee",
-            "highlightText": "#333"
+            "highlightText": "#333",
+            "warningText": "#d00"
         }
 
         property var headerColor: "#00796b"
@@ -83,6 +84,10 @@ MainView {
 
         SettingsPage {
             id: settingsPage
+        }
+
+        MapPage {
+            id: mapPage
         }
     }
 }

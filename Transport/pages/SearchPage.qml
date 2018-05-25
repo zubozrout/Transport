@@ -25,10 +25,19 @@ Page {
         leadingActionBar {
             actions: [
                 Action {
+					id: headerLeadingSearchResultsIcon
                     iconName: "search"
-                    text: i18n.tr("Search")
+                    text: i18n.tr("Search results")
                     onTriggered: {
                         pageLayout.addPageToNextColumn(searchPage, connectionsPage);
+                    }
+                    enabled: false
+                },
+                Action {
+                    iconName: "map"
+                    text: i18n.tr("Map page")
+                    onTriggered: {
+                        pageLayout.addPageToNextColumn(searchPage, mapPage);
                     }
                 },
                 Action {
@@ -52,18 +61,21 @@ Page {
         trailingActionBar {
             actions: [
                 Action {
+					id: headerTrailingSearchResultsIcon
                     iconName: "search"
-                    text: i18n.tr("Search")
+                    text: i18n.tr("Search results")
                     onTriggered: {
                         pageLayout.addPageToNextColumn(searchPage, connectionsPage);
                     }
+                    enabled: false
+                    visible: enabled
                 }
            ]
         }
     }
 
     clip: true
-
+    
     function search() {
         var fromVal = from.selectedStop ? from.selectedStop : from.value;
         var toVal = to.selectedStop ? to.selectedStop : to.value;
@@ -108,6 +120,8 @@ Page {
                             pageLayout.addPageToNextColumn(searchPage, connectionsPage);
 
                             connectionsPage.enableHeaderButtons(selectedTransport.getAllConnections());
+                            headerLeadingSearchResultsIcon.enabled = true;
+                            headerTrailingSearchResultsIcon.enabled = true;
                         }
                     }
                 }
@@ -379,5 +393,108 @@ Page {
 
     RecentBottomEdge {
         id: bottomEdge
+    }
+    
+    PositionSourceItem {
+        id: positionSource
+        
+        property bool positionFound: false
+        property var geolocationOnStartIndex: Number(Transport.transportOptions.getDBSetting("geolocation-on-start") || 0)
+        
+        function populateSearch(historyData) {
+			var newSelectedTransport = Transport.transportOptions.selectTransportById(historyData.typeid);
+			transportSelectorPage.selectedIndexChange();
+			if(historyData.stopidfrom >= 0 && historyData.stopnamefrom) {
+				GeneralFunctions.setStopData(from, historyData.stopidfrom, historyData.stopnamefrom, historyData.typeid);
+			}
+			if(historyData.stopidto >= 0 && historyData.stopnameto) {
+				GeneralFunctions.setStopData(to, historyData.stopidto, historyData.stopnameto, historyData.typeid);
+			}
+			if(historyData.stopidvia >= 0 && historyData.stopnamevia) {
+				GeneralFunctions.setStopData(via, historyData.stopidvia, historyData.stopnamevia, historyData.typeid);
+				advancedSearchSwitch.checked = true;
+			}
+			else {
+				advancedSearchSwitch.checked = false;
+			}
+		}
+        
+        function searchForTheNearestStops() {
+			var coords = positionSource.position.coordinate;				
+			var stops = Transport.transportOptions.searchSavedStationsByLocation(coords);
+			var searchHistory = Transport.transportOptions.dbConnection.getSearchHistory();
+			
+			// Search for a searched route with the closest from station
+			var stationFound = false;
+			for(var i = 0; i < stops.length; i++) {
+				var stop = stops[i];
+				for(var j = 0; j < searchHistory.length; j++) {
+					if(stop.key === searchHistory[j].typeid) {
+						if(stops[i].item === searchHistory[j].stopidfrom) {
+							populateSearch(searchHistory[j]);
+							stationFound = true;
+							break;
+						}
+					}
+				}
+			}
+			
+			// Search for a searched route with the closest to station and reverse
+			if(!stationFound) {
+				for(var i = 0; i < stops.length; i++) {
+					var stop = stops[i];
+					for(var j = 0; j < searchHistory.length; j++) {
+						if(stop.key === searchHistory[j].typeid) {
+							if(stops[i].item === searchHistory[j].stopidto) {
+								var newSelectedTransport = Transport.transportOptions.selectTransportById(searchHistory[j].typeid);
+								transportSelectorPage.selectedIndexChange();
+								var tmpIdTo;
+								var tmpNameTo;
+								if(searchHistory[j].stopidto >= 0 && searchHistory[j].stopnameto) {
+									tmpIdTo = searchHistory[j].stopidto;
+									tmpNameTo = searchHistory[j].stopnameto;
+									if(searchHistory[j].stopidfrom >= 0 && searchHistory[j].stopnamefrom) {
+										searchHistory[j].stopidto = searchHistory[j].stopidfrom;
+										searchHistory[j].stopnameto = searchHistory[j].stopnamefrom;
+										searchHistory[j].stopidfrom = tmpIdTo;
+										searchHistory[j].stopnamefrom = tmpNameTo;
+									}
+								}
+								populateSearch(searchHistory[j]);
+								stationFound = true;
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			// Place at least closest stop to the "From" field if no route match was found
+			if(!stationFound) {
+				for(var i = 0; i < stops.length; i++) {
+					var newSelectedTransport = Transport.transportOptions.selectTransportById(stops[i].key);
+					transportSelectorPage.selectedIndexChange();
+					GeneralFunctions.setStopData(from, stops[i].item, stops[i].value, stops[i].key);
+					to.empty();
+					via.empty();
+					break;
+				}
+			}
+		}
+		
+		onPositionChanged: {
+			if(geolocationOnStartIndex === 0) {
+				if(!positionFound) {
+					if(isValid) {
+						searchForTheNearestStops();
+						positionFound = true;
+						this.stop(); // Deactivate the PositionSource item
+					}
+				}
+			}
+			else {
+				this.stop(); // Deactivate the PositionSource item
+			}
+		}
     }
 }

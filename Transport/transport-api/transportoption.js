@@ -123,6 +123,10 @@ TransportOption.prototype.searchStations = function(mask, call, failCall) {
     return this.cityOptions.getStops(mask, call, failCall);
 }
 
+TransportOption.prototype.searchSavedStationsByLocation = function(coords) {
+    return this.dbConnection.getNearbyStopsByKey(this.id, coords)
+}
+
 TransportOption.prototype.abort = function() {
     if(this.request) {
         this.request.abort();

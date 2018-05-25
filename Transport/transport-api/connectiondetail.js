@@ -8,7 +8,7 @@ var ConnectionDetail = function(data) {
     this.timeLength = this.data.timeLength || 0;
     this.price = this.data.price || 0;
     this.trains = this.data.trains || [];
-
+    
     this.parsedTrains = [];
     this.parseTrains();
 
@@ -169,13 +169,26 @@ ConnectionDetail.prototype.trainRoute = function(data) {
     return this.checkStops(data);
 }
 
+ConnectionDetail.prototype.trainRouteCoors = function(data) {
+    var route = data.route || [];
+    var paths = [];
+    for(var i = 0; i < route.length; i++) {
+		var path = {};
+		path.coorX = route[i].coorX;
+		path.coorY = route[i].coorY;
+		path.active = i >= (data.from || 0) && i < (data.to || route.length);
+		paths.push(path);
+	}
+	return paths;
+}
+
 ConnectionDetail.prototype.parseTrainDetail = function(train) {
     train = train || {};
     var detailData = {};
     detailData.from = train.from || "";
     detailData.to = train.to || "";
-    detailData.dateTime1 = train.dateTime1 ? dateStringtoDate(train.dateTime1) : "";
-    detailData.dateTime2 = train.dateTime2 ? dateStringtoDate(train.dateTime2) : "";
+    detailData.dateTime1 = train.dateTime1 ? dateStringtoDate(String(train.dateTime1)) : "";
+    detailData.dateTime2 = train.dateTime2 ? dateStringtoDate(String(train.dateTime2)) : "";
     detailData.distance = train.distance || "";
     detailData.timeLength = train.timeLength || "";
     detailData.stdChange = train.stdChange || 0;
@@ -189,6 +202,11 @@ ConnectionDetail.prototype.parseTrainDetail = function(train) {
         from: train.from,
         to: train.to
     });
+    detailData.routeCoors = this.trainRouteCoors({
+		route: train.trainData.route,
+		from: train.from,
+        to: train.to
+	});
     return detailData;
 }
 
@@ -221,4 +239,8 @@ ConnectionDetail.prototype.timeStringToDate = function(timeString, date) {
 
 ConnectionDetail.prototype.toString = function() {
     return JSON.stringify(this.data);
+}
+
+ConnectionDetail.prototype.whoAmI = function() {
+    return "ConnectionDetail";
 }

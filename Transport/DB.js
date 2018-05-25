@@ -261,6 +261,70 @@ DBConnection.prototype.getStationByValue = function(key, value) {
     return false;
 }
 
+DBConnection.prototype.getNearbyStopsByKey = function(transportId, coor) {
+    if(this.db) {
+		var lcoorX = coor.x || coor.latitude;
+		var lcoorY = coor.y || coor.longitude;
+				
+        var returnValue = [];
+        this.db.transaction(function(tx) {
+            var fudge = Math.pow(Math.cos((lcoorX) * Math.PI / 180), 2);
+            var rs = tx.executeSql("SELECT ID,key,value,item,listId,coorX,coorY FROM stops WHERE key=? AND coorX IS NOT NULL AND coorY IS NOT NULL ORDER BY ((? - coorX) * (? - coorX) + (? - coorY) * (? - coorY) * ?) ASC LIMIT 10", [transportId, lcoorX, lcoorX, lcoorY, lcoorY, fudge]);
+            for(var i = 0; i < rs.rows.length; i++) {
+				var item = rs.rows.item(i);
+				
+                if(latLongDistance(lcoorX, lcoorY, item.coorX, item.coorY) > 2) {
+                    break;
+                }
+                
+                returnValue.push({
+					id: item.id,
+                    key: item.key,
+                    value: item.value,
+                    item: item.item,
+                    listId: item.listId,
+                    coorX: item.coorX,
+                    coorY: item.coorY
+				});
+            }
+        });
+        return returnValue;
+    }
+    return false;
+}
+
+DBConnection.prototype.getNearbyStops = function(coor) {
+    if(this.db) {
+		var lcoorX = coor.x || coor.latitude;
+		var lcoorY = coor.y || coor.longitude;
+				
+        var returnValue = [];
+        this.db.transaction(function(tx) {
+            var fudge = Math.pow(Math.cos((lcoorX) * Math.PI / 180), 2);
+            var rs = tx.executeSql("SELECT ID,key,value,item,listId,coorX,coorY FROM stops WHERE coorX IS NOT NULL AND coorY IS NOT NULL ORDER BY ((? - coorX) * (? - coorX) + (? - coorY) * (? - coorY) * ?) ASC LIMIT 10", [lcoorX, lcoorX, lcoorY, lcoorY, fudge]);
+            for(var i = 0; i < rs.rows.length; i++) {
+				var item = rs.rows.item(i);
+				
+                if(latLongDistance(lcoorX, lcoorY, item.coorX, item.coorY) > 2) {
+                    break;
+                }
+                
+                returnValue.push({
+					id: item.id,
+                    key: item.key,
+                    value: item.value,
+                    item: item.item,
+                    listId: item.listId,
+                    coorX: item.coorX,
+                    coorY: item.coorY
+				});
+            }
+        });
+        return returnValue;
+    }
+    return false;
+}
+
 DBConnection.prototype.getAllUsedTypesFromSavedStations = function() {
     if(this.db) {
         var returnValue = [];
@@ -379,6 +443,21 @@ DBConnection.prototype.getSearchHistory = function() {
     if(this.db) {
         this.db.transaction(function(tx) {
             var rs = tx.executeSql("SELECT date, typeid, recent.ID as ID, stopidfrom, stopsfrom.value as stopnamefrom, stopidto, stopsto.value as stopnameto, stopidvia, stopsvia.value as stopnamevia FROM recent INNER JOIN stops stopsfrom ON (stopidfrom = stopsfrom.item) INNER JOIN stops stopsto ON (stopidto = stopsto.item) LEFT JOIN stops stopsvia ON (stopidvia = stopsvia.item) ORDER BY date DESC");
+            for(var i = 0; i < rs.rows.length; i++) {
+                searches.push(rs.rows.item(i));
+            }
+        });
+    }
+    return searches;
+}
+
+// Get a list of recent search history for a specified transport type
+// Returns ID, typeid, date, typename and names: stopfrom, stopto and stopvia + coordinates like stopfromx and stopfromy
+DBConnection.prototype.getSearchHistoryById = function(key) {
+    var searches = [];
+    if(this.db) {
+        this.db.transaction(function(tx) {
+            var rs = tx.executeSql("SELECT date, typeid, recent.ID as ID, stopidfrom, stopsfrom.value as stopnamefrom, stopidto, stopsto.value as stopnameto, stopidvia, stopsvia.value as stopnamevia FROM recent INNER JOIN stops stopsfrom ON (stopidfrom = stopsfrom.item) INNER JOIN stops stopsto ON (stopidto = stopsto.item) LEFT JOIN stops stopsvia ON (stopidvia = stopsvia.item) WHERE typeid=? ORDER BY date DESC", [key])
             for(var i = 0; i < rs.rows.length; i++) {
                 searches.push(rs.rows.item(i));
             }

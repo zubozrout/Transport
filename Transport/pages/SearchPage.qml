@@ -425,49 +425,47 @@ Page {
 			var stops = Transport.transportOptions.searchSavedStationsByLocation(coords);
 			var searchHistory = Transport.transportOptions.dbConnection.getSearchHistory();
 			
-			// Search for a searched route with the closest from station
+			// Search for a searched route with the closest from or to station
 			var stationFound = false;
+			var stopsFoundInSearchHistory = [];
 			for(var i = 0; i < stops.length; i++) {
 				var stop = stops[i];
 				for(var j = 0; j < searchHistory.length; j++) {
 					if(stop.key === searchHistory[j].typeid) {
 						if(stops[i].item === searchHistory[j].stopidfrom) {
-							populateSearch(searchHistory[j]);
-							stationFound = true;
-							break;
+							stopsFoundInSearchHistory.push({
+								type: "from",
+								stop: stops[i],
+								searchHistory: searchHistory[j]
+							});
+						}
+						else if(stops[i].item === searchHistory[j].stopidto) {
+							var tmpIdTo, tmpNameTo;
+							if(searchHistory[j].stopidto >= 0 && searchHistory[j].stopnameto) {
+								tmpIdTo = searchHistory[j].stopidto;
+								tmpNameTo = searchHistory[j].stopnameto;
+								if(searchHistory[j].stopidfrom >= 0 && searchHistory[j].stopnamefrom) {
+									searchHistory[j].stopidto = searchHistory[j].stopidfrom;
+									searchHistory[j].stopnameto = searchHistory[j].stopnamefrom;
+									searchHistory[j].stopidfrom = tmpIdTo;
+									searchHistory[j].stopnamefrom = tmpNameTo;
+								}
+							}
+							
+							stopsFoundInSearchHistory.push({
+								type: "to",
+								stop: stops[i],
+								searchHistory: searchHistory[j]
+							});
 						}
 					}
 				}
 			}
 			
-			// Search for a searched route with the closest to station and reverse
-			if(!stationFound) {
-				for(var i = 0; i < stops.length; i++) {
-					var stop = stops[i];
-					for(var j = 0; j < searchHistory.length; j++) {
-						if(stop.key === searchHistory[j].typeid) {
-							if(stops[i].item === searchHistory[j].stopidto) {
-								var newSelectedTransport = Transport.transportOptions.selectTransportById(searchHistory[j].typeid);
-								transportSelectorPage.selectedIndexChange();
-								var tmpIdTo;
-								var tmpNameTo;
-								if(searchHistory[j].stopidto >= 0 && searchHistory[j].stopnameto) {
-									tmpIdTo = searchHistory[j].stopidto;
-									tmpNameTo = searchHistory[j].stopnameto;
-									if(searchHistory[j].stopidfrom >= 0 && searchHistory[j].stopnamefrom) {
-										searchHistory[j].stopidto = searchHistory[j].stopidfrom;
-										searchHistory[j].stopnameto = searchHistory[j].stopnamefrom;
-										searchHistory[j].stopidfrom = tmpIdTo;
-										searchHistory[j].stopnamefrom = tmpNameTo;
-									}
-								}
-								populateSearch(searchHistory[j]);
-								stationFound = true;
-								break;
-							}
-						}
-					}
-				}
+			for(var i = 0; i < stopsFoundInSearchHistory.length; i++) {
+				populateSearch(stopsFoundInSearchHistory[i].searchHistory);
+				stationFound = true;
+				break;
 			}
 			
 			// Place at least closest stop to the "From" field if no route match was found

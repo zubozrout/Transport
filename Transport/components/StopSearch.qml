@@ -48,6 +48,7 @@ Item {
 
     function empty() {
         textField.text = "";
+        selectedStop = null;
         optionsModel.clear();
     }
 

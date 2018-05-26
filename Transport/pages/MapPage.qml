@@ -15,25 +15,6 @@ Page {
         id: pageHeader
         title: i18n.tr("Map")
         
-        /*
-        extension: Sections {
-            id: mapSections
-            anchors {
-                left: parent.left
-                right: parent.right
-                leftMargin: units.gu(2)
-                bottom: parent.bottom
-            }
-            model: [i18n.tr("One"), i18n.tr("Two")]
-            selectedIndex: 0
-
-            StyleHints {
-                sectionColor: pageLayout.colorPalete.secondaryBG
-                selectedSectionColor: pageLayout.colorPalete.headerText
-            }
-        }
-        */
-        
         trailingActionBar {
             actions: [
                 Action {
@@ -56,17 +37,27 @@ Page {
     
     property bool customLocation: false
     property bool locationDisplayed: false
-    
-    onVisibleChanged: {
+	
+	function cleanPage(fetchGPS) {
 		polyLineListModel.clear();
 		stationListModel.clear();
 		positionSource.update();
+		
+		if(fetchGPS) {
+			mapPage.locationDisplayed = false;
+			mapPage.customLocation = false;
+			gpsMarker.updatePosition();
+		}
+		map.init();
 	}
     
     function renderRoute(connectionDetail) {
 		mapPage.customLocation = true;
 		var mapPositionSynced = false;
-			
+		
+		var polyLinesToTender = [];
+		var stationsToRender = [];
+				
 		for(var i = 0; i < connectionDetail.trainLength(); i++) {
 			var trainDetail = connectionDetail.getTrain(i);
 			var routeCoors = trainDetail.routeCoors;
@@ -111,7 +102,7 @@ Page {
 							});	
 						}
 												
-						polyLineListModel.append({
+						polyLinesToTender.push({
 							"linePath": JSON.stringify(routePart),
 							"active": routeCoors[j].active,
 							"lineColor": color
@@ -128,20 +119,33 @@ Page {
 				var currentStation = route[j].station;
 				var active = j >= from && j <= to;
 																
-				stationListModel.append({
+				stationsToRender.push({
 					"latitude": currentStation.coorX,
 					"longitude": currentStation.coorY,
 					"active": active,
 					"pointColor": color
 				});
 				
-				if(active && !mapPositionSynced) {
+				if(i === 0 && active && !mapPositionSynced) {
 					map.center = QtPositioning.coordinate(currentStation.coorX, currentStation.coorY);
 					map.zoomLevel = map.maximumZoomLevel - 5;
 					mapPage.locationDisplayed = true;
 					mapPositionSynced = true;
 				}
 			}
+		}
+		
+		var zIndex = 1;
+		for(var i = 0; i < polyLinesToTender.length; i++) {
+			polyLinesToTender[i].zIndex = zIndex;
+			polyLineListModel.append(polyLinesToTender[i]);
+			zIndex++;
+		}
+		
+		for(var i = 0; i < stationsToRender.length; i++) {
+			stationsToRender[i].zIndex = zIndex;
+			stationListModel.append(stationsToRender[i]);
+			zIndex++;
 		}
 	}
     
@@ -165,9 +169,17 @@ Page {
             id: map
             anchors.fill: parent
             plugin: mapPlugin
-            zoomLevel: maximumZoomLevel - 3
             gesture.enabled: true
-            gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
+            gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture | MapGestureArea.FlickGesture
+            gesture.flickDeceleration: 3000
+            
+            function init() {
+				zoomLevel = maximumZoomLevel - 3;
+			}
+			
+			Component.onCompleted: {
+				init();
+			}
 
             MapQuickItem {
                 id: gpsMarker
@@ -175,6 +187,7 @@ Page {
                 anchorPoint.y: gpsMarkerIcon.height
                 coordinate: positionSource.position.coordinate
                 z: 10000
+                visible: positionSource.isValid
 
                 property bool firstTimeLocationFound: false
 
@@ -187,12 +200,16 @@ Page {
                     sourceSize.width: width
                     sourceSize.height: height
                 }
+                
+                function updatePosition() {
+					map.center = positionSource.position.coordinate;
+				}
 
                 onCoordinateChanged: {
-                    if(!mapPage.customLocation && !mapPage.locationDisplayed) {
-                        map.center = positionSource.position.coordinate;
-                        mapPage.locationDisplayed = true;
-                    }
+					if(!mapPage.customLocation && !mapPage.locationDisplayed) {
+						updatePosition();
+						mapPage.locationDisplayed = true;
+					}
                 }
             }
 			
@@ -209,7 +226,7 @@ Page {
 					line.color: active ? lineColor : "#000"
 					opacity: 1
 					path: JSON.parse(linePath)
-					z: index
+					z: zIndex
 				}
 			}
 			
@@ -225,7 +242,7 @@ Page {
                     coordinate: QtPositioning.coordinate(latitude, longitude)
                     anchorPoint.x: stopMarkerIcon.width / 2
                     anchorPoint.y: stopMarkerIcon.height / 2
-                    z: index * 100
+                    z: zIndex
 
                     sourceItem: Rectangle {
                         id: stopMarkerIcon
@@ -244,6 +261,12 @@ Page {
 							radius: width
 							color: "#fff"
 						}
+						
+						Component.onCompleted: {
+							if(index === 0) {
+								map.fitViewportToMapItems();
+							}
+						}
                     }
                 }
             }
@@ -254,7 +277,8 @@ Page {
 			anchors {
 				right: parent.right
 				bottom: parent.bottom
-				margins: units.gu(2)
+				rightMargin: units.gu(2)
+				bottomMargin: units.gu(4)
 			}
 			width: childrenRect.width
 			height: childrenRect.height
@@ -301,7 +325,7 @@ Page {
 					
 					Label {
 						anchors.fill: parent
-						text: "-"
+						text: "−"
 						color: "#fff"
 						font.bold: true
 						font.pixelSize: FontUtils.sizeToPixels("x-large")

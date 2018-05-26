@@ -122,7 +122,7 @@ Page {
 
                     var finalText = i18n.tr("Journey start: %1", from).arg(from) + "\n";
                     finalText += i18n.tr("Journey end: %1", to).arg(to) + "\n";
-                    finalText += (via ? i18n.tr("Transfering at: %1", via).arg(via) : "");
+                    finalText += (via ? i18n.tr("Transfering at: %1", via).arg(via) : "") + "\n";
                     finalText += i18n.tr("Number of results: %1", connectionsLength).arg(connectionsLength) + "\n";
                     this.overviewText = finalText;
 

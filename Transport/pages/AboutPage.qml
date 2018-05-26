@@ -44,7 +44,7 @@ Page {
                 }
 
                 Component.onCompleted: {
-                    customDataList.append({value: i18n.tr("Transport") + " v1.2\nUbuntu Touch + UBports", fontScale: "large", imageSource: "../transport.svg", imageWidth: units.gu(10), bottomBorder: true});
+                    customDataList.append({value: i18n.tr("Transport") + " v1.3\nUbuntu Touch + UBports", fontScale: "large", imageSource: "../transport.svg", imageWidth: units.gu(10), bottomBorder: true});
                     customDataList.append({value: i18n.tr("Transport is here to allow you searching for Czech and Slovak public transport connections."), bottomBorder: true});
                     customDataList.append({value: i18n.tr("This application is based upon an API provided by CHAPS s.r.o. company.") + " info@chaps.cz\n\n" + i18n.tr("You can find the documentation of the API service here http://docs.crws.apiary.io/"), bottomBorder: true});
                     customDataList.append({value: i18n.tr("Feel free to report bugs on the github page but please note many of the existing bugs are know and the reason why they are not fixed yet is the fact I don't have enough time to take care of those just yet."), fontScale: "small", bottomBorder: true});

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-25 20:49+0000\n"
+"POT-Creation-Date: 2018-05-26 14:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,12 +23,12 @@ msgid "Station name"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:337
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:338
 msgid "Arrival"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:337
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:338
 msgid "Departure"
 msgstr ""
 
@@ -66,7 +66,8 @@ msgstr ""
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/CustomDataList.qml:54
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:53
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:93
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:95
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:116
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:173
 msgid "No"
 msgstr ""
@@ -74,7 +75,8 @@ msgstr ""
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/CustomDataList.qml:58
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:57
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:88
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:93
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:95
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:116
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:177
 msgid "Yes"
 msgstr ""
@@ -106,24 +108,24 @@ msgstr ""
 msgid "Do you really want to delete this history entry?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:201
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:193
 msgid "From"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:235
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:218
 msgid "To"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:256
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:284
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:238
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:285
 msgid "Via"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:67
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:68
 msgid "station name"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:140
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:141
 msgid "Remote station search failed"
 msgstr ""
 
@@ -179,23 +181,23 @@ msgstr ""
 msgid "Map page"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:39
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:40
 msgid "Only passed stations"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:39
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:40
 msgid "All stations"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:117
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:118
 msgid "Distance"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:140
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:141
 msgid "Time length"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:163
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:164
 msgid "Price"
 msgstr ""
 
@@ -267,37 +269,37 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/MapPage.qml:41
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/MapPage.qml:22
 msgid "Location"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:30
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:66
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:67
 msgid "Search results"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:45
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:46
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:12
 msgid "Settings"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:52
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:53
 msgid "About"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:115
 msgid "Search failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:313
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:314
 msgid "Custom date"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:356
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:357
 msgid "Abort search"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:356
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:357
 msgid "Search"
 msgstr ""
 
@@ -305,41 +307,45 @@ msgstr ""
 msgid "Clear cache"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:63
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:64
 msgid ""
 "By pressing this button you'll delete all saved data including search "
 "history, cached stations and respective transport option settings."
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:69
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:70
 msgid "Refresh data"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:81
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:83
 msgid "Renew all Transport options data"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:103
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:105
 msgid "Use GeoLocation search on start?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:126
+msgid "Download route map coords with every connection detail query"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:137
 msgid "Weekly"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:137
 msgid "Daily"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:137
 msgid "Everytime"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:114
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:137
 msgid "Never"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:123
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:146
 msgid "How often would you like the transport options data to be refreshed?"
 msgstr ""
 

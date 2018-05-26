@@ -37,6 +37,7 @@ Page {
                     iconName: "map"
                     text: i18n.tr("Map page")
                     onTriggered: {
+						mapPage.cleanPage(true);
                         pageLayout.addPageToNextColumn(searchPage, mapPage);
                     }
                 },
@@ -79,8 +80,8 @@ Page {
     function search() {
         var fromVal = from.selectedStop ? from.selectedStop : from.value;
         var toVal = to.selectedStop ? to.selectedStop : to.value;
-        var viaVal = advancedSearchSwitch.checked ? (via.selectedStop ? via.selectedStop : via.value) : "";
-
+        var viaVal = advancedSearchSwitch.checked ? (via.selectedStop ? via.selectedStop : via.value) : null;
+                
         var selectedTransport = Transport.transportOptions.getSelectedTransport();
 
         if(selectedTransport && fromVal && toVal) {

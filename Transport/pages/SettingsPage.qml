@@ -57,6 +57,7 @@ Page {
                         Transport.transportOptions.clearAll(true);
                         rowPickerA.update(function(model) { rowPickerA.render(model) });
                         rowPickerB.update(function(model) { rowPickerB.render(model) });
+                        rowPickerC.update(function(model) { rowPickerC.render(model) });
                     });
 
                     customDataList.append({
@@ -75,6 +76,7 @@ Page {
                         transportSelectorPage.serverUpdate();
                         rowPickerA.update(function(model) { rowPickerA.render(model) });
                         rowPickerB.update(function(model) { rowPickerB.render(model) });
+                        rowPickerC.update(function(model) { rowPickerC.render(model) });
                     });
 
                     customDataList.append({
@@ -104,9 +106,30 @@ Page {
                         rowPickerA.update(function(model) { rowPickerA.render(model) });
                     }
                 }
-
+                
                 RowPicker {
                     id: rowPickerB
+
+                    property var render: function(model) {
+                        clear();
+
+                        var options = [i18n.tr("Yes"), i18n.tr("No")];
+                                                
+                        var index = Number(Transport.transportOptions.getDBSetting("connection-detail-coords") || 0)
+
+                        initialize(options, index, function(itemIndex) {
+                            Transport.transportOptions.saveDBSetting("connection-detail-coords", itemIndex);
+                        });
+                    }
+
+                    Component.onCompleted: {
+                        setTite(i18n.tr("Download route map coords with every connection detail query"));
+                        rowPickerB.update(function(model) { rowPickerB.render(model) });
+                    }
+                }
+
+                RowPicker {
+                    id: rowPickerC
 
                     property var render: function(model) {
                         clear();
@@ -121,7 +144,7 @@ Page {
 
                     Component.onCompleted: {
                         setTite(i18n.tr("How often would you like the transport options data to be refreshed?"));
-                        rowPickerB.update(function(model) { rowPickerB.render(model) });
+                        rowPickerC.update(function(model) { rowPickerC.render(model) });
                     }
                 }
             }

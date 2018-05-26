@@ -115,23 +115,24 @@ BottomEdge {
 						left: parent.left
 						right: parent.right
 					}
-					height: recentChildDelegateLayout.height + 2 * recentChildDelegateLayout.anchors.margins
+					height: recentChildDelegateLayout.height + recentChildDelegateLayout.anchors.topMargin + recentChildDelegateLayout.anchors.bottomMargin
 					color: index % 2 === 0 ? "transparent" : "#efefef"
 					
 					RowLayout {
 						id: recentChildDelegateLayout
 						anchors {
 							centerIn: parent
-							margins: units.gu(2)
+							topMargin: units.gu(1)
+							rightMargin: units.gu(2)
+							bottomMargin: units.gu(1)
+							leftMargin: units.gu(2)
 						}
-						width: parent.width - 2 * anchors.margins
-						height: childrenRect.height
 						spacing: units.gu(2)
 						Layout.fillWidth: true
+						width: parent.width - anchors.leftMargin - anchors.rightMargin
 
 						Rectangle {
 							id: recentChildDelegateIndex
-							anchors.verticalCenter: parent.verticalCenter
 							width: units.gu(3)
 							height: width
 							color: "transparent"
@@ -148,13 +149,11 @@ BottomEdge {
 						}
 
 						ColumnLayout {
-							anchors.margins: units.gu(2)
 							spacing: units.gu(0.25)
 							Layout.fillWidth: true
 
 							RowLayout {
-								width: parent.width
-								spacing: units.gu(1)
+								spacing: units.gu(2)
 								Layout.fillWidth: true
 
 								Text {
@@ -182,72 +181,55 @@ BottomEdge {
 								id: historyRowLayout
 								spacing: units.gu(1)
 								Layout.fillWidth: true
-								
-								Rectangle {
-									width: parent.width / 2
-									height: childrenRect.height
-									color: "transparent"
-									Layout.fillWidth: true
 									
-									ColumnLayout {
-										anchors {
-											left: parent.left
-											right: parent.right
-										}
-										spacing: units.gu(0.25)
+								ColumnLayout {
+									id: fromStationColumn
+									anchors.top: parent.top
+									spacing: units.gu(0.25)
+									Layout.fillWidth: false
+									Layout.preferredWidth: parent.width / 2
+									
+									Text {
+										text: i18n.tr("From")
+										font.pixelSize: FontUtils.sizeToPixels("small")
+										font.bold: false
+										horizontalAlignment: Text.AlignLeft
 										Layout.fillWidth: true
-										
-										Text {
-											text: i18n.tr("From")
-											font.pixelSize: FontUtils.sizeToPixels("small")
-											font.bold: false
-											horizontalAlignment: Text.AlignLeft
-											Layout.fillWidth: true
-											wrapMode: Text.WordWrap
-										}
+										wrapMode: Text.WordWrap
+									}
 
-										Text {
-											text: stopnamefrom
-											font.pixelSize: FontUtils.sizeToPixels("normal")
-											font.bold: true
-											horizontalAlignment: Text.AlignLeft
-											Layout.fillWidth: true
-											wrapMode: Text.WordWrap
-										}
+									Text {
+										text: stopnamefrom
+										font.pixelSize: FontUtils.sizeToPixels("normal")
+										font.bold: true
+										horizontalAlignment: Text.AlignLeft
+										Layout.fillWidth: true
+										wrapMode: Text.WordWrap
 									}
 								}
-								
-								Rectangle {
-									width: parent.width / 2
-									height: childrenRect.height
-									color: "transparent"
+									
+								ColumnLayout {
+									id: toStationColumn
+									anchors.top: parent.top
+									spacing: units.gu(0.25)
 									Layout.fillWidth: true
 									
-									ColumnLayout {
-										anchors {
-											left: parent.left
-											right: parent.right
-										}
-										spacing: units.gu(0.25)
+									Text {
+										text: i18n.tr("To")
+										font.pixelSize: FontUtils.sizeToPixels("small")
+										font.bold: false
+										horizontalAlignment: Text.AlignLeft
 										Layout.fillWidth: true
-										
-										Text {
-											text: i18n.tr("To")
-											font.pixelSize: FontUtils.sizeToPixels("small")
-											font.bold: false
-											horizontalAlignment: Text.AlignLeft
-											Layout.fillWidth: true
-											wrapMode: Text.WordWrap
-										}
+										wrapMode: Text.WordWrap
+									}
 
-										Text {
-											text: stopnameto
-											font.pixelSize: FontUtils.sizeToPixels("normal")
-											font.bold: true
-											horizontalAlignment: Text.AlignLeft
-											Layout.fillWidth: true
-											wrapMode: Text.WordWrap
-										}
+									Text {
+										text: stopnameto
+										font.pixelSize: FontUtils.sizeToPixels("normal")
+										font.bold: true
+										horizontalAlignment: Text.AlignLeft
+										Layout.fillWidth: true
+										wrapMode: Text.WordWrap
 									}
 								}
 							}
@@ -255,7 +237,7 @@ BottomEdge {
 							Text {
 								text: visible ? i18n.tr("Via") + ": " + stopnamevia : ""
 								font.pixelSize: FontUtils.sizeToPixels("small")
-								width: parent.width
+								Layout.fillWidth: true
 								horizontalAlignment: Text.AlignLeft
 								wrapMode: Text.WordWrap
 								visible: typeof stopidvia !== typeof undefined && stopidvia >= 0 && stopnamevia ? true : false
@@ -281,6 +263,7 @@ BottomEdge {
                                 advancedSearchSwitch.checked = true;
                             }
                             else {
+								via.empty();
                                 advancedSearchSwitch.checked = false;
                             }
                         }

@@ -20,6 +20,7 @@ Page {
                     iconName: "map"
                     text: i18n.tr("Map page")
                     onTriggered: {
+						mapPage.cleanPage(false);
                         pageLayout.addPageToNextColumn(connectionDetailPage, mapPage);
                         mapPage.renderRoute(connectionDetailPage.detail);
                     }

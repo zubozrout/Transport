@@ -5,9 +5,9 @@ var Connection = function(parent, data) {
     this.data = data || {};
     this.id = this.data.id || null;
     this.trains = this.data.trains || [];
-
-    this.getRouteCoors = true;
-
+    
+    this.getRouteCoors = Number(this.parent.dbConnection.getSetting("connection-detail-coords") || 0) === 0 ? true : false;
+    
     this.detail = null;
 
     return this;

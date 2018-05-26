@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-26 14:33+0000\n"
+"POT-Creation-Date: 2018-05-26 14:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
@@ -344,7 +344,7 @@ msgstr "Použít Geolokaci po startu aplikace?"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:126
 msgid "Download route map coords with every connection detail query"
-msgstr ""
+msgstr "Stahovat mapové souřadnice pro každý detail spojení"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:137
 msgid "Weekly"

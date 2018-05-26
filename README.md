@@ -10,7 +10,7 @@ The real Ubuntu Phone app present in the store here https://open-store.io/app/tr
 
 Here is the CHAPS API documentation: http://docs.crws.apiary.io/#reference
 
-Please help translate this app here: https://www.transifex.com/zubozrout/transport/
+Please help translate this app here: https://www.transifex.com/zubozrout/transport-ng/
 
 # Building for Xenial
 `clickable -k 16.04 --arch="armhf"`

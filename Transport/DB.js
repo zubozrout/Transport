@@ -261,6 +261,37 @@ DBConnection.prototype.getStationByValue = function(key, value) {
     return false;
 }
 
+DBConnection.prototype.getAllStations = function(key) {
+    if(this.db) {
+        var stations = [];
+        this.db.transaction(function(tx) {
+			var rs = {};
+			if(key) {
+				rs = tx.executeSql('SELECT ID,key,value,item,listId,coorX,coorY FROM stops WHERE key=?', [key]);
+			}
+			else {
+				rs = tx.executeSql('SELECT ID,key,value,item,listId,coorX,coorY FROM stops');
+			}
+			for(var i = 0; i < rs.rows.length; i++) {
+				var item = rs.rows.item(i);
+				if(item) {
+					stations.push({
+						id: item.id,
+						key: item.key,
+						value: item.value,
+						item: item.item,
+						listId: item.listId,
+						coorX: item.coorX,
+						coorY: item.coorY
+					});
+				}
+			}
+        });
+        return stations;
+    }
+    return false;
+}
+
 DBConnection.prototype.getNearbyStopsByKey = function(transportId, coor) {
     if(this.db) {
 		var lcoorX = coor.x || coor.latitude;

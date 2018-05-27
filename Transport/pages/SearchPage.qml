@@ -39,6 +39,7 @@ Page {
                     onTriggered: {
 						mapPage.cleanPage(true);
                         pageLayout.addPageToNextColumn(searchPage, mapPage);
+                        mapPage.renderAllDBStations(Transport.transportOptions.getSelectedId());
                     }
                 },
                 Action {

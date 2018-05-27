@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-26 16:26+0000\n"
+"POT-Creation-Date: 2018-05-27 20:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
@@ -24,12 +24,12 @@ msgid "Station name"
 msgstr "Název stanice"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:338
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:339
 msgid "Arrival"
 msgstr "Příjezd"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:338
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:339
 msgid "Departure"
 msgstr "Odjezd"
 
@@ -122,15 +122,15 @@ msgid "To"
 msgstr "Do"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:238
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:285
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:286
 msgid "Via"
 msgstr "Přes"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:68
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:71
 msgid "station name"
 msgstr "název stanice"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:141
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/StopSearch.qml:144
 msgid "Remote station search failed"
 msgstr "Vyhledávání stanice skončilo chybou"
 
@@ -160,7 +160,7 @@ msgid ""
 "You can find the documentation of the API service here http://docs.crws."
 "apiary.io/"
 msgstr ""
-"Dokumentaci k využívané API můžete najít na adrese http://docs.crws.apiary."
+"Dokumentaci k využívanému API můžete najít na adrese http://docs.crws.apiary."
 "io/"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:50
@@ -289,32 +289,32 @@ msgid "Location"
 msgstr "Pozice"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:30
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:67
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:68
 msgid "Search results"
 msgstr "Výsledky hledání"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:46
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:47
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:12
 msgid "Settings"
 msgstr "Nastavení"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:53
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:54
 msgid "About"
 msgstr "O aplikaci"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:115
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:116
 msgid "Search failed"
 msgstr "Vyhledávání se nepovedlo"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:314
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:315
 msgid "Custom date"
 msgstr "Vlastní datum"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:357
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:358
 msgid "Abort search"
 msgstr "Přerušit vyhledávání"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:357
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:358
 msgid "Search"
 msgstr "Hledat"
 

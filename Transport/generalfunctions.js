@@ -129,19 +129,22 @@ function dateToString(date) {
 }
 
 function lineColor(line) {
-    if(line.toLowerCase() === "a") {
-        return "#080"; // Green
-    }
-    if(line.toLowerCase() === "b") {
-        return "#ec1"; // Yellow
-    }
-    if(line.toLowerCase() === "c") {
-        return "#d00"; // Red
-    }
-    if(line.toLowerCase() === "d") {
-        return "#00d"; // Blue
-    }
-    return "#000";
+    switch(line.toLowerCase()) {
+		case "a":
+			color = "#1B5E20";
+			break;
+		case "b":
+			color = "#FBC02D";
+			break;
+		case "c":
+			color = "#B71C1C";
+			break;
+		case "d":
+			color = "#0D47A1";
+			break;
+		default:
+			color = "#000";
+	}
 }
 
 function setStopData(stopSearch, stopidfrom, stopnamefrom, typeid) {

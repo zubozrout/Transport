@@ -20,8 +20,9 @@ Page {
                 Action {
                     iconName: "location"
                     text: i18n.tr("Location")
+                    visible: positionSource.isValid
                     onTriggered: {
-                        map.center = positionSource.position.coordinate;
+                        map.center = gpsMarker.coordinate;
                     }
                 }
            ]
@@ -44,9 +45,17 @@ Page {
 		positionSource.update();
 		
 		if(fetchGPS) {
+			var savedDbPositionX = Transport.transportOptions.getDBSetting("last-geo-positionX") || null;
+			var savedDbPositionY = Transport.transportOptions.getDBSetting("last-geo-positionY") || null;
+			if(savedDbPositionX && savedDbPositionY) {
+				map.center = QtPositioning.coordinate(savedDbPositionX, savedDbPositionY);
+			}
+			else {
+				map.center = QtPositioning.coordinate(50.0755381, 14.4378005); // Default position to Prague
+			}
+			
 			mapPage.locationDisplayed = false;
 			mapPage.customLocation = false;
-			gpsMarker.updatePosition();
 		}
 		map.init();
 	}
@@ -122,6 +131,9 @@ Page {
 				stationsToRender.push({
 					"latitude": currentStation.coorX,
 					"longitude": currentStation.coorY,
+					"value": station.value,
+					"key": station.key,
+					"item": station.item,
 					"active": active,
 					"pointColor": color
 				});
@@ -148,10 +160,56 @@ Page {
 			zIndex++;
 		}
 	}
+	
+	function renderAllDBStations(transportID) {
+		transportID = transportID || null;
+		var stations = Transport.transportOptions.dbConnection.getAllStations(transportID);
+		var stationsToRender = [];
+		for(var i = 0; i < stations.length; i++) {
+			var station = stations[i];
+			
+			var renderStation = true;
+			for(var j = 0; j < stationsToRender.length; j++) {
+				if(stationsToRender[j].latitude === station.coorX) {
+					if(stationsToRender[j].longitude === station.coorY) {
+						if(Transport.GeneralTranport.baseString(stationsToRender[j].value) === Transport.GeneralTranport.baseString(station.value)) {
+							renderStation = false;
+						}
+						station.coorX += 0.0003;
+						station.coorY += 0.0003;
+					}
+				}
+			}
+			
+			if(renderStation) {
+				stationsToRender.push({
+					"latitude": station.coorX,
+					"longitude": station.coorY,
+					"value": station.value,
+					"key": station.key,
+					"item": station.item,
+					"active": station.key === transportID,
+					"pointColor": pageLayout.colorPalete["headerBG"]
+				});
+			}
+		}
+		
+		var zIndex = 1;
+		for(var i = 0; i < stationsToRender.length; i++) {
+			stationsToRender[i].zIndex = zIndex;
+			stationListModel.append(stationsToRender[i]);
+			zIndex++;
+		}
+	}
     
     PositionSourceItem {
         id: positionSource
         active: mapPage.visible
+        
+        onPositionChanged: {
+			console.log("onPositionChanged");
+			gpsMarker.updatePosition();
+		}
     }
 
     Rectangle {
@@ -185,7 +243,6 @@ Page {
                 id: gpsMarker
                 anchorPoint.x: gpsMarkerIcon.width / 4
                 anchorPoint.y: gpsMarkerIcon.height
-                coordinate: positionSource.position.coordinate
                 z: 10000
                 visible: positionSource.isValid
 
@@ -202,15 +259,15 @@ Page {
                 }
                 
                 function updatePosition() {
-					map.center = positionSource.position.coordinate;
-				}
-
-                onCoordinateChanged: {
-					if(!mapPage.customLocation && !mapPage.locationDisplayed) {
-						updatePosition();
+					if(positionSource.isValid) {
+						var coords = positionSource.position.coordinate;
+						coordinate = coords;
+						map.center = coords;
+						Transport.transportOptions.saveDBSetting("last-geo-positionX", coords.latitude);
+						Transport.transportOptions.saveDBSetting("last-geo-positionY", coords.longitude);
 						mapPage.locationDisplayed = true;
 					}
-                }
+				}
             }
 			
 			ListModel {
@@ -260,6 +317,20 @@ Page {
 							height: width
 							radius: width
 							color: "#fff"
+						}
+						
+						Label {
+							anchors {
+								bottom: parent.top
+								horizontalCenter: parent.horizontalCenter
+								margins: units.gu(0.25)
+							}
+							text: value
+							color: "#000"
+							font.bold: false
+							font.pixelSize: FontUtils.sizeToPixels("xx-small")
+							visible: map.zoomLevel > map.maximumZoomLevel - 4
+							horizontalAlignment: Text.AlignHCenter
 						}
 						
 						Component.onCompleted: {

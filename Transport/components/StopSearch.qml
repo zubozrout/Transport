@@ -50,6 +50,9 @@ Item {
         textField.text = "";
         selectedStop = null;
         optionsModel.clear();
+        if(textField.cityOptions) {
+			textField.cityOptions.abort();
+		}
     }
 
     ColumnLayout {

@@ -2,6 +2,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 
 import "pages"
+import "components"
 
 /*!
     \brief MainView with a Label and Button elements.
@@ -89,6 +90,11 @@ MainView {
         MapPage {
             id: mapPage
         }
+    }
+    
+    PositionSourceItem {
+        id: positionSource
+        active: false
     }
 }
 

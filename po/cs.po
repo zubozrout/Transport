@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-27 20:49+0000\n"
+"POT-Creation-Date: 2018-05-28 20:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
@@ -24,12 +24,12 @@ msgid "Station name"
 msgstr "Název stanice"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:339
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:455
 msgid "Arrival"
 msgstr "Příjezd"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:339
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:455
 msgid "Departure"
 msgstr "Odjezd"
 
@@ -122,7 +122,7 @@ msgid "To"
 msgstr "Do"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:238
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:286
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:402
 msgid "Via"
 msgstr "Přes"
 
@@ -302,19 +302,23 @@ msgstr "Nastavení"
 msgid "About"
 msgstr "O aplikaci"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:116
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:78
+msgid "Locate nearby"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:127
 msgid "Search failed"
 msgstr "Vyhledávání se nepovedlo"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:315
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:431
 msgid "Custom date"
 msgstr "Vlastní datum"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:358
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:474
 msgid "Abort search"
 msgstr "Přerušit vyhledávání"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:358
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:474
 msgid "Search"
 msgstr "Hledat"
 

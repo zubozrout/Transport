@@ -324,7 +324,7 @@ DBConnection.prototype.getNearbyStopsByKey = function(transportId, coor) {
     return false;
 }
 
-DBConnection.prototype.getNearbyStops = function(coor) {
+DBConnection.prototype.getNearbyStops = function(coor, limit) {
     if(this.db) {
 		var lcoorX = coor.x || coor.latitude;
 		var lcoorY = coor.y || coor.longitude;
@@ -332,7 +332,7 @@ DBConnection.prototype.getNearbyStops = function(coor) {
         var returnValue = [];
         this.db.transaction(function(tx) {
             var fudge = Math.pow(Math.cos((lcoorX) * Math.PI / 180), 2);
-            var rs = tx.executeSql("SELECT ID,key,value,item,listId,coorX,coorY FROM stops WHERE coorX IS NOT NULL AND coorY IS NOT NULL ORDER BY ((? - coorX) * (? - coorX) + (? - coorY) * (? - coorY) * ?) ASC LIMIT 10", [lcoorX, lcoorX, lcoorY, lcoorY, fudge]);
+            var rs = tx.executeSql("SELECT ID,key,value,item,listId,coorX,coorY FROM stops WHERE coorX IS NOT NULL AND coorY IS NOT NULL ORDER BY ((? - coorX) * (? - coorX) + (? - coorY) * (? - coorY) * ?) ASC LIMIT ?", [lcoorX, lcoorX, lcoorY, lcoorY, fudge, limit]);
             for(var i = 0; i < rs.rows.length; i++) {
 				var item = rs.rows.item(i);
 				

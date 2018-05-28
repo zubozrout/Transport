@@ -71,8 +71,19 @@ Page {
                     }
                     enabled: false
                     visible: enabled
+                },
+                Action {
+					id: headerTrailingLocationIcon
+                    iconName: "location"
+                    text: i18n.tr("Locate nearby")
+                    onTriggered: {
+						positionSource.append(function(source) {
+							searchPage.findClosestRouteInHistory();
+						});
+                    }
                 }
            ]
+           numberOfSlots: 2
         }
     }
 
@@ -168,10 +179,111 @@ Page {
             itemActivity.running = false;
         }
     }
-
-    Component.onCompleted: {
-        lastSearchPopulate();
-    }
+    
+    function populateSearch(historyData) {
+			var newSelectedTransport = Transport.transportOptions.selectTransportById(historyData.typeid);
+			transportSelectorPage.selectedIndexChange();
+			if(historyData.stopidfrom >= 0 && historyData.stopnamefrom) {
+				GeneralFunctions.setStopData(from, historyData.stopidfrom, historyData.stopnamefrom, historyData.typeid);
+			}
+			if(historyData.stopidto >= 0 && historyData.stopnameto) {
+				GeneralFunctions.setStopData(to, historyData.stopidto, historyData.stopnameto, historyData.typeid);
+			}
+			if(historyData.stopidvia >= 0 && historyData.stopnamevia) {
+				GeneralFunctions.setStopData(via, historyData.stopidvia, historyData.stopnamevia, historyData.typeid);
+				advancedSearchSwitch.checked = true;
+			}
+			else {
+				advancedSearchSwitch.checked = false;
+			}
+		}
+        
+	function findClosestRouteInHistory(stops) {
+		var coords = positionSource.position.coordinate;			
+		var stops = stops || Transport.transportOptions.searchSavedStationsByLocation(coords);
+		var searchHistory = Transport.transportOptions.dbConnection.getSearchHistory();
+				
+		// Search for a searched route with the closest from or to station
+		var stationFoundInHistory = false;
+		var stopsFoundInSearchHistory = [];
+		for(var i = 0; i < stops.length; i++) {
+			var stop = stops[i];
+			for(var j = 0; j < searchHistory.length; j++) {
+				if(stop.key === searchHistory[j].typeid) {
+					if(stop.item === searchHistory[j].stopidfrom) {
+						stopsFoundInSearchHistory.push({
+							type: "from",
+							stop: stop,
+							closestIndex: i,
+							historyIndex: j,
+							searchHistory: searchHistory[j]
+						});
+					}
+					else if(stop.item === searchHistory[j].stopidto) {
+						var searchHistoryCopy = JSON.parse(JSON.stringify(searchHistory[j]));
+						if(searchHistory[j].stopidto >= 0 && searchHistory[j].stopnameto) {
+							searchHistoryCopy.stopidfrom = searchHistory[j].stopidto;
+							searchHistoryCopy.stopnamefrom = searchHistory[j].stopnameto;
+						}
+						if(searchHistory[j].stopidfrom >= 0 && searchHistory[j].stopnamefrom) {
+							searchHistoryCopy.stopidto = searchHistory[j].stopidfrom;
+							searchHistoryCopy.stopnameto = searchHistory[j].stopnamefrom;
+						}
+						
+						stopsFoundInSearchHistory.push({
+							type: "to",
+							stop: stop,
+							closestIndex: i,
+							historyIndex: j,
+							searchHistory: searchHistoryCopy
+						});
+					}
+				}
+			}
+		}
+				
+		stopsFoundInSearchHistory.sort(function(a, b) {
+			var indexDestination = (a.type === "from" ? -1 : 1) - (b.type === "from" ? -1 : 1);
+			var indexPosition = a.closestIndex - b.closestIndex;
+			var indexHistory = a.historyIndex - b.historyIndex;
+			return indexDestination || indexPosition || indexHistory;
+		});
+		
+		for(var i = 0; i < stopsFoundInSearchHistory.length; i++) {
+			populateSearch(stopsFoundInSearchHistory[i].searchHistory);
+			stationFoundInHistory = true;
+			break;
+		}
+		
+		// Place at least closest stop to the "From" field if no route match was found
+		if(!stationFoundInHistory) {
+			for(var i = 0; i < stops.length; i++) {
+				var newSelectedTransport = Transport.transportOptions.selectTransportById(stops[i].key);
+				transportSelectorPage.selectedIndexChange();
+				GeneralFunctions.setStopData(from, stops[i].item, stops[i].value, stops[i].key);
+				to.empty();
+				via.empty();
+				break;
+			}
+		}
+		
+		return stationFoundInHistory;
+	}
+	
+	function init() {
+		lastSearchPopulate();
+		
+		var geoLocation = Number(Transport.transportOptions.getDBSetting("geolocation-on-start") || 0);
+		if(geoLocation === 0) {
+			positionSource.append(function(source) {
+				searchPage.findClosestRouteInHistory();
+			});
+		}
+	}
+	
+	Component.onCompleted: {
+		init();
+	}
 
     Rectangle {
         anchors.fill: parent
@@ -395,106 +507,5 @@ Page {
 
     RecentBottomEdge {
         id: bottomEdge
-    }
-    
-    PositionSourceItem {
-        id: positionSource
-        
-        property bool positionFound: false
-        property var geolocationOnStartIndex: Number(Transport.transportOptions.getDBSetting("geolocation-on-start") || 0)
-        
-        function populateSearch(historyData) {
-			var newSelectedTransport = Transport.transportOptions.selectTransportById(historyData.typeid);
-			transportSelectorPage.selectedIndexChange();
-			if(historyData.stopidfrom >= 0 && historyData.stopnamefrom) {
-				GeneralFunctions.setStopData(from, historyData.stopidfrom, historyData.stopnamefrom, historyData.typeid);
-			}
-			if(historyData.stopidto >= 0 && historyData.stopnameto) {
-				GeneralFunctions.setStopData(to, historyData.stopidto, historyData.stopnameto, historyData.typeid);
-			}
-			if(historyData.stopidvia >= 0 && historyData.stopnamevia) {
-				GeneralFunctions.setStopData(via, historyData.stopidvia, historyData.stopnamevia, historyData.typeid);
-				advancedSearchSwitch.checked = true;
-			}
-			else {
-				advancedSearchSwitch.checked = false;
-			}
-		}
-        
-        function searchForTheNearestStops() {
-			var coords = positionSource.position.coordinate;				
-			var stops = Transport.transportOptions.searchSavedStationsByLocation(coords);
-			var searchHistory = Transport.transportOptions.dbConnection.getSearchHistory();
-			
-			// Search for a searched route with the closest from or to station
-			var stationFound = false;
-			var stopsFoundInSearchHistory = [];
-			for(var i = 0; i < stops.length; i++) {
-				var stop = stops[i];
-				for(var j = 0; j < searchHistory.length; j++) {
-					if(stop.key === searchHistory[j].typeid) {
-						if(stops[i].item === searchHistory[j].stopidfrom) {
-							stopsFoundInSearchHistory.push({
-								type: "from",
-								stop: stops[i],
-								searchHistory: searchHistory[j]
-							});
-						}
-						else if(stops[i].item === searchHistory[j].stopidto) {
-							var tmpIdTo, tmpNameTo;
-							if(searchHistory[j].stopidto >= 0 && searchHistory[j].stopnameto) {
-								tmpIdTo = searchHistory[j].stopidto;
-								tmpNameTo = searchHistory[j].stopnameto;
-								if(searchHistory[j].stopidfrom >= 0 && searchHistory[j].stopnamefrom) {
-									searchHistory[j].stopidto = searchHistory[j].stopidfrom;
-									searchHistory[j].stopnameto = searchHistory[j].stopnamefrom;
-									searchHistory[j].stopidfrom = tmpIdTo;
-									searchHistory[j].stopnamefrom = tmpNameTo;
-								}
-							}
-							
-							stopsFoundInSearchHistory.push({
-								type: "to",
-								stop: stops[i],
-								searchHistory: searchHistory[j]
-							});
-						}
-					}
-				}
-			}
-			
-			for(var i = 0; i < stopsFoundInSearchHistory.length; i++) {
-				populateSearch(stopsFoundInSearchHistory[i].searchHistory);
-				stationFound = true;
-				break;
-			}
-			
-			// Place at least closest stop to the "From" field if no route match was found
-			if(!stationFound) {
-				for(var i = 0; i < stops.length; i++) {
-					var newSelectedTransport = Transport.transportOptions.selectTransportById(stops[i].key);
-					transportSelectorPage.selectedIndexChange();
-					GeneralFunctions.setStopData(from, stops[i].item, stops[i].value, stops[i].key);
-					to.empty();
-					via.empty();
-					break;
-				}
-			}
-		}
-		
-		onPositionChanged: {
-			if(geolocationOnStartIndex === 0) {
-				if(!positionFound) {
-					if(isValid) {
-						searchForTheNearestStops();
-						positionFound = true;
-						this.stop(); // Deactivate the PositionSource item
-					}
-				}
-			}
-			else {
-				this.stop(); // Deactivate the PositionSource item
-			}
-		}
     }
 }

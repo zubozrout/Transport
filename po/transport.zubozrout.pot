@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-27 20:49+0000\n"
+"POT-Creation-Date: 2018-05-28 20:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,12 +23,12 @@ msgid "Station name"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:339
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:455
 msgid "Arrival"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:339
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:455
 msgid "Departure"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgid "To"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:238
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:286
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:402
 msgid "Via"
 msgstr ""
 
@@ -287,19 +287,23 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:116
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:78
+msgid "Locate nearby"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:127
 msgid "Search failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:315
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:431
 msgid "Custom date"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:358
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:474
 msgid "Abort search"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:358
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:474
 msgid "Search"
 msgstr ""
 

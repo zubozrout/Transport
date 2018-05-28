@@ -20,9 +20,9 @@ Page {
                 Action {
                     iconName: "location"
                     text: i18n.tr("Location")
-                    visible: positionSource.isValid
+                    visible: positionSource.coordinate.isValid
                     onTriggered: {
-                        map.center = gpsMarker.coordinate;
+						gpsMarker.updatePosition();
                     }
                 }
            ]
@@ -42,7 +42,7 @@ Page {
 	function cleanPage(fetchGPS) {
 		polyLineListModel.clear();
 		stationListModel.clear();
-		positionSource.update();
+		gpsMarker.updatePosition();
 		
 		if(fetchGPS) {
 			var savedDbPositionX = Transport.transportOptions.getDBSetting("last-geo-positionX") || null;
@@ -125,15 +125,14 @@ Page {
 			var to = trainDetail.to || route.length;
 			for(var j = 0; j < route.length; j++) {
 				var currentStation = route[j].station;
-				var currentStation = route[j].station;
 				var active = j >= from && j <= to;
-																
+					
 				stationsToRender.push({
 					"latitude": currentStation.coorX,
 					"longitude": currentStation.coorY,
-					"value": station.value,
-					"key": station.key,
-					"item": station.item,
+					"value": currentStation.name,
+					"key": Transport.transportOptions.getSelectedId(),
+					"item": currentStation.key,
 					"active": active,
 					"pointColor": color
 				});
@@ -165,20 +164,67 @@ Page {
 		transportID = transportID || null;
 		var stations = Transport.transportOptions.dbConnection.getAllStations(transportID);
 		var stationsToRender = [];
+		var poiLocations = [];
 		for(var i = 0; i < stations.length; i++) {
 			var station = stations[i];
 			
+			var poi = false;
+			for(var j = 0; j < poiLocations.length; j++) {
+				if(poiLocations[j].coorX === station.coorX && poiLocations[j].coorY === station.coorY) {
+					poi = poiLocations[j];
+					break;
+				}
+			}
+			
+			if(!poi) {
+				poi = {
+					coorX: station.coorX,
+					coorY: station.coorY,
+					stationIndexes: [i]
+				};
+				poiLocations.push(poi);
+			}
+			else {
+				poi.stationIndexes.push(i);
+			}
+						
 			var renderStation = true;
-			for(var j = 0; j < stationsToRender.length; j++) {
-				if(stationsToRender[j].latitude === station.coorX) {
-					if(stationsToRender[j].longitude === station.coorY) {
-						if(Transport.GeneralTranport.baseString(stationsToRender[j].value) === Transport.GeneralTranport.baseString(station.value)) {
-							renderStation = false;
-						}
-						station.coorX += 0.0003;
-						station.coorY += 0.0003;
+			var offsetSpacing = 0.0003;
+			
+			if(poi.stationIndexes.length > 1) {
+				for(var j = 0; j < stationsToRender.length; j++) {
+					if(Transport.GeneralTranport.baseString(stationsToRender[j].value) === Transport.GeneralTranport.baseString(stations[i].value)) {
+						renderStation = false; // Station name seems to be a duplicate, ignoring it
+						break;
+					}
+					if(!renderStation) {
+						break;
 					}
 				}
+					
+				var shiftX = 0;
+				var shiftY = 0;
+				switch(poi.stationIndexes.length % 4) {
+					case 0:
+						shiftX += 1;
+						shiftY += 1;
+						break;
+					case 1:
+						shiftX -= 1;
+						shiftY += 1;
+						break;
+					case 2:
+						shiftX -= 1;
+						shiftY -= 1;
+						break;
+					default:
+						shiftX += 1;
+						shiftY -= 1;
+				}
+				
+				var offsetStep = Math.floor(poi.stationIndexes.length / 4) + 1;
+				station.coorX += (shiftX * offsetSpacing) * offsetStep;
+				station.coorY += (shiftY * offsetSpacing) * offsetStep;
 			}
 			
 			if(renderStation) {
@@ -201,17 +247,7 @@ Page {
 			zIndex++;
 		}
 	}
-    
-    PositionSourceItem {
-        id: positionSource
-        active: mapPage.visible
-        
-        onPositionChanged: {
-			console.log("onPositionChanged");
-			gpsMarker.updatePosition();
-		}
-    }
-
+	
     Rectangle {
         anchors.top: pageHeader.bottom
         anchors.left: parent.left
@@ -240,13 +276,12 @@ Page {
 			}
 
             MapQuickItem {
-                id: gpsMarker
-                anchorPoint.x: gpsMarkerIcon.width / 4
-                anchorPoint.y: gpsMarkerIcon.height
-                z: 10000
-                visible: positionSource.isValid
-
-                property bool firstTimeLocationFound: false
+				id: gpsMarker
+				anchorPoint.x: gpsMarkerIcon.width / 4
+				anchorPoint.y: gpsMarkerIcon.height
+				z: 10000
+				visible: positionSource.coordinate.isValid && positionSource.active
+				coordinate: positionSource.position.coordinate
 
                 sourceItem: Image {
                     id: gpsMarkerIcon
@@ -258,15 +293,10 @@ Page {
                     sourceSize.height: height
                 }
                 
-                function updatePosition() {
-					if(positionSource.isValid) {
-						var coords = positionSource.position.coordinate;
-						coordinate = coords;
-						map.center = coords;
-						Transport.transportOptions.saveDBSetting("last-geo-positionX", coords.latitude);
-						Transport.transportOptions.saveDBSetting("last-geo-positionY", coords.longitude);
-						mapPage.locationDisplayed = true;
-					}
+                function updatePosition(source) {
+					positionSource.append(function(source) {
+						map.center = source.position.coordinate;
+					});
 				}
             }
 			
@@ -308,6 +338,25 @@ Page {
                         radius: width
                         color: active ? pointColor : "#000"
                         
+                        property bool clickable: map.zoomLevel > map.maximumZoomLevel - 4
+                        
+                        function clickAction() {
+							var newSelectedTransport = Transport.transportOptions.selectTransportById(key);
+							transportSelectorPage.selectedIndexChange();
+							searchPage.findClosestRouteInHistory([{
+								item: item,
+								value: value,
+								kay: key
+							}]);
+							pageLayout.removePages(pageLayout.primaryPage);
+						}
+						
+						Component.onCompleted: {
+							if(index === 0) {
+								map.fitViewportToMapItems();
+							}
+						}
+                        
                         Rectangle {
 							anchors {
 								horizontalCenter: parent.horizontalCenter
@@ -329,13 +378,23 @@ Page {
 							color: "#000"
 							font.bold: false
 							font.pixelSize: FontUtils.sizeToPixels("xx-small")
-							visible: map.zoomLevel > map.maximumZoomLevel - 4
+							visible: stopMarkerIcon.clickable
 							horizontalAlignment: Text.AlignHCenter
+							
+							MouseArea {
+								anchors.fill: parent
+								enabled: stopMarkerIcon.clickable
+								onClicked: {
+									stopMarkerIcon.clickAction()
+								}
+							}
 						}
 						
-						Component.onCompleted: {
-							if(index === 0) {
-								map.fitViewportToMapItems();
+						MouseArea {
+							anchors.fill: parent
+							enabled: stopMarkerIcon.clickable
+							onClicked: {
+								stopMarkerIcon.clickAction()
 							}
 						}
                     }

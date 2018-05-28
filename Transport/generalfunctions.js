@@ -131,19 +131,16 @@ function dateToString(date) {
 function lineColor(line) {
     switch(line.toLowerCase()) {
 		case "a":
-			color = "#1B5E20";
-			break;
+			return "#1B5E20";
 		case "b":
-			color = "#FBC02D";
+			return "#FBC02D";
 			break;
 		case "c":
-			color = "#B71C1C";
-			break;
+			return "#B71C1C";
 		case "d":
-			color = "#0D47A1";
-			break;
+			return "#0D47A1";
 		default:
-			color = "#000";
+			return "#000";
 	}
 }
 

@@ -6,17 +6,34 @@ import "../generalfunctions.js" as GeneralFunctions
 
 PositionSource {
 	id: positionSource
-	updateInterval: 1000
+	updateInterval: 10000
 	active: true
 	
-	property bool isValid: false;
+	property var functionsToRunOnUpdate: []
 	
-	onPositionChanged: {
-		if(!isNaN(position.coordinate.latitude) && !isNaN(position.coordinate.longitude)) {
-			isValid = true;
+	function append(func) {
+		if(position.coordinate.isValid) {
+			func(positionSource);
 		}
 		else {
-			isValid = false;
+			functionsToRunOnUpdate.push(func);
+			update();
+		}
+	}
+	
+	function runAll() {
+		for(var i = 0; i < functionsToRunOnUpdate.length; i++) {
+			functionsToRunOnUpdate[i](positionSource);
+		}
+		functionsToRunOnUpdate = [];
+	}
+	
+	onPositionChanged: {
+		if(position.coordinate.isValid) {			
+			Transport.transportOptions.saveDBSetting("last-geo-positionX", position.coordinate.latitude);
+			Transport.transportOptions.saveDBSetting("last-geo-positionY", position.coordinate.longitude);
+			
+			runAll();
 		}
 	}
 }

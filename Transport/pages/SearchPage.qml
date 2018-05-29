@@ -34,6 +34,24 @@ Page {
                     enabled: false
                 },
                 Action {
+					id: headerTrailingLocationIcon
+                    iconName: "location"
+                    text: i18n.tr("Locate nearby")
+                    onTriggered: {
+						positionSource.append(function(source) {
+							if(source.isValid) {
+								var matchFound = searchPage.findClosestRouteInHistory();
+								if(!matchFound) {
+									errorMessage.value = i18n.tr("No cached nearby stations found");
+								}
+							}
+							else {
+								errorMessage.value = i18n.tr("Location search disabled or not functional");
+							}
+						});
+                    }
+                },
+                Action {
                     iconName: "map"
                     text: i18n.tr("Map page")
                     onTriggered: {
@@ -71,19 +89,9 @@ Page {
                     }
                     enabled: false
                     visible: enabled
-                },
-                Action {
-					id: headerTrailingLocationIcon
-                    iconName: "location"
-                    text: i18n.tr("Locate nearby")
-                    onTriggered: {
-						positionSource.append(function(source) {
-							searchPage.findClosestRouteInHistory();
-						});
-                    }
                 }
            ]
-           numberOfSlots: 2
+           numberOfSlots: 1
         }
     }
 
@@ -199,12 +207,16 @@ Page {
 		}
         
 	function findClosestRouteInHistory(stops) {
-		var coords = positionSource.position.coordinate;			
+		var coords = positionSource.position.coordinate;
+		if(!coords.isValid) {
+			return false;
+		}
+		
 		var stops = stops || Transport.transportOptions.searchSavedStationsByLocation(coords);
 		var searchHistory = Transport.transportOptions.dbConnection.getSearchHistory();
 				
 		// Search for a searched route with the closest from or to station
-		var stationFoundInHistory = false;
+		var stationFound = false;
 		var stopsFoundInSearchHistory = [];
 		for(var i = 0; i < stops.length; i++) {
 			var stop = stops[i];
@@ -262,23 +274,24 @@ Page {
 		
 		for(var i = 0; i < stopsFoundInSearchHistory.length; i++) {
 			populateSearch(stopsFoundInSearchHistory[i].searchHistory);
-			stationFoundInHistory = true;
+			stationFound = true;
 			break;
 		}
 		
 		// Place at least closest stop to the "From" field if no route match was found
-		if(!stationFoundInHistory) {
+		if(!stationFound) {
 			for(var i = 0; i < stops.length; i++) {
 				var newSelectedTransport = Transport.transportOptions.selectTransportById(stops[i].key);
 				transportSelectorPage.selectedIndexChange();
 				GeneralFunctions.setStopData(from, stops[i].item, stops[i].value, stops[i].key);
 				to.empty();
 				via.empty();
+				stationFound = true;
 				break;
 			}
 		}
 		
-		return stationFoundInHistory;
+		return stationFound;
 	}
 	
 	function init() {

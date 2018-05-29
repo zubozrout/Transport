@@ -29,6 +29,11 @@ PositionSource {
 		functionsToRunOnUpdate = [];
 	}
 	
+	onUpdateTimeout: {
+		isValid = false;
+		runAll();
+	}
+	
 	onPositionChanged: {
 		if(position.coordinate.isValid) {
 			isValid = true;

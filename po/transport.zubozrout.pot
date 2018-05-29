@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 09:17+0000\n"
+"POT-Creation-Date: 2018-05-29 10:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,39 +23,39 @@ msgid "Station name"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:463
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:475
 msgid "Arrival"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:463
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:475
 msgid "Departure"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:41
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:46
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:42
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:47
 msgid "Could not load connection detail"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:276
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:277
 msgid "now"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:280
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:281
 #, qt-format
 msgid "in %1 minute"
 msgid_plural "in %1 minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:300
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:301
 #, qt-format
 msgid "in %1 day"
 msgid_plural "in %1 days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:305
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:306
 msgid "departed"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgid "To"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:238
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:410
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:422
 msgid "Via"
 msgstr ""
 
@@ -177,7 +177,7 @@ msgid "Connection detail"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:21
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:38
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:56
 msgid "Map page"
 msgstr ""
 
@@ -274,36 +274,44 @@ msgid "Location"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:30
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:68
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:86
 msgid "Search results"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:47
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:39
+msgid "Locate nearby"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:45
+msgid "No cached nearby stations found"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:49
+msgid "Location search disabled or not functional"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:65
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:12
 msgid "Settings"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:54
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:72
 msgid "About"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:78
-msgid "Locate nearby"
-msgstr ""
-
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:127
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:135
 msgid "Search failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:439
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:451
 msgid "Custom date"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:482
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:494
 msgid "Abort search"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:482
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:494
 msgid "Search"
 msgstr ""
 

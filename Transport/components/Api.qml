@@ -15,6 +15,9 @@ Api {
         }
         else if(callback && !response) {
             console.log("server not responing");
+            callback({
+                statusCode: "OFFLINE"
+            });
         }
         callback = null;
     }

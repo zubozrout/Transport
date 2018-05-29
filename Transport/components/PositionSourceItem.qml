@@ -11,14 +11,28 @@ PositionSource {
 	
 	property var functionsToRunOnUpdate: []
 	property var isValid: false
+	property var keepActive: false
 	
 	function append(func) {
+		if(keepActive) {
+			start();
+		}
+		else {
+			update();
+		}
+		
 		if(position.coordinate.isValid) {
 			func(positionSource);
 		}
 		else {
 			functionsToRunOnUpdate.push(func);
-			update();
+			
+			if(keepActive) {
+				start();
+			}
+			else {
+				update();
+			}
 		}
 	}
 	
@@ -37,14 +51,36 @@ PositionSource {
 	onPositionChanged: {
 		if(position.coordinate.isValid) {
 			isValid = true;
-					
-			Transport.transportOptions.saveDBSetting("last-geo-positionX", position.coordinate.latitude);
-			Transport.transportOptions.saveDBSetting("last-geo-positionY", position.coordinate.longitude);
-			
 			runAll();
+			
+			if(active) {
+				Transport.transportOptions.saveDBSetting("last-geo-positionX", position.coordinate.latitude);
+				Transport.transportOptions.saveDBSetting("last-geo-positionY", position.coordinate.longitude);
+			}
+			
+			if(!keepActive) {
+				active = false;
+			}
 		}
 		else {
 			isValid = false;
+		}
+	}
+	
+	onKeepActiveChanged: {
+		if(!active && keepActive) {
+			start();
+		}
+		else if(active && !keepActive) {
+			if(functionsToRunOnUpdate.length === 0) {
+				stop();
+			}
+		}
+	}
+	
+	onActiveChanged: {
+		if(!active && keepActive) {
+			start();
 		}
 	}
 }

@@ -248,6 +248,17 @@ Page {
 		}
 	}
 	
+	onVisibleChanged: {
+		if(positionSource) {
+			if(visible) {
+				positionSource.keepActive = true;
+			}
+			else {
+				positionSource.keepActive = false;
+			}
+		}
+	}
+	
     Rectangle {
         anchors.top: pageHeader.bottom
         anchors.left: parent.left

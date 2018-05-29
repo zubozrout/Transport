@@ -268,8 +268,8 @@ Page {
 			var indexDestination = (a.type === "from" ? -1 : 1) - (b.type === "from" ? -1 : 1);
 			var indexPosition = a.closestIndex - b.closestIndex;
 			var indexHistory = a.historyIndex - b.historyIndex;
-			// return indexDestination || indexPosition || indexHistory;
-			return Math.min(indexPosition, 0.5 * indexHistory);
+			return indexPosition || indexHistory || indexDestination;
+			// return Math.min(indexPosition, 0.5 * indexHistory);
 		});
 		
 		for(var i = 0; i < stopsFoundInSearchHistory.length; i++) {

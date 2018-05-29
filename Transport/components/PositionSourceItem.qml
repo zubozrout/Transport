@@ -10,6 +10,7 @@ PositionSource {
 	active: true
 	
 	property var functionsToRunOnUpdate: []
+	property var isValid: false
 	
 	function append(func) {
 		if(position.coordinate.isValid) {
@@ -29,11 +30,16 @@ PositionSource {
 	}
 	
 	onPositionChanged: {
-		if(position.coordinate.isValid) {			
+		if(position.coordinate.isValid) {
+			isValid = true;
+					
 			Transport.transportOptions.saveDBSetting("last-geo-positionX", position.coordinate.latitude);
 			Transport.transportOptions.saveDBSetting("last-geo-positionY", position.coordinate.longitude);
 			
 			runAll();
+		}
+		else {
+			isValid = false;
 		}
 	}
 }

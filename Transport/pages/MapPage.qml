@@ -20,7 +20,7 @@ Page {
                 Action {
                     iconName: "location"
                     text: i18n.tr("Location")
-                    visible: positionSource.coordinate.isValid
+                    visible: positionSource.isValid
                     onTriggered: {
 						gpsMarker.updatePosition();
                     }
@@ -280,7 +280,7 @@ Page {
 				anchorPoint.x: gpsMarkerIcon.width / 4
 				anchorPoint.y: gpsMarkerIcon.height
 				z: 10000
-				visible: positionSource.coordinate.isValid && positionSource.active
+				visible: positionSource.valid
 				coordinate: positionSource.position.coordinate
 
                 sourceItem: Image {

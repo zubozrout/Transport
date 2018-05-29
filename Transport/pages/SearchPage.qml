@@ -209,27 +209,37 @@ Page {
 		for(var i = 0; i < stops.length; i++) {
 			var stop = stops[i];
 			for(var j = 0; j < searchHistory.length; j++) {
-				if(stop.key === searchHistory[j].typeid) {
-					if(stop.item === searchHistory[j].stopidfrom) {
+				var historyItem = searchHistory[j];
+				
+				var hisrotyItemAlreadyRegistered = false;
+				for(var k = 0; k < stopsFoundInSearchHistory.length; k++) {
+					if(stopsFoundInSearchHistory[k].historyIndex === j) {
+						hisrotyItemAlreadyRegistered = true;
+						break;
+					}
+				}
+				
+				if(!hisrotyItemAlreadyRegistered && stop.key === historyItem.typeid) {
+					if(stop.item === historyItem.stopidfrom) {
 						stopsFoundInSearchHistory.push({
 							type: "from",
 							stop: stop,
 							closestIndex: i,
 							historyIndex: j,
-							searchHistory: searchHistory[j]
+							searchHistory: historyItem
 						});
 					}
-					else if(stop.item === searchHistory[j].stopidto) {
-						var searchHistoryCopy = JSON.parse(JSON.stringify(searchHistory[j]));
-						if(searchHistory[j].stopidto >= 0 && searchHistory[j].stopnameto) {
-							searchHistoryCopy.stopidfrom = searchHistory[j].stopidto;
-							searchHistoryCopy.stopnamefrom = searchHistory[j].stopnameto;
+					else if(stop.item === historyItem.stopidto) {
+						var searchHistoryCopy = JSON.parse(JSON.stringify(historyItem));
+						if(historyItem.stopidto >= 0 && historyItem.stopnameto) {
+							searchHistoryCopy.stopidfrom = historyItem.stopidto;
+							searchHistoryCopy.stopnamefrom = historyItem.stopnameto;
 						}
-						if(searchHistory[j].stopidfrom >= 0 && searchHistory[j].stopnamefrom) {
-							searchHistoryCopy.stopidto = searchHistory[j].stopidfrom;
-							searchHistoryCopy.stopnameto = searchHistory[j].stopnamefrom;
+						if(historyItem.stopidfrom >= 0 && historyItem.stopnamefrom) {
+							searchHistoryCopy.stopidto = historyItem.stopidfrom;
+							searchHistoryCopy.stopnameto = historyItem.stopnamefrom;
 						}
-						
+												
 						stopsFoundInSearchHistory.push({
 							type: "to",
 							stop: stop,
@@ -241,12 +251,13 @@ Page {
 				}
 			}
 		}
-				
+		
 		stopsFoundInSearchHistory.sort(function(a, b) {
 			var indexDestination = (a.type === "from" ? -1 : 1) - (b.type === "from" ? -1 : 1);
 			var indexPosition = a.closestIndex - b.closestIndex;
 			var indexHistory = a.historyIndex - b.historyIndex;
-			return indexDestination || indexPosition || indexHistory;
+			// return indexDestination || indexPosition || indexHistory;
+			return Math.min(indexPosition, 0.5 * indexHistory);
 		});
 		
 		for(var i = 0; i < stopsFoundInSearchHistory.length; i++) {

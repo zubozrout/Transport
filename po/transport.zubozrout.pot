@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 20:40+0000\n"
+"POT-Creation-Date: 2018-05-29 09:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,12 +23,12 @@ msgid "Station name"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:84
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:455
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:463
 msgid "Arrival"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:91
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:455
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:463
 msgid "Departure"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgid "To"
 msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:238
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:402
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:410
 msgid "Via"
 msgstr ""
 
@@ -295,15 +295,15 @@ msgstr ""
 msgid "Search failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:431
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:439
 msgid "Custom date"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:474
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:482
 msgid "Abort search"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:474
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:482
 msgid "Search"
 msgstr ""
 

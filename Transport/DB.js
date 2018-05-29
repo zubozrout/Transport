@@ -172,7 +172,7 @@ DBConnection.prototype.saveStation = function(key, data) {
         data = data || {};
         if(key && data.value && data.item && data.coorX && data.coorY) {
             this.db.transaction(function(tx) {
-                var lines = tx.executeSql("SELECT ID FROM stops WHERE key=? AND value=?", [key, data.value]);
+                var lines = tx.executeSql("SELECT ID as id FROM stops WHERE key=? AND value=?", [key, data.value]);
 
                 var linesAffected = 0;
                 if(lines.rows.length > 0) {
@@ -181,7 +181,14 @@ DBConnection.prototype.saveStation = function(key, data) {
 
                     if(lines.rows.length > 1) {
                         console.log("Attention! The dababase has " + lines.rows.length + " stop duplicates: [" + key + "] " + data.value);
-                        console.log("Please report this bug and clear application cache to start again from scratch.");
+                        console.log("Deleting duplicates of: " + id);
+                        
+                        for(var i = 0; i < lines.rows.length; i++) {
+							if(id !== lines.rows.item(i).id) {
+								console.log("Deleting station with id: " + lines.rows.item(i).id)
+								tx.executeSql("DELETE from stops where id=? AND key=?", [lines.rows.item(i).id, key]);
+							}
+						}
                     }
                 }
                 else {

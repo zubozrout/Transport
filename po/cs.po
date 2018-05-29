@@ -2,21 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 10:19+0000\n"
+"POT-Creation-Date: 2018-05-29 11:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionDetailDelegate.qml:77
 msgid "Station name"
@@ -32,16 +33,16 @@ msgstr "Příjezd"
 msgid "Departure"
 msgstr "Odjezd"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:42
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:47
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:41
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:46
 msgid "Could not load connection detail"
 msgstr "Detail spojení nebylo možné načíst"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:277
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:276
 msgid "now"
 msgstr "nyní"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:281
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:280
 #, qt-format
 msgid "in %1 minute"
 msgid_plural "in %1 minutes"
@@ -50,7 +51,7 @@ msgstr[1] "za %1 minuty"
 msgstr[2] "za %1 minut"
 msgstr[3] "za %1 minut"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:301
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:300
 #, qt-format
 msgid "in %1 day"
 msgid_plural "in %1 days"
@@ -59,7 +60,7 @@ msgstr[1] "za %1 dny"
 msgstr[2] "za %1 dní"
 msgstr[3] "za %1 dní"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:306
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:305
 msgid "departed"
 msgstr "odjelo"
 
@@ -112,15 +113,15 @@ msgstr "Skutečně chcete smazat celou historii vyhledávání?"
 msgid "Do you really want to delete this history entry?"
 msgstr "Skutečně chcete smazat tuto položku vyhledávání?"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:193
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:194
 msgid "From"
 msgstr "Z"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:218
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:219
 msgid "To"
 msgstr "Do"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:238
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:239
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:422
 msgid "Via"
 msgstr "Přes"
@@ -147,27 +148,26 @@ msgid ""
 "Transport is here to allow you searching for Czech and Slovak public "
 "transport connections."
 msgstr ""
-"Transport je zde k tomu aby Vám umožnil vyhledávat česká a slovenská spojení"
-" veřejné dopravy."
+"Transport je zde k tomu aby Vám umožnil vyhledávat česká a slovenská spojení "
+"veřejné dopravy."
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:49
-msgid ""
-"This application is based upon an API provided by CHAPS s.r.o. company."
+msgid "This application is based upon an API provided by CHAPS s.r.o. company."
 msgstr "Tato aplikace využívá API poskytnuté společností CHAPS s.r.o."
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:49
 msgid ""
-"You can find the documentation of the API service here "
-"http://docs.crws.apiary.io/"
+"You can find the documentation of the API service here http://docs.crws."
+"apiary.io/"
 msgstr ""
-"Dokumentaci k využívanému API můžete najít na adrese "
-"http://docs.crws.apiary.io/"
+"Dokumentaci k využívanému API můžete najít na adrese http://docs.crws.apiary."
+"io/"
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:50
 msgid ""
 "Feel free to report bugs on the github page but please note many of the "
-"existing bugs are know and the reason why they are not fixed yet is the fact"
-" I don't have enough time to take care of those just yet."
+"existing bugs are know and the reason why they are not fixed yet is the fact "
+"I don't have enough time to take care of those just yet."
 msgstr ""
 "Chyby nahlašujte na stránce projektu na GitHubu. Mějte však na paměti, že o "
 "mnoha chybách autor aplikace ví a pouze se k nim neměl čas zatím dostat."
@@ -179,13 +179,13 @@ msgstr "Podívejte se na stránku projektu na GitHubu"
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/AboutPage.qml:52
 msgid ""
 "GDPR notice: CHAPS s.r.o. API doesn't collect any personal data but can log "
-"searched values combined with IP addresses and a platform string passed with"
-" every single query - \"ubuntu\"."
+"searched values combined with IP addresses and a platform string passed with "
+"every single query - \"ubuntu\"."
 msgstr ""
 "Upozornění v souvislosti s obecným nařízením o ochraně osobních údajů GDPR: "
 "API společnosti CHAPS s.r.o. nesbírá žádné osobní údaje, ale může "
-"zaznamenávat vyhledávané údaje v kombinaci s IP adresami a názvem operačního"
-" systému, který tato aplikace předává při každém dotazu - \"ubuntu\"."
+"zaznamenávat vyhledávané údaje v kombinaci s IP adresami a názvem operačního "
+"systému, který tato aplikace předává při každém dotazu - \"ubuntu\"."
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:14
 msgid "Connection detail"

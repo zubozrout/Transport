@@ -149,6 +149,7 @@ BottomEdge {
 						}
 
 						ColumnLayout {
+							id: historyMainColumnLayout
 							spacing: units.gu(0.25)
 							Layout.fillWidth: true
 
@@ -187,7 +188,7 @@ BottomEdge {
 									anchors.top: parent.top
 									spacing: units.gu(0.25)
 									Layout.fillWidth: false
-									Layout.preferredWidth: parent.width / 2
+									Layout.preferredWidth: historyMainColumnLayout.width / 2
 									
 									Text {
 										text: i18n.tr("From")
@@ -294,6 +295,7 @@ BottomEdge {
                 var modelData = Transport.transportOptions.dbConnection.getSearchHistory();
                 model.clear();
                 for(var i = 0; i < modelData.length; i++) {
+					modelData[i].stopnamevia = modelData[i].stopnamevia || ""; // Hack for ListModel to always register this key
                     model.append(modelData[i]);
                 }
             }

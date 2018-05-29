@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 10:19+0000\n"
+"POT-Creation-Date: 2018-05-29 11:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,30 +32,30 @@ msgstr ""
 msgid "Departure"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:42
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:47
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:41
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:46
 msgid "Could not load connection detail"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:277
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:276
 msgid "now"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:281
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:280
 #, qt-format
 msgid "in %1 minute"
 msgid_plural "in %1 minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:301
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:300
 #, qt-format
 msgid "in %1 day"
 msgid_plural "in %1 days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:306
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/ConnectionsDelegate.qml:305
 msgid "departed"
 msgstr ""
 
@@ -108,15 +108,15 @@ msgstr ""
 msgid "Do you really want to delete this history entry?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:193
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:194
 msgid "From"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:218
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:219
 msgid "To"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:238
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:239
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SearchPage.qml:422
 msgid "Via"
 msgstr ""

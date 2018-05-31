@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 18:51+0000\n"
+"POT-Creation-Date: 2018-05-31 14:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr ""
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:84
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:95
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:116
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:173
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:191
 msgid "No"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:88
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:95
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/SettingsPage.qml:116
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:177
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:195
 msgid "Yes"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:50
 #: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/components/RecentBottomEdge.qml:81
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:170
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:188
 msgid "Attention"
 msgstr ""
 
@@ -205,63 +205,63 @@ msgstr ""
 msgid "Connections"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:28
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:27
 msgid "Info"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:37
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:36
 msgid "Next"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:54
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:53
 msgid "Previous"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:123
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:122
 #, qt-format
 msgid "Journey start: %1"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:124
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:123
 #, qt-format
 msgid "Journey end: %1"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:125
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:124
 #, qt-format
 msgid "Transfering at: %1"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:126
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:125
 #, qt-format
 msgid "Number of results: %1"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:162
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:161
 msgid "Loading following connections timed out"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:171
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:170
 msgid "Loading following connections failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:187
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:186
 msgid "Loading previous connections timed out"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:214
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:213
 msgid "Loading previous connections failed"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:246
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:245
 msgid "Connection overview info"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:249
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:248
 msgid "Ok"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:292
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionsPage.qml:291
 msgid "Keep pulled to load more"
 msgstr ""
 
@@ -365,35 +365,39 @@ msgstr ""
 msgid "Select a transport option"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:27
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:26
 msgid "Refresh transport options"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:49
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:48
 msgid "Select a transport method"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:171
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:94
+msgid "Failed to update transport types info"
+msgstr ""
+
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:189
 #, qt-format
 msgid "Do you really want to delete all saved stops for %1 transport option?"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:261
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:279
 msgid "City:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:275
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:293
 msgid "Valid from:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:289
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:307
 msgid "Expires:"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:330
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:348
 msgid "Used transport types"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:361
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/TransportSelectorPage.qml:379
 msgid "All transport types"
 msgstr ""

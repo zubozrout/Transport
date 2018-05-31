@@ -114,13 +114,22 @@ TransportOptions.prototype.fetchServerTransports = function(callback) {
             self.trySelectingTransportIndexFromHistory();
 
             if(self.callback) {
-                self.callback(self);
+                self.callback(self, "SUCCESS");
             }
 
             if(callback) {
-                callback(self);
+                callback(self, "SUCCESS");
             }
         }
+        else {
+			if(self.callback) {
+                self.callback(self, "FAIL");
+            }
+
+            if(callback) {
+                callback(self, "FAIL");
+            }
+		}
     });
 }
 
@@ -221,6 +230,9 @@ TransportOptions.prototype.setTransportUpdateCallback = function(callback) {
 TransportOptions.prototype.abort = function() {
     if(this.request) {
         this.request.abort();
+        if(callback) {
+			callback(this, "ABORT");
+		}
     }
 }
 

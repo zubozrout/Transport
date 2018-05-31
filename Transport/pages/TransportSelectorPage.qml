@@ -13,7 +13,6 @@ Page {
     header: PageHeader {
         id: pageHeader
         title: i18n.tr("Select a transport option")
-        flickable: transportSelectorFlickable
 
         StyleHints {
             foregroundColor: pageLayout.colorPalete["headerText"]
@@ -60,33 +59,41 @@ Page {
 
     function update() {
         progressLine.state = "running";
-        Transport.transportOptions.setTransportUpdateCallback(function(options) {
+        Transport.transportOptions.setTransportUpdateCallback(function(options, state) {
             progressLine.state = "idle";
-            if(options) {
-                usedListModel.clear();
-                restListModel.clear();
-                var langCode = Transport.langCode(true);
-                for(var i = 0; i < options.transports.length; i++) {
-                    var transportUsed = options.transports[i].isUsed();
+            
+            if(!state || state === "SUCCESS") {
+				if(options) {
+					usedListModel.clear();
+					restListModel.clear();
+					var langCode = Transport.langCode(true);
+					for(var i = 0; i < options.transports.length; i++) {
+						var transportUsed = options.transports[i].isUsed();
 
-                    var item = {};
-                    item.id = options.transports[i].getId();
-                    item.name = options.transports[i].getName(langCode);
-                    item.nameExt = options.transports[i].getNameExt(langCode);
-                    item.description = options.transports[i].getDescription(langCode);
-                    item.title = options.transports[i].getTitle(langCode);
-                    item.city = options.transports[i].getCity(langCode);
-                    item.homeState = options.transports[i].getHomeState();
-                    item.ttValidFrom = options.transports[i].getTimetableInfo().ttValidFrom;
-                    item.ttValidTo = options.transports[i].getTimetableInfo().ttValidTo;
-                    item.isUsed = transportUsed;
-                    restListModel.append(item);
+						var item = {};
+						item.id = options.transports[i].getId();
+						item.name = options.transports[i].getName(langCode);
+						item.nameExt = options.transports[i].getNameExt(langCode);
+						item.description = options.transports[i].getDescription(langCode);
+						item.title = options.transports[i].getTitle(langCode);
+						item.city = options.transports[i].getCity(langCode);
+						item.homeState = options.transports[i].getHomeState();
+						item.ttValidFrom = options.transports[i].getTimetableInfo().ttValidFrom;
+						item.ttValidTo = options.transports[i].getTimetableInfo().ttValidTo;
+						item.isUsed = transportUsed;
+						restListModel.append(item);
 
-                    if(transportUsed && options.transports.length > 10) {
-                        usedListModel.append(item);
-                    }
+						if(transportUsed && options.transports.length > 10) {
+							usedListModel.append(item);
+						}
+					}
+				}
+			}
+			else {
+				if(state !== "ABORT") {
+                    errorMessage.value = i18n.tr("Failed to update transport types info");
                 }
-            }
+			}
 
             selectedIndexChange();
         });
@@ -110,12 +117,23 @@ Page {
             }
         }
     }
+    
+    ErrorMessage {
+		id: errorMessage
+		anchors.top: pageHeader.bottom
+	}
 
     Flickable {
         id: transportSelectorFlickable
-        anchors.fill: parent
+        anchors {
+			top: errorMessage.bottom
+			right: parent.right
+			bottom: parent.bottom
+			left: parent.left
+		}
         contentWidth: parent.width
         contentHeight: transportSelectorColumn.height
+        clip: true
 
         Column {
             id: transportSelectorColumn
@@ -385,7 +403,10 @@ Page {
                         }
 
                         Icon {
-                            anchors.fill: parent
+                            anchors {
+								fill: parent
+								margins: units.gu(0.75)
+							}
                             name: "search"
                             color: pageLayout.baseTextColor
                         }
@@ -396,7 +417,7 @@ Page {
             ListView {
                 id: restListView
                 width: parent.width
-                height: childrenRect.height
+                height: visible ? childrenRect.height : 0
                 interactive: false
                 model: ListModel {
                     id: restListModel

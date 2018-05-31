@@ -13,7 +13,6 @@ Page {
     header: PageHeader {
         id: pageHeader
         title: i18n.tr("Connections")
-        flickable: connectionsFlickable
 
         StyleHints {
             foregroundColor: pageLayout.colorPalete["headerText"]
@@ -122,7 +121,7 @@ Page {
 
                     var finalText = i18n.tr("Journey start: %1", from).arg(from) + "\n";
                     finalText += i18n.tr("Journey end: %1", to).arg(to) + "\n";
-                    finalText += (via ? i18n.tr("Transfering at: %1", via).arg(via) : "") + "\n";
+                    finalText += (via ? i18n.tr("Transfering at: %1", via).arg(via) + "\n" : "");
                     finalText += i18n.tr("Number of results: %1", connectionsLength).arg(connectionsLength) + "\n";
                     this.overviewText = finalText;
 
@@ -292,14 +291,25 @@ Page {
             text: i18n.tr("Keep pulled to load more")
         }
     }
+    
+    ErrorMessage {
+		id: errorMessage
+		anchors.top: pageHeader.bottom
+	}
 
     Flickable {
         id: connectionsFlickable
-        anchors.fill: parent
+        anchors {
+			top: errorMessage.bottom
+			right: parent.right
+			bottom: parent.bottom
+			left: parent.left
+		}
         contentWidth: parent.width
-        contentHeight: errorMessage.height + connectionsView.contentHeight
+        contentHeight: connectionsView.contentHeight
 
         property var sensitivity: 150
+        clip: true
 
         function checkDrag() {
             if(contentHeight > 0 && progressLine.state == "idle") {
@@ -348,18 +358,9 @@ Page {
             id: dragTimer
         }
 
-        ErrorMessage {
-            id: errorMessage
-        }
-
         ListView {
             id: connectionsView
-            anchors {
-                top: errorMessage.bottom
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
+            anchors.fill: parent
             interactive: false
             delegate: connectionsDelegate
 

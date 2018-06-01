@@ -13,8 +13,8 @@ Component {
             right: parent.right
         }
         visible: !stopPassed && connectionDetailSections.selectedIndex === 0 ? false : true
-        height: visible ? stationColumn.height : true
-        color: index%2 === 0 ? "transparent" : pageLayout.colorPalete.highlightBG
+        height: visible ? stationColumn.height : 0
+        color: index % 2 === 0 ? "transparent" : pageLayout.colorPalete.highlightBG
 
         Row {
             id: stationColumn

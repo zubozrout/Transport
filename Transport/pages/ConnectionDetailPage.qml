@@ -1,6 +1,6 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts 1.2
 
 import "../components"
 
@@ -60,14 +60,16 @@ Page {
         connectionDetailModel.clearAll();
         if(detail) {
 			connectionDetailPage.detail = detail;
-            distanceLabel.text = detail.distance;
-            timeLabel.text = detail.timeLength;
-            priceLabel.text = detail.price;
+            distanceLabel.text = detail.distance || "";
+            timeLabel.text = detail.timeLength || "";
+            priceLabel.text = detail.price || "";
 
             for(var i = 0; i < detail.trainLength(); i++) {
                 connectionDetailModel.append(detail.getTrain(i));
                 connectionDetailModel.childModel.push(detail.getTrain(i).route)
             }
+            
+            connectionDetailView.forceLayout(); // Fix ListView's height
         }
     }
 
@@ -79,130 +81,134 @@ Page {
         id: connectionDetailFlickable
         anchors.fill: parent
         contentWidth: parent.width
-        contentHeight: connectionDetailColumn.spacing + connectionDetailColumn.anchors.bottomMargin + dataBar.height + connectionDetailView.height
+        contentHeight: wrappingRectangle.height + wrappingRectangle.anchors.topMargin + wrappingRectangle.anchors.bottomMargin
+		
+		Rectangle {
+			id: wrappingRectangle
+			anchors {
+				left: parent.left
+				right: parent.right
+				topMargin: units.gu(2)
+				bottomMargin: units.gu(2)
+				verticalCenter: parent.verticalCenter
+			}
+			height: 2 * connectionDetailColumn.spacing + dataBarRow.height + delimiter.height + connectionDetailView.height
+			color: "transparent"
+			
+			ColumnLayout {
+				id: connectionDetailColumn
+				anchors {
+					left: parent.left
+					right: parent.right
+				}
+				spacing: units.gu(2)
 
-        ColumnLayout {
-            id: connectionDetailColumn
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottomMargin: units.gu(2)
-            }
-            spacing: units.gu(2)
+				RowLayout {
+					id: dataBarRow
+					anchors {
+						left: parent.left
+						right: parent.right
+						leftMargin: units.gu(2)
+						rightMargin: units.gu(2)
+					}
+					Layout.maximumWidth: parent.width - anchors.rightMargin
+					spacing: units.gu(2)
 
-            Rectangle {
-                id: dataBar
-                color: pageLayout.secondaryColor
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                height: dataBarRow.height + 2 * dataBarRow.anchors.margins
+					ColumnLayout {
+						anchors.top: parent.top
+						Layout.fillWidth: true
+						
+						Label {
+							text: i18n.tr("Distance")
+							Layout.fillWidth: true
+							color: pageLayout.baseTextColor
+							wrapMode: Text.WordWrap
+							font.bold: true
+						}
 
-                RowLayout {
-                    id: dataBarRow
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        margins: units.gu(1)
-                        verticalCenter: parent.verticalCenter
-                    }
-                    Layout.fillHeight: false
-                    spacing: units.gu(2)
+						Label {
+							id: distanceLabel
+							text: ""
+							Layout.fillWidth: true
+							color: pageLayout.baseTextColor
+							wrapMode: Text.WordWrap
+						}
+					}
 
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: false
+					ColumnLayout {
+						anchors.top: parent.top
+						Layout.fillWidth: true
 
-                        Label {
-                            text: i18n.tr("Distance")
-                            color: pageLayout.baseTextColor
-                            wrapMode: Text.WordWrap
-                            font.bold: true
-                            horizontalAlignment: Text.AlignHCenter
-                            Layout.fillWidth: true
-                        }
+						Label {
+							text: i18n.tr("Time length")
+							Layout.fillWidth: true
+							color: pageLayout.baseTextColor
+							wrapMode: Text.WordWrap
+							font.bold: true
+						}
 
-                        Label {
-                            id: distanceLabel
-                            text: ""
-                            color: pageLayout.baseTextColor
-                            wrapMode: Text.WordWrap
-                            horizontalAlignment: Text.AlignHCenter
-                            Layout.fillWidth: true
-                        }
-                    }
+						Label {
+							id: timeLabel
+							text: ""
+							Layout.fillWidth: true
+							color: pageLayout.baseTextColor
+							wrapMode: Text.WordWrap
+						}
+					}
 
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: false
+					ColumnLayout {
+						anchors.top: parent.top
+						Layout.fillWidth: true
+						Layout.maximumWidth: parent.width / 3
 
-                        Label {
-                            text: i18n.tr("Time length")
-                            color: pageLayout.baseTextColor
-                            wrapMode: Text.WordWrap
-                            font.bold: true
-                            horizontalAlignment: Text.AlignHCenter
-                            Layout.fillWidth: true
-                        }
+						Label {
+							text: i18n.tr("Price")
+							Layout.fillWidth: true
+							color: pageLayout.baseTextColor
+							wrapMode: Text.WordWrap
+							font.bold: true
+						}
 
-                        Label {
-                            id: timeLabel
-                            text: ""
-                            color: pageLayout.baseTextColor
-                            wrapMode: Text.WordWrap
-                            horizontalAlignment: Text.AlignHCenter
-                            Layout.fillWidth: true
-                        }
-                    }
+						Label {
+							id: priceLabel
+							text: ""
+							Layout.fillWidth: true
+							color: pageLayout.baseTextColor
+							wrapMode: Text.WordWrap
+						}
+					}
+				}
+				
+				Rectangle {
+					id: delimiter
+					Layout.fillWidth: true
+					height: 1
+					color: pageLayout.colorPalete["headerBG"]
+				}
 
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: false
+				ListView {
+					id: connectionDetailView
+					anchors {
+						left: parent.left
+						right: parent.right
+					}
+					height: contentHeight
+					interactive: false
+					delegate: connectionDetailDelegate
+					spacing: units.gu(2)
 
-                        Label {
-                            text: i18n.tr("Price")
-                            color: pageLayout.baseTextColor
-                            wrapMode: Text.WordWrap
-                            font.bold: true
-                            horizontalAlignment: Text.AlignHCenter
-                            Layout.fillWidth: true
-                        }
+					model: ListModel {
+						id: connectionDetailModel
+						property var childModel: []
 
-                        Label {
-                            id: priceLabel
-                            text: ""
-                            color: pageLayout.baseTextColor
-                            wrapMode: Text.WordWrap
-                            horizontalAlignment: Text.AlignHCenter
-                            Layout.fillWidth: true
-                        }
-                    }
-                }
-            }
-
-            ListView {
-                id: connectionDetailView
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                height: contentHeight
-                interactive: false
-                delegate: connectionDetailDelegate
-                spacing: units.gu(2)
-
-                model: ListModel {
-                    id: connectionDetailModel
-                    property var childModel: []
-
-                    function clearAll() {
-                        this.clear();
-                        this.childModel = [];
-                    }
-                }
-            }
-        }
+						function clearAll() {
+							this.clear();
+							this.childModel = [];
+						}
+					}
+				}
+			}
+		}
     }
 
     Scrollbar {

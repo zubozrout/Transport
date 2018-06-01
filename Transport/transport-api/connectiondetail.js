@@ -109,14 +109,14 @@ ConnectionDetail.prototype.checkStops = function(data) {
 
         var prevStopArrival = fromStopArrival;
         var prevStopDeparture = fromStopDeparture;
-        for(i = from + 1; i < to; i++) {
+        for(i = from + 1; i < route.length; i++) {
             if(route[i].dateArr && route[i].dateArr < prevStopArrival) {
-                for(var j = i; j < to; j++) {
+                for(var j = i; j < route.length; j++) {
                     route[j].dateArr.setDate(prevStopArrival.getDate() + 1);
                 }
             }
             if(route[i].dateDep && route[i].dateDep < prevStopDeparture) {
-                for(var j = i; j < to; j++) {
+                for(var j = i; j < route.length; j++) {
                     route[i].dateDep.setDate(prevStopDeparture.getDate() + 1);
                 }
             }

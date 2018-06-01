@@ -326,6 +326,15 @@ Page {
                         onClicked: {
                             Transport.transportOptions.selectTransportById(id);
                             transportSelectorPage.selectedIndexChange();
+                            
+                            var searchHistory = Transport.transportOptions.dbConnection.getSearchHistory();
+							for(var i = 0; i < searchHistory.length; i++) {
+								if(searchHistory[i].typeid === id) {
+									searchPage.populateSearch(searchHistory[i]);
+									break;
+								}
+							}
+							
                             pageLayout.removePages(transportSelectorPage);
                         }
                     }

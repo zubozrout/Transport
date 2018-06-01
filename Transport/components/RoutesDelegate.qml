@@ -49,7 +49,7 @@ Component {
                 Label {
                     text: num
                     color: lineColor
-                    font.pixelSize: FontUtils.sizeToPixels("large")
+                    fontSizeMode: Text.HorizontalFit
                     font.bold: true
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap

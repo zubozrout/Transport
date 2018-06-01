@@ -12,7 +12,7 @@ Component {
             left: parent.left
             right: parent.right
         }
-        height: 2*routeColumn.spacing + transportRow.height + routeHeader.height + connectionDetailRoutesView.contentHeight
+        height: 2 * routeColumn.spacing + transportRow.height + routeHeader.height + connectionDetailRoutesView.contentHeight
         color: "transparent"
 
         ConnectionDetailRoutesDelegate {
@@ -82,14 +82,14 @@ Component {
 
                 Label {
                     text: i18n.tr("Arrival")
-                    width: parent.width/4 - parent.spacing
+                    width: parent.width / 4 - parent.spacing
                     horizontalAlignment: Text.AlignLeft
                     wrapMode: Text.WordWrap
                 }
 
                 Label {
                     text: i18n.tr("Departure")
-                    width: parent.width/4 - parent.spacing
+                    width: parent.width / 4 - parent.spacing
                     horizontalAlignment: Text.AlignLeft
                     wrapMode: Text.WordWrap
                 }

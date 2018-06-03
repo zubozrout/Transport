@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-01 16:52+0000\n"
+"POT-Creation-Date: 2018-06-03 04:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Kozub <zubozrout@gmail.com>, 2017\n"
 "Language-Team: Czech (https://www.transifex.com/zubozrout/teams/75311/cs/)\n"
@@ -204,15 +204,15 @@ msgstr "Jen projížděné stanice"
 msgid "All stations"
 msgstr "Všechny stanice"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:122
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:130
 msgid "Distance"
 msgstr "Vzdálenost"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:143
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:151
 msgid "Time length"
 msgstr "Délka jízdy"
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:165
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:173
 msgid "Price"
 msgstr "Cena"
 

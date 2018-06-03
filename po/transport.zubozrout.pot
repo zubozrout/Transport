@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-01 16:52+0000\n"
+"POT-Creation-Date: 2018-06-03 04:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,15 +189,15 @@ msgstr ""
 msgid "All stations"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:122
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:130
 msgid "Distance"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:143
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:151
 msgid "Time length"
 msgstr ""
 
-#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:165
+#: /home/zubozrout/Dokumenty/ubports/transport/Transport/Transport/pages/ConnectionDetailPage.qml:173
 msgid "Price"
 msgstr ""
 

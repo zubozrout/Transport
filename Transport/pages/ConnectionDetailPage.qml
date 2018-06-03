@@ -70,6 +70,7 @@ Page {
             }
             
             connectionDetailView.forceLayout(); // Fix ListView's height
+            connectionDetailColumn.forceLayout(); // Fix ColumnControl's height
         }
     }
 
@@ -88,102 +89,103 @@ Page {
 			anchors {
 				left: parent.left
 				right: parent.right
-				topMargin: units.gu(2)
 				bottomMargin: units.gu(2)
-				verticalCenter: parent.verticalCenter
 			}
-			height: 2 * connectionDetailColumn.spacing + dataBarRow.height + delimiter.height + connectionDetailView.height
+			height: connectionDetailColumn.spacing + dataBg.height + connectionDetailView.height
 			color: "transparent"
 			
-			ColumnLayout {
+			Column {
 				id: connectionDetailColumn
 				anchors {
 					left: parent.left
 					right: parent.right
 				}
 				spacing: units.gu(2)
-
-				RowLayout {
-					id: dataBarRow
+				
+				Rectangle {
+					id: dataBg
 					anchors {
 						left: parent.left
 						right: parent.right
-						leftMargin: units.gu(2)
-						rightMargin: units.gu(2)
 					}
+					height: dataBarRow.height + 2 * dataBarRow.anchors.margins
 					Layout.maximumWidth: parent.width - anchors.rightMargin
-					spacing: units.gu(2)
+					color: pageLayout.colorPalete["secondaryBG"]
 
-					ColumnLayout {
-						anchors.top: parent.top
-						Layout.fillWidth: true
-						
-						Label {
-							text: i18n.tr("Distance")
+					RowLayout {
+						id: dataBarRow
+						anchors {
+							left: parent.left
+							right: parent.right
+							margins: units.gu(2)
+							verticalCenter: parent.verticalCenter
+						}
+						spacing: units.gu(2)
+
+						ColumnLayout {
+							anchors.top: parent.top
 							Layout.fillWidth: true
-							color: pageLayout.baseTextColor
-							wrapMode: Text.WordWrap
-							font.bold: true
+							
+							Label {
+								text: i18n.tr("Distance")
+								Layout.fillWidth: true
+								color: pageLayout.baseTextColor
+								wrapMode: Text.WordWrap
+								font.bold: true
+							}
+
+							Label {
+								id: distanceLabel
+								text: ""
+								Layout.fillWidth: true
+								color: pageLayout.baseTextColor
+								wrapMode: Text.WordWrap
+							}
 						}
 
-						Label {
-							id: distanceLabel
-							text: ""
+						ColumnLayout {
+							anchors.top: parent.top
 							Layout.fillWidth: true
-							color: pageLayout.baseTextColor
-							wrapMode: Text.WordWrap
+
+							Label {
+								text: i18n.tr("Time length")
+								Layout.fillWidth: true
+								color: pageLayout.baseTextColor
+								wrapMode: Text.WordWrap
+								font.bold: true
+							}
+
+							Label {
+								id: timeLabel
+								text: ""
+								Layout.fillWidth: true
+								color: pageLayout.baseTextColor
+								wrapMode: Text.WordWrap
+							}
+						}
+
+						ColumnLayout {
+							anchors.top: parent.top
+							Layout.fillWidth: true
+							Layout.maximumWidth: parent.width / 3
+
+							Label {
+								text: i18n.tr("Price")
+								Layout.fillWidth: true
+								color: pageLayout.baseTextColor
+								wrapMode: Text.WordWrap
+								font.bold: true
+							}
+
+							Label {
+								id: priceLabel
+								text: ""
+								Layout.fillWidth: true
+								color: pageLayout.baseTextColor
+								wrapMode: Text.WordWrap
+							}
 						}
 					}
-
-					ColumnLayout {
-						anchors.top: parent.top
-						Layout.fillWidth: true
-
-						Label {
-							text: i18n.tr("Time length")
-							Layout.fillWidth: true
-							color: pageLayout.baseTextColor
-							wrapMode: Text.WordWrap
-							font.bold: true
-						}
-
-						Label {
-							id: timeLabel
-							text: ""
-							Layout.fillWidth: true
-							color: pageLayout.baseTextColor
-							wrapMode: Text.WordWrap
-						}
-					}
-
-					ColumnLayout {
-						anchors.top: parent.top
-						Layout.fillWidth: true
-						Layout.maximumWidth: parent.width / 3
-
-						Label {
-							text: i18n.tr("Price")
-							Layout.fillWidth: true
-							color: pageLayout.baseTextColor
-							wrapMode: Text.WordWrap
-							font.bold: true
-						}
-
-						Label {
-							id: priceLabel
-							text: ""
-							Layout.fillWidth: true
-							color: pageLayout.baseTextColor
-							wrapMode: Text.WordWrap
-						}
-					}
-				}
-				
-				Rectangle {
-					id: delimiter
-					Layout.fillWidth: true
-					height: 1
-					color: pageLayout.colorPalete["headerBG"]
 				}
 
 				ListView {

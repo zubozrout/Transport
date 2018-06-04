@@ -133,7 +133,8 @@ Page {
 		}
         contentWidth: parent.width
         contentHeight: transportSelectorColumn.height
-        clip: true
+        flickableDirection: Flickable.VerticalFlick
+        // clip: true
 
         Column {
             id: transportSelectorColumn

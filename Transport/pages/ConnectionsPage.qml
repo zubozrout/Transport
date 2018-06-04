@@ -307,6 +307,7 @@ Page {
 		}
         contentWidth: parent.width
         contentHeight: connectionsView.contentHeight
+        flickableDirection: Flickable.VerticalFlick
 
         property var sensitivity: 150
         clip: true

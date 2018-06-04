@@ -34,15 +34,33 @@ Page {
                     enabled: false
                 },
                 Action {
-					id: headerTrailingLocationIcon
-                    iconName: "location"
-                    text: i18n.tr("Locate nearby")
+					id: headerTrailingBearbyStationIcon
+                    iconSource: Qt.resolvedUrl("../images/icon-stop.svg")
+                    text: i18n.tr("Nearby station")
+                    onTriggered: {
+						positionSource.append(function(source) {
+							if(source.isValid) {
+								var matchFound = searchPage.findClosestRouteInHistory(null, true);
+								if(!matchFound) {
+									errorMessage.value = i18n.tr("No cached nearby stations found");
+								}
+							}
+							else {
+								errorMessage.value = i18n.tr("Location search disabled or not functional");
+							}
+						});
+                    }
+                },
+                Action {
+					id: headerTrailingBearbyRouteIcon
+                    iconSource: Qt.resolvedUrl("../images/icon-route.svg")
+                    text: i18n.tr("Nearby route")
                     onTriggered: {
 						positionSource.append(function(source) {
 							if(source.isValid) {
 								var matchFound = searchPage.findClosestRouteInHistory();
 								if(!matchFound) {
-									errorMessage.value = i18n.tr("No cached nearby stations found");
+									errorMessage.value = i18n.tr("No cached nearby routes found");
 								}
 							}
 							else {
@@ -189,93 +207,96 @@ Page {
     }
     
     function populateSearch(historyData) {
-			var newSelectedTransport = Transport.transportOptions.selectTransportById(historyData.typeid);
-			transportSelectorPage.selectedIndexChange();
-			if(historyData.stopidfrom >= 0 && historyData.stopnamefrom) {
-				GeneralFunctions.setStopData(from, historyData.stopidfrom, historyData.stopnamefrom, historyData.typeid);
-			}
-			if(historyData.stopidto >= 0 && historyData.stopnameto) {
-				GeneralFunctions.setStopData(to, historyData.stopidto, historyData.stopnameto, historyData.typeid);
-			}
-			if(historyData.stopidvia >= 0 && historyData.stopnamevia) {
-				GeneralFunctions.setStopData(via, historyData.stopidvia, historyData.stopnamevia, historyData.typeid);
-				advancedSearchSwitch.checked = true;
-			}
-			else {
-				advancedSearchSwitch.checked = false;
-			}
+		var newSelectedTransport = Transport.transportOptions.selectTransportById(historyData.typeid);
+		transportSelectorPage.selectedIndexChange();
+		if(historyData.stopidfrom >= 0 && historyData.stopnamefrom) {
+			GeneralFunctions.setStopData(from, historyData.stopidfrom, historyData.stopnamefrom, historyData.typeid);
 		}
-        
-	function findClosestRouteInHistory(stops) {
+		if(historyData.stopidto >= 0 && historyData.stopnameto) {
+			GeneralFunctions.setStopData(to, historyData.stopidto, historyData.stopnameto, historyData.typeid);
+		}
+		if(historyData.stopidvia >= 0 && historyData.stopnamevia) {
+			GeneralFunctions.setStopData(via, historyData.stopidvia, historyData.stopnamevia, historyData.typeid);
+			advancedSearchSwitch.checked = true;
+		}
+		else {
+			advancedSearchSwitch.checked = false;
+		}
+	}
+	
+	function findClosestRouteInHistory(stops, justStop) {
 		var coords = positionSource.position.coordinate;
 		if(!coords.isValid) {
 			return false;
 		}
 		
 		var stops = stops || Transport.transportOptions.searchSavedStationsByLocation(coords);
-		var searchHistory = Transport.transportOptions.dbConnection.getSearchHistory();
-				
-		// Search for a searched route with the closest from or to station
-		var stationFound = false;
-		var stopsFoundInSearchHistory = [];
-		for(var i = 0; i < stops.length; i++) {
-			var stop = stops[i];
-			for(var j = 0; j < searchHistory.length; j++) {
-				var historyItem = searchHistory[j];
-				
-				var hisrotyItemAlreadyRegistered = false;
-				for(var k = 0; k < stopsFoundInSearchHistory.length; k++) {
-					if(stopsFoundInSearchHistory[k].historyIndex === j) {
-						hisrotyItemAlreadyRegistered = true;
-						break;
-					}
-				}
-				
-				if(!hisrotyItemAlreadyRegistered && stop.key === historyItem.typeid) {
-					if(stop.item === historyItem.stopidfrom) {
-						stopsFoundInSearchHistory.push({
-							type: "from",
-							stop: stop,
-							closestIndex: i,
-							historyIndex: j,
-							searchHistory: historyItem
-						});
-					}
-					else if(stop.item === historyItem.stopidto) {
-						var searchHistoryCopy = JSON.parse(JSON.stringify(historyItem));
-						if(historyItem.stopidto >= 0 && historyItem.stopnameto) {
-							searchHistoryCopy.stopidfrom = historyItem.stopidto;
-							searchHistoryCopy.stopnamefrom = historyItem.stopnameto;
+		
+		if(!justStop) {
+			var searchHistory = Transport.transportOptions.dbConnection.getSearchHistory();
+					
+			// Search for a searched route with the closest from or to station
+			var stationFound = false;
+			var stopsFoundInSearchHistory = [];
+			for(var i = 0; i < stops.length; i++) {
+				var stop = stops[i];
+				for(var j = 0; j < searchHistory.length; j++) {
+					var historyItem = searchHistory[j];
+					
+					var hisrotyItemAlreadyRegistered = false;
+					for(var k = 0; k < stopsFoundInSearchHistory.length; k++) {
+						if(stopsFoundInSearchHistory[k].historyIndex === j) {
+							hisrotyItemAlreadyRegistered = true;
+							break;
 						}
-						if(historyItem.stopidfrom >= 0 && historyItem.stopnamefrom) {
-							searchHistoryCopy.stopidto = historyItem.stopidfrom;
-							searchHistoryCopy.stopnameto = historyItem.stopnamefrom;
+					}
+					
+					if(!hisrotyItemAlreadyRegistered && stop.key === historyItem.typeid) {
+						if(stop.item === historyItem.stopidfrom) {
+							stopsFoundInSearchHistory.push({
+								type: "from",
+								stop: stop,
+								closestIndex: i,
+								historyIndex: j,
+								searchHistory: historyItem
+							});
 						}
-												
-						stopsFoundInSearchHistory.push({
-							type: "to",
-							stop: stop,
-							closestIndex: i,
-							historyIndex: j,
-							searchHistory: searchHistoryCopy
-						});
+						else if(stop.item === historyItem.stopidto) {
+							var searchHistoryCopy = JSON.parse(JSON.stringify(historyItem));
+							if(historyItem.stopidto >= 0 && historyItem.stopnameto) {
+								searchHistoryCopy.stopidfrom = historyItem.stopidto;
+								searchHistoryCopy.stopnamefrom = historyItem.stopnameto;
+							}
+							if(historyItem.stopidfrom >= 0 && historyItem.stopnamefrom) {
+								searchHistoryCopy.stopidto = historyItem.stopidfrom;
+								searchHistoryCopy.stopnameto = historyItem.stopnamefrom;
+							}
+													
+							stopsFoundInSearchHistory.push({
+								type: "to",
+								stop: stop,
+								closestIndex: i,
+								historyIndex: j,
+								searchHistory: searchHistoryCopy
+							});
+						}
 					}
 				}
 			}
-		}
-		
-		stopsFoundInSearchHistory.sort(function(a, b) {
-			var indexDestination = (a.type === "from" ? -1 : 1) - (b.type === "from" ? -1 : 1);
-			var indexPosition = a.closestIndex - b.closestIndex;
-			var indexHistory = a.historyIndex - b.historyIndex;
-			return indexPosition || indexHistory || indexDestination;
-			// return Math.min(indexPosition, 0.5 * indexHistory);
-		});
-		
-		for(var i = 0; i < stopsFoundInSearchHistory.length; i++) {
-			populateSearch(stopsFoundInSearchHistory[i].searchHistory);
-			stationFound = true;
-			break;
+			
+			stopsFoundInSearchHistory.sort(function(a, b) {
+				var indexDestination = (a.type === "from" ? -1 : 1) - (b.type === "from" ? -1 : 1);
+				var indexPosition = a.closestIndex - b.closestIndex;
+				var indexHistory = a.historyIndex - b.historyIndex;
+				return indexPosition || indexHistory || indexDestination;
+				// return Math.min(indexPosition, 0.5 * indexHistory);
+			});
+			
+			for(var i = 0; i < stopsFoundInSearchHistory.length; i++) {
+				populateSearch(stopsFoundInSearchHistory[i].searchHistory);
+				stationFound = true;
+				break;
+			}
 		}
 		
 		// Place at least closest stop to the "From" field if no route match was found
@@ -318,6 +339,7 @@ Page {
             anchors.fill: parent
             contentWidth: parent.width
             contentHeight: errorMessage.height + searchColumn.implicitHeight + 2*searchColumn.anchors.margins + (customDateSwitch.checked ? 0 : units.gu(20)) + units.gu(4)
+            flickableDirection: Flickable.VerticalFlick
 
             ErrorMessage {
                 id: errorMessage

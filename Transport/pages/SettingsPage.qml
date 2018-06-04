@@ -24,6 +24,7 @@ Page {
         id: settingsFlickable
         anchors.fill: parent
         contentHeight: settingsFlickableRectangle.height
+        flickableDirection: Flickable.VerticalFlick
 
         Rectangle {
             id: settingsFlickableRectangle

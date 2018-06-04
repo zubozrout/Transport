@@ -83,6 +83,7 @@ Page {
         anchors.fill: parent
         contentWidth: parent.width
         contentHeight: wrappingRectangle.height + wrappingRectangle.anchors.topMargin + wrappingRectangle.anchors.bottomMargin
+		flickableDirection: Flickable.VerticalFlick
 		
 		Rectangle {
 			id: wrappingRectangle
